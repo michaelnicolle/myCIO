@@ -109,7 +109,6 @@
       font-size: 20px; color: var(--muted); line-height: 1.85;
       max-width: 520px;
     }
-    .hero-sub span { display: block; }
 
     /* ── SHARED SECTION LAYOUT ───────────── */
     section { padding: 88px 32px; position: relative; z-index: 1; }
@@ -137,7 +136,6 @@
       font-size: 20px; color: var(--muted); line-height: 1.85;
       max-width: 580px; margin: 0 auto 52px; text-align: center;
     }
-    .what-intro span { display: block; }
 
     /* Challenge cards — larger, more standout */
     .challenge-row {
@@ -394,12 +392,7 @@
   <div class="hero-glow"></div>
   <div class="hero">
     <h1 class="fi">Less noise.<br><em>More</em> from your<br>technology.</h1>
-    <p class="hero-sub fi" style="transition-delay:.1s">
-      <span>Senior technology leadership for New Zealand businesses.</span>
-      <span>We stabilise what you have,</span>
-      <span>standardise how it runs,</span>
-      <span>and help you build for the future.</span>
-    </p>
+    <p class="hero-sub fi" style="transition-delay:.1s">Senior technology leadership for New Zealand businesses. We stabilise what you have, standardise how it runs, and help you build for the future.</p>
   </div>
 </div>
 
@@ -409,11 +402,7 @@
     <div class="sec-hd fi">
       <span class="sec-label">What we do</span>
       <h2 class="sec-heading">Practical technology leadership.</h2>
-      <p class="what-intro">
-        <span>We sit on your side of the table.</span>
-        <span>Not as a vendor or reseller, but as your technology leadership partner.</span>
-        <span>Our job is to make sure your technology investment is doing what it should.</span>
-      </p>
+      <p class="what-intro">We sit on your side of the table. Not as a vendor or reseller, but as your technology leadership partner. Our job is to make sure your technology investment is doing what it should.</p>
     </div>
 
     <div class="challenge-row">
@@ -615,7 +604,7 @@
       <h2 class="sec-heading fi">Want to talk it through?</h2>
       <p class="cta-copy fi">If your technology feels noisier and more expensive than it should, let's talk. One conversation is usually enough to point at two or three things worth fixing.</p>
       <p class="cta-copy fi">No pressure. No jargon. Just a direct conversation!</p>
-      <a href="mailto:hello&#64;mycio.co.nz" class="btn btn-primary btn-large fi">Get a straight answer on your tech</a>
+      <a href="/cdn-cgi/l/email-protection#48202d2424276e6b7e7c7325312b2127662b27662632" class="btn btn-primary btn-large fi">Get a straight answer on your tech</a>
     </div>
   </div>
 </section>
@@ -636,17 +625,11 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   document.body.classList.add('js-ready');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
   }, { threshold: 0.08 });
   document.querySelectorAll('.fi').forEach(el => io.observe(el));
   window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.hero-wrap .fi').forEach((el, i) => {
-      setTimeout(() => el.classList.add('on'), 80 + i * 130);
-    });
-  });
-</script>
-</body>
-</html>
+    document.queryS
