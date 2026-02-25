@@ -130,7 +130,7 @@
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 
     /* ── SECTION 1b: PAIN ── */
-    #pain { background: var(--bg); border-bottom: 1px solid var(--border); padding: 72px 32px; }
+    #pain { background: var(--bg-warm); border-bottom: 1px solid var(--border); padding: 72px 32px; }
     .pain-statement {
       font-size: clamp(17px, 2.1vw, 21px); color: var(--text); line-height: 1.75;
       max-width: 740px; margin: 0 auto 48px; text-align: center;
@@ -162,10 +162,11 @@
     @media (max-width: 700px) {
       .contrast-row { grid-template-columns: 1fr; background: none; gap: 8px; }
       .contrast-col { border-radius: var(--radius); }
+      .about-cols { grid-template-columns: 1fr; }
     }
 
     /* ── SECTION 2: TWO OPTIONS ── */
-    #options { background: var(--bg-warm); border-bottom: 1px solid var(--border); }
+    #options { background: var(--bg); border-bottom: 1px solid var(--border); }
 
     /* Outer grid: 5 shared row tracks. Both cards span all rows so children align. */
     .options-grid {
@@ -231,7 +232,7 @@
     .opt-card.partner .opt-footer { border-color: var(--amber-bd); }
 
     /* ── SECTION 3: HOW IT WORKS ── */
-    #how { background: var(--bg); border-bottom: 1px solid var(--border); }
+    #how { background: var(--bg-warm); border-bottom: 1px solid var(--border); }
     .steps-row {
       display: grid; grid-template-columns: repeat(3,1fr);
       gap: 3px; background: rgba(233,168,76,0.12);
@@ -259,9 +260,8 @@
     }
 
     /* ── SECTION 4: ABOUT + PROOF ── */
-    #about { background: var(--bg-warm); border-bottom: 1px solid var(--border); }
 
-    /* Origin story — Fraunces italic stays here: it is a deliberate rhetorical act */
+    /* Origin story: Fraunces italic stays here: it is a deliberate rhetorical act */
     .origin-panel {
       background: rgba(255,255,255,0.03); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 44px 48px;
@@ -287,22 +287,31 @@
     .origin-body p + p { margin-top: 16px; }
     .origin-body strong { color: var(--text); font-weight: 600; }
 
+    /* Two-column about layout */
+    .about-cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;
+    }
+    .about-team-col { display: flex; flex-direction: column; gap: 14px; }
+    .about-proof-col { display: flex; flex-direction: column; gap: 14px; }
+    .about-intro-line {
+      font-size: 15px; color: var(--muted); line-height: 1.7; text-align: center;
+      padding: 0 8px;
+    }
+
     /* Quotes */
-    .quotes-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
     .quote-card {
       background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 28px 28px 24px;
+      border-radius: var(--radius); padding: 24px 24px 20px;
     }
-    /* DM Sans italic for quotes — cleaner, more readable than Fraunces bold */
     .quote-text {
-      font-size: 16px; font-weight: 400; font-style: italic;
-      color: var(--text); line-height: 1.65; margin-bottom: 16px;
+      font-size: 15px; font-weight: 400; font-style: italic;
+      color: var(--text); line-height: 1.65; margin-bottom: 14px;
     }
     .quote-source { font-size: 13px; color: var(--muted); }
     .quote-source strong { color: var(--white); font-weight: 600; }
 
     /* Before / After */
-    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 0; }
     .ba-card { border-radius: var(--radius); padding: 28px 24px; border: 1px solid var(--border); }
     .ba-card.bef { background: #141210; border-color: rgba(180,90,60,0.18); }
     .ba-card.aft { background: #0e1410; border-color: rgba(70,150,80,0.18); }
@@ -317,10 +326,10 @@
     .bef .ba-list li::before { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23b85a40' fill-opacity='.14'/%3E%3Cpath d='M6 14l8-8M14 14L6 6' stroke='%23b85a40' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center/cover no-repeat; }
     .aft .ba-list li::before { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%2350a060' fill-opacity='.12'/%3E%3Cpath d='M6 10l3 3 5-5' stroke='%2350a060' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") center/cover no-repeat; }
 
-    /* TYPOGRAPHY FIX: BA closer — DM Sans medium, not Fraunces italic */
+    /* TYPOGRAPHY FIX: BA closer: DM Sans medium, not Fraunces italic */
     .ba-closer-panel {
       background: rgba(233,168,76,0.07); border: 1px solid var(--amber-bd);
-      border-radius: var(--radius); padding: 22px 28px; text-align: center; margin-bottom: 64px;
+      border-radius: var(--radius); padding: 20px 24px; text-align: center;
     }
     .ba-closer-panel p {
       font-family: 'DM Sans', sans-serif; font-size: 17px; font-weight: 500;
@@ -328,10 +337,6 @@
     }
 
     /* Team */
-    .about-intro {
-      font-size: 16px; color: var(--muted); line-height: 1.8;
-      max-width: 640px; margin: 0 auto 40px; text-align: center;
-    }
     .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
     .t-card {
       background: rgba(255,255,255,0.04); border: 1px solid var(--border);
@@ -347,7 +352,7 @@
       font-family: var(--head); font-size: 16px; font-weight: 700;
       color: var(--amber); margin-bottom: 18px;
     }
-    /* TYPOGRAPHY FIX: name — DM Sans 600, not Fraunces italic */
+    /* TYPOGRAPHY FIX: name: DM Sans 600, not Fraunces italic */
     .t-name {
       font-family: 'DM Sans', sans-serif; font-size: 19px; font-weight: 600;
       color: var(--white); margin-bottom: 4px; letter-spacing: 0;
@@ -362,7 +367,7 @@
     /* Bio bumped to 15px for readability at centred column width */
     .t-card p { font-size: 15px; color: var(--muted); line-height: 1.8; text-align: center; max-width: 320px; }
 
-    /* TYPOGRAPHY FIX: team footer — DM Sans medium, not Fraunces italic */
+    /* TYPOGRAPHY FIX: team footer: DM Sans medium, not Fraunces italic */
     .team-footer {
       background: rgba(233,168,76,0.07); border: 1px solid var(--amber-bd);
       border-radius: var(--radius); padding: 20px 28px; text-align: center;
@@ -484,7 +489,7 @@
   <div class="hero-glow"></div>
   <div class="hero">
     <h1 class="fi">Less noise.<br><em>More</em> from your<br>technology.</h1>
-    <p class="hero-sub fi" style="transition-delay:.1s">Senior technology leadership for growing New Zealand businesses. We sit on your side of the table, not the vendor's.</p>
+    <p class="hero-sub fi" style="transition-delay:.1s">Your Technology Solutions Partner. Senior technology leadership for growing New Zealand businesses, on your side of the table.</p>
     <span class="hero-callout fi" style="transition-delay:.16s"><span style="color:var(--white);font-weight:600;">No jargon.</span> <span style="color:var(--amber);font-weight:600;">No surprises.</span></span>
     <span class="hero-tag fi" style="transition-delay:.22s">Fractional CIO &middot; vCISO &middot; IT Strategy &middot; Technology Governance &middot; Auckland and across NZ</span>
     <div class="hero-ctas fi" style="transition-delay:.30s">
@@ -500,7 +505,7 @@
   <div class="inner">
     <p class="sec-label fi">Does this sound familiar?</p>
     <div class="pain-statement fi">
-      <span class="ps-muted">Your MSP handles the tickets.</span> <span class="ps-white">A security consultant drops in once a year with a PDF full of findings nobody implements.</span> <span class="ps-muted">Projects get started, stall, and restart.</span> <span class="ps-white">Your board is asking tougher questions. Your insurer wants proof you have the basics locked in.</span> <span class="ps-muted">And through all of it,</span> <span class="ps-amber">there is no single adult in the room who actually owns the outcome.</span>
+      <span class="ps-muted">Your IT provider handles the tickets.</span> <span class="ps-white">A security consultant drops in once a year with a PDF full of findings nobody implements.</span> <span class="ps-muted">Projects get started, stall, and restart.</span> <span class="ps-white">Your board is asking tougher questions. Your insurer wants proof you have the basics locked in.</span> <span class="ps-muted">And through all of it,</span> <span class="ps-amber">there is no single adult in the room who actually owns the outcome.</span>
     </div>
 
   </div>
@@ -527,8 +532,8 @@
           <li>Vendor relationships managed and held to account</li>
           <li>Security governance and vCISO advisory</li>
           <li>Roadmap planning and investment prioritisation</li>
-          <li>Oversight of your existing IT team or MSP</li>
-          <li>Board and executive reporting — quarterly posture, clear risk picture, real levers to pull</li>
+          <li>Oversight of your existing IT team or technology provider</li>
+          <li>Board and executive reporting: quarterly posture, clear risk picture, real levers to pull</li>
         </ul>
         <div class="opt-fit"><strong>Right for you if</strong> you have IT running day-to-day but no senior person making the strategic calls: choosing the right architecture, managing vendors properly, or thinking about where technology needs to be in three years.</div>
         <div class="opt-footer">Monthly retainer &middot; Strategy, Governance and vCISO</div>
@@ -543,7 +548,7 @@
           <li>Security, compliance, and risk management</li>
           <li>Project delivery: started, finished, and bedded in</li>
           <li>We answer the phone. No PO requests. No surprise invoices.</li>
-          <li>AI and Copilot readiness — data, permissions, and governance sorted before you turn it on</li>
+          <li>AI and Copilot readiness: data, permissions, and governance sorted before you turn it on</li>
         </ul>
         <div class="opt-fit"><strong>Right for you if</strong> you are done with paying a retainer and then getting hit with extra costs every time something needs doing. You want one team, one fee, and technology that just works.</div>
         <div class="opt-footer">One fixed monthly fee &middot; Full delivery &middot; Always moving forward</div>
@@ -577,17 +582,17 @@
       <div class="step">
         <span class="step-num">03</span>
         <h3>Build for the Future</h3>
-        <p>The right projects, in the right order, finished properly. Not just started. Landed, bedded in, and used by your people. Technology that does not just work today — it is built to grow with you.</p>
+        <p>The right projects, in the right order, finished properly. Not just started. Landed, bedded in, and used by your people. Technology that does not just work today. Built to grow with you.</p>
       </div>
     </div>
 
-    <p class="steps-note fi" style="transition-delay:.14s">Some clients want a one-off assessment to understand where they stand. Others bring us in for ongoing governance, project delivery, or full managed services. We fit around what your business actually needs.</p>
+    <p class="steps-note fi" style="transition-delay:.14s">Some clients want a one-off assessment to understand where they stand. Others bring us in for ongoing governance, project delivery, or as their full Technology Solutions Partner. We fit around what your business actually needs.</p>
   </div>
 </section>
 
 
-<!-- ══ 4. ABOUT + PROOF ══ -->
-<section id="about">
+<!-- ══ 4a. ORIGIN ══ -->
+<section id="about" style="background: var(--bg); border-bottom: 1px solid var(--border);">
   <div class="inner">
 
     <div class="sec-hd fi">
@@ -595,60 +600,32 @@
       <h2 class="sec-heading">Senior people. Your side of the table.</h2>
     </div>
 
-    <!-- Origin story: Fraunces italic stays — this is a deliberate rhetorical act, not decoration -->
     <div class="origin-panel fi">
       <div class="origin-pull">We get paid to give you the right answer, <em>not the profitable one.</em></div>
       <div class="origin-body">
-        <p>Between us we have spent two decades inside technology companies, MSPs, and consulting firms. We know how those businesses work. We know how deals get structured, which vendors get pushed, and how the customer's best interest can quietly become a secondary consideration when there is a target to hit.</p>
+        <p>Between us we have spent two decades inside technology companies, IT providers, and consulting firms. We know how deals get structured, which vendors get pushed, and how the customer's interest comes second when there is a target to hit.</p>
         <p>We saw good Kiwi businesses, smart owners with real growth on the line, walking away from conversations with <strong>more tools, more contracts, and more complexity</strong> than they came in with. And still no one clearly in charge of making it all work together. Still no traction. Still the same problems next year.</p>
-        <p>myCIO exists because we wanted to work differently. <strong>No products to sell. No vendor incentives. No agenda except making your technology earn its place.</strong> That is a different relationship. And in our experience, it is the only one that produces results worth talking about.</p>
+        <p>myCIO exists because we wanted to work differently. <strong>No products to sell. No vendor incentives. No agenda except making your technology earn its place.</strong> That is a different kind of engagement. Most of our clients tell us it is the first time technology has felt like it is working for them, not against them.</p>
       </div>
     </div>
 
-    <!-- Client quotes: DM Sans italic — readable, not decorative -->
-    <div class="quotes-row">
-      <div class="quote-card fi">
-        <div class="quote-text">"We went from constant IT surprises and unexpected invoices to actually knowing where we stood. For the first time, technology feels like something working for us."</div>
-        <div class="quote-source"><strong>General Manager</strong>, NZ professional services firm</div>
-      </div>
-      <div class="quote-card fi" style="transition-delay:.08s">
-        <div class="quote-text">"The difference between having someone senior in your corner versus a helpdesk is night and day. myCIO think like a business owner, not a technician."</div>
-        <div class="quote-source"><strong>Managing Director</strong>, NZ construction group</div>
-      </div>
-    </div>
+  </div>
+</section>
 
-    <!-- Before / After -->
-    <div class="ba-grid">
-      <div class="ba-card bef fi">
-        <div class="ba-head"><div class="ba-dot"></div><h3>Without senior technology leadership</h3></div>
-        <ul class="ba-list">
-          <li>Multiple vendors, no single point of accountability</li>
-          <li>Projects that stall, restart, or never quite land</li>
-          <li>Security pushed to later, then later again</li>
-        </ul>
-      </div>
-      <div class="ba-card aft fi" style="transition-delay:.08s">
-        <div class="ba-head"><div class="ba-dot"></div><h3>With myCIO on your side</h3></div>
-        <ul class="ba-list">
-          <li>Clear view of systems, spend, and risk</li>
-          <li>Work tackled in the right order and finished properly</li>
-          <li>Partners held to account, not given a free pass</li>
-        </ul>
-      </div>
-    </div>
-    <!-- TYPOGRAPHY FIX: DM Sans medium — confident assertion, not pull quote decoration -->
-    <div class="ba-closer-panel fi">
-      <p>We are not here to sell you more technology. We are here to make sure what you already have is earning its place.</p>
-    </div>
 
-    <div class="about-intro fi">
-      <p>The people you meet are the people who do the work. Every time.</p>
+<!-- ══ 4b. TEAM ══ -->
+<section id="team" style="background: var(--bg-warm); border-bottom: 1px solid var(--border);">
+  <div class="inner">
+
+    <div class="sec-hd fi">
+      <span class="sec-label">The people</span>
+      <h2 class="sec-heading">Who you will actually work with.</h2>
+      <p class="sec-sub">The people you meet are the people who do the work. Every time.</p>
     </div>
 
     <div class="team-grid">
       <div class="t-card fi">
         <div class="t-avatar">EM</div>
-        <!-- TYPOGRAPHY FIX: DM Sans 600 — names are labels, not pull quotes -->
         <div class="t-name">Elton McDowall</div>
         <div class="t-role">Principal Consultant</div>
         <div class="t-divider"></div>
@@ -662,8 +639,8 @@
         <p>Fifteen years across NZ retailers, manufacturers, construction groups, and non-profits. Michael cuts through complexity fast, finds what actually matters, and makes sure the work gets finished, not just started. Known for reducing technical debt and building platforms that are ready for what comes next.</p>
       </div>
     </div>
-    <!-- TYPOGRAPHY FIX: DM Sans medium — factual promise, not decorative rhetoric -->
-    <div class="team-footer fi">
+
+    <div class="team-footer fi" style="margin-top: 16px;">
       <p>When you work with myCIO, you work with Elton and Michael. Not a junior team, not a ticketing system.</p>
     </div>
 
@@ -683,10 +660,10 @@
 
       <div class="faq-item">
         <div class="faq-q" role="button" tabindex="0">
-          <span class="faq-q-text">Do you replace our existing IT team or MSP?</span>
+          <span class="faq-q-text">Do you replace our existing IT team or provider?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>Not always. For Strategy and Governance we sit above what you already have. Your existing team or MSP keeps doing what they do, and we make sure it is heading somewhere sensible. For Your Technology Team we take full ownership of the outcome and use trusted local partners where on-site work is needed. We are not here to add headcount for its own sake.</p></div>
+        <div class="faq-a"><p>Not always. For Strategy and Governance we sit above what you already have. Your existing team or provider keeps doing what they do, and we make sure it is heading somewhere sensible. For Your Technology Team we take full ownership of the outcome and use trusted local partners where on-site work is needed. We are not here to add headcount for its own sake.</p></div>
       </div>
 
       <div class="faq-item">
@@ -702,7 +679,7 @@
           <span class="faq-q-text">Are we the right size?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>If you are big enough to feel real pain from technology that does not quite work, but not big enough for a full-time CIO and internal team, you are likely a good fit. We typically work with multi-site businesses in professional services, construction, logistics, manufacturing, and distribution — usually spending $5,000 or more per month on technology across tools, vendors, and managed services.</p></div>
+        <div class="faq-a"><p>If you are big enough to feel real pain from technology that does not quite work, but not big enough for a full-time CIO and internal team, you are likely a good fit. We typically work with multi-site businesses in professional services, construction, logistics, manufacturing, and distribution, usually spending $5,000 or more per month on technology across tools, vendors, and technology services.</p></div>
       </div>
 
       <div class="faq-item">
@@ -710,7 +687,7 @@
           <span class="faq-q-text">Do you work with boards and executives?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>Yes — and it matters. Many of the businesses we work with have a board or CEO asking hard questions about technology risk, insurance requirements, or why projects keep stalling. Part of what we do is translate the technology picture into language that makes sense at that level: clear risk posture, honest progress reporting, and a defensible investment story. If you need someone who can sit in a board meeting and hold the technology conversation, that is a core part of what we offer.</p></div>
+        <div class="faq-a"><p>Yes, and it matters. Many of the businesses we work with have a board or CEO asking hard questions about technology risk, insurance requirements, or why projects keep stalling. Part of what we do is translate the technology picture into language that makes sense at that level: clear risk posture, honest progress reporting, and a defensible investment story. If you need someone who can sit in a board meeting and hold the technology conversation, that is a core part of what we offer.</p></div>
       </div>
 
       <div class="faq-item">
@@ -718,7 +695,7 @@
           <span class="faq-q-text">What does a first engagement look like?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>Three steps, no pressure. First, a <strong>Discovery</strong> conversation — 30 to 60 minutes to understand how you are set up today, where it hurts, and what good would look like for you. No prep needed. Then a <strong>Review</strong> — we outline a simple picture of your situation and a few ways we could help. Finally, you decide whether you want targeted help, a fixed piece of work, or an ongoing engagement. No hard sell, no long proposal before you have seen any value.</p></div>
+        <div class="faq-a"><p>Three steps, no pressure. First, a <strong>Discovery</strong> conversation: 30 to 60 minutes to understand how you are set up today, where it hurts, and what good would look like for you. No prep needed. Then a <strong>Review</strong>: we outline a simple picture of your situation and a few ways we could help. Finally, you decide whether you want targeted help, a fixed piece of work, or an ongoing engagement. No hard sell, no long proposal before you have seen any value.</p></div>
       </div>
 
       <div class="faq-item">
@@ -744,7 +721,7 @@
       <p class="cta-copy fi">If your technology is costing more than it should and nobody senior is in charge of fixing that, let's talk.</p>
       <p class="cta-copy fi">Thirty minutes. Plain language. You leave knowing exactly where you stand. No prep needed on your end.</p>
       <div class="cta-buttons fi">
-        <!-- COPY CHANGE 3: "Book 30 minutes" — specific, low-commitment, clear cost -->
+        <!-- COPY CHANGE 3: "Book 30 minutes": specific, low-commitment, clear cost -->
         <a href="mailto:hello@mycio.co.nz" class="btn btn-primary btn-large">Book 30 minutes</a>
         <p class="cta-secondary">Not ready to jump on a call yet? <a href="mailto:hello@mycio.co.nz?subject=IT Health Checklist&body=Hi, I would like a copy of the myCIO IT health checklist.">Grab the free IT health checklist.</a></p>
       </div>
