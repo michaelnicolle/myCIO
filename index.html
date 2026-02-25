@@ -129,6 +129,40 @@
     }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 
+    /* ── SECTION 1b: PAIN ── */
+    #pain { background: var(--bg); border-bottom: 1px solid var(--border); padding: 72px 32px; }
+    .pain-statement {
+      font-size: clamp(17px, 2.1vw, 21px); color: var(--text); line-height: 1.75;
+      max-width: 740px; margin: 0 auto 48px; text-align: center;
+    }
+    .pain-statement strong { color: var(--white); font-weight: 600; }
+    .pain-statement em { color: var(--amber); font-style: normal; font-weight: 600; }
+
+    .contrast-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+      background: rgba(233,168,76,0.08); border-radius: var(--radius); overflow: hidden;
+    }
+    .contrast-col { background: var(--bg-warm); padding: 28px 26px; }
+    .contrast-col-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px; display: block;
+    }
+    .contrast-col h4 {
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+      color: var(--white); margin-bottom: 8px; line-height: 1.3;
+    }
+    .contrast-col p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .contrast-col.highlight {
+      background: rgba(233,168,76,0.06); border: 1px solid var(--amber-bd);
+    }
+    .contrast-col.highlight h4 { color: var(--amber); }
+    .contrast-col.highlight .contrast-col-label { color: var(--amber); opacity: 0.7; }
+
+    @media (max-width: 700px) {
+      .contrast-row { grid-template-columns: 1fr; background: none; gap: 8px; }
+      .contrast-col { border-radius: var(--radius); }
+    }
+
     /* ── SECTION 2: TWO OPTIONS ── */
     #options { background: var(--bg-warm); border-bottom: 1px solid var(--border); }
 
@@ -136,7 +170,7 @@
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1.12fr;
-      grid-template-rows: auto auto 1fr auto auto;
+      grid-template-rows: auto auto 1fr auto auto auto;
       gap: 0 20px;
     }
     .opt-card {
@@ -460,6 +494,18 @@
 </div>
 
 
+<!-- ══ 1b. PAIN ══ -->
+<section id="pain">
+  <div class="inner">
+    <p class="sec-label fi">Does this sound familiar?</p>
+    <div class="pain-statement fi">
+      Your MSP handles the tickets. A security consultant drops in once a year with a PDF full of findings nobody implements. Projects get started, stall, and restart. Your board is asking tougher questions. Your insurer wants proof you have the basics locked in. And through all of it, there is no single adult in the room who actually owns the outcome.
+    </div>
+
+  </div>
+</section>
+
+
 <!-- ══ 2. TWO OPTIONS ══ -->
 <section id="options">
   <div class="inner">
@@ -481,6 +527,7 @@
           <li>Security governance and vCISO advisory</li>
           <li>Roadmap planning and investment prioritisation</li>
           <li>Oversight of your existing IT team or MSP</li>
+          <li>Board and executive reporting — quarterly posture, clear risk picture, real levers to pull</li>
         </ul>
         <div class="opt-fit"><strong>Right for you if</strong> you have IT running day-to-day but no senior person making the strategic calls: choosing the right architecture, managing vendors properly, or thinking about where technology needs to be in three years.</div>
         <div class="opt-footer">Monthly retainer &middot; Strategy, Governance and vCISO</div>
@@ -495,6 +542,7 @@
           <li>Security, compliance, and risk management</li>
           <li>Project delivery: started, finished, and bedded in</li>
           <li>We answer the phone. No PO requests. No surprise invoices.</li>
+          <li>AI and Copilot readiness — data, permissions, and governance sorted before you turn it on</li>
         </ul>
         <div class="opt-fit"><strong>Right for you if</strong> you are done with paying a retainer and then getting hit with extra costs every time something needs doing. You want one team, one fee, and technology that just works.</div>
         <div class="opt-footer">One fixed monthly fee &middot; Full delivery &middot; Always moving forward</div>
@@ -653,7 +701,15 @@
           <span class="faq-q-text">Are we the right size?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>If you are big enough to feel real pain from technology that does not quite work, but not big enough for a full-time CIO and internal team, you are likely a good fit. We typically work with businesses spending $5,000 or more per month on technology across their tools, vendors, and managed services.</p></div>
+        <div class="faq-a"><p>If you are big enough to feel real pain from technology that does not quite work, but not big enough for a full-time CIO and internal team, you are likely a good fit. We typically work with multi-site businesses in professional services, construction, logistics, manufacturing, and distribution — usually spending $5,000 or more per month on technology across tools, vendors, and managed services.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0">
+          <span class="faq-q-text">Do you work with boards and executives?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-a"><p>Yes — and it matters. Many of the businesses we work with have a board or CEO asking hard questions about technology risk, insurance requirements, or why projects keep stalling. Part of what we do is translate the technology picture into language that makes sense at that level: clear risk posture, honest progress reporting, and a defensible investment story. If you need someone who can sit in a board meeting and hold the technology conversation, that is a core part of what we offer.</p></div>
       </div>
 
       <div class="faq-item">
@@ -661,7 +717,7 @@
           <span class="faq-q-text">What does a first engagement look like?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>A straight conversation: no slides, no jargon, no prep needed on your end. We listen, ask a few direct questions, and give you a plain-language view of where you stand. From there we agree on a clear first piece of work, so you see real value quickly without signing up for a long programme.</p></div>
+        <div class="faq-a"><p>Three steps, no pressure. First, a <strong>Discovery</strong> conversation — 30 to 60 minutes to understand how you are set up today, where it hurts, and what good would look like for you. No prep needed. Then a <strong>Review</strong> — we outline a simple picture of your situation and a few ways we could help. Finally, you decide whether you want targeted help, a fixed piece of work, or an ongoing engagement. No hard sell, no long proposal before you have seen any value.</p></div>
       </div>
 
       <div class="faq-item">
