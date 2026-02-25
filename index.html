@@ -135,8 +135,9 @@
       font-size: clamp(17px, 2.1vw, 21px); color: var(--text); line-height: 1.75;
       max-width: 740px; margin: 0 auto 48px; text-align: center;
     }
-    .pain-statement strong { color: var(--white); font-weight: 600; }
-    .pain-statement em { color: var(--amber); font-style: normal; font-weight: 600; }
+    .pain-statement .ps-muted { color: var(--muted); }
+    .pain-statement .ps-white { color: var(--white); font-weight: 600; }
+    .pain-statement .ps-amber { color: var(--amber); font-weight: 600; }
 
     .contrast-row {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
@@ -484,7 +485,7 @@
   <div class="hero">
     <h1 class="fi">Less noise.<br><em>More</em> from your<br>technology.</h1>
     <p class="hero-sub fi" style="transition-delay:.1s">Senior technology leadership for growing New Zealand businesses. We sit on your side of the table, not the vendor's.</p>
-    <span class="hero-callout fi" style="transition-delay:.16s">No jargon. No surprise invoices.</span>
+    <span class="hero-callout fi" style="transition-delay:.16s"><span style="color:var(--white);font-weight:600;">No jargon.</span> <span style="color:var(--amber);font-weight:600;">No surprises.</span></span>
     <span class="hero-tag fi" style="transition-delay:.22s">Fractional CIO &middot; vCISO &middot; IT Strategy &middot; Technology Governance &middot; Auckland and across NZ</span>
     <div class="hero-ctas fi" style="transition-delay:.30s">
       <a href="#cta" class="btn btn-primary btn-large">Book 30 minutes</a>
@@ -499,7 +500,7 @@
   <div class="inner">
     <p class="sec-label fi">Does this sound familiar?</p>
     <div class="pain-statement fi">
-      Your MSP handles the tickets. A security consultant drops in once a year with a PDF full of findings nobody implements. Projects get started, stall, and restart. Your board is asking tougher questions. Your insurer wants proof you have the basics locked in. And through all of it, there is no single adult in the room who actually owns the outcome.
+      <span class="ps-muted">Your MSP handles the tickets.</span> <span class="ps-white">A security consultant drops in once a year with a PDF full of findings nobody implements.</span> <span class="ps-muted">Projects get started, stall, and restart.</span> <span class="ps-white">Your board is asking tougher questions. Your insurer wants proof you have the basics locked in.</span> <span class="ps-muted">And through all of it,</span> <span class="ps-amber">there is no single adult in the room who actually owns the outcome.</span>
     </div>
 
   </div>
