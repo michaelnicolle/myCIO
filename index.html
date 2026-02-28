@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fractional CIO &amp; Technology Leadership – myCIO New Zealand</title>
-  <meta name="description" content="Fractional CIO, vCISO and technology governance for growing New Zealand businesses. Senior technology leadership on your side of the table. Auckland and across NZ." />
+  <meta name="description" content="Independent technology advisers for growing New Zealand businesses. Fractional CIO, vCISO, and embedded technology partnership. No vendor incentives. No jargon. Auckland and across NZ." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;1,9..144,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
@@ -117,7 +117,6 @@
       font-size: 19px; color: var(--muted); line-height: 1.7;
       max-width: 480px; margin-bottom: 20px;
     }
-    /* COPY CHANGE 1: "We answer to you. Not to vendor targets." */
     .hero-callout {
       font-size: 17px; font-weight: 600; color: var(--amber);
       margin-bottom: 20px; display: block;
@@ -139,78 +138,88 @@
     .pain-statement .ps-white { color: var(--white); font-weight: 600; }
     .pain-statement .ps-amber { color: var(--amber); font-weight: 600; }
 
-    .contrast-row {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-      background: rgba(233,168,76,0.08); border-radius: var(--radius); overflow: hidden;
-    }
-    .contrast-col { background: var(--bg-warm); padding: 28px 26px; }
-    .contrast-col-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 10px; display: block;
-    }
-    .contrast-col h4 {
-      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
-      color: var(--white); margin-bottom: 8px; line-height: 1.3;
-    }
-    .contrast-col p { font-size: 13px; color: var(--muted); line-height: 1.7; }
-    .contrast-col.highlight {
-      background: rgba(233,168,76,0.06); border: 1px solid var(--amber-bd);
-    }
-    .contrast-col.highlight h4 { color: var(--amber); }
-    .contrast-col.highlight .contrast-col-label { color: var(--amber); opacity: 0.7; }
-
     @media (max-width: 700px) {
-      .contrast-row { grid-template-columns: 1fr; background: none; gap: 8px; }
-      .contrast-col { border-radius: var(--radius); }
       .about-cols { grid-template-columns: 1fr; }
     }
 
-    /* ── SECTION 2: TWO OPTIONS ── */
+    /* ── SECTION 2: THREE OFFERINGS (TIERED) ── */
     #options { background: var(--bg); border-bottom: 1px solid var(--border); }
 
-    /* Outer grid: 5 shared row tracks. Both cards span all rows so children align. */
+    /* Tier connector strip above the cards */
+    .tier-connector {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px; margin-bottom: 0;
+    }
+    .tier-label-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+    }
+    .tier-label-text {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--muted); padding: 4px 0;
+    }
+    .tier-line {
+      width: 100%; height: 3px; border-radius: 2px;
+      background: var(--border);
+    }
+    .tier-line.active { background: var(--amber); }
+
+    /* Three-card grid */
     .options-grid {
       display: grid;
-      grid-template-columns: 1fr 1.12fr;
-      grid-template-rows: auto auto 1fr auto auto auto;
-      gap: 0 20px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+      align-items: stretch;
     }
     .opt-card {
-      grid-row: 1 / -1;
-      display: grid;
-      grid-template-rows: subgrid;
-      border-radius: var(--radius); padding: 40px 36px;
+      display: flex; flex-direction: column;
+      border-radius: var(--radius); padding: 36px 32px;
       border: 1px solid var(--border); transition: border-color .22s;
     }
     .opt-card:hover { border-color: var(--border-h); }
-    .opt-card.advisory { background: rgba(255,255,255,0.04); }
-    .opt-card.partner {
-      background: rgba(233,168,76,0.07); border-color: var(--amber-bd);
+
+    /* Tier 1: Strategy and Governance */
+    .opt-card.tier-sg {
+      background: rgba(255,255,255,0.03);
+    }
+
+    /* Tier 2: Professional Services */
+    .opt-card.tier-ps {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.09);
+    }
+    .opt-card.tier-ps:hover { border-color: var(--border-h); }
+
+    /* Tier 3: Your Technology Team — flagship */
+    .opt-card.tier-ytt {
+      background: rgba(233,168,76,0.07);
+      border-color: var(--amber-bd);
       position: relative; overflow: hidden;
     }
-    .opt-card.partner:hover { border-color: rgba(233,168,76,0.4); }
-    .opt-card.partner::before {
-      content: 'Most Popular';
-      position: absolute; top: 20px; right: 20px;
+    .opt-card.tier-ytt:hover { border-color: rgba(233,168,76,0.4); }
+    .opt-card.tier-ytt::after {
+      content: 'Full Partnership';
+      position: absolute; top: 18px; right: 18px;
       font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
       color: #0f0f0e; background: var(--amber); padding: 3px 10px; border-radius: 4px;
     }
+
     .opt-label {
       font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase;
       color: var(--amber); margin-bottom: 16px;
     }
     .opt-card h3 {
-      font-family: var(--head); font-size: clamp(20px, 2.4vw, 28px);
-      font-weight: 800; line-height: 1.15; letter-spacing: -0.4px;
-      color: var(--white); margin-bottom: 20px;
+      font-family: var(--head); font-size: clamp(18px, 1.8vw, 24px);
+      font-weight: 800; line-height: 1.2; letter-spacing: -0.3px;
+      color: var(--white); margin-bottom: 18px;
     }
     .opt-includes {
       list-style: none; display: flex; flex-direction: column;
-      gap: 10px; margin-bottom: 28px;
+      gap: 10px; margin-bottom: 28px; flex-grow: 1;
     }
     .opt-includes li {
       display: flex; align-items: flex-start; gap: 10px;
-      font-size: 15px; color: var(--text); line-height: 1.5;
+      font-size: 14px; color: var(--text); line-height: 1.55;
     }
     .opt-includes li::before {
       content: '';
@@ -221,15 +230,15 @@
       font-size: 13px; color: var(--muted); line-height: 1.6;
       padding: 14px 16px; border-radius: 8px;
       background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 24px; flex-shrink: 0;
     }
     .opt-fit strong { color: var(--text); font-weight: 600; }
     .opt-footer {
-      font-size: 13px; font-weight: 600; color: var(--amber);
-      padding-top: 20px; border-top: 1px solid var(--border);
-      letter-spacing: 0.02em;
+      font-size: 12px; font-weight: 600; color: var(--amber);
+      padding-top: 18px; border-top: 1px solid var(--border);
+      letter-spacing: 0.02em; margin-top: auto;
     }
-    .opt-card.partner .opt-footer { border-color: var(--amber-bd); }
+    .opt-card.tier-ytt .opt-footer { border-color: var(--amber-bd); }
 
     /* ── SECTION 3: HOW IT WORKS ── */
     #how { background: var(--bg-warm); border-bottom: 1px solid var(--border); }
@@ -264,8 +273,9 @@
     /* Origin story: Fraunces italic stays here: it is a deliberate rhetorical act */
     .origin-panel {
       background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 44px 48px;
+      border-radius: var(--radius); padding: 44px 52px;
       margin-bottom: 48px; position: relative; overflow: hidden;
+      max-width: 780px; margin-left: auto; margin-right: auto;
     }
     .origin-panel::before {
       content: '\201C';
@@ -282,7 +292,7 @@
     .origin-pull em { color: var(--amber); font-style: normal; }
     .origin-body {
       font-size: 15px; color: var(--muted); line-height: 1.85;
-      position: relative; z-index: 1; max-width: 680px;
+      position: relative; z-index: 1;
     }
     .origin-body p + p { margin-top: 16px; }
     .origin-body strong { color: var(--text); font-weight: 600; }
@@ -444,15 +454,10 @@
     @media (max-width: 900px) {
       .options-grid {
         grid-template-columns: 1fr;
-        grid-template-rows: none;
         gap: 16px;
       }
-      .opt-card {
-        grid-row: auto;
-        grid-template-rows: none;
-        display: flex; flex-direction: column;
-      }
-      .opt-card.partner::before { display: none; }
+      .tier-connector { grid-template-columns: 1fr; gap: 8px; }
+      .opt-card.tier-ytt::after { display: none; }
       .steps-row { grid-template-columns: 1fr; background: none; gap: 12px; }
       .step { border-radius: var(--radius); }
       .quotes-row, .ba-grid, .team-grid { grid-template-columns: 1fr; }
@@ -489,12 +494,12 @@
   <div class="hero-glow"></div>
   <div class="hero">
     <h1 class="fi">Less noise.<br><em>More</em> from your<br>technology.</h1>
-    <p class="hero-sub fi" style="transition-delay:.1s">Your Technology Solutions Partner. Senior technology leadership for growing New Zealand businesses, on your side of the table.</p>
+    <p class="hero-sub fi" style="transition-delay:.1s">Independent technology advisers for growing New Zealand businesses. Experienced, direct, and on your side of the table.</p>
     <span class="hero-callout fi" style="transition-delay:.16s"><span style="color:var(--white);font-weight:600;">No jargon.</span> <span style="color:var(--amber);font-weight:600;">No surprises.</span></span>
     <span class="hero-tag fi" style="transition-delay:.22s">Fractional CIO &middot; vCISO &middot; IT Strategy &middot; Technology Governance &middot; Auckland and across NZ</span>
     <div class="hero-ctas fi" style="transition-delay:.30s">
       <a href="#cta" class="btn btn-primary btn-large">Book 30 minutes</a>
-      <a href="mailto:hello@mycio.co.nz?subject=IT Health Checklist&body=Hi, I would like a copy of the myCIO IT health checklist." class="btn btn-ghost">Free IT health checklist</a>
+      <a href="/cdn-cgi/l/email-protection#91f9f4fdfdfed1fce8f2f8febff2febfffebaee2e4f3fbf4f2e5acd8c5b1d9f4f0fde5f9b1d2f9f4f2fafdf8e2e5b7f3fef5e8acd9f8bdb1d8b1e6fee4fdf5b1fdf8faf4b1f0b1f2fee1e8b1fef7b1e5f9f4b1fce8d2d8deb1d8c5b1f9f4f0fde5f9b1f2f9f4f2fafdf8e2e5bf" class="btn btn-ghost">Free IT health checklist</a>
     </div>
   </div>
 </div>
@@ -512,21 +517,21 @@
 </section>
 
 
-<!-- ══ 2. TWO OPTIONS ══ -->
+<!-- ══ 2. THREE OFFERINGS ══ -->
 <section id="options">
   <div class="inner">
     <div class="sec-hd fi">
       <span class="sec-label">One partner. The whole picture.</span>
-      <h2 class="sec-heading">Two ways to work with us.</h2>
-      <p class="sec-sub">Most businesses we talk to are in one of two places. Both start the same way: a straight conversation about where things are and what actually needs to change.</p>
+      <h2 class="sec-heading">Here is what having the right person in charge actually looks like.</h2>
+      <p class="sec-sub">However we engage, it starts the same way: a straight conversation about where things are and what actually needs to change.</p>
     </div>
 
     <div class="options-grid">
 
-      <div class="opt-card advisory fi">
+      <!-- TIER 1: Strategy and Governance -->
+      <div class="opt-card tier-sg fi">
         <div class="opt-label">Strategy and Governance</div>
-        <!-- COPY CHANGE 2: benefit-led heading replacing descriptive heading -->
-        <h3>Finally, someone senior making the technology decisions.</h3>
+        <h3>Someone senior in charge of the technology decisions.</h3>
         <ul class="opt-includes">
           <li>Technology strategy and architecture ownership</li>
           <li>Vendor relationships managed and held to account</li>
@@ -535,23 +540,41 @@
           <li>Oversight of your existing IT team or technology provider</li>
           <li>Board and executive reporting: quarterly posture, clear risk picture, real levers to pull</li>
         </ul>
-        <div class="opt-fit"><strong>Right for you if</strong> you have IT running day-to-day but no senior person making the strategic calls: choosing the right architecture, managing vendors properly, or thinking about where technology needs to be in three years.</div>
+        <div class="opt-fit"><strong>Right for you if</strong> you have IT handled day-to-day but nobody senior making the strategic calls: the right architecture, vendor accountability, a clear roadmap, and a view of where technology needs to be in three years.</div>
         <div class="opt-footer">Monthly retainer &middot; Strategy, Governance and vCISO</div>
       </div>
 
-      <div class="opt-card partner fi" style="transition-delay:.08s">
-        <div class="opt-label">Your Technology Team</div>
-        <h3>One fixed fee. We own the outcome.</h3>
+      <!-- TIER 2: Professional Services -->
+      <div class="opt-card tier-ps fi" style="transition-delay:.07s">
+        <div class="opt-label">Professional Services</div>
+        <h3>A specific problem. A real outcome. Done properly.</h3>
         <ul class="opt-includes">
-          <li>Everything in Strategy and Governance, plus full delivery</li>
-          <li>End-to-end technology management and operations</li>
-          <li>Security, compliance, and risk management</li>
-          <li>Project delivery: started, finished, and bedded in</li>
-          <li>We answer the phone. No PO requests. No surprise invoices.</li>
-          <li>AI and Copilot readiness: data, permissions, and governance sorted before you turn it on</li>
+          <li>Technology assessments: a clear picture of where you are and what needs to change</li>
+          <li>Architecture and solution design</li>
+          <li>Project delivery from brief to bedded in</li>
+          <li>Security reviews, posture assessments, and remediation</li>
+          <li>Vendor selection, procurement, and negotiation</li>
+          <li>AI and Copilot readiness: governance and data sorted before you switch it on</li>
         </ul>
-        <div class="opt-fit"><strong>Right for you if</strong> you are done with paying a retainer and then getting hit with extra costs every time something needs doing. You want one team, one fee, and technology that just works.</div>
-        <div class="opt-footer">One fixed monthly fee &middot; Full delivery &middot; Always moving forward</div>
+        <div class="opt-fit"><strong>Right for you if</strong> you have a specific challenge or project that needs senior people and a real outcome. No ongoing retainer required. Engage for what you need, when you need it. Projects are scoped clearly, priced honestly, and finished properly. You can come back for more, or not.</div>
+        <div class="opt-footer">Fixed-scope engagements &middot; Project or advisory &middot; Standalone or alongside S&amp;G</div>
+      </div>
+
+      <!-- TIER 3: Your Technology Team -->
+      <div class="opt-card tier-ytt fi" style="transition-delay:.14s">
+        <div class="opt-label">Your Technology Team</div>
+        <h3>Your embedded technology partner. Not another vendor.</h3>
+        <ul class="opt-includes">
+          <li>We become your technology function: strategy, operations, delivery, and security under one roof</li>
+          <li>All IT decisions owned and driven by us on your behalf</li>
+          <li>Vendor relationships managed end-to-end: selected, contracted, held to account</li>
+          <li>Projects delivered completely: not started and handed off, finished and working</li>
+          <li>Security, compliance, and risk: built in, not bolted on</li>
+          <li>AI and Copilot readiness: data, permissions, and governance sorted before you turn it on</li>
+          <li>If something goes wrong, you call us. That is what owning the outcome means.</li>
+        </ul>
+        <div class="opt-fit"><strong>Right for you if</strong> you want technology to work like an internal function without the cost of building one. We own the whole picture: strategy, day-to-day operations, project delivery, and security. One relationship. One monthly fee. No surprises and no gaps.</div>
+        <div class="opt-footer">One monthly fee &middot; Full technology function &middot; Always moving forward &middot; No surprise extras.</div>
       </div>
 
     </div>
@@ -563,9 +586,9 @@
 <section id="how">
   <div class="inner">
     <div class="sec-hd fi">
-      <span class="sec-label">The journey</span>
-      <h2 class="sec-heading">How we get you there.</h2>
-      <p class="sec-sub">Every engagement follows the same path, at whatever pace your business needs.</p>
+      <span class="sec-label">How it works</span>
+      <h2 class="sec-heading">Our Approach.</h2>
+      <p class="sec-sub">Three steps. Not rigid — the pace and depth depends on where you are starting from.</p>
     </div>
 
     <div class="steps-row fi" style="transition-delay:.06s">
@@ -586,7 +609,7 @@
       </div>
     </div>
 
-    <p class="steps-note fi" style="transition-delay:.14s">Some clients want a one-off assessment to understand where they stand. Others bring us in for ongoing governance, project delivery, or as their full Technology Solutions Partner. We fit around what your business actually needs.</p>
+    <p class="steps-note fi" style="transition-delay:.14s">Some clients want a one-off assessment to understand where they stand. Others bring us in for ongoing governance, project delivery, or as their embedded technology partner. We fit around what your business actually needs.</p>
   </div>
 </section>
 
@@ -606,6 +629,7 @@
         <p>Between us we have spent two decades inside technology companies, IT providers, and consulting firms. We know how deals get structured, which vendors get pushed, and how the customer's interest comes second when there is a target to hit.</p>
         <p>We saw good Kiwi businesses, smart owners with real growth on the line, walking away from conversations with <strong>more tools, more contracts, and more complexity</strong> than they came in with. And still no one clearly in charge of making it all work together. Still no traction. Still the same problems next year.</p>
         <p>myCIO exists because we wanted to work differently. <strong>No products to sell. No vendor incentives. No agenda except making your technology earn its place.</strong> That is a different kind of engagement. Most of our clients tell us it is the first time technology has felt like it is working for them, not against them.</p>
+        <p>Between us we have sat in board meetings, held the technology conversation, and translated the risk picture into language that boards can act on. That is a core part of what we offer.</p>
       </div>
     </div>
 
@@ -627,21 +651,21 @@
       <div class="t-card fi">
         <div class="t-avatar">EM</div>
         <div class="t-name">Elton McDowall</div>
-        <div class="t-role">Principal Consultant</div>
+        <div class="t-role">Founder and Director</div>
         <div class="t-divider"></div>
         <p>Twenty years of sitting in boardrooms, server rooms, and every difficult conversation in between. Elton asks the questions everyone else avoids, then builds a plan everyone can actually follow. Focused on strategy, security, governance, and the kind of delivery that makes sense to owners and boards alike.</p>
       </div>
       <div class="t-card fi" style="transition-delay:.08s">
         <div class="t-avatar">MN</div>
         <div class="t-name">Michael Nicolle</div>
-        <div class="t-role">Principal Consultant</div>
+        <div class="t-role">Founder and Director</div>
         <div class="t-divider"></div>
-        <p>Fifteen years across NZ retailers, manufacturers, construction groups, and non-profits. Michael cuts through complexity fast, finds what actually matters, and makes sure the work gets finished, not just started. Known for reducing technical debt and building platforms that are ready for what comes next.</p>
+        <p>Fifteen years across NZ manufacturers, retailers, construction groups, and not-for-profits. Michael asks the right questions first, stabilises what is broken, and builds something the business can rely on. Known for finishing what gets started, and making technology make sense to the people who depend on it.</p>
       </div>
     </div>
 
     <div class="team-footer fi" style="margin-top: 16px;">
-      <p>When you work with myCIO, you work with Elton and Michael. Not a junior team, not a ticketing system.</p>
+      <p>When you work with myCIO, you work with Elton and Michael. Not a junior team, not a ticketing system. If something is not right, you come back to us directly.</p>
     </div>
 
   </div>
@@ -660,10 +684,18 @@
 
       <div class="faq-item">
         <div class="faq-q" role="button" tabindex="0">
+          <span class="faq-q-text">What does a first engagement look like?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-a"><p>Three steps, no pressure. First, a <strong>Discovery</strong> conversation: 30 to 60 minutes to understand how you are set up today, where it hurts, and what good would look like for you. No prep needed. Then a <strong>Review</strong>: we outline a simple picture of your situation and a few ways we could help. Finally, you decide whether you want targeted help, a fixed piece of work, or an ongoing engagement. No hard sell, no long proposal before you have seen any value.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" role="button" tabindex="0">
           <span class="faq-q-text">Do you replace our existing IT team or provider?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>Not always. For Strategy and Governance we sit above what you already have. Your existing team or provider keeps doing what they do, and we make sure it is heading somewhere sensible. For Your Technology Team we take full ownership of the outcome and use trusted local partners where on-site work is needed. We are not here to add headcount for its own sake.</p></div>
+        <div class="faq-a"><p>It depends on how you engage. For Strategy and Governance and Professional Services, we sit above or alongside what you already have. Your existing team or provider keeps doing what they do, and we make sure it is heading somewhere sensible. For Your Technology Team, we become your technology function. That does not mean replacing people for the sake of it, but it does mean we own the outcome end-to-end: strategy, operations, delivery, and security. We are not a helpdesk. We are not a ticket queue. We are the partner accountable for all of it.</p></div>
       </div>
 
       <div class="faq-item">
@@ -671,15 +703,15 @@
           <span class="faq-q-text">How does pricing work?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>Strategy and Governance is a fixed monthly retainer. Your Technology Team is a single monthly fee covering strategy, governance, security, vendor management, and delivery. No additional labour costs, no PO requests on top. For large projects or on-site work outside Auckland, we agree the approach up front before any work begins. No surprises.</p></div>
+        <div class="faq-a"><p>Strategy and Governance is a fixed monthly retainer. Professional Services engagements are scoped and priced per project, with clear scope agreed before any work begins. Your Technology Team is one monthly fee covering strategy, governance, security, vendor management, and delivery. No additional labour costs, no PO requests on top. For large projects or on-site work outside Auckland, we agree the approach up front. No surprises.</p></div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" role="button" tabindex="0">
-          <span class="faq-q-text">Are we the right size?</span>
+          <span class="faq-q-text">What size of business do you work with?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>If you are big enough to feel real pain from technology that does not quite work, but not big enough for a full-time CIO and internal team, you are likely a good fit. We typically work with multi-site businesses in professional services, construction, logistics, manufacturing, and distribution, usually spending $5,000 or more per month on technology across tools, vendors, and technology services.</p></div>
+        <div class="faq-a"><p>If you are big enough to feel real pain from technology that does not quite work, but not big enough for a full-time CIO and internal team, you are likely a good fit. We typically work with multi-site businesses in professional services, construction, logistics, manufacturing, distribution, and primary industries, usually spending $5,000 or more per month on technology across tools, vendors, and technology services. Some clients start with a single project to solve a specific problem. Others come straight to an ongoing engagement. Both work.</p></div>
       </div>
 
       <div class="faq-item">
@@ -692,18 +724,10 @@
 
       <div class="faq-item">
         <div class="faq-q" role="button" tabindex="0">
-          <span class="faq-q-text">What does a first engagement look like?</span>
-          <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
-        </div>
-        <div class="faq-a"><p>Three steps, no pressure. First, a <strong>Discovery</strong> conversation: 30 to 60 minutes to understand how you are set up today, where it hurts, and what good would look like for you. No prep needed. Then a <strong>Review</strong>: we outline a simple picture of your situation and a few ways we could help. Finally, you decide whether you want targeted help, a fixed piece of work, or an ongoing engagement. No hard sell, no long proposal before you have seen any value.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" role="button" tabindex="0">
           <span class="faq-q-text">What if we need on-site support outside Auckland?</span>
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
-        <div class="faq-a"><p>We have a long-standing network of trusted local partners across New Zealand. For anything requiring hands-on work outside Auckland, we bring in people we know well and have worked with before. You deal with us. We deal with them. The accountability stays with myCIO.</p></div>
+        <div class="faq-a"><p>We have a long-standing network of trusted local partners across New Zealand, including in manufacturing and primary industry environments where corporate systems meet operational technology and field assets. For anything requiring hands-on work outside Auckland, we bring in people we know well and have worked with before. You deal with us. We deal with them. The accountability stays with myCIO.</p></div>
       </div>
 
     </div>
@@ -716,14 +740,13 @@
   <div class="inner">
     <div class="cta-inner">
       <span class="sec-label fi">Ready when you are</span>
-      <h2 class="sec-heading fi">One conversation. That is all it takes.</h2>
-      <!-- COPY CHANGE 3: positive outcome promise replacing apologetic reassurance -->
+      <h2 class="sec-heading fi">Thirty minutes. You leave knowing exactly where you stand.</h2>
       <p class="cta-copy fi">If your technology is costing more than it should and nobody senior is in charge of fixing that, let's talk.</p>
-      <p class="cta-copy fi">Thirty minutes. Plain language. You leave knowing exactly where you stand. No prep needed on your end.</p>
+      <p class="cta-copy fi">Plain language. No prep needed on your end.</p>
+      <p class="cta-copy fi">Not a sales pitch. Not a proposal. Just a straight conversation about where things are.</p>
       <div class="cta-buttons fi">
-        <!-- COPY CHANGE 3: "Book 30 minutes": specific, low-commitment, clear cost -->
-        <a href="mailto:hello@mycio.co.nz" class="btn btn-primary btn-large">Book 30 minutes</a>
-        <p class="cta-secondary">Not ready to jump on a call yet? <a href="mailto:hello@mycio.co.nz?subject=IT Health Checklist&body=Hi, I would like a copy of the myCIO IT health checklist.">Grab the free IT health checklist.</a></p>
+        <a href="/cdn-cgi/l/email-protection#036b666f6f6c436e7a606a6c2d606c2d6d79" class="btn btn-primary btn-large">Book 30 minutes</a>
+        <p class="cta-secondary">Not ready to jump on a call yet? <a href="/cdn-cgi/l/email-protection#375f525b5b58775a4e545e5819545819594d084442555d5254430a7e63177f52565b435f17745f52545c5b5e4443115558534e0a7f5e1b177e174058425b53175b5e5c521756175458474e17585117435f52175a4e747e78177e63175f52565b435f17545f52545c5b5e444319">Grab the free IT health checklist.</a></p>
       </div>
     </div>
   </div>
@@ -738,7 +761,7 @@
       <div class="f-tagline">Less noise. More from your technology.</div>
     </div>
     <div class="f-contact">
-      <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a>
+      <a href="/cdn-cgi/l/email-protection#3a525f5656557a5743595355145955145440"><span class="__cf_email__" data-cfemail="533b363f3f3c133e2a303a3c7d303c7d3d29">[email&#160;protected]</span></a>
       <a href="https://mycio.co.nz">mycio.co.nz</a>
     </div>
     <div class="f-copy">&copy; 2026 myCIO. New Zealand.</div>
@@ -746,7 +769,7 @@
 </footer>
 
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Fade-in on scroll
   document.body.classList.add('js-ready');
   const io = new IntersectionObserver((entries) => {
@@ -774,5 +797,3 @@
     });
   });
 </script>
-</body>
-</html>
