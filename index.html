@@ -138,6 +138,70 @@
     .pain-statement .ps-white { color: var(--white); font-weight: 600; }
     .pain-statement .ps-amber { color: var(--amber); font-weight: 600; }
 
+    /* ── COMPARISON TABLE ── */
+    .comp-wrap { margin-top: 64px; }
+    .comp-label {
+      text-align: center; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 24px; display: block;
+    }
+    .comp-table {
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .comp-head {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border);
+    }
+    .comp-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border); transition: background .15s;
+    }
+    .comp-row:last-child { border-bottom: none; }
+    .comp-row:hover { background: rgba(255,255,255,0.02); }
+    .comp-cell {
+      padding: 16px 24px; font-size: 14px; line-height: 1.55;
+      border-right: 1px solid var(--border);
+    }
+    .comp-cell:last-child { border-right: none; }
+    .comp-cell.head {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .comp-cell.head.ours { color: var(--amber); }
+    .comp-cell.theirs { color: var(--muted); }
+    .comp-cell.ours { color: var(--text); font-weight: 500; }
+    @media (max-width: 600px) {
+      .comp-head { grid-template-columns: 1fr; }
+      .comp-row { grid-template-columns: 1fr; }
+      .comp-cell.theirs { border-bottom: 1px solid var(--border); background: rgba(180,90,60,0.04); }
+      .comp-cell.ours { background: rgba(233,168,76,0.04); }
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      margin-top: 48px; display: flex; flex-direction: column; gap: 3px;
+      background: rgba(233,168,76,0.08); border-radius: var(--radius); overflow: hidden;
+    }
+    .tl-item {
+      background: #1a1814; padding: 28px 32px;
+      display: grid; grid-template-columns: 120px 1fr;
+      gap: 24px; align-items: start; transition: background .2s;
+    }
+    .tl-item:hover { background: #1f1c17; }
+    .tl-when {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--amber);
+      padding-top: 3px;
+    }
+    .tl-title {
+      font-size: 15px; font-weight: 700; color: var(--white);
+      margin-bottom: 6px; line-height: 1.3;
+    }
+    .tl-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    @media (max-width: 600px) {
+      .tl-item { grid-template-columns: 1fr; gap: 8px; }
+    }
+
     @media (max-width: 700px) {
       .about-cols { grid-template-columns: 1fr; }
     }
@@ -496,6 +560,9 @@
     .cta-secondary a { color: var(--amber); text-decoration: none; border-bottom: 1px solid var(--amber-bd); transition: border-color .18s; }
     .cta-secondary a:hover { border-color: var(--amber); }
 
+    /* ── MID-PAGE CTA ── */
+    .mid-cta { text-align: center; }
+
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 36px 32px; }
     .footer-inner {
@@ -546,8 +613,9 @@
   <div class="nav-inner">
     <a href="#" class="logo">my<span>CIO</span></a>
     <ul class="nav-links">
-      <li><a href="#options">How we work</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#about">Who we are</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#options">What we offer</a></li>
       <li><a href="#faq">FAQs</a></li>
     </ul>
     <a href="#cta" class="btn btn-primary">Book a 30 min call</a>
@@ -571,20 +639,168 @@
 </div>
 
 
-<!-- ══ 1b. PAIN ══ -->
+<!-- ══ PAIN ══ -->
 <section id="pain">
   <div class="inner">
     <p class="sec-label fi">Does this sound familiar?</p>
     <div class="pain-statement fi">
       <span class="ps-muted">Your IT provider handles the tickets.</span> <span class="ps-white">A security consultant drops in once a year with a PDF full of findings nobody implements.</span> <span class="ps-muted">Projects get started, stall, and restart.</span> <span class="ps-white">Your board is asking tougher questions. Your insurer wants proof you have the basics locked in.</span> <span class="ps-muted">And through all of it,</span> <span class="ps-amber">there is no single adult in the room who actually owns the outcome.</span>
     </div>
+  </div>
+</section>
+
+
+<!-- ══ WHO WE ARE ══ -->
+<section id="about" style="background: var(--bg); border-bottom: 1px solid var(--border);">
+  <div class="inner">
+
+    <div class="sec-hd fi">
+      <span class="sec-label">Senior. Independent. Accountable.</span>
+      <h2 class="sec-heading">The people you meet are the people who do the work.</h2>
+    </div>
+
+    <div class="origin-panel fi">
+      <div class="origin-pull">We get paid to give you the right answer, <em>not the profitable one.</em></div>
+      <div class="origin-body">
+        <p>Two decades inside technology companies, IT providers, and consulting firms taught us exactly how deals get structured, which vendors get pushed, and how the customer's interest comes second when there is a target to hit. We saw smart Kiwi owners walking away with more tools, more contracts, and more complexity than they came in with. And still no one clearly in charge of making any of it work.</p>
+        <p>We built myCIO to work differently. <strong>No products to sell. No junior team doing the work after the pitch. No vendor incentives pulling the advice in the wrong direction.</strong> Just experienced people, on your side, with skin in the outcome.</p>
+      </div>
+    </div>
+
+    <div class="team-grid" style="margin-top: 32px;">
+      <div class="t-card fi">
+        <div class="t-avatar">EM</div>
+        <div class="t-name">Elton McDowall</div>
+        <div class="t-role">Founder and Director</div>
+        <div class="t-divider"></div>
+        <p>Twenty years of sitting in boardrooms, server rooms, and every difficult conversation in between. Elton asks the questions everyone else avoids, then builds a plan everyone can actually follow. Focused on strategy, security, governance, and the kind of delivery that makes sense to owners and boards alike.</p>
+      </div>
+      <div class="t-card fi" style="transition-delay:.08s">
+        <div class="t-avatar">MN</div>
+        <div class="t-name">Michael Nicolle</div>
+        <div class="t-role">Founder and Director</div>
+        <div class="t-divider"></div>
+        <p>Fifteen years across NZ manufacturers, retailers, construction groups, and not-for-profits. Michael asks the right questions first, stabilises what is broken, and builds something the business can rely on. Known for finishing what gets started, and making technology make sense to the people who depend on it.</p>
+      </div>
+    </div>
+
+    <div class="team-footer fi" style="margin-top: 16px;">
+      <p>When you work with myCIO, you work with Elton and Michael. Not a junior team, not a ticketing system. If something is not right, you come back to us directly.</p>
+    </div>
 
   </div>
 </section>
 
 
-<!-- ══ 2. THREE OFFERINGS ══ -->
-<section id="options">
+<!-- ══ COMPARISON ══ -->
+<section id="compare" style="background: var(--bg-warm); border-bottom: 1px solid var(--border); padding: 72px 32px;">
+  <div class="inner">
+    <h2 class="sec-heading fi" style="margin-bottom: 16px;">This is not a better IT provider.<br>It is a different model.</h2>
+    <p class="sec-sub fi" style="margin-bottom: 36px; transition-delay:.05s;">We think about your technology the way you think about your business. Like it is ours to get right.</p>
+    <div class="comp-table fi" style="transition-delay:.08s">
+
+      <div class="comp-head">
+        <div class="comp-cell head">The standard IT provider</div>
+        <div class="comp-cell head ours">myCIO</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-cell theirs">Reacts when something breaks</div>
+        <div class="comp-cell ours">Proactive by design. We own the outcome before anything breaks.</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-cell theirs">A helpdesk you join a queue for</div>
+        <div class="comp-cell ours">Named people who know your business and are accountable for it.</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-cell theirs">Fixes symptoms, not causes</div>
+        <div class="comp-cell ours">Owns the root problem. The same issue does not come back next year.</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-cell theirs">A vendor you have to manage</div>
+        <div class="comp-cell ours">A partner embedded on your side, not theirs.</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-cell theirs">Variable billing, unclear value</div>
+        <div class="comp-cell ours">One clear fee. No surprises. No PO requests for standard work.</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-cell theirs">Technology decisions stay on your desk</div>
+        <div class="comp-cell ours">You stop thinking about IT. That is the point.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ HOW IT WORKS ══ -->
+<section id="how" style="background: var(--bg); border-bottom: 1px solid var(--border);">
+  <div class="inner">
+    <div class="sec-hd fi">
+      <span class="sec-label">How it works</span>
+      <h2 class="sec-heading">Our Approach.</h2>
+      <p class="sec-sub">Three steps. Not rigid. The pace and depth depends on where you are starting from.</p>
+    </div>
+
+    <div class="steps-row fi" style="transition-delay:.06s">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h3>Stabilise</h3>
+        <p>A plain-language picture of your systems, spend, and risk. Not a 40-page report. A short list of what to fix first and where the quick wins are.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h3>Standardise</h3>
+        <p>Fewer moving parts doing the same or a better job. Clear ownership so there is no finger pointing. More predictable costs and less wasted spend.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h3>Build for the Future</h3>
+        <p>The right projects, in the right order, finished properly. Not just started. Landed, bedded in, and used by your people. Technology that does not just work today. Built to grow with you.</p>
+      </div>
+    </div>
+
+    <p class="steps-note fi" style="transition-delay:.14s">Some clients want a one-off assessment to understand where they stand. Others bring us in for ongoing governance, project delivery, or as their embedded technology partner. We fit around what your business actually needs.</p>
+
+    <div class="timeline fi" style="transition-delay:.22s">
+      <div class="tl-item">
+        <div class="tl-when">Week one</div>
+        <div>
+          <div class="tl-title">We listen before we do anything.</div>
+          <div class="tl-body">A 60-minute conversation with you and whoever needs to be in the room. We learn how you are set up, where it hurts, and what good looks like for your business. No pitch. No proposal. Just the right questions.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Month one</div>
+        <div>
+          <div class="tl-title">The work starts. You feel the difference.</div>
+          <div class="tl-body">The quick wins are in motion. Ownership is clear. Your vendors know who they are dealing with. You stop being the person in the middle. The first monthly update lands and it makes sense.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Ongoing</div>
+        <div>
+          <div class="tl-title">"I do not think about IT anymore."</div>
+          <div class="tl-body">What clients say most often, usually around month three or four. Not because nothing happens — because when it does, we handle it. Technology becomes background. You get your focus back.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mid-cta fi" style="margin-top: 40px; transition-delay:.28s;">
+      <a href="#cta" class="btn btn-primary btn-large">Book a 30 min call</a>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="options" style="background: var(--bg-warm); border-bottom: 1px solid var(--border);">
   <div class="inner">
     <div class="sec-hd fi">
       <span class="sec-label">One partner. The whole picture.</span>
@@ -642,13 +858,13 @@
 
     </div>
 
-    <!-- DECISION MATRIX -->
+    <!-- DECISION MATRIX — 5 rows, two all-yes rows removed -->
     <div class="matrix-wrap fi" style="transition-delay:.18s">
       <p class="matrix-intro">Not sure which fits? Use this to decide.</p>
       <div class="matrix">
 
         <div class="matrix-head">
-          <div class="mx-cell mx-col-head" style="justify-content:flex-start; color:var(--muted); font-size:11px;"></div>
+          <div class="mx-cell mx-col-head" style="justify-content:flex-start;"></div>
           <div class="mx-cell mx-col-head">Strategy &amp;<br>Governance</div>
           <div class="mx-cell mx-col-head">Professional<br>Services</div>
           <div class="mx-cell mx-col-head mx-ytt">Your<br>Technology Team</div>
@@ -689,20 +905,6 @@
           <div class="mx-cell mx-val"><span class="mx-no">&ndash;</span></div>
         </div>
 
-        <div class="matrix-row">
-          <div class="mx-cell mx-row-label">I want predictable costs with no surprise extras</div>
-          <div class="mx-cell mx-val"><span class="mx-yes">&#10003;</span></div>
-          <div class="mx-cell mx-val"><span class="mx-yes">&#10003;</span></div>
-          <div class="mx-cell mx-val"><span class="mx-yes">&#10003;</span></div>
-        </div>
-
-        <div class="matrix-row">
-          <div class="mx-cell mx-row-label">I need security governance and vCISO advisory</div>
-          <div class="mx-cell mx-val"><span class="mx-yes">&#10003;</span></div>
-          <div class="mx-cell mx-val"><span class="mx-yes">&#10003;</span></div>
-          <div class="mx-cell mx-val"><span class="mx-yes">&#10003;</span></div>
-        </div>
-
         <div class="matrix-foot">
           <div class="mx-cell mx-foot-label" style="justify-content:flex-start; color:var(--muted);">Pricing model</div>
           <div class="mx-cell mx-foot-label">Monthly retainer</div>
@@ -716,97 +918,7 @@
 </section>
 
 
-<!-- ══ 3. HOW IT WORKS ══ -->
-<section id="how">
-  <div class="inner">
-    <div class="sec-hd fi">
-      <span class="sec-label">How it works</span>
-      <h2 class="sec-heading">Our Approach.</h2>
-      <p class="sec-sub">Three steps. Not rigid — the pace and depth depends on where you are starting from.</p>
-    </div>
-
-    <div class="steps-row fi" style="transition-delay:.06s">
-      <div class="step">
-        <span class="step-num">01</span>
-        <h3>Stabilise</h3>
-        <p>A plain-language picture of your systems, spend, and risk. Not a 40-page report. A short list of what to fix first and where the quick wins are.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">02</span>
-        <h3>Standardise</h3>
-        <p>Fewer moving parts doing the same or a better job. Clear ownership so there is no finger pointing. More predictable costs and less wasted spend.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">03</span>
-        <h3>Build for the Future</h3>
-        <p>The right projects, in the right order, finished properly. Not just started. Landed, bedded in, and used by your people. Technology that does not just work today. Built to grow with you.</p>
-      </div>
-    </div>
-
-    <p class="steps-note fi" style="transition-delay:.14s">Some clients want a one-off assessment to understand where they stand. Others bring us in for ongoing governance, project delivery, or as their embedded technology partner. We fit around what your business actually needs.</p>
-  </div>
-</section>
-
-
-<!-- ══ 4a. ORIGIN ══ -->
-<section id="about" style="background: var(--bg); border-bottom: 1px solid var(--border);">
-  <div class="inner">
-
-    <div class="sec-hd fi">
-      <span class="sec-label">Who is behind myCIO</span>
-      <h2 class="sec-heading">Senior people. Your side of the table.</h2>
-    </div>
-
-    <div class="origin-panel fi">
-      <div class="origin-pull">We get paid to give you the right answer, <em>not the profitable one.</em></div>
-      <div class="origin-body">
-        <p>Between us we have spent two decades inside technology companies, IT providers, and consulting firms. We know how deals get structured, which vendors get pushed, and how the customer's interest comes second when there is a target to hit.</p>
-        <p>We saw good Kiwi businesses, smart owners with real growth on the line, walking away from conversations with <strong>more tools, more contracts, and more complexity</strong> than they came in with. And still no one clearly in charge of making it all work together. Still no traction. Still the same problems next year.</p>
-        <p>myCIO exists because we wanted to work differently. <strong>No products to sell. No vendor incentives. No agenda except making your technology earn its place.</strong> That is a different kind of engagement. Most of our clients tell us it is the first time technology has felt like it is working for them, not against them.</p>
-        <p>Between us we have sat in board meetings, held the technology conversation, and translated the risk picture into language that boards can act on. That is a core part of what we offer.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ══ 4b. TEAM ══ -->
-<section id="team" style="background: var(--bg-warm); border-bottom: 1px solid var(--border);">
-  <div class="inner">
-
-    <div class="sec-hd fi">
-      <span class="sec-label">The people</span>
-      <h2 class="sec-heading">Who you will actually work with.</h2>
-      <p class="sec-sub">The people you meet are the people who do the work. Every time.</p>
-    </div>
-
-    <div class="team-grid">
-      <div class="t-card fi">
-        <div class="t-avatar">EM</div>
-        <div class="t-name">Elton McDowall</div>
-        <div class="t-role">Founder and Director</div>
-        <div class="t-divider"></div>
-        <p>Twenty years of sitting in boardrooms, server rooms, and every difficult conversation in between. Elton asks the questions everyone else avoids, then builds a plan everyone can actually follow. Focused on strategy, security, governance, and the kind of delivery that makes sense to owners and boards alike.</p>
-      </div>
-      <div class="t-card fi" style="transition-delay:.08s">
-        <div class="t-avatar">MN</div>
-        <div class="t-name">Michael Nicolle</div>
-        <div class="t-role">Founder and Director</div>
-        <div class="t-divider"></div>
-        <p>Fifteen years across NZ manufacturers, retailers, construction groups, and not-for-profits. Michael asks the right questions first, stabilises what is broken, and builds something the business can rely on. Known for finishing what gets started, and making technology make sense to the people who depend on it.</p>
-      </div>
-    </div>
-
-    <div class="team-footer fi" style="margin-top: 16px;">
-      <p>When you work with myCIO, you work with Elton and Michael. Not a junior team, not a ticketing system. If something is not right, you come back to us directly.</p>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ══ 5. FAQ ══ -->
+<!-- ══ FAQ ══ -->
 <section id="faq">
   <div class="inner">
     <div class="sec-hd fi">
@@ -822,10 +934,10 @@
           <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke-linecap="round"/></svg></span>
         </div>
         <div class="faq-a">
-          <p>Three steps, no pressure.</p>
-          <p>First, a <strong>Discovery</strong> conversation: 30 to 60 minutes to understand how you are set up today, where it hurts, and what good would look like for you. No prep needed.</p>
-          <p>Then a <strong>Review</strong>: we outline a simple picture of your situation and a few ways we could help.</p>
-          <p>Finally, you decide whether you want targeted help, a fixed piece of work, or an ongoing engagement. No hard sell, no long proposal before you have seen any value.</p>
+          <p>No hard sell, no long proposal before you have seen any value. Three steps.</p>
+          <p><strong>Week one:</strong> a 60-minute Discovery conversation with you and whoever needs to be in the room. We learn how you are set up, where it hurts, and what good looks like for your business. No pitch. Just the right questions.</p>
+          <p><strong>Month one:</strong> the quick wins are in motion. Ownership is clear. Your vendors know who they are dealing with. You stop being the person in the middle. The first monthly update lands and it makes sense.</p>
+          <p><strong>Ongoing:</strong> what clients say most often, usually around month three or four, is "I do not think about IT anymore." Not because nothing happens. Because when it does, we handle it.</p>
         </div>
       </div>
 
@@ -900,9 +1012,7 @@
     <div class="cta-inner">
       <span class="sec-label fi">Ready when you are</span>
       <h2 class="sec-heading fi">Thirty minutes. You leave knowing exactly where you stand.</h2>
-      <p class="cta-copy fi">If your technology is costing more than it should and nobody senior is in charge of fixing that, let's talk.</p>
-      <p class="cta-copy fi">Plain language. No prep needed on your end.</p>
-      <p class="cta-copy fi">Not a sales pitch. Not a proposal. Just a straight conversation about where things are.</p>
+      <p class="cta-copy fi" style="margin-bottom: 36px;">If your technology is costing more than it should and nobody senior is in charge of fixing that, let's talk. Plain language. No prep needed.</p>
       <div class="cta-buttons fi">
         <a href="/cdn-cgi/l/email-protection#036b666f6f6c436e7a606a6c2d606c2d6d79" class="btn btn-primary btn-large">Book a 30 min call</a>
         <p class="cta-secondary">Not ready to jump on a call yet? <a href="/cdn-cgi/l/email-protection#375f525b5b58775a4e545e5819545819594d084442555d5254430a7e63177f52565b435f17745f52545c5b5e4443115558534e0a7f5e1b177e174058425b53175b5e5c521756175458474e17585117435f52175a4e747e78177e63175f52565b435f17545f52545c5b5e444319">Grab the free IT health checklist.</a></p>
