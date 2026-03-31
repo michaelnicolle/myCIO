@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fractional Technology Leadership – myCIO New Zealand</title>
-  <meta name="description" content="Senior technology leadership embedded in your business. Strategy, transformation, AI, and security without the overhead of a full-time hire. For businesses that have outgrown just IT." />
+  <meta name="description" content="A tight-knit team of senior technology leaders, embedded in your business and accountable for the outcome. Strategy, transformation, AI, and security for NZ and Australian businesses." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,800;1,9..144,800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -120,6 +120,15 @@
     }
     .btn-primary:hover { background: var(--amber2); transform: translateY(-1px); }
 
+    .btn-secondary {
+      display: inline-block; background: transparent; color: var(--amber);
+      border: 1px solid var(--amber-bd); border-radius: 7px; padding: 13px 28px;
+      font-size: 15px; font-weight: 500; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; text-decoration: none;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-secondary:hover { background: var(--amber-dim); border-color: var(--amber); }
+
     @media (max-width: 600px) {
       section { padding: 56px 20px; }
     }
@@ -148,11 +157,14 @@
     }
     .hero-sub {
       font-size: 17px; color: var(--muted);
-      max-width: 480px; margin-bottom: 12px; line-height: 1.7;
+      max-width: 540px; margin-bottom: 12px; line-height: 1.7;
     }
     .hero-tag {
       font-size: 12px; color: rgba(149,145,139,0.45);
       letter-spacing: 0.04em; margin-bottom: 36px; display: block;
+    }
+    .hero-cta-row {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
     }
 
     @media (max-width: 600px) {
@@ -273,7 +285,13 @@
       color: var(--white); margin-bottom: 7px;
     }
     .step-desc {
-      font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin: 0;
+      font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin: 0 0 10px;
+    }
+    .step-outcome {
+      font-size: 0.85rem; color: var(--amber);
+      border-top: 1px solid var(--border);
+      padding-top: 10px; margin: 0;
+      font-style: italic; opacity: 0.85;
     }
 
     @media (max-width: 600px) {
@@ -282,9 +300,239 @@
       .step-num-label { display: none; }
     }
 
+    /* SIGNS */
+    .signs-intro {
+      max-width: 560px; margin: 0 auto 44px; text-align: center;
+    }
+    .signs-intro p { font-size: 1.05rem; }
+
+    .signs-list {
+      max-width: 680px; margin: 0 auto 36px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .sign-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 0 16px;
+      align-items: start;
+      transition: border-color .2s;
+    }
+    .sign-item:hover { border-color: var(--border-h); }
+    .sign-num {
+      font-family: var(--head); font-size: 1.1rem; font-weight: 800;
+      color: var(--amber); opacity: 0.5; padding-top: 1px;
+    }
+    .sign-content {}
+    .sign-title {
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--white); margin-bottom: 5px;
+    }
+    .sign-body {
+      font-size: 0.875rem; color: var(--muted);
+      line-height: 1.65; margin: 0;
+    }
+
+    .transition-line {
+      max-width: 580px; margin: 0 auto 36px;
+      text-align: center;
+      font-size: 1rem; font-weight: 500; color: var(--text);
+    }
+
+    .insight-panel {
+      max-width: 680px; margin: 0 auto 44px;
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-bd);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+    }
+    .insight-panel p {
+      font-size: 1rem; color: var(--text); line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .insight-panel p:last-child { margin-bottom: 0; }
+    .insight-panel strong { color: var(--amber); font-weight: 600; }
+
+    /* HEALTH CHECK WIDGET */
+    .hc-wrap {
+      max-width: 680px; margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .hc-header {
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 28px;
+      text-align: center;
+    }
+    .hc-header-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 6px;
+      display: block;
+    }
+    .hc-header-title {
+      font-family: var(--head); font-size: 1.35rem; font-weight: 800;
+      color: var(--white); margin-bottom: 6px;
+    }
+    .hc-header-sub {
+      font-size: 0.875rem; color: var(--muted); margin: 0;
+    }
+    .hc-progress-bar-bg {
+      height: 3px; background: var(--border);
+    }
+    .hc-progress-bar {
+      height: 3px; background: var(--amber);
+      transition: width .4s ease;
+    }
+    .hc-body { padding: 28px; }
+
+    /* Question */
+    .hc-q-wrap {}
+    .hc-q-meta {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 10px; display: block;
+    }
+    .hc-q-text {
+      font-size: 1.05rem; font-weight: 500; color: var(--white);
+      line-height: 1.55; margin-bottom: 22px;
+    }
+    .hc-options { display: flex; flex-direction: column; gap: 10px; }
+    .hc-option {
+      background: var(--bg-warm); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 18px;
+      cursor: pointer; transition: border-color .18s, background .18s;
+      font-size: 0.9rem; color: var(--muted); line-height: 1.5;
+      text-align: left; font-family: 'DM Sans', sans-serif;
+      width: 100%;
+    }
+    .hc-option:hover { border-color: var(--amber-bd); color: var(--text); }
+    .hc-option.selected {
+      border-color: var(--amber);
+      background: var(--amber-dim);
+      color: var(--text);
+    }
+
+    .hc-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 24px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .hc-nav-btn {
+      background: transparent; border: 1px solid var(--border);
+      border-radius: 7px; padding: 9px 20px;
+      font-size: 14px; font-weight: 500; color: var(--muted);
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: border-color .18s, color .18s;
+    }
+    .hc-nav-btn:hover { border-color: var(--border-h); color: var(--text); }
+    .hc-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .hc-nav-btn.primary {
+      background: var(--amber); color: #0f0f0e;
+      border-color: var(--amber); font-weight: 600;
+    }
+    .hc-nav-btn.primary:hover { background: var(--amber2); border-color: var(--amber2); }
+    .hc-q-counter {
+      font-size: 13px; color: var(--muted);
+    }
+
+    /* Results */
+    .hc-result { display: none; }
+    .hc-result.visible { display: block; }
+    .hc-score-display {
+      text-align: center; padding: 28px 0 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .hc-score-num {
+      font-family: var(--head); font-size: 64px; font-weight: 800;
+      color: var(--white); line-height: 1;
+    }
+    .hc-score-denom {
+      font-family: var(--head); font-size: 28px; font-weight: 800;
+      color: var(--muted);
+    }
+    .hc-score-band {
+      display: inline-block; margin-top: 10px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 14px; border-radius: 20px;
+    }
+    .band-stable { background: rgba(29,158,117,0.15); color: #1D9E75; }
+    .band-risk   { background: rgba(233,168,76,0.15); color: var(--amber); }
+    .band-exposed{ background: rgba(200,60,50,0.15); color: #e05a4e; }
+
+    .hc-result-summary {
+      font-size: 0.95rem; color: var(--text);
+      line-height: 1.75; margin-bottom: 20px; text-align: center;
+    }
+
+    .hc-result-breakdown {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden; margin-bottom: 20px;
+    }
+    .hc-breakdown-row {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 12px; align-items: center;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    .hc-breakdown-row:last-child { border-bottom: none; }
+    .hc-bd-area { color: var(--muted); }
+    .hc-bd-score { font-weight: 600; }
+    .score-3 { color: #1D9E75; }
+    .score-2 { color: var(--amber); }
+    .score-1 { color: #e05a4e; }
+
+    .hc-result-focus {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-bd);
+      border-radius: 8px; padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+    .hc-result-focus-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--amber);
+      display: block; margin-bottom: 10px;
+    }
+    .hc-focus-items {
+      list-style: none; display: flex; flex-direction: column; gap: 7px;
+    }
+    .hc-focus-items li {
+      font-size: 0.875rem; color: var(--text);
+      padding-left: 16px; position: relative; line-height: 1.5;
+    }
+    .hc-focus-items li::before {
+      content: ''; position: absolute; left: 0; top: 7px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--amber);
+    }
+
+    .hc-result-cta {
+      text-align: center; padding-top: 4px;
+    }
+    .hc-result-cta p {
+      font-size: 0.9rem; color: var(--muted);
+      margin-bottom: 16px; line-height: 1.7;
+    }
+    .hc-retry {
+      display: inline-block; margin-top: 12px;
+      font-size: 13px; color: var(--muted); cursor: pointer;
+      text-decoration: underline; background: none; border: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .hc-retry:hover { color: var(--text); }
+
     /* ABOUT */
     .about-intro {
-      max-width: 560px; margin: 0 auto 40px; text-align: center;
+      max-width: 580px; margin: 0 auto 40px; text-align: center;
     }
     .about-intro p { font-size: 1.05rem; }
 
@@ -295,14 +543,14 @@
     }
     .profile-card {
       background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 28px; text-align: center;
+      border-radius: var(--radius); padding: 28px;
     }
     .avatar {
       width: 52px; height: 52px; border-radius: 50%;
       background: rgba(233,168,76,0.1); border: 1px solid var(--amber-bd);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--head); font-size: 0.95rem; font-weight: 800;
-      color: var(--amber); margin: 0 auto 16px;
+      color: var(--amber); margin: 0 0 16px;
     }
     .profile-card h3 {
       font-family: var(--head); font-size: 1.1rem; font-weight: 800;
@@ -313,8 +561,17 @@
       text-transform: uppercase; color: var(--amber);
       margin-bottom: 14px; display: block;
     }
+    .profile-strength {
+      display: inline-block;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 3px 9px;
+      margin-bottom: 12px;
+    }
     .profile-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 14px; }
-    .profile-card p { font-size: 0.875rem; line-height: 1.65; }
+    .profile-card p { font-size: 0.875rem; line-height: 1.7; }
 
     .about-closer {
       background: var(--amber-dim); border: 1px solid var(--amber-bd);
@@ -327,10 +584,14 @@
     /* CTA */
     .cta-inner { text-align: center; max-width: 540px; margin: 0 auto; }
     .cta-inner h2 { margin-bottom: 16px; }
-    .cta-inner p { font-size: 1.05rem; margin-bottom: 32px; }
+    .cta-inner > p { font-size: 1.05rem; margin-bottom: 32px; }
+    .cta-btn-row {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
     .cta-sub {
       font-size: 0.85rem; color: var(--muted);
-      margin-top: 16px; margin-bottom: 0;
+      margin-top: 0; margin-bottom: 0;
     }
 
     /* FOOTER */
@@ -356,8 +617,9 @@
 <nav>
   <a href="#" class="nav-brand">my<span>CIO</span></a>
   <ul class="nav-links">
-    <li><a href="#problem">The problem</a></li>
-    <li><a href="#journey">How it works</a></li>
+    <li><a href="#problem">The problems we find</a></li>
+    <li><a href="#journey">How we work</a></li>
+    <li><a href="#signs">Is your tech costing you?</a></li>
     <li><a href="#about">Who we are</a></li>
   </ul>
   <a href="#cta" class="btn-ghost">Book a call</a>
@@ -370,9 +632,12 @@
   <div class="hero-inner">
     <div class="tag-pill">Fractional technology leadership</div>
     <h1>We lead technology<br>so you can focus on<br><em>the business.</em></h1>
-    <p class="hero-sub">Not another MSP. Senior technology leadership embedded in your business, without the overhead of a full-time hire.</p>
-    <span class="hero-tag">For businesses that have outgrown just IT.</span>
-    <a href="#cta" class="btn-primary">Book a 30 min call</a>
+    <p class="hero-sub">A tight-knit team of senior technology leaders, embedded in your business and accountable for the outcome. Not a helpdesk. Not a vendor. A team that comes in, takes ownership, and delivers.</p>
+    <span class="hero-tag">For businesses that are ready for technology to actually work.</span>
+    <div class="hero-cta-row">
+      <a href="#cta" class="btn-primary">Book a 30 min call</a>
+      <a href="#signs" class="btn-secondary">Take the Health Check</a>
+    </div>
   </div>
 </div>
 
@@ -380,7 +645,7 @@
 <!-- PROBLEM -->
 <section id="problem" class="sec-warm">
   <div class="inner">
-    <span class="sec-label">The problem</span>
+    <span class="sec-label">The problems we find</span>
     <h2>Does this sound familiar?</h2>
     <p class="problem-intro">Your IT provider handles the tickets. Projects get started, stall, and restart. Your board is asking tougher questions. Nobody owns where your technology is going.</p>
 
@@ -400,12 +665,12 @@
       <div class="ba-col after">
         <span class="ba-col-label">With myCIO</span>
         <ul class="ba-list after">
-          <li>One senior leader accountable for all of it</li>
-          <li>Predictable investment, clear return</li>
-          <li>Known risk posture, actively managed</li>
-          <li>AI and automation that actually sticks</li>
-          <li>Projects delivered the way they were supposed to</li>
-          <li>Clean answers when it matters</li>
+          <li>A senior team accountable for all of it</li>
+          <li>Predictable investment, with clear return on every dollar</li>
+          <li>Known risk posture, actively managed and clearly reported</li>
+          <li>AI and automation that actually sticks — driven by people who have done it before</li>
+          <li>Projects that land the way they were planned, with someone accountable if they don't</li>
+          <li>Clean answers when the board asks — because we prepared them with you</li>
         </ul>
       </div>
     </div>
@@ -418,7 +683,7 @@
 <!-- JOURNEY -->
 <section id="journey" class="sec-dark">
   <div class="inner">
-    <span class="sec-label">How it works</span>
+    <span class="sec-label">How we work</span>
     <h2>Simple. Senior. No surprises.</h2>
     <div class="journey-intro">
       <p>We come in, get under the hood, and then build something worth having. This is what working with us looks like.</p>
@@ -435,6 +700,7 @@
           <span class="step-tag">Week 1–2</span>
           <div class="step-title">Discover</div>
           <p class="step-desc">We get under the hood. Honest picture, no upsell agenda. You find out exactly where you stand — risks, gaps, and quick wins.</p>
+          <p class="step-outcome">By the end of week two, you have a clear written picture of every risk, every gap, and where to act first.</p>
         </div>
       </div>
 
@@ -447,6 +713,7 @@
           <span class="step-tag">Month 1–2</span>
           <div class="step-title">Stabilise</div>
           <p class="step-desc">Clean house. Fix the foundations. Reduce debt and risk before anything else. You stop fighting fires and start making progress.</p>
+          <p class="step-outcome">By the end of this stage, the fires are out and your technology is no longer the thing holding the business back.</p>
         </div>
       </div>
 
@@ -459,6 +726,7 @@
           <span class="step-tag">Month 2–4</span>
           <div class="step-title">Standardise</div>
           <p class="step-desc">Right people, process, and technology at the right service levels and price. Nothing held together by legacy decisions nobody documented.</p>
+          <p class="step-outcome">By the end of this stage, you have a technology environment that is documented, defensible, and no longer dependent on any one person.</p>
         </div>
       </div>
 
@@ -471,6 +739,7 @@
           <span class="step-tag">Month 4 onwards</span>
           <div class="step-title">Transform</div>
           <p class="step-desc">Modern work, AI, and automation built alongside you — not pilots that go nowhere. Real competitive advantage, in ways that stick.</p>
+          <p class="step-outcome">This is where technology stops being a cost centre and starts giving the business a genuine edge.</p>
         </div>
       </div>
 
@@ -483,6 +752,7 @@
           <span class="step-tag">Ongoing</span>
           <div class="step-title">Secure</div>
           <p class="step-desc">Threat detection, compliance, and resilience running continuously. Security baked in from the start, not bolted on at the end.</p>
+          <p class="step-outcome">Your board gets clean answers. Your people get a safe environment. You get a security posture you can actually stand behind.</p>
         </div>
       </div>
 
@@ -491,13 +761,107 @@
 </section>
 
 
+<!-- SIGNS + HEALTH CHECK -->
+<section id="signs" class="sec-warm">
+  <div class="inner">
+    <span class="sec-label">Does this sound like your business?</span>
+    <h2>Five signs your technology is working against you</h2>
+    <div class="signs-intro">
+      <p>Most businesses do not know they have a technology problem until it becomes an expensive one. These are the patterns we see most often.</p>
+    </div>
+
+    <div class="signs-list">
+
+      <div class="sign-item">
+        <div class="sign-num">1</div>
+        <div class="sign-content">
+          <div class="sign-title">Your IT provider is reactive, not strategic.</div>
+          <p class="sign-body">They fix what breaks. Nobody is looking ahead, managing risk, or telling you what is coming before it arrives. The relationship is comfortable — but it is not moving the business forward.</p>
+        </div>
+      </div>
+
+      <div class="sign-item">
+        <div class="sign-num">2</div>
+        <div class="sign-content">
+          <div class="sign-title">You cannot answer the board's technology questions with confidence.</div>
+          <p class="sign-body">When risk, spend, or roadmap comes up, the honest answer is "I will find out." That is happening more often than it used to, and it is starting to show.</p>
+        </div>
+      </div>
+
+      <div class="sign-item">
+        <div class="sign-num">3</div>
+        <div class="sign-content">
+          <div class="sign-title">Projects finish late, over budget, or not at all.</div>
+          <p class="sign-body">The original scope made sense. Somewhere between kickoff and delivery, it stopped being anyone's job to see it through. The business absorbs the cost and moves on.</p>
+        </div>
+      </div>
+
+      <div class="sign-item">
+        <div class="sign-num">4</div>
+        <div class="sign-content">
+          <div class="sign-title">Security feels like something you hope is being handled.</div>
+          <p class="sign-body">You have tools. You have a provider. But if someone asked you right now what your actual exposure is, you could not give a straight answer — and neither could they.</p>
+        </div>
+      </div>
+
+      <div class="sign-item">
+        <div class="sign-num">5</div>
+        <div class="sign-content">
+          <div class="sign-title">AI is on the agenda but going nowhere.</div>
+          <p class="sign-body">Everyone agrees it matters. Nobody is driving it. Twelve months from now the conversation will be exactly the same, and a competitor will have moved ahead.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="transition-line">If two or more of these sound familiar, your technology is costing you more than it should — and the gap does not close on its own.</p>
+
+    <div class="insight-panel">
+      <p>Most NZ businesses are spending significantly more on technology than they need to.</p>
+      <p>Not because they are buying the wrong things — because nobody is reviewing contracts, renegotiating vendors, or making sure what was set up three years ago still makes sense for the business today.</p>
+      <p>That is not a technology problem. It is a leadership problem. And it is exactly what myCIO fixes.</p>
+    </div>
+
+    <!-- HEALTH CHECK WIDGET -->
+    <div class="hc-wrap">
+      <div class="hc-header">
+        <span class="hc-header-label">Free assessment</span>
+        <div class="hc-header-title">Technology Health Check</div>
+        <p class="hc-header-sub">Ten questions. Five minutes. A straight answer on where your technology stands.</p>
+      </div>
+      <div class="hc-progress-bar-bg">
+        <div class="hc-progress-bar" id="hcProgress" style="width:0%"></div>
+      </div>
+      <div class="hc-body">
+
+        <!-- Questions container -->
+        <div id="hcQuestions">
+          <div class="hc-q-wrap"></div>
+          <div class="hc-nav">
+            <button class="hc-nav-btn" id="hcBack" onclick="hcNav(-1)" disabled>Back</button>
+            <span class="hc-q-counter" id="hcCounter">1 of 10</span>
+            <button class="hc-nav-btn primary" id="hcNext" onclick="hcNav(1)">Next</button>
+          </div>
+        </div>
+
+        <!-- Results container -->
+        <div class="hc-result" id="hcResult"></div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
 <!-- ABOUT -->
-<section id="about" class="sec-warm">
+<section id="about" class="sec-dark">
   <div class="inner">
     <span class="sec-label">Who we are</span>
-    <h2>Senior people. No BS.</h2>
+    <h2>A small team. A big difference.</h2>
     <div class="about-intro">
-      <p>Founded by two senior technology leaders who got tired of watching good businesses make expensive mistakes because nobody was steering the ship. Based in New Zealand, working across NZ and Australia.</p>
+      <p>myCIO is a deliberately small team. Senior practitioners who have spent careers inside boardrooms, server rooms, and every difficult conversation in between. We are not a firm that sells you a partner and delivers a graduate. When you work with us, you work with us.</p>
+      <p>Based in New Zealand, working across NZ and Australia.</p>
     </div>
 
     <div class="profile-grid">
@@ -505,33 +869,38 @@
         <div class="avatar">EM</div>
         <h3>Elton McDowall</h3>
         <span class="profile-role">Founder and Director</span>
+        <span class="profile-strength">Strategy, Security and Governance</span>
         <hr class="profile-divider">
-        <p>Twenty years in boardrooms, server rooms, and every difficult conversation in between. Focused on strategy, security, governance, and delivery that makes sense to owners and boards alike.</p>
+        <p>Elton is the person in the room when the conversation turns to risk, governance, or what the board actually needs to hear. Twenty years across strategy, security, and technology leadership — he translates complexity into decisions that make sense to owners, CFOs, and directors. If the question is "are we exposed?" or "are we ready?", Elton gives you a straight answer.</p>
       </div>
       <div class="profile-card">
         <div class="avatar">MN</div>
         <h3>Michael Nicolle</h3>
         <span class="profile-role">Founder and Director</span>
+        <span class="profile-strength">Delivery, Operations and Transformation</span>
         <hr class="profile-divider">
-        <p>Fifteen years across NZ manufacturers, retailers, construction groups, and not-for-profits. Known for finishing what gets started and making technology make sense to the people who depend on it.</p>
+        <p>Michael is the person who makes things land. Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits — he understands what good looks like in the real world, not just on paper. If a project has stalled, a system is breaking trust, or a vendor relationship has run its course, Michael is the one who fixes it and keeps it fixed.</p>
       </div>
     </div>
 
     <div class="about-closer">
-      <p>When you work with myCIO, you work with us directly. Not a junior team, not a ticketing system. If something is not right, you come back to us.</p>
+      <p>When you work with myCIO, you work with us directly. No account managers, no junior handoffs, no ticketing system. We are accountable for the outcome, which means you always know who to call.</p>
     </div>
   </div>
 </section>
 
 
 <!-- CTA -->
-<section id="cta" class="sec-dark">
+<section id="cta" class="sec-warm">
   <div class="inner">
     <div class="cta-inner">
       <span class="sec-label">Ready when you are</span>
       <h2>Thirty minutes. You leave knowing exactly where you stand.</h2>
       <p>If your technology is costing more than it should and nobody senior is in charge of fixing that, let's talk. Plain language. No prep needed. No pitch.</p>
-      <a href="mailto:hello@mycio.co.nz" class="btn-primary">Book a 30 min call</a>
+      <div class="cta-btn-row">
+        <a href="/cdn-cgi/l/email-protection#5139343d3d3e113c2832383e7f323e7f3f2b" class="btn-primary">Book a 30 min call</a>
+        <a href="#signs" class="btn-secondary">Take the Health Check</a>
+      </div>
       <p class="cta-sub">Not ready to jump on a call yet? Get in touch and we will go from there.</p>
     </div>
   </div>
@@ -545,5 +914,245 @@
   <div class="f-copy">&copy; 2026 myCIO. New Zealand.</div>
 </footer>
 
-</body>
-</html>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const questions = [
+    {
+      area: "Accountability",
+      text: "Is there one person in your business who owns where your technology is going — and is accountable to you for the outcome?",
+      options: [
+        { label: "Yes, and it is working well", score: 3 },
+        { label: "Sort of — it is unclear or shared across a few people", score: 2 },
+        { label: "No, or I am not sure", score: 1 }
+      ]
+    },
+    {
+      area: "Spend clarity",
+      text: "Could you explain to your board today exactly what you spend on technology and what return each major item delivers?",
+      options: [
+        { label: "Yes, I have a clear picture", score: 3 },
+        { label: "I know the rough numbers but not the detail", score: 2 },
+        { label: "No — it would take me a while to pull that together", score: 1 }
+      ]
+    },
+    {
+      area: "Security posture",
+      text: "Do you have a current, documented picture of your security risks — and an active plan being worked through right now?",
+      options: [
+        { label: "Yes, it is documented and being actively managed", score: 3 },
+        { label: "We have something but I am not confident it is current", score: 2 },
+        { label: "No, or I honestly do not know", score: 1 }
+      ]
+    },
+    {
+      area: "Project delivery",
+      text: "Have your last three technology projects landed on time, on budget, and delivered what was promised?",
+      options: [
+        { label: "Yes, all or most of them", score: 3 },
+        { label: "Mixed — some did, some did not", score: 2 },
+        { label: "No, most stalled, overran, or did not deliver", score: 1 }
+      ]
+    },
+    {
+      area: "AI and automation",
+      text: "Is your business actively using AI or automation to save time or improve outcomes — not just talking about it?",
+      options: [
+        { label: "Yes, it is running and delivering results", score: 3 },
+        { label: "We have piloted a few things but nothing has stuck", score: 2 },
+        { label: "No — we talk about it but nothing has moved", score: 1 }
+      ]
+    },
+    {
+      area: "Vendor confidence",
+      text: "Are you confident your key technology vendors are performing, fairly priced, and not just renewing because it is easier than reviewing them?",
+      options: [
+        { label: "Yes, we review regularly and I am comfortable", score: 3 },
+        { label: "I think so, but we have not reviewed properly in a while", score: 2 },
+        { label: "No, or I would not know where to start", score: 1 }
+      ]
+    },
+    {
+      area: "Staff dependency",
+      text: "Could your business keep running normally if your most technology-reliant staff member left tomorrow?",
+      options: [
+        { label: "Yes, we have documentation and cover", score: 3 },
+        { label: "Mostly, but there are a few gaps", score: 2 },
+        { label: "No — we would be in trouble", score: 1 }
+      ]
+    },
+    {
+      area: "Board readiness",
+      text: "If your board asked about technology risk and roadmap today, could you answer confidently and in plain language?",
+      options: [
+        { label: "Yes, I have the information and I am comfortable", score: 3 },
+        { label: "I could give a rough answer but it would not be clean", score: 2 },
+        { label: "No — I would need time to prepare or would deflect", score: 1 }
+      ]
+    },
+    {
+      area: "Incident readiness",
+      text: "If a ransomware attack or major outage happened this week, do you have a tested plan for how the business responds?",
+      options: [
+        { label: "Yes, we have a tested plan", score: 3 },
+        { label: "We have something written down but it has not been tested", score: 2 },
+        { label: "No — we would be working it out as we go", score: 1 }
+      ]
+    },
+    {
+      area: "Strategic alignment",
+      text: "Does your current technology environment actively support where the business is going in the next two to three years?",
+      options: [
+        { label: "Yes, our technology and strategy are aligned", score: 3 },
+        { label: "Mostly, but there are gaps that concern me", score: 2 },
+        { label: "No — our technology is holding us back more than helping", score: 1 }
+      ]
+    }
+  ];
+
+  const TOTAL = questions.length;
+  let current = 0;
+  let answers = new Array(TOTAL).fill(null);
+
+  const qWrap    = document.querySelector('.hc-q-wrap');
+  const backBtn  = document.getElementById('hcBack');
+  const nextBtn  = document.getElementById('hcNext');
+  const counter  = document.getElementById('hcCounter');
+  const progress = document.getElementById('hcProgress');
+  const qSection = document.getElementById('hcQuestions');
+  const result   = document.getElementById('hcResult');
+
+  function renderQuestion(idx) {
+    const q = questions[idx];
+    const selected = answers[idx];
+    qWrap.innerHTML = `
+      <span class="hc-q-meta">Question ${idx + 1} of ${TOTAL} &mdash; ${q.area}</span>
+      <div class="hc-q-text">${q.text}</div>
+      <div class="hc-options">
+        ${q.options.map((o, i) => `
+          <button class="hc-option${selected === i ? ' selected' : ''}" onclick="selectAnswer(${idx}, ${i})">${o.label}</button>
+        `).join('')}
+      </div>
+    `;
+    counter.textContent = `${idx + 1} of ${TOTAL}`;
+    backBtn.disabled = idx === 0;
+    const answered = answers[idx] !== null;
+    nextBtn.textContent = idx === TOTAL - 1 ? 'See my results' : 'Next';
+    nextBtn.disabled = !answered;
+    progress.style.width = `${Math.round(((idx + (answered ? 1 : 0)) / TOTAL) * 100)}%`;
+  }
+
+  function selectAnswer(qIdx, optIdx) {
+    answers[qIdx] = optIdx;
+    renderQuestion(qIdx);
+  }
+
+  function hcNav(dir) {
+    const next = current + dir;
+    if (next >= TOTAL) {
+      showResults();
+      return;
+    }
+    current = Math.max(0, Math.min(TOTAL - 1, next));
+    renderQuestion(current);
+  }
+
+  function getScore() {
+    return answers.reduce((sum, a, i) => {
+      if (a === null) return sum;
+      return sum + questions[i].options[a].score;
+    }, 0);
+  }
+
+  function getBand(score) {
+    if (score >= 25) return { label: 'Stable', cls: 'band-stable' };
+    if (score >= 15) return { label: 'At Risk', cls: 'band-risk' };
+    return { label: 'Exposed', cls: 'band-exposed' };
+  }
+
+  function getFocusAreas() {
+    // Return areas where answer score was 1 (worst), sorted
+    const weak = [];
+    answers.forEach((a, i) => {
+      if (a !== null && questions[i].options[a].score === 1) {
+        weak.push(questions[i].area);
+      }
+    });
+    // If fewer than 2, also include score-2 areas
+    if (weak.length < 2) {
+      answers.forEach((a, i) => {
+        if (a !== null && questions[i].options[a].score === 2 && !weak.includes(questions[i].area)) {
+          weak.push(questions[i].area);
+        }
+      });
+    }
+    return weak.slice(0, 4);
+  }
+
+  const summaries = {
+    stable: `Your technology foundation is in reasonable shape. You have accountability, visibility, and a working handle on the basics. The question worth asking now is not "are we stable?" — it is whether stable is good enough, and whether your technology is actively driving the business forward.`,
+    risk: `There are gaps here that are likely costing you — in time, money, or exposure you cannot fully see yet. None of this is unusual for a business at your stage, and most of it is fixable with the right focus and the right person accountable for the outcome.`,
+    exposed: `Your technology environment has meaningful risk and is probably holding your business back more than you realise. The longer it goes unaddressed, the more expensive it becomes to fix. This is exactly the situation myCIO was built for.`
+  };
+
+  const ctaCopy = {
+    stable: `If anything in your results made you think, a 30-minute conversation with myCIO will give you a clearer picture than most businesses get from a full IT review. No prep needed. No pitch.`,
+    risk: `A 30-minute call with myCIO will tell you exactly where to start and what it looks like in practice. Plain language. No prep needed. No pitch.`,
+    exposed: `myCIO works with businesses in exactly this position. The first step is a 30-minute conversation. You will leave knowing what needs to be fixed, in what order, and what it will cost — before any long-term commitment is discussed.`
+  };
+
+  const scoreLabel = { 3: 'Good', 2: 'Partial', 1: 'Gap' };
+  const scoreClass = { 3: 'score-3', 2: 'score-2', 1: 'score-1' };
+
+  function showResults() {
+    const score = getScore();
+    const band = getBand(score);
+    const focus = getFocusAreas();
+    const bandKey = band.label === 'Stable' ? 'stable' : band.label === 'At Risk' ? 'risk' : 'exposed';
+
+    qSection.style.display = 'none';
+    progress.style.width = '100%';
+
+    const breakdownRows = answers.map((a, i) => {
+      const s = a !== null ? questions[i].options[a].score : 0;
+      return `<div class="hc-breakdown-row">
+        <span class="hc-bd-area">${questions[i].area}</span>
+        <span class="hc-bd-score ${scoreClass[s] || ''}">${scoreLabel[s] || ''}</span>
+      </div>`;
+    }).join('');
+
+    const focusItems = focus.length > 0
+      ? `<div class="hc-result-focus">
+          <span class="hc-result-focus-label">Areas to prioritise first</span>
+          <ul class="hc-focus-items">
+            ${focus.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+        </div>`
+      : '';
+
+    result.innerHTML = `
+      <div class="hc-score-display">
+        <div>
+          <span class="hc-score-num">${score}</span>
+          <span class="hc-score-denom"> / 30</span>
+        </div>
+        <div><span class="hc-score-band ${band.cls}">${band.label}</span></div>
+      </div>
+      <p class="hc-result-summary">${summaries[bandKey]}</p>
+      <div class="hc-result-breakdown">${breakdownRows}</div>
+      ${focusItems}
+      <div class="hc-result-cta">
+        <p>${ctaCopy[bandKey]}</p>
+        <a href="mailto:hello@mycio.co.nz" class="btn-primary">Book a 30-minute call with myCIO</a>
+        <br>
+        <button class="hc-retry" onclick="resetCheck()">Start over</button>
+      </div>
+    `;
+
+    result.classList.add('visible');
+    document.getElementById('hcResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetCheck() {
+    answers = new Array(TOTAL).fill(null);
+    current = 0;
+    result.classList.remove('visible')
