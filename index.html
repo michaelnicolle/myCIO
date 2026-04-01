@@ -598,6 +598,105 @@
       font-size: 0.85rem; color: var(--muted);
       margin-top: 0; margin-bottom: 0;
     }
+    .cta-how-we-start {
+      max-width: 440px; margin: 28px auto 0;
+      border-top: 1px solid var(--border);
+      padding-top: 24px; text-align: center;
+    }
+    .cta-how-we-start p {
+      font-size: 0.875rem; color: var(--muted); line-height: 1.75; margin-bottom: 0;
+    }
+    .cta-availability {
+      margin-top: 20px;
+      font-size: 0.8rem; color: rgba(149,145,139,0.55);
+      font-style: italic; text-align: center;
+    }
+
+    /* PRICING PANEL */
+    .pricing-panel {
+      max-width: 680px; margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+    }
+    .pricing-panel-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber);
+      display: block; margin-bottom: 10px;
+    }
+    .pricing-panel-heading {
+      font-family: var(--head); font-size: 1.2rem; font-weight: 800;
+      color: var(--white); margin-bottom: 14px; line-height: 1.2;
+    }
+    .pricing-panel p {
+      font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 12px;
+    }
+    .pricing-panel p:last-child { margin-bottom: 0; }
+    .pricing-modes {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin: 18px 0;
+    }
+    @media (max-width: 540px) {
+      .pricing-modes { grid-template-columns: 1fr; }
+      .pricing-panel { padding: 24px 20px; }
+    }
+    .pricing-mode {
+      background: var(--bg-warm); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px 18px;
+    }
+    .pricing-mode-title {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: 6px; display: block;
+    }
+    .pricing-mode p {
+      font-size: 0.85rem; color: var(--muted); margin: 0; line-height: 1.6;
+    }
+
+    /* RIGHT FOR YOU */
+    .rfy-wrap {
+      max-width: 680px; margin: 0 auto 52px;
+    }
+    .rfy-intro {
+      text-align: center; margin-bottom: 24px;
+    }
+    .rfy-intro p { font-size: 1.05rem; }
+    .rfy-list {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .rfy-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px 20px;
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: border-color .2s;
+    }
+    .rfy-item:hover { border-color: var(--border-h); }
+    .rfy-tick {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1.5px solid var(--amber-bd);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .rfy-tick::after {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--amber);
+    }
+    .rfy-text {
+      font-size: 0.9rem; color: var(--text); line-height: 1.6;
+    }
+
+    /* BIO RESULT */
+    .bio-result {
+      margin-top: 12px; padding: 12px 14px;
+      background: rgba(233,168,76,0.06);
+      border-left: 2px solid var(--amber-bd);
+      border-radius: 0;
+    }
+    .bio-result p {
+      font-size: 0.825rem; color: var(--muted);
+      font-style: italic; line-height: 1.65; margin: 0;
+    }
 
     /* FOOTER */
     footer {
@@ -638,11 +737,12 @@
     <div class="tag-pill">Fractional technology leadership</div>
     <h1>We lead technology<br>so you can focus on<br><em>the business.</em></h1>
     <p class="hero-sub">A tight-knit team of senior technology leaders, embedded in your business and accountable for the outcome. Not a helpdesk. Not a vendor. A team that comes in, takes ownership, and delivers.</p>
-    <span class="hero-tag">For businesses that are ready for technology to actually work.</span>
+    <span class="hero-tag">Built for the NZ and Australian mid-market. We know the vendors, the constraints, and what works for businesses your size.</span>
     <div class="hero-cta-row">
-      <a href="#cta" class="btn-primary">Book a 30 min call</a>
-      <a href="#signs" class="btn-secondary">Take the Health Check</a>
+      <a href="#cta" class="btn-primary">Get a free technology review</a>
+      <a href="#signs" class="btn-secondary">Find out where tech is costing you</a>
     </div>
+    <span style="font-size:12px;color:rgba(149,145,139,0.4);margin-top:12px;display:block;">30 minutes. No prep needed. No pitch. Health check: no email required, results shown instantly.</span>
   </div>
 </div>
 
@@ -766,8 +866,31 @@
 </section>
 
 
+<!-- PRICING -->
+<section id="pricing" class="sec-warm">
+  <div class="inner">
+    <div class="pricing-panel">
+      <span class="pricing-panel-label">How we engage</span>
+      <div class="pricing-panel-heading">Structured around where you are, not a standard package.</div>
+      <p>Every business we work with is at a different point. Some need a defined piece of work to get things under control. Others need ongoing senior leadership embedded for the long term. Most need both, in the right order.</p>
+      <div class="pricing-modes">
+        <div class="pricing-mode">
+          <span class="pricing-mode-title">Fixed fee engagement</span>
+          <p>A scoped piece of work with a clear outcome. Typically used in the Discover and Stabilise stages, where the priority is getting an honest picture and fixing the foundations before committing to more.</p>
+        </div>
+        <div class="pricing-mode">
+          <span class="pricing-mode-title">Monthly retainer</span>
+          <p>Ongoing senior technology leadership, embedded in your business. Used once the foundations are in place and the focus shifts to standardising, transforming, and keeping the business protected.</p>
+        </div>
+      </div>
+      <p>We will give you a clear number in the first conversation, scoped to your situation, before any commitment is discussed. The goal of that conversation is to make sure we are the right fit, not to sell you something.</p>
+    </div>
+  </div>
+</section>
+
+
 <!-- SIGNS + HEALTH CHECK -->
-<section id="signs" class="sec-warm">
+<section id="signs" class="sec-dark">
   <div class="inner">
     <span class="sec-label">Does this sound like your business?</span>
     <h2>Five signs your technology is working against you</h2>
@@ -821,6 +944,31 @@
 
     <p class="transition-line">If two or more of these sound familiar, your technology is costing you more than it should, and the gap does not close on its own.</p>
 
+    <div class="rfy-wrap">
+      <div class="rfy-intro">
+        <span class="sec-label">Is myCIO right for you?</span>
+        <p>We work best with businesses in a specific situation. These are the four we see most often.</p>
+      </div>
+      <div class="rfy-list">
+        <div class="rfy-item">
+          <div class="rfy-tick"></div>
+          <div class="rfy-text">You have grown past the point where your IT provider is enough, but you are not ready to hire a full-time CTO. You need senior leadership without the overhead.</div>
+        </div>
+        <div class="rfy-item">
+          <div class="rfy-tick"></div>
+          <div class="rfy-text">Your board is asking technology questions you cannot answer cleanly. Risk, spend, roadmap. The honest answer is "I will find out," and that is happening more often than it should.</div>
+        </div>
+        <div class="rfy-item">
+          <div class="rfy-tick"></div>
+          <div class="rfy-text">You have a technology project that has stalled, overrun, or been restarted more than once, and nobody in the room is equipped to take charge and finish it.</div>
+        </div>
+        <div class="rfy-item">
+          <div class="rfy-tick"></div>
+          <div class="rfy-text">You are about to make a significant technology investment and want a senior, independent voice in the room before you commit. Someone whose only agenda is getting it right for your business.</div>
+        </div>
+      </div>
+    </div>
+
     <div class="insight-panel">
       <p>Most NZ businesses are spending significantly more on technology than they need to.</p>
       <p>Not because they are buying the wrong things, because nobody is reviewing contracts, renegotiating vendors, or making sure what was set up three years ago still makes sense for the business today.</p>
@@ -860,7 +1008,7 @@
 
 
 <!-- ABOUT -->
-<section id="about" class="sec-dark">
+<section id="about" class="sec-warm">
   <div class="inner">
     <span class="sec-label">Who we are</span>
     <h2>A small team. A big difference.</h2>
@@ -877,6 +1025,7 @@
         <span class="profile-strength">Strategy, Security and Governance</span>
         <hr class="profile-divider">
         <p>Elton is the person in the room when the conversation turns to risk, governance, or what the board actually needs to hear. Twenty years across strategy, security, and technology leadership. He translates complexity into decisions that make sense to owners, CFOs, and directors. If the question is "are we exposed?" or "are we ready?", Elton gives you a straight answer.</p>
+        <div class="bio-result"><p>Elton restructured the technology governance of a NZ business ahead of a board-level compliance review. They went in uncertain and came out clean, on schedule, with no surprises.</p></div>
       </div>
       <div class="profile-card">
         <div class="avatar">MN</div>
@@ -885,6 +1034,7 @@
         <span class="profile-strength">Delivery, Operations and Transformation</span>
         <hr class="profile-divider">
         <p>Michael is the person who makes things land. Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. He understands what good looks like in the real world, not just on paper. If a project has stalled, a system is breaking trust, or a vendor relationship has run its course, Michael takes charge.</p>
+        <div class="bio-result"><p>Michael took over a technology migration for a multi-site NZ business that had been running well past its original timeline. He reset the scope, rebuilt the plan, and delivered it. The business has not looked back.</p></div>
       </div>
     </div>
 
@@ -896,17 +1046,21 @@
 
 
 <!-- CTA -->
-<section id="cta" class="sec-warm">
+<section id="cta" class="sec-dark">
   <div class="inner">
     <div class="cta-inner">
       <span class="sec-label">Ready when you are</span>
-      <h2>Thirty minutes. You leave knowing exactly where you stand.</h2>
+      <h2>Get a clear picture of your technology risk. Free. Thirty minutes.</h2>
       <p>If your technology is costing more than it should and nobody senior is in charge of fixing that, let's talk. Plain language. No prep needed. No pitch.</p>
       <div class="cta-btn-row">
-        <a href="/cdn-cgi/l/email-protection#5139343d3d3e113c2832383e7f323e7f3f2b" class="btn-primary">Book a 30 min call</a>
-        <a href="#signs" class="btn-secondary">Take the Health Check</a>
+        <a href="mailto:hello@mycio.co.nz" class="btn-primary">Book a free technology review</a>
+        <a href="#signs" class="btn-secondary">Take the Health Check first</a>
       </div>
       <p class="cta-sub">Not ready to jump on a call yet? Get in touch and we will go from there.</p>
+      <div class="cta-how-we-start">
+        <p>We begin every engagement with a structured 30-day discovery. You get a clear picture of your situation and a recommended path forward, including what it will cost before any longer commitment is discussed. If it is not the right fit, we will tell you that too.</p>
+      </div>
+      <p class="cta-availability">We work with a small number of businesses at any one time. If you are thinking about it, it is worth a conversation now.</p>
     </div>
   </div>
 </section>
