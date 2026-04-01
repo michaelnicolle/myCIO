@@ -48,6 +48,11 @@
       border-bottom: 1px solid var(--border);
       padding: 0 32px; height: 62px;
       display: flex; align-items: center;
+      justify-content: center;
+    }
+    .nav-inner {
+      max-width: var(--max); width: 100%;
+      display: flex; align-items: center;
       justify-content: space-between; gap: 24px;
     }
     .nav-brand {
@@ -615,13 +620,14 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-brand">my<span>CIO</span></a>
-  <ul class="nav-links">
-    <li><a href="#journey">How we work</a></li>
-	<li><a href="#signs">Is your tech costing you?</a></li>
-	<li><a href="#about">Who we are</a></li>
-  </ul>
-  <a href="#cta" class="btn-ghost">Let's chat</a>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">my<span>CIO</span></a>
+    <ul class="nav-links">
+      <li><a href="#journey">How we work</a></li>
+      <li><a href="#signs">Is your tech costing you?</a></li>
+    </ul>
+    <a href="#cta" class="btn-ghost">Book a call</a>
+  </div>
 </nav>
 
 
@@ -667,14 +673,14 @@
           <li>A senior team accountable for all of it</li>
           <li>Predictable investment, with clear return on every dollar</li>
           <li>Known risk posture, actively managed and clearly reported</li>
-          <li>AI and automation that actually sticks — driven by people who have done it before</li>
+          <li>AI and automation that actually sticks, driven by people who have done it before</li>
           <li>Projects that land the way they were planned, with someone accountable if they don't</li>
-          <li>Clean answers when the board asks — because we prepared them with you</li>
+          <li>Clean answers when the board asks, because we prepared them with you</li>
         </ul>
       </div>
     </div>
 
-    <p class="problem-punchline">There is no single person in the room who actually owns the outcome. That is the gap myCIO fills.</p>
+    <p class="problem-punchline">If that landed, you already know the cost of leaving it unsolved. myCIO puts a senior team in that gap, accountable, embedded, and focused on the outcome.</p>
   </div>
 </section>
 
@@ -698,7 +704,7 @@
         <div class="step-body">
           <span class="step-tag">Week 1–2</span>
           <div class="step-title">Discover</div>
-          <p class="step-desc">We get under the hood. Honest picture, no upsell agenda. You find out exactly where you stand — risks, gaps, and quick wins.</p>
+          <p class="step-desc">We get under the hood. Honest picture, no upsell agenda. You find out exactly where you stand. Risks, gaps, and quick wins.</p>
           <p class="step-outcome">By the end of week two, you have a clear written picture of every risk, every gap, and where to act first.</p>
         </div>
       </div>
@@ -737,7 +743,7 @@
         <div class="step-body">
           <span class="step-tag">Month 4 onwards</span>
           <div class="step-title">Transform</div>
-          <p class="step-desc">Modern work, AI, and automation built alongside you — not pilots that go nowhere. Real competitive advantage, in ways that stick.</p>
+          <p class="step-desc">Modern work, AI, and automation built alongside you, not pilots that go nowhere. Real competitive advantage, in ways that stick.</p>
           <p class="step-outcome">This is where technology stops being a cost centre and starts giving the business a genuine edge.</p>
         </div>
       </div>
@@ -775,7 +781,7 @@
         <div class="sign-num">1</div>
         <div class="sign-content">
           <div class="sign-title">Your IT provider is reactive, not strategic.</div>
-          <p class="sign-body">They fix what breaks. Nobody is looking ahead, managing risk, or telling you what is coming before it arrives. The relationship is comfortable — but it is not moving the business forward.</p>
+          <p class="sign-body">They fix what breaks. Nobody is looking ahead, managing risk, or telling you what is coming before it arrives. The relationship is comfortable, but it is not moving the business forward.</p>
         </div>
       </div>
 
@@ -799,7 +805,7 @@
         <div class="sign-num">4</div>
         <div class="sign-content">
           <div class="sign-title">Security feels like something you hope is being handled.</div>
-          <p class="sign-body">You have tools. You have a provider. But if someone asked you right now what your actual exposure is, you could not give a straight answer — and neither could they.</p>
+          <p class="sign-body">You have tools. You have a provider. But if someone asked you right now what your actual exposure is, you could not give a straight answer, and neither could they.</p>
         </div>
       </div>
 
@@ -813,11 +819,11 @@
 
     </div>
 
-    <p class="transition-line">If two or more of these sound familiar, your technology is costing you more than it should — and the gap does not close on its own.</p>
+    <p class="transition-line">If two or more of these sound familiar, your technology is costing you more than it should, and the gap does not close on its own.</p>
 
     <div class="insight-panel">
       <p>Most NZ businesses are spending significantly more on technology than they need to.</p>
-      <p>Not because they are buying the wrong things — because nobody is reviewing contracts, renegotiating vendors, or making sure what was set up three years ago still makes sense for the business today.</p>
+      <p>Not because they are buying the wrong things, because nobody is reviewing contracts, renegotiating vendors, or making sure what was set up three years ago still makes sense for the business today.</p>
       <p>That is not a technology problem. It is a leadership problem. And it is exactly what myCIO fixes.</p>
     </div>
 
@@ -837,9 +843,9 @@
         <div id="hcQuestions">
           <div class="hc-q-wrap"></div>
           <div class="hc-nav">
-            <button class="hc-nav-btn" id="hcBack" onclick="hcNav(-1)" disabled>Back</button>
+            <button class="hc-nav-btn" id="hcBack" disabled>Back</button>
             <span class="hc-q-counter" id="hcCounter">1 of 10</span>
-            <button class="hc-nav-btn primary" id="hcNext" onclick="hcNav(1)">Next</button>
+            <button class="hc-nav-btn primary" id="hcNext">Next</button>
           </div>
         </div>
 
@@ -870,7 +876,7 @@
         <span class="profile-role">Founder and Director</span>
         <span class="profile-strength">Strategy, Security and Governance</span>
         <hr class="profile-divider">
-        <p>Elton is the person in the room when the conversation turns to risk, governance, or what the board actually needs to hear. Twenty years across strategy, security, and technology leadership — he translates complexity into decisions that make sense to owners, CFOs, and directors. If the question is "are we exposed?" or "are we ready?", Elton gives you a straight answer.</p>
+        <p>Elton is the person in the room when the conversation turns to risk, governance, or what the board actually needs to hear. Twenty years across strategy, security, and technology leadership. He translates complexity into decisions that make sense to owners, CFOs, and directors. If the question is "are we exposed?" or "are we ready?", Elton gives you a straight answer.</p>
       </div>
       <div class="profile-card">
         <div class="avatar">MN</div>
@@ -878,7 +884,7 @@
         <span class="profile-role">Founder and Director</span>
         <span class="profile-strength">Delivery, Operations and Transformation</span>
         <hr class="profile-divider">
-        <p>Michael is the person who makes things land. Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits — he understands what good looks like in the real world, not just on paper. If a project has stalled, a system is breaking trust, or a vendor relationship has run its course, Michael is the one who fixes it and keeps it fixed.</p>
+        <p>Michael is the person who makes things land. Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. He understands what good looks like in the real world, not just on paper. If a project has stalled, a system is breaking trust, or a vendor relationship has run its course, Michael takes charge.</p>
       </div>
     </div>
 
@@ -915,13 +921,14 @@
 
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function () {
   const questions = [
     {
       area: "Accountability",
-      text: "Is there one person in your business who owns where your technology is going — and is accountable to you for the outcome?",
+      text: "Is there one person in your business who owns where your technology is going, and is accountable to you for the outcome?",
       options: [
         { label: "Yes, and it is working well", score: 3 },
-        { label: "Sort of — it is unclear or shared across a few people", score: 2 },
+        { label: "Sort of, it is unclear or shared across a few people", score: 2 },
         { label: "No, or I am not sure", score: 1 }
       ]
     },
@@ -931,12 +938,12 @@
       options: [
         { label: "Yes, I have a clear picture", score: 3 },
         { label: "I know the rough numbers but not the detail", score: 2 },
-        { label: "No — it would take me a while to pull that together", score: 1 }
+        { label: "No, it would take me a while to pull that together take me a while to pull that together", score: 1 }
       ]
     },
     {
       area: "Security posture",
-      text: "Do you have a current, documented picture of your security risks — and an active plan being worked through right now?",
+      text: "Do you have a current, documented picture of your security risks, and an active plan being worked through right now?",
       options: [
         { label: "Yes, it is documented and being actively managed", score: 3 },
         { label: "We have something but I am not confident it is current", score: 2 },
@@ -948,17 +955,17 @@
       text: "Have your last three technology projects landed on time, on budget, and delivered what was promised?",
       options: [
         { label: "Yes, all or most of them", score: 3 },
-        { label: "Mixed — some did, some did not", score: 2 },
+        { label: "Mixed, some did, some did not", score: 2 },
         { label: "No, most stalled, overran, or did not deliver", score: 1 }
       ]
     },
     {
       area: "AI and automation",
-      text: "Is your business actively using AI or automation to save time or improve outcomes — not just talking about it?",
+      text: "Is your business actively using AI or automation to save time or improve outcomes, not just talking about it?",
       options: [
         { label: "Yes, it is running and delivering results", score: 3 },
         { label: "We have piloted a few things but nothing has stuck", score: 2 },
-        { label: "No — we talk about it but nothing has moved", score: 1 }
+        { label: "No, we talk about it but nothing has moved", score: 1 }
       ]
     },
     {
@@ -976,7 +983,7 @@
       options: [
         { label: "Yes, we have documentation and cover", score: 3 },
         { label: "Mostly, but there are a few gaps", score: 2 },
-        { label: "No — we would be in trouble", score: 1 }
+        { label: "No, we would be in trouble", score: 1 }
       ]
     },
     {
@@ -985,7 +992,7 @@
       options: [
         { label: "Yes, I have the information and I am comfortable", score: 3 },
         { label: "I could give a rough answer but it would not be clean", score: 2 },
-        { label: "No — I would need time to prepare or would deflect", score: 1 }
+        { label: "No, I would need time to prepare or would deflect", score: 1 }
       ]
     },
     {
@@ -994,7 +1001,7 @@
       options: [
         { label: "Yes, we have a tested plan", score: 3 },
         { label: "We have something written down but it has not been tested", score: 2 },
-        { label: "No — we would be working it out as we go", score: 1 }
+        { label: "No, we would be working it out as we go", score: 1 }
       ]
     },
     {
@@ -1003,7 +1010,7 @@
       options: [
         { label: "Yes, our technology and strategy are aligned", score: 3 },
         { label: "Mostly, but there are gaps that concern me", score: 2 },
-        { label: "No — our technology is holding us back more than helping", score: 1 }
+        { label: "No, our technology is holding us back more than helping", score: 1 }
       ]
     }
   ];
@@ -1024,11 +1031,11 @@
     const q = questions[idx];
     const selected = answers[idx];
     qWrap.innerHTML = `
-      <span class="hc-q-meta">Question ${idx + 1} of ${TOTAL} &mdash; ${q.area}</span>
+      <span class="hc-q-meta">Question ${idx + 1} of ${TOTAL}: ${q.area}</span>
       <div class="hc-q-text">${q.text}</div>
       <div class="hc-options">
         ${q.options.map((o, i) => `
-          <button class="hc-option${selected === i ? ' selected' : ''}" onclick="selectAnswer(${idx}, ${i})">${o.label}</button>
+          <button class="hc-option${selected === i ? ' selected' : ''}" data-qidx="${idx}" data-oidx="${i}">${o.label}</button>
         `).join('')}
       </div>
     `;
@@ -1038,21 +1045,6 @@
     nextBtn.textContent = idx === TOTAL - 1 ? 'See my results' : 'Next';
     nextBtn.disabled = !answered;
     progress.style.width = `${Math.round(((idx + (answered ? 1 : 0)) / TOTAL) * 100)}%`;
-  }
-
-  function selectAnswer(qIdx, optIdx) {
-    answers[qIdx] = optIdx;
-    renderQuestion(qIdx);
-  }
-
-  function hcNav(dir) {
-    const next = current + dir;
-    if (next >= TOTAL) {
-      showResults();
-      return;
-    }
-    current = Math.max(0, Math.min(TOTAL - 1, next));
-    renderQuestion(current);
   }
 
   function getScore() {
@@ -1088,15 +1080,15 @@
   }
 
   const summaries = {
-    stable: `Your technology foundation is in reasonable shape. You have accountability, visibility, and a working handle on the basics. The question worth asking now is not "are we stable?" — it is whether stable is good enough, and whether your technology is actively driving the business forward.`,
-    risk: `There are gaps here that are likely costing you — in time, money, or exposure you cannot fully see yet. None of this is unusual for a business at your stage, and most of it is fixable with the right focus and the right person accountable for the outcome.`,
+    stable: `Your technology foundation is in reasonable shape. You have accountability, visibility, and a working handle on the basics. The question worth asking now is not "are we stable?" It is whether stable is good enough, and whether your technology is actively driving the business forward.`,
+    risk: `There are gaps here that are likely costing you in time, money, or exposure you cannot fully see yet. None of this is unusual for a business at your stage, and most of it is fixable with the right focus and the right person accountable for the outcome.`,
     exposed: `Your technology environment has meaningful risk and is probably holding your business back more than you realise. The longer it goes unaddressed, the more expensive it becomes to fix. This is exactly the situation myCIO was built for.`
   };
 
   const ctaCopy = {
     stable: `If anything in your results made you think, a 30-minute conversation with myCIO will give you a clearer picture than most businesses get from a full IT review. No prep needed. No pitch.`,
     risk: `A 30-minute call with myCIO will tell you exactly where to start and what it looks like in practice. Plain language. No prep needed. No pitch.`,
-    exposed: `myCIO works with businesses in exactly this position. The first step is a 30-minute conversation. You will leave knowing what needs to be fixed, in what order, and what it will cost — before any long-term commitment is discussed.`
+    exposed: `myCIO works with businesses in exactly this position. The first step is a 30-minute conversation. You will leave knowing what needs to be fixed, in what order, and what it will cost before any long-term commitment is discussed.`
   };
 
   const scoreLabel = { 3: 'Good', 2: 'Partial', 1: 'Gap' };
@@ -1143,7 +1135,7 @@
         <p>${ctaCopy[bandKey]}</p>
         <a href="mailto:hello@mycio.co.nz" class="btn-primary">Book a 30-minute call with myCIO</a>
         <br>
-        <button class="hc-retry" onclick="resetCheck()">Start over</button>
+        <button class="hc-retry" id="hcRetry">Start over</button>
       </div>
     `;
 
@@ -1154,4 +1146,46 @@
   function resetCheck() {
     answers = new Array(TOTAL).fill(null);
     current = 0;
-    result.classList.remove('visible')
+    result.classList.remove('visible');
+    result.innerHTML = '';
+    qSection.style.display = '';
+    renderQuestion(0);
+  }
+
+  // Wire up nav buttons
+  backBtn.addEventListener('click', function () {
+    current = Math.max(0, current - 1);
+    renderQuestion(current);
+  });
+
+  nextBtn.addEventListener('click', function () {
+    const next = current + 1;
+    if (next >= TOTAL) {
+      showResults();
+    } else {
+      current = next;
+      renderQuestion(current);
+    }
+  });
+
+  // Wire up answer options via event delegation on the question wrapper
+  qWrap.addEventListener('click', function (e) {
+    const btn = e.target.closest('.hc-option');
+    if (!btn) return;
+    const qIdx = parseInt(btn.dataset.qidx, 10);
+    const oIdx = parseInt(btn.dataset.oidx, 10);
+    answers[qIdx] = oIdx;
+    renderQuestion(qIdx);
+  });
+
+  // Wire up retry button (injected into DOM on showResults)
+  result.addEventListener('click', function (e) {
+    if (e.target.id === 'hcRetry' || e.target.closest('#hcRetry')) {
+      resetCheck();
+    }
+  });
+
+  // Init
+  renderQuestion(0);
+}());
+</script>
