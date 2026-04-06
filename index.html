@@ -74,12 +74,12 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--white);
-    background: var(--ink);
+    background: var(--accent);
     padding: 10px 22px;
     text-decoration: none;
     transition: background 0.2s;
   }
-  .nav-cta:hover { background: var(--accent); }
+  .nav-cta:hover { background: #4a4845; }
 
   /* ── HERO ── */
   .hero {
@@ -154,7 +154,7 @@
 
   .btn-primary {
     display: inline-block;
-    background: var(--ink);
+    background: var(--accent);
     color: var(--white);
     padding: 14px 32px;
     font-size: 0.85rem;
@@ -164,7 +164,7 @@
     text-decoration: none;
     transition: background 0.2s, transform 0.15s;
   }
-  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-primary:hover { background: #4a4845; transform: translateY(-1px); }
 
   .btn-text {
     font-size: 0.85rem;
@@ -410,7 +410,7 @@
   /* ── DIFFERENTIATION ── */
   .section-diff {
     padding: 100px 0;
-    background: var(--paper-warm);
+    background: var(--ink);
   }
 
   .diff-grid {
@@ -423,7 +423,7 @@
   .diff-card {
     background: transparent;
     padding: 48px 52px 48px 0;
-    border-right: 1px solid var(--rule);
+    border-right: 1px solid rgba(255,255,255,0.1);
     padding-right: 52px;
     opacity: 0;
     transform: translateY(20px);
@@ -433,6 +433,7 @@
   .diff-card:last-child { border-right: none; padding-right: 0; padding-left: 52px; }
   .diff-card:nth-child(2) { padding-left: 52px; padding-right: 52px; transition-delay: 0.1s; }
   .diff-card:nth-child(3) { transition-delay: 0.2s; }
+  .diff-card:hover { background: rgba(255,255,255,0.03); }
   .diff-card.visible { opacity: 1; transform: translateY(0); }
 
   .diff-icon {
@@ -445,13 +446,13 @@
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: var(--ink);
+    color: var(--white);
     margin-bottom: 14px;
   }
 
   .diff-body {
     font-size: 0.88rem;
-    color: var(--mid);
+    color: rgba(255,255,255,0.55);
     font-weight: 300;
     line-height: 1.8;
   }
@@ -529,8 +530,8 @@
   /* ── PROOF ── */
   .section-proof {
     padding: 100px 0;
-    background: var(--ink);
-    color: var(--white);
+    background: var(--paper-warm);
+    color: var(--ink);
     overflow: hidden;
   }
 
@@ -548,7 +549,7 @@
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.03em;
-    color: var(--white);
+    color: var(--ink);
     margin-bottom: 32px;
   }
   .proof-headline em { color: var(--accent); font-style: italic; }
@@ -557,7 +558,7 @@
   .proof-item {
     display: flex; align-items: baseline; gap: 14px;
     font-size: 0.93rem;
-    color: rgba(255,255,255,0.65);
+    color: var(--mid);
     font-weight: 300;
     line-height: 1.6;
   }
@@ -572,10 +573,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2px;
-    background: rgba(255,255,255,0.08);
+    background: var(--rule);
   }
   .proof-stat {
-    background: rgba(255,255,255,0.04);
+    background: var(--paper-warm);
     padding: 40px 32px;
     text-align: center;
   }
@@ -584,7 +585,7 @@
     font-size: 3rem;
     font-weight: 700;
     letter-spacing: -0.04em;
-    color: var(--white);
+    color: var(--ink);
     line-height: 1;
     margin-bottom: 8px;
   }
@@ -593,13 +594,13 @@
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
+    color: var(--mid);
   }
 
   /* ── CTA ── */
   .section-cta {
     padding: 140px 0;
-    background: var(--paper);
+    background: var(--ink);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -612,10 +613,10 @@
     font-family: var(--serif);
     font-size: 18vw;
     font-weight: 700;
-    color: var(--rule);
+    color: rgba(255,255,255,0.04);
     white-space: nowrap;
     pointer-events: none;
-    opacity: 0.35;
+    opacity: 1;
     letter-spacing: -0.05em;
     user-select: none;
   }
@@ -628,12 +629,12 @@
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
-    color: var(--ink);
+    color: var(--white);
     margin-bottom: 24px;
   }
   .cta-sub {
     font-size: 1.05rem;
-    color: var(--mid);
+    color: rgba(255,255,255,0.55);
     font-weight: 300;
     line-height: 1.7;
     margin-bottom: 48px;
@@ -649,7 +650,7 @@
 
   .cta-note {
     font-size: 0.8rem;
-    color: var(--mid);
+    color: rgba(255,255,255,0.35);
     margin-top: 20px;
     font-weight: 300;
   }
@@ -746,15 +747,7 @@
     position: relative;
   }
 
-  /* Subtle grain texture */
-  .process::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
+
 
   /* ══ TOP LABEL BAR ══ */
   .process-label-bar {
@@ -1040,7 +1033,6 @@
     font-weight: 300;
     color: rgba(255,255,255,0.6);
     line-height: 1.75;
-    max-width: 480px;
     margin-bottom: 56px;
   }
 
@@ -1525,9 +1517,9 @@
 
   .services-headline {
     font-family: var(--serif);
-    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
     font-weight: 700;
-    line-height: 1.15;
+    line-height: 1.08;
     letter-spacing: -0.03em;
     color: var(--ink);
     margin-bottom: 16px;
@@ -1583,6 +1575,185 @@
     .services-grid { grid-template-columns: 1fr; }
     .section-services { padding: 64px 0; }
   }
+
+  /* ── FOUNDER BADGES (Why myCIO footer) ── */
+  .diff-founders {
+    display: flex;
+    gap: 24px;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .founder-badge {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.03);
+    flex: 1;
+    transition: background 0.2s;
+  }
+  .founder-badge:hover { background: rgba(255,255,255,0.06); }
+
+  .founder-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--white);
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+
+  .founder-name {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 3px;
+  }
+
+  .founder-role {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .founder-descriptor {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 640px) {
+    .diff-founders { flex-direction: column; gap: 12px; }
+  }
+
+  /* ── TEAM SECTION ── */
+  .section-team {
+    padding: 100px 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .section-team .section-label { color: var(--accent); }
+  .section-team .section-label::after { background: var(--rule); }
+
+  .team-headline {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .team-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.75;
+    margin-bottom: 56px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--rule);
+  }
+
+  .team-card {
+    background: var(--paper);
+    padding: 48px;
+  }
+
+  .team-photo {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  .team-name {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .team-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .team-descriptor {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--mid);
+    margin-bottom: 20px;
+    line-height: 1.5;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .team-bio {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .team-proof {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.7;
+    padding-left: 16px;
+    border-left: 2px solid var(--accent);
+    font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .team-grid { grid-template-columns: 1fr; }
+    .team-card { padding: 40px 32px; }
+  }
+
+  @media (max-width: 600px) {
+    .section-team { padding: 64px 0; }
+    .team-card { padding: 32px 24px; }
+  }
+
 </style>
 </head>
 <body>
@@ -1593,6 +1764,7 @@
   <ul class="nav-links">
     <li><a href="#how">How we work</a></li>
     <li><a href="#services">What we do</a></li>
+    <li><a href="#signs">Health check</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Talk to us</a>
 </nav>
@@ -1978,8 +2150,9 @@
 <!-- DIFFERENTIATION -->
 <section class="section-diff">
   <div class="container">
-    <div class="section-label">Why myCIO</div>
-    <p style="font-size:1rem;font-weight:300;color:var(--mid);line-height:1.75;margin-bottom:48px;max-width:560px;">Three things no one else in this market is doing together.</p>
+    <div class="section-label" style="color:var(--accent-soft);">Why myCIO</div>
+    <p style="font-size:1rem;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:8px;max-width:560px;">Three things no one else in this market is doing together.</p>
+    <p style="font-size:1rem;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:48px;max-width:560px;">Delivered by the two people whose names are on the door.</p>
     <div class="diff-grid">
 
       <div class="diff-card">
@@ -2017,6 +2190,27 @@
       </div>
 
     </div>
+
+    <!-- Founder badges — Elton first (alphabetical) -->
+    <div class="diff-founders">
+      <div class="founder-badge">
+        <div class="founder-avatar">EM</div>
+        <div>
+          <div class="founder-name">Elton McDowall</div>
+          <div class="founder-role">Co-founder and Director</div>
+          <div class="founder-descriptor">Strategy, security and governance</div>
+        </div>
+      </div>
+      <div class="founder-badge">
+        <div class="founder-avatar">MN</div>
+        <div>
+          <div class="founder-name">Michael Nicolle</div>
+          <div class="founder-role">Co-founder and Director</div>
+          <div class="founder-descriptor">Delivery, operations and transformation</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -2026,8 +2220,7 @@
   <div class="container">
     <div class="section-label">What we actually do</div>
     <div class="services-intro">
-      <h2 class="services-headline">Senior technology leadership. Delivered across the full stack of what your business runs on.</h2>
-      <p class="services-sub">Here is what having myCIO in your business looks like in practice.</p>
+      <h2 class="services-headline">Senior technology leadership. Across everything your business depends on.</h2>
     </div>
 
     <div class="services-grid">
@@ -2047,6 +2240,27 @@
 
       <div class="service-card">
         <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="14" height="14" rx="1" stroke="#c8401e" stroke-width="1.5"/>
+          <rect x="20" y="2" width="14" height="14" rx="1" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.4"/>
+          <rect x="2" y="20" width="14" height="14" rx="1" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.4"/>
+          <rect x="20" y="20" width="14" height="14" rx="1" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.4"/>
+          <path d="M16 9 L20 9" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.5"/>
+          <path d="M9 16 L9 20" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.5"/>
+        </svg>
+        <div class="service-name">Technology project leadership</div>
+        <p class="service-body">Projects that have stalled, overrun, or need a reset. We take charge, rebuild the plan, and deliver. Accountable for the outcome, not just the hours. If something goes wrong, we fix it.</p>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 3 L22 10 L30 11 L24 17 L26 25 L18 21 L10 25 L12 17 L6 11 L14 10 Z" stroke="#c8401e" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+        </svg>
+        <div class="service-name">Security and governance</div>
+        <p class="service-body">Risk frameworks, compliance preparation, incident readiness, and clear board reporting. Security that is actively managed, not something you hope is being handled by someone else.</p>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="2" y="8" width="32" height="20" rx="1" stroke="#c8401e" stroke-width="1.5"/>
           <line x1="2" y1="14" x2="34" y2="14" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.4"/>
           <circle cx="10" cy="11" r="1.5" fill="#c8401e" opacity="0.5"/>
@@ -2054,8 +2268,8 @@
           <line x1="8" y1="20" x2="20" y2="20" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.5"/>
           <line x1="8" y1="24" x2="16" y2="24" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.3"/>
         </svg>
-        <div class="service-name">Microsoft 365 and modern work</div>
-        <p class="service-body">Most businesses are paying for M365 and using a fraction of what it offers. We fix that. Proper configuration, security hardening, and adoption so your team works the way the platform was built to support.</p>
+        <div class="service-name">Microsoft 365 and AI-powered modern work</div>
+        <p class="service-body">Most businesses are paying for M365 and using a fraction of what it offers. We fix that. Proper configuration, security hardening, Copilot and AI adoption, and the workflows that mean your team actually works differently. Not just faster.</p>
       </div>
 
       <div class="service-card">
@@ -2081,27 +2295,6 @@
         </svg>
         <div class="service-name">Secure networking</div>
         <p class="service-body">Network architecture and management that does not leave gaps for an auditor or an attacker to find. Designed for how your business actually operates, not copied from a template.</p>
-      </div>
-
-      <div class="service-card">
-        <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 3 L22 10 L30 11 L24 17 L26 25 L18 21 L10 25 L12 17 L6 11 L14 10 Z" stroke="#c8401e" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
-        </svg>
-        <div class="service-name">Security and governance</div>
-        <p class="service-body">Risk frameworks, compliance preparation, incident readiness, and clear board reporting. Security that is actively managed, not something you hope is being handled by someone else.</p>
-      </div>
-
-      <div class="service-card">
-        <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="14" height="14" rx="1" stroke="#c8401e" stroke-width="1.5"/>
-          <rect x="20" y="2" width="14" height="14" rx="1" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.4"/>
-          <rect x="2" y="20" width="14" height="14" rx="1" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.4"/>
-          <rect x="20" y="20" width="14" height="14" rx="1" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.4"/>
-          <path d="M16 9 L20 9" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.5"/>
-          <path d="M9 16 L9 20" stroke="#c8401e" stroke-width="1.5" stroke-opacity="0.5"/>
-        </svg>
-        <div class="service-name">Technology project leadership</div>
-        <p class="service-body">Projects that have stalled, overrun, or need a reset. We take charge, rebuild the plan, and deliver. Accountable for the outcome, not just the hours. If something goes wrong, we fix it.</p>
       </div>
 
     </div>
@@ -2154,7 +2347,7 @@
 <section class="section-cta" id="contact">
   <div class="cta-bg-text">myCIO</div>
   <div class="cta-inner">
-    <div class="section-label" style="justify-content:center; text-align:center;">Let's talk</div>
+    <div class="section-label" style="justify-content:center; text-align:center; color:var(--accent-soft);">Let's talk</div>
     <h2 class="cta-headline">
       Start with a conversation.
     </h2>
@@ -2168,11 +2361,41 @@
   </div>
 </section>
 
+<!-- THE TEAM -->
+<section class="section-team" id="team">
+  <div class="container">
+    <div class="section-label">The team</div>
+    <h2 class="team-headline">When you work with myCIO, you work with us.</h2>
+    <p class="team-sub">No account managers. No junior handoffs. The two people whose names are on the door are the people in your business.</p>
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-photo">EM</div>
+        <div class="team-name">Elton McDowall</div>
+        <div class="team-title">Co-founder and Director</div>
+        <div class="team-descriptor">"The person you want in the room when the board asks hard questions."</div>
+        <p class="team-bio">Twenty years across strategy, security, governance, and technology leadership. Elton translates complexity into decisions that make sense to owners, CFOs, and directors. In plain language, without the jargon.</p>
+        <p class="team-proof">Restructured the technology governance of a NZ business ahead of a board-level compliance review. They went in uncertain and came out clean, on schedule, with no surprises.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo">MN</div>
+        <div class="team-name">Michael Nicolle</div>
+        <div class="team-title">Co-founder and Director</div>
+        <div class="team-descriptor">"The person who makes things land."</div>
+        <p class="team-bio">Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. If a project has stalled, a vendor relationship has run its course, or something is breaking trust in the business, Michael takes charge.</p>
+        <p class="team-proof">Led the technology programme for one of NZ's largest food producers. Full infrastructure architecture, nationwide network, and operational resiliency. Delivered.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- FIVE SIGNS + HEALTH CHECK -->
 <section class="section-signs" id="signs">
   <div class="container">
     <div class="section-label">Already seeing these signs?</div>
-    <h2 class="signs-headline">Five signs your technology is <em>working against you.</em></h2>
+    <h2 class="signs-headline">Five signs the gap is <em>already costing you.</em></h2>
     <p class="signs-intro-text">Most businesses do not know they have a technology problem until it becomes an expensive one. These are the patterns we see most often in the businesses we work with.</p>
 
     <div class="signs-grid">
@@ -2262,7 +2485,7 @@
   <div class="container">
     <div class="proof-inner">
       <div class="proof-left">
-        <div class="section-label" style="color:rgba(200,184,184,0.7)">We have done this before</div>
+        <div class="section-label">We have done this before</div>
         <h2 class="proof-headline">
           In businesses <em>just like yours.</em>
         </h2>
