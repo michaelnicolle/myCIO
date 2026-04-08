@@ -413,48 +413,76 @@
     background: var(--ink);
   }
 
-  .diff-grid {
+  /* ── WHY MYCIO — Option C layout ── */
+  .diff-layout {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: start;
     margin-top: 56px;
   }
 
-  .diff-card {
-    background: transparent;
-    padding: 48px 52px 48px 0;
-    border-right: 1px solid rgba(255,255,255,0.1);
-    padding-right: 52px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-  .diff-card:first-child { padding-left: 0; }
-  .diff-card:last-child { border-right: none; padding-right: 0; padding-left: 52px; }
-  .diff-card:nth-child(2) { padding-left: 52px; padding-right: 52px; transition-delay: 0.1s; }
-  .diff-card:nth-child(3) { transition-delay: 0.2s; }
-  .diff-card:hover { background: rgba(255,255,255,0.03); }
-  .diff-card.visible { opacity: 1; transform: translateY(0); }
-
-  .diff-icon {
-    width: 44px; height: 44px;
-    margin-bottom: 32px;
+  .diff-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
   }
 
-  .diff-title {
-    font-family: var(--serif);
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--white);
-    margin-bottom: 14px;
-  }
-
-  .diff-body {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.55);
+  .diff-manifesto p {
+    font-size: 1.05rem;
     font-weight: 300;
-    line-height: 1.8;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  .diff-manifesto p:last-child { margin-bottom: 0; }
+  .diff-manifesto strong { color: var(--white); font-weight: 500; }
+  .diff-manifesto em { color: var(--accent-soft); font-style: italic; }
+
+  .diff-proof {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .diff-proof-item {
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .diff-proof-mark {
+    width: 2px;
+    background: var(--accent);
+    flex-shrink: 0;
+    align-self: stretch;
+    opacity: 0.7;
+  }
+
+  .diff-proof-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    display: block;
+  }
+
+  .diff-proof-body {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.75;
+  }
+
+  @media (max-width: 1024px) {
+    .diff-layout { grid-template-columns: 1fr; gap: 48px; }
   }
 
   /* ── WHO WE WORK WITH ── */
@@ -707,13 +735,14 @@
     nav { padding: 20px 32px; }
     .hero { grid-template-columns: 1fr; min-height: auto; }
     .hero-left { padding: 100px 32px 60px; }
-    .hero-right { min-height: 420px; }
+    .hero-right { min-height: 480px; }
+    .hero-illustration { transform: scale(1.4); transform-origin: center 40%; }
     .problem-grid, .how-intro, .proof-inner { grid-template-columns: 1fr; gap: 40px; }
     .journey { grid-template-columns: 1fr 1fr; }
     .stage:nth-child(2) { border-right: none; }
     .stage:nth-child(3) { border-right: 1px solid var(--rule); }
     .stage:nth-child(4) { border-right: none; }
-    .diff-grid { grid-template-columns: 1fr; }
+    .diff-layout { grid-template-columns: 1fr; }
     .situations { grid-template-columns: 1fr; }
     .container { padding: 0 32px; }
     footer { flex-direction: column; gap: 24px; text-align: center; }
@@ -1638,6 +1667,8 @@
     line-height: 1.4;
   }
 
+
+
   @media (max-width: 640px) {
     .diff-founders { flex-direction: column; gap: 12px; }
   }
@@ -1777,8 +1808,8 @@
       Technology should work <em>for</em> your business.<br>Not the other way.
     </h1>
     <p class="hero-sub">
-      Your IT provider handles the tickets. Your board is asking harder questions. Projects stall, costs climb, and nobody owns where your technology is going.
-      myCIO puts a senior technology leader in your business who is accountable for the outcome. Not a helpdesk. Not a vendor. Someone in your business.
+      Most growing businesses reach a point where their IT provider is not enough and a full-time technology hire does not make sense. There are questions nobody can answer, projects lose momentum, and technology starts costing more than it delivers.<br><br>
+      That's where we step in to drive the change. Strategy, roadmap, project delivery, vendor accountability, security. We own the outcome, not just the activity.
     </p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Get a free technology review</a>
@@ -1973,7 +2004,7 @@
     <div class="problem-grid">
       <div>
         <h2 class="problem-headline">
-          At some point, your IT provider stopped being enough. <em>Most businesses don't notice until it's expensive.</em>
+          At some point, your IT provider stopped being enough.
         </h2>
       </div>
       <ul class="problem-list">
@@ -1995,7 +2026,7 @@
         </li>
         <li class="problem-item">
           <span class="problem-num">05</span>
-          <span class="problem-text">AI is on the agenda. Twelve months of conversations and nothing has shipped. Someone in your market is moving faster.</span>
+          <span class="problem-text">AI is on the agenda. Twelve months of conversations and nothing has shipped. A competitor is already doing it.</span>
         </li>
       </ul>
     </div>
@@ -2151,47 +2182,54 @@
 <section class="section-diff">
   <div class="container">
     <div class="section-label" style="color:var(--accent-soft);">Why myCIO</div>
-    <p style="font-size:1rem;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:8px;max-width:560px;">Three things no one else in this market is doing together.</p>
-    <p style="font-size:1rem;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:48px;max-width:560px;">Delivered by the two people whose names are on the door.</p>
-    <div class="diff-grid">
 
-      <div class="diff-card">
-        <!-- Icon: Outcome ownership -->
-        <svg class="diff-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="24" cy="24" r="22" stroke="#c8401e" stroke-width="1.5"/>
-          <path d="M16 24l6 6 10-12" stroke="#c8401e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="diff-title">We don't leave until it's working.</div>
-        <p class="diff-body">We do not deliver a report and leave. We stay in the room and own the result. If something goes wrong, we fix it. That is what accountability actually means.</p>
+    <div class="diff-layout">
+
+      <!-- Left: manifesto -->
+      <div class="diff-left">
+        <div class="diff-manifesto">
+          <p>We started myCIO because we got tired of watching good businesses get let down by technology.</p>
+          <p>Not through bad luck. Through a model that was never designed to deliver outcomes. Providers who keep the lights on, bill their hours, and leave the business owner to make decisions they were never equipped to make.</p>
+          <p><strong>We are here to be the thing that was missing.</strong> Senior enough to set the direction. Accountable enough to see it through. Present, not reporting from a distance.</p>
+          <p>We get stuck in. We hold your vendors, your internal teams, and your partners to the standard your business deserves. We build things that last. And we stay until it is working.</p>
+          <p><em>Technology should work for your business. That is the whole point.</em></p>
+        </div>
       </div>
 
-      <div class="diff-card">
-        <!-- Icon: Supplier accountability -->
-        <svg class="diff-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="8" width="14" height="14" stroke="#c8401e" stroke-width="1.5"/>
-          <rect x="26" y="8" width="14" height="14" stroke="rgba(200,64,30,0.35)" stroke-width="1.5"/>
-          <rect x="8" y="26" width="14" height="14" stroke="rgba(200,64,30,0.35)" stroke-width="1.5"/>
-          <rect x="26" y="26" width="14" height="14" stroke="rgba(200,64,30,0.35)" stroke-width="1.5"/>
-          <path d="M22 15h4M15 22v4M33 22v4M26 33h-4" stroke="#c8401e" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.4"/>
-        </svg>
-        <div class="diff-title">Your vendors finally have someone to answer to.</div>
-        <p class="diff-body">We hold your existing technology vendors accountable, something your own team rarely has the standing or expertise to do. Most businesses are paying for more than they are getting. We find it, we fix it, and we make sure it does not happen again.</p>
-      </div>
+      <!-- Right: three proof points -->
+      <div class="diff-right">
+        <div class="diff-proof">
 
-      <div class="diff-card">
-        <!-- Icon: 7-year standard -->
-        <svg class="diff-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 38V22l14-12 14 12v16" stroke="#c8401e" stroke-width="1.5" stroke-linejoin="round"/>
-          <rect x="19" y="28" width="10" height="10" stroke="#c8401e" stroke-width="1.5"/>
-          <path d="M20 12l4-4 4 4" stroke="rgba(200,64,30,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="diff-title">The 7-year standard</div>
-        <p class="diff-body">Not every piece of hardware lasts seven years. But the decisions we make on architecture, vendors, processes, and documentation should. Most providers make decisions that keep you dependent on them. We test every recommendation against one question: will this still make sense for the business in seven years? That question changes everything about how we work.</p>
+          <div class="diff-proof-item">
+            <div class="diff-proof-mark"></div>
+            <div class="diff-proof-text">
+              <span class="diff-proof-title">We don't leave until it's working.</span>
+              <span class="diff-proof-body">Most consultants deliver a report and move on. We stay involved, own the outcome, and fix what goes wrong. You stop being the person explaining to the board why it did not land.</span>
+            </div>
+          </div>
+
+          <div class="diff-proof-item">
+            <div class="diff-proof-mark"></div>
+            <div class="diff-proof-text">
+              <span class="diff-proof-title">Your vendors finally have someone to answer to.</span>
+              <span class="diff-proof-body">We hold them accountable, renegotiate what is wrong, and close the gaps they have been ignoring. Most clients recover significant value within the first few months.</span>
+            </div>
+          </div>
+
+          <div class="diff-proof-item">
+            <div class="diff-proof-mark"></div>
+            <div class="diff-proof-text">
+              <span class="diff-proof-title">Built so you are never held hostage.</span>
+              <span class="diff-proof-body">We build your environment so it belongs to you. Documented, portable, and not dependent on any single vendor or person. Seven years from now, it should still make sense.</span>
+            </div>
+          </div>
+
+        </div>
       </div>
 
     </div>
 
-    <!-- Founder badges — Elton first (alphabetical) -->
+    <!-- Founder badges -->
     <div class="diff-founders">
       <div class="founder-badge">
         <div class="founder-avatar">EM</div>
@@ -2213,8 +2251,6 @@
 
   </div>
 </section>
-
-
 <!-- WHAT WE DO -->
 <section class="section-services" id="services">
   <div class="container">
@@ -2306,8 +2342,8 @@
   <div class="container">
     <div class="section-label">Sound familiar?</div>
     <div class="who-intro">
-      <h2 class="who-headline">These are the conversations that <em>bring people to us.</em></h2>
-      <p class="who-sub">Most of the businesses we work with arrive in one of these situations. If any of them sound familiar, it is worth a conversation.</p>
+      <h2 class="who-headline">Most of the businesses we work with <em>started here.</em></h2>
+      <p class="who-sub">If any of these sound familiar, it is worth a conversation. You do not need to have it all figured out before you get in touch. That is what the first call is for.</p>
     </div>
 
     <div class="situations">
@@ -2352,7 +2388,7 @@
       Start with a conversation.
     </h2>
     <p class="cta-sub">
-      A 30-minute call with no prep required and no pitch involved. We will give you a clear, senior read on where your technology stands. If there is something worth exploring together, we will tell you honestly. If there is not, you will still leave with something useful.
+      A 30-minute call. No prep. We will give you an honest picture of where your technology actually stands. If there is something worth exploring together, we will tell you honestly. If there is not, you will still leave with something useful.
     </p>
     <div class="cta-options">
       <a href="/cdn-cgi/l/email-protection#ed8588818182ad80948e8482c38e82c38397" class="btn-primary">Book a free 30-minute call</a>
@@ -2374,7 +2410,7 @@
         <div class="team-name">Elton McDowall</div>
         <div class="team-title">Co-founder and Director</div>
         <div class="team-descriptor">"The person you want in the room when the board asks hard questions."</div>
-        <p class="team-bio">Twenty years across strategy, security, governance, and technology leadership. Elton translates complexity into decisions that make sense to owners, CFOs, and directors. In plain language, without the jargon.</p>
+        <p class="team-bio">Twenty years across strategy, security, governance, and technology leadership. Elton turns the complex stuff into decisions that make sense to owners, CFOs, and directors. Plain language, no jargon.</p>
         <p class="team-proof">Restructured the technology governance of a NZ business ahead of a board-level compliance review. They went in uncertain and came out clean, on schedule, with no surprises.</p>
       </div>
 
@@ -2396,7 +2432,7 @@
   <div class="container">
     <div class="section-label">Already seeing these signs?</div>
     <h2 class="signs-headline">Five signs the gap is <em>already costing you.</em></h2>
-    <p class="signs-intro-text">Most businesses do not know they have a technology problem until it becomes an expensive one. These are the patterns we see most often in the businesses we work with.</p>
+    <p class="signs-intro-text">Most businesses do not know they have a technology problem until it costs them. These are the patterns we see most often in the businesses we work with.</p>
 
     <div class="signs-grid">
 
@@ -2404,7 +2440,7 @@
         <span class="sign-num">01</span>
         <div class="sign-content">
           <div class="sign-title">Your IT provider is reactive, not strategic.</div>
-          <p class="sign-body">They fix what breaks. Nobody is looking ahead, managing risk, or telling you what is coming before it arrives. The relationship is comfortable. But it is not moving the business forward.</p>
+          <p class="sign-body">They fix what breaks. Nobody is looking ahead, managing risk, or telling you what is coming before it arrives. The relationship is comfortable. But comfortable is not the same as working.</p>
         </div>
       </div>
 
@@ -2551,7 +2587,7 @@
     });
   }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.problem-item, .diff-card').forEach(el => observer.observe(el));
+  document.querySelectorAll('.problem-item').forEach(el => observer.observe(el));
 
   // Stagger problem items
   document.querySelectorAll('.problem-item').forEach((el, i) => {
