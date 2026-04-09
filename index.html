@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>myCIO. Senior Technology Leadership for Growing New Zealand Businesses</title>
+<title>myCIO | Technology Advisory for Growing NZ Businesses</title>
+<meta name="description" content="myCIO is the senior technology advisory your business needs. Strategy, governance, and vendor accountability for growing NZ businesses. Talk to us.">
+<meta property="og:title" content="myCIO | Technology Advisory for Growing NZ Businesses">
+<meta property="og:description" content="Senior technology advisory, strategy, and governance for growing New Zealand businesses. We own the outcome, not just the activity.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycio.co.nz">
+<meta property="og:image" content="https://mycio.co.nz/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
@@ -1690,6 +1697,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
     background: var(--rule);
+    overflow: hidden;
   }
 
   .service-card {
@@ -1930,6 +1938,151 @@
     .team-card { padding: 32px 24px; }
   }
 
+  /* ── FORM REASSURANCE ── */
+  .form-reassurance {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  /* ── MID-PAGE CTA ── */
+  .mid-cta {
+    background: var(--paper-warm);
+    padding: 48px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .mid-cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .mid-cta-text {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 600px) {
+    .mid-cta-inner { flex-direction: column; text-align: center; padding: 0 24px; }
+  }
+
+  /* ── FAQ ── */
+  .section-faq {
+    padding: 100px 0;
+    background: var(--ink);
+    color: var(--white);
+  }
+  .section-faq .section-label { color: var(--accent-soft); }
+  .section-faq .section-label::after { background: rgba(255,255,255,0.15); }
+
+  .faq-headline {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 48px;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+  }
+  .faq-q:hover { opacity: 0.8; }
+
+  .faq-q-text {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  .faq-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .faq-icon svg { width: 10px; height: 10px; }
+  .faq-item.open .faq-icon { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+  .faq-item.open .faq-icon svg path { stroke: var(--ink); }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 0 0 0;
+  }
+  .faq-item.open .faq-a {
+    max-height: 300px;
+    padding: 0 0 24px 0;
+  }
+  .faq-a p {
+    font-size: 0.93rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.75;
+    max-width: 720px;
+  }
+
+  /* ── MOBILE STICKY CTA ── */
+  .mobile-sticky-cta {
+    display: none;
+  }
+  @media (max-width: 640px) {
+    .mobile-sticky-cta {
+      display: block;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 99;
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 24px;
+      text-align: center;
+    }
+    .mobile-sticky-cta .btn-primary {
+      width: 100%;
+      text-align: center;
+      padding: 14px 24px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1948,7 +2101,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow">Fractional CIO · New Zealand</div>
+    <div class="hero-eyebrow">Technology Advisory · New Zealand</div>
     <h1 class="hero-headline">
       Technology should work <em>for</em> your business.<br>Not the other way.
     </h1>
@@ -1957,7 +2110,7 @@
       We fix that. One conversation is usually enough to tell you whether we can help.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Get a free technology review</a>
+      <a href="#contact" class="btn-primary">Get a clear picture of where you stand</a>
       <a href="#signs" class="btn-text">
         Take the 5-minute health check
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -2184,7 +2337,7 @@
     <div class="how-intro-inner">
       <div class="how-intro-eyebrow">How we work</div>
       <h2 class="how-intro-headline">We start where <em>you are.</em></h2>
-      <p class="how-intro-body">Every business we work with is at a different point. Some need urgent foundations work. Others are stable and ready to move forward. A few just need a clear picture before they commit to anything.</p>
+      <p class="how-intro-body">Every business we work with is at a different point. Some need urgent foundations work. Others are ready to move forward. Some need a clear picture before they decide anything.</p>
     </div>
   </div>
 
@@ -2333,9 +2486,9 @@
       <!-- Left: manifesto -->
       <div class="diff-left">
         <div class="diff-manifesto">
-          <p>We started myCIO because we got tired of watching good businesses get let down by technology.</p>
-          <p>Not through bad luck. Through a model that was never designed to deliver outcomes. Providers who keep the lights on, bill their hours, and leave the business owner to make decisions they were never equipped to make.</p>
-          <p><strong>We are here to be the thing that was missing.</strong> Senior enough to set the direction. Accountable enough to see it through. Present, not reporting from a distance.</p>
+          <p>We started myCIO because we kept seeing good businesses get let down by their own technology.</p>
+          <p>Not through bad luck. Through a model that was never built to deliver outcomes. Providers who keep the lights on, bill their hours, and walk away. The business owner gets left holding the decisions nobody else will own.</p>
+          <p><strong>So, we built the missing piece.</strong> Senior enough to set the direction. Accountable enough to see it through. Present, not reporting from a distance.</p>
           <p><em>Technology should work for your business. That is the whole point.</em></p>
         </div>
       </div>
@@ -2348,7 +2501,7 @@
             <div class="diff-proof-mark"></div>
             <div class="diff-proof-text">
               <span class="diff-proof-title">We don't leave until it's working.</span>
-              <span class="diff-proof-body">Most consultants deliver a report and move on. We stay involved, own the outcome, and fix what goes wrong. You stop being the person explaining to the board why it did not land.</span>
+              <span class="diff-proof-body">Most consultants deliver a report and move on. We own the outcome and fix what breaks. You stop being the person explaining to the board why it did not land.</span>
             </div>
           </div>
 
@@ -2356,7 +2509,7 @@
             <div class="diff-proof-mark"></div>
             <div class="diff-proof-text">
               <span class="diff-proof-title">Your vendors finally have someone to answer to.</span>
-              <span class="diff-proof-body">We hold them accountable, renegotiate what is wrong, and close the gaps they have been ignoring. Most clients recover significant value within the first few months.</span>
+              <span class="diff-proof-body">We hold them accountable, renegotiate what is not working, and close the gaps they have been ignoring. One client saved half a million dollars in the first review. That is not unusual.</span>
             </div>
           </div>
 
@@ -2404,7 +2557,7 @@
   <div class="container">
     <div class="section-label">What we actually do</div>
     <div class="services-intro">
-      <h2 class="services-headline">Senior technology leadership. Across everything your business depends on.</h2>
+      <h2 class="services-headline">Senior technology advisory. Across everything your business depends on.</h2>
     </div>
 
     <div class="services-grid">
@@ -2418,8 +2571,8 @@
           <line x1="2" y1="18" x2="12" y2="18" stroke="#e05a30" stroke-width="1.5" stroke-opacity="0.4"/>
           <line x1="24" y1="18" x2="34" y2="18" stroke="#e05a30" stroke-width="1.5" stroke-opacity="0.4"/>
         </svg>
-        <div class="service-name">Fractional CIO</div>
-        <p class="service-body">Your technology finally has someone accountable for where it is going. Strategy, roadmap, board reporting, and vendor management. You stop being the person who has to figure it out alone.</p>
+        <div class="service-name">Technology advisory and strategy</div>
+        <p class="service-body">Accountability. We own the direction, the roadmap, and the vendor relationships. You get clear answers for the board, a plan you can stand behind, and one team responsible for making it happen.</p>
       </div>
 
       <div class="service-card">
@@ -2432,7 +2585,7 @@
           <path d="M9 16 L9 20" stroke="#e05a30" stroke-width="1.5" stroke-opacity="0.5"/>
         </svg>
         <div class="service-name">Technology project leadership</div>
-        <p class="service-body">Projects that have stalled, overrun, or need a reset. We take charge, rebuild the plan, and deliver. Accountable for the outcome, not just the hours. If something goes wrong, we fix it.</p>
+        <p class="service-body">Projects stall when nobody with real standing takes charge. We step in, own the outcome, and deliver. Not just a plan. The actual result. If something goes wrong, we fix it.</p>
       </div>
 
       <div class="service-card">
@@ -2440,7 +2593,7 @@
           <path d="M18 3 L22 10 L30 11 L24 17 L26 25 L18 21 L10 25 L12 17 L6 11 L14 10 Z" stroke="#e05a30" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
         </svg>
         <div class="service-name">Security and governance</div>
-        <p class="service-body">Risk frameworks, compliance preparation, incident readiness, and clear board reporting. Security that is actively managed, not something you hope is being handled by someone else.</p>
+        <p class="service-body">Risk frameworks, compliance preparation, and incident readiness. Clean board answers, a security posture you can stand behind, and governance that is built in rather than bolted on.</p>
       </div>
 
       <div class="service-card">
@@ -2453,7 +2606,7 @@
           <line x1="8" y1="24" x2="16" y2="24" stroke="#e05a30" stroke-width="1.5" stroke-opacity="0.3"/>
         </svg>
         <div class="service-name">Microsoft 365 and AI-powered modern work</div>
-        <p class="service-body">Most businesses are paying for M365 and using a fraction of what it offers. We fix that. Proper configuration, security hardening, Copilot and AI adoption, and the workflows that mean your team actually works differently. Not just faster.</p>
+        <p class="service-body">Most businesses are paying for M365 and using a fraction of what it offers. We fix that. Proper configuration, Copilot and AI adoption, and the workflows that mean your team actually works differently. Not just faster.</p>
       </div>
 
       <div class="service-card">
@@ -2465,7 +2618,7 @@
           <circle cx="18" cy="5" r="2" stroke="#e05a30" stroke-width="1.5" stroke-opacity="0.4"/>
         </svg>
         <div class="service-name">Hybrid cloud and infrastructure</div>
-        <p class="service-body">Whether you are on-premise, in the cloud, or somewhere in between, we design and manage environments that are stable, secure, and built for where your business is going. Not where it was three years ago.</p>
+        <p class="service-body">On-premise, in the cloud, or somewhere in between. We design and manage environments built for where your business is going. Stable, secure, and not dependent on any single person or vendor.</p>
       </div>
 
       <div class="service-card">
@@ -2478,12 +2631,20 @@
           <line x1="18" y1="13.5" x2="18" y2="19" stroke="#e05a30" stroke-width="1.5" stroke-opacity="0.4"/>
         </svg>
         <div class="service-name">Secure networking</div>
-        <p class="service-body">Network architecture and management that does not leave gaps for an auditor or an attacker to find. Designed for how your business actually operates, not copied from a template.</p>
+        <p class="service-body">Network architecture and management with no gaps for an auditor or an attacker to find. Designed for how your business actually operates, not lifted from a template.</p>
       </div>
 
     </div>
   </div>
 </section>
+
+<!-- MID-PAGE CTA -->
+<div class="mid-cta">
+  <div class="mid-cta-inner">
+    <span class="mid-cta-text">Ready to talk?</span>
+    <a href="https://calendly.com/YOUR_CALENDLY_LINK" target="_blank" rel="noopener" class="btn-primary">Book a free 30-minute call</a>
+  </div>
+</div>
 
 <!-- WHO WE WORK WITH -->
 <section class="section-who" id="who">
@@ -2499,7 +2660,7 @@
         <div class="sit-num">01</div>
         <div class="sit-content">
           <div class="sit-title">Your IT provider is good. But good enough is starting to feel like not enough.</div>
-          <p class="sit-body">They are good at what they do. But the business has moved on, and you need someone thinking about strategy, not just tickets. Hiring a full-time CTO is not the right answer.</p>
+          <p class="sit-body">They are good at what they do. But the business has moved on, and you need someone thinking about strategy and governance, not just tickets. Another support contract is not the answer.</p>
         </div>
       </div>
       <div class="situation">
@@ -2536,7 +2697,7 @@
       Start with a conversation.
     </h2>
     <p class="cta-sub">
-      A 30-minute call. No prep needed. You will leave with a clear picture of where your technology actually stands. If there is something worth doing together, we will tell you. If not, you still walk away with something useful.
+      A 30-minute call. No prep needed. You will leave with a clear picture of where your technology actually stands. If there is something worth doing together, we will tell you. If there is not, you will still know more than you did.
     </p>
 
     <div class="cta-dual">
@@ -2565,6 +2726,7 @@
           <input type="hidden" name="_subject" value="myCIO website enquiry">
           <input type="text" name="_gotcha" style="display:none">
           <button type="submit" class="btn-primary">Send message</button>
+          <p class="form-reassurance">We respond within one business day. No sales pitch. Just a straight conversation.</p>
         </form>
       </div>
 
@@ -2573,7 +2735,7 @@
         <div class="cta-book-label">Or book a call directly</div>
         <p class="cta-book-desc">Pick a time that works. Thirty minutes. No prep needed. We will give you a straight read on where things stand.</p>
         <a href="https://calendly.com/YOUR_CALENDLY_LINK" target="_blank" rel="noopener" class="btn-primary btn-calendly">Book a free 30-minute call</a>
-        <p class="cta-book-note">hello@mycio.co.nz &nbsp;·&nbsp; New Zealand</p>
+        <p class="cta-book-note"><a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a> &nbsp;·&nbsp; New Zealand</p>
       </div>
     </div>
 
@@ -2600,7 +2762,7 @@
         <div class="team-photo">MN</div>
         <div class="team-name">Michael Nicolle</div>
         <div class="team-title">Co-founder and Director</div>
-        <p class="team-bio">Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. If a project has stalled, a vendor relationship has run its course, or something is breaking trust in the business.</p>
+        <p class="team-bio">Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. Stalled projects, expired vendor relationships, broken trust. That is where the work starts.</p>
         <p class="team-proof">Led the technology programme for one of NZ's largest food producers. Full infrastructure architecture, nationwide network, and operational resiliency. Delivered.</p>
       </div>
 
@@ -2613,7 +2775,7 @@
   <div class="container">
     <div class="section-label">Already seeing these signs?</div>
     <h2 class="signs-headline">Five signs the gap is <em>already costing you.</em></h2>
-    <p class="signs-intro-text">Most businesses do not know they have a technology problem until it costs them. These are the patterns we see most often in the businesses we work with.</p>
+    <p class="signs-intro-text">Most businesses do not know they have a technology problem until it costs them.</p>
 
     <div class="signs-grid">
 
@@ -2661,7 +2823,7 @@
 
     <div class="signs-bridge">
       <p>If two or more of these sound familiar, your technology is likely costing you more than it should. That gap does not close on its own.</p>
-      <p>Most NZ businesses are spending more on technology than they need to. Not because they are buying the wrong things. Because nobody is reviewing contracts, holding vendors accountable, or making sure what was set up three years ago still makes sense today. That is a leadership problem. It is exactly what myCIO fixes.</p>
+      <p>Most NZ businesses are spending more on technology than they need to. Not because they are buying the wrong things. Because nobody is reviewing contracts, holding vendors accountable, or making sure what was set up three years ago still makes sense today. That is a leadership gap. And it is exactly why myCIO exists.</p>
     </div>
 
     <!-- HEALTH CHECK -->
@@ -2732,6 +2894,58 @@
           <div class="proof-stat-label">Junior handoffs. Ever.</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-faq" id="faq">
+  <div class="container">
+    <div class="section-label">Common questions</div>
+    <h2 class="faq-headline">Before you get in touch.</h2>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">Do you replace our existing IT provider?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><p>Not usually. We sit above what you already have. Your existing provider keeps doing what they do. We make sure it is heading somewhere sensible, hold them accountable, and fill the gaps they were never set up to cover. If something needs to change, we will tell you directly.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">How does pricing work?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><p>Assessments are fixed-fee. Ongoing advisory is a monthly retainer. We quote in day rates, not hours. Every engagement starts with a clear scope and a price before any commitment. No surprises, no scope creep.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">Are we the right size for this?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><p>If technology is causing real pain but a full-time technology executive does not make sense yet, you are likely a good fit. We work with multi-site businesses in manufacturing, distribution, construction, and professional services. If you are spending $5,000 or more per month on technology across vendors and tools, we can usually help.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">Do you work with boards and executive teams?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><p>Yes. Many of the businesses we work with have a board asking hard questions about technology risk, insurance requirements, or why projects keep stalling. We translate the technology picture into plain language at that level. Clear risk posture, honest reporting, and an investment story you can stand behind.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">What does a first engagement look like?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><p>A 30-minute conversation to understand where things stand. Then a short review where we outline the situation and a few ways we could help. You decide if you want a targeted piece of work, a fixed engagement, or an ongoing advisory relationship. No hard sell. No long proposal before you have seen any value.</p></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -3050,6 +3264,23 @@
       if (!isActive) row.classList.add('active');
     });
   });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+      btn.setAttribute('aria-expanded', !wasOpen);
+    });
+  });
 </script>
+
+<!-- Mobile sticky CTA -->
+<div class="mobile-sticky-cta">
+  <a href="#contact" class="btn-primary">Talk to us</a>
+</div>
+
 </body>
 </html>
