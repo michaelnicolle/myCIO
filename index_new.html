@@ -155,10 +155,19 @@
     font-weight: 300;
     line-height: 1.7;
     color: var(--mid);
-    max-width: 640px;
-    margin-bottom: 48px;
+    max-width: 720px;
+    margin: 0 auto 20px;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+  .hero-sub br { display: inline; }
+  @media (max-width: 640px) {
+    .hero-sub br { display: none; }
+    .hero-headline br, .stack-intro-headline br, .services-headline br, .how-intro-headline br { display: none; }
+  }
+  .hero-sub:last-of-type {
+    margin-bottom: 48px;
+    animation-delay: 0.6s;
   }
 
   .hero-actions {
@@ -2259,12 +2268,10 @@
   <div class="hero-inner">
     <div class="hero-eyebrow">Technology Advisory &middot; New Zealand</div>
     <h1 class="hero-headline">
-      Your technology is costing more than <em>it should.</em>
+      Your technology<br>is costing more<br>than <em>it should.</em>
     </h1>
-    <p class="hero-sub">
-      Contracts nobody has reviewed. Projects that stall and restart. Security you hope is being handled. A board asking questions nobody can answer cleanly.<br><br>
-      That gap has a price. We help NZ businesses close it.
-    </p>
+    <p class="hero-sub">There is a gap between what your business needs<br>and what your technology delivers.</p>
+    <p class="hero-sub">Vendors on autopilot, projects that stall, decisions nobody owns.<br>We help NZ businesses close it.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Get a clear picture of where you stand</a>
       <a href="#healthcheck" class="btn-text">
@@ -2342,7 +2349,7 @@
 <section class="stack-intro">
   <div class="container" style="text-align:center;">
     <div class="section-label" style="justify-content:center;">The real picture</div>
-    <h2 class="stack-intro-headline">AI is the current buzzword. Cloud was before it. <em>The cycle is endless.</em></h2>
+    <h2 class="stack-intro-headline">AI is the current buzzword.<br>Cloud was before it.<br><em>The cycle is endless.</em></h2>
     <p class="stack-intro-body">But none of it works if the business underneath is not solid. Your technology is only as good as the business it sits on top of. And your business is only as good as what survives your best person walking out the door.</p>
   </div>
 </section>
@@ -2627,7 +2634,7 @@
   <div class="container">
     <div class="section-label">What we actually do</div>
     <div class="services-intro">
-      <h2 class="services-headline">From the foundations up to <em>where growth happens.</em></h2>
+      <h2 class="services-headline">From the foundations up<br>to <em>where growth happens.</em></h2>
     </div>
 
     <div class="services-grid">
@@ -2722,8 +2729,8 @@
   <div class="how-intro-block">
     <div class="how-intro-inner">
       <div class="how-intro-eyebrow">How we work</div>
-      <h2 class="how-intro-headline">We start where <em>you are.</em></h2>
-      <p class="how-intro-body">Every business we work with is at a different point. Some need urgent foundations work. Others are ready to move forward. Some need a clear picture before they decide anything.</p>
+      <h2 class="how-intro-headline">From where you are,<br>to <em>where the business is going.</em></h2>
+      <p class="how-intro-body">Each stage builds on the one before it. By the end, the business runs on something documented, defensible, and no longer dependent on any one person.</p>
     </div>
   </div>
 
@@ -3102,27 +3109,6 @@
     });
   });
 
-  // Process accordion
-  const stageRows = document.querySelectorAll('.stage-row');
-  stageRows.forEach(row => {
-    row.addEventListener('click', () => {
-      const isActive = row.classList.contains('active');
-      stageRows.forEach(r => r.classList.remove('active'));
-      if (!isActive) row.classList.add('active');
-    });
-  });
-
-  // FAQ accordion
-  document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-      btn.setAttribute('aria-expanded', !wasOpen);
-    });
-  });
-
   // Health Check Widget
   const questions = [
     {
@@ -3325,6 +3311,14 @@
     result.innerHTML = '';
     qSection.style.display = '';
     renderQuestion(0);
+  }
+
+  // Wire up the retry button using event delegation since it is created dynamically
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'hcRetry') {
+      resetCheck();
+    }
+  });
 </script>
 
 
