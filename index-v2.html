@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myCIO | Senior Technology Advisory for Growing NZ Businesses</title>
+<meta name="description" content="Senior technology advisory for growing NZ businesses. Strategy, AI, automation, data, and the foundations everything else depends on. We own the outcome.">
+<meta property="og:title" content="myCIO | Senior Technology Advisory for Growing NZ Businesses">
+<meta property="og:description" content="Senior technology advisory for growing NZ businesses. Strategy, AI, automation, data, and the foundations everything else depends on. We own the outcome.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycio.co.nz/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0d0c;
+    --ink-soft: #1a1918;
+    --paper: #f4f1ea;
+    --paper-warm: #ebe6dc;
+    --paper-cool: #fafaf7;
+    --accent: #e05a30;
+    --accent-deep: #b8431f;
+    --accent-soft: #f0c4b0;
+    --mid: #5a534e;
+    --mid-soft: #8a8077;
+    --rule: #d4cfc8;
+    --rule-soft: #e3ddd3;
+    --white: #ffffff;
+
+    /* Type system */
+    --sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+    --serif: 'Libre Baskerville', Georgia, serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--white);
+  }
+
+  /* ─── NAV ─────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 56px;
+    background: rgba(244, 241, 234, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, padding 0.3s;
+  }
+  nav.scrolled {
+    border-color: rgba(13,13,12,0.08);
+    padding: 16px 56px;
+  }
+  nav.dark {
+    background: rgba(13, 13, 12, 0.85);
+  }
+  nav.dark.scrolled {
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  .nav-logo {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  nav.dark .nav-logo { color: var(--white); }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.83rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent);
+  }
+  nav.dark .nav-links a { color: rgba(255,255,255,0.55); }
+  nav.dark .nav-links a:hover { color: var(--white); }
+  nav.dark .nav-links a.active { color: var(--white); }
+
+  .nav-cta {
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    background: var(--ink);
+    padding: 11px 22px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent); }
+  nav.dark .nav-cta { background: var(--accent); }
+  nav.dark .nav-cta:hover { background: var(--white); color: var(--ink); }
+
+  @media (max-width: 900px) {
+    nav { padding: 18px 28px; }
+    nav.scrolled { padding: 14px 28px; }
+    .nav-links { display: none; }
+  }
+
+  /* ─── BUTTONS ─────────────────────────────────────── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    color: var(--white);
+    padding: 16px 28px;
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: background 0.25s, transform 0.15s, gap 0.25s;
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    gap: 14px;
+  }
+  .btn-primary svg { transition: transform 0.25s; }
+  .btn-primary:hover svg { transform: translateX(2px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    padding: 16px 0;
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: gap 0.25s;
+  }
+  .btn-ghost:hover { gap: 14px; }
+  .btn-ghost svg { transition: transform 0.25s; }
+  .btn-ghost:hover svg { transform: translateX(2px); }
+
+  .btn-on-dark {
+    background: var(--accent);
+    color: var(--white);
+  }
+  .btn-on-dark:hover { background: var(--white); color: var(--ink); }
+
+  /* ─── HERO ────────────────────────────────────────── */
+  .hero-v2 {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: var(--paper);
+    padding: 120px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative oversized number in hero corner */
+  .hero-mark {
+    position: absolute;
+    top: 50%;
+    right: -2vw;
+    transform: translateY(-50%);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(20rem, 38vw, 48rem);
+    font-weight: 400;
+    color: var(--paper-warm);
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+
+  .hero-inner-v2 {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-eyebrow-v2 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;
+  }
+  .hero-eyebrow-v2::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-headline-v2 {
+    font-family: var(--sans);
+    font-size: clamp(3.2rem, 9vw, 8.5rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+    max-width: 16ch;
+    opacity: 0;
+    animation: rise 1s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+  }
+  .hero-headline-v2 em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 80px;
+    align-items: end;
+    margin-top: 80px;
+    padding-top: 48px;
+    border-top: 1px solid var(--rule);
+    opacity: 0;
+    animation: rise 1s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-sub-v2 {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--mid);
+    max-width: 60ch;
+    font-weight: 400;
+  }
+
+  .hero-actions-v2 {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 900px) {
+    .hero-v2 { padding: 100px 24px 48px; }
+    .hero-bottom { grid-template-columns: 1fr; gap: 32px; margin-top: 56px; }
+    .hero-mark { font-size: 60vw; right: -10vw; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION SHARED ──────────────────────────────── */
+  .section {
+    padding: 140px 56px;
+    position: relative;
+  }
+  .section-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-headline {
+    font-family: var(--sans);
+    font-size: clamp(2.4rem, 5.5vw, 5rem);
+    font-weight: 600;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    max-width: 18ch;
+  }
+  .section-headline em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.025em;
+  }
+
+  /* Dark variants */
+  .section-dark {
+    background: var(--ink);
+    color: var(--white);
+  }
+  .section-dark .section-headline { color: var(--white); }
+  .section-dark .section-eyebrow { color: var(--accent-soft); }
+  .section-dark .section-eyebrow::before { background: var(--accent-soft); }
+
+  /* Accent variants */
+  .section-accent {
+    background: var(--accent);
+    color: var(--white);
+  }
+  .section-accent .section-headline { color: var(--white); }
+  .section-accent .section-eyebrow { color: rgba(255,255,255,0.8); }
+  .section-accent .section-eyebrow::before { background: rgba(255,255,255,0.8); }
+
+  @media (max-width: 900px) {
+    .section { padding: 96px 24px; }
+  }
+
+  /* ─── SIGNS BLOCK (home) ─────────────────────────── */
+  .signs-v2 {
+    background: var(--ink);
+    color: var(--white);
+    padding: 140px 56px;
+  }
+
+  .signs-v2-grid {
+    display: block;
+    margin-top: 64px;
+  }
+
+  .signs-v2-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 1100px;
+  }
+
+  .sign-row {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 40px;
+    padding: 36px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    align-items: baseline;
+    transition: padding 0.25s;
+  }
+  .sign-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sign-row:hover { padding-left: 12px; }
+
+  .sign-num-v2 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--accent);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .sign-content-v2 { }
+
+  .sign-title-v2 {
+    font-family: var(--sans);
+    font-size: 1.55rem;
+    font-weight: 500;
+    color: var(--white);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .sign-body-v2 {
+    font-size: 0.98rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+
+  @media (max-width: 1024px) {
+    .signs-v2-list { max-width: none; }
+  }
+  @media (max-width: 900px) {
+    .signs-v2 { padding: 96px 24px; }
+    .sign-row { grid-template-columns: 44px 1fr; gap: 24px; padding: 28px 0; }
+    .sign-title-v2 { font-size: 1.25rem; }
+  }
+
+  /* ─── BRIDGE STATEMENT ───────────────────────────── */
+  .bridge-v2 {
+    background: var(--accent);
+    color: var(--white);
+    padding: 120px 56px;
+    text-align: center;
+  }
+  .bridge-v2-text {
+    font-family: var(--sans);
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--white);
+    max-width: 22ch;
+    margin: 0 auto;
+  }
+  .bridge-v2-text em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 900px) {
+    .bridge-v2 { padding: 80px 24px; }
+  }
+
+  /* ─── STACK TEASE (home) ─────────────────────────── */
+  .stack-v2 {
+    padding: 140px 56px 80px;
+    background: var(--paper);
+  }
+  .stack-v2-header {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    display: grid;
+    grid-template-columns: 80px 1fr 1.5fr auto;
+    gap: 48px;
+    align-items: end;
+  }
+  .stack-v2-header-headline {
+    grid-column: 1 / 3;
+  }
+  .stack-v2-header-sub {
+    grid-column: 3 / 4;
+  }
+  .stack-v2-sub {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--mid);
+    max-width: 52ch;
+  }
+
+  .stack-v2-list {
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+
+  .stack-v2-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 1.5fr auto;
+    gap: 48px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: center;
+    cursor: default;
+    transition: padding 0.3s, background 0.3s;
+    position: relative;
+  }
+  .stack-v2-item:hover {
+    padding-left: 16px;
+    padding-right: 16px;
+    background: var(--paper-warm);
+  }
+  .stack-v2-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 2.4rem;
+    color: var(--accent);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .stack-v2-name {
+    font-family: var(--sans);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .stack-v2-name em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .stack-v2-desc {
+    font-size: 0.98rem;
+    color: var(--mid);
+    line-height: 1.55;
+    max-width: 52ch;
+  }
+  .stack-v2-tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--mid-soft);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  @media (max-width: 1024px) {
+    .stack-v2-item { grid-template-columns: 60px 1fr; gap: 24px; }
+    .stack-v2-desc, .stack-v2-tag { grid-column: 2; }
+    .stack-v2-tag { margin-top: 4px; text-align: left; }
+    .stack-v2-name { font-size: 1.5rem; }
+    .stack-v2-num { font-size: 1.8rem; }
+    .stack-v2-header { grid-template-columns: 1fr; gap: 32px; }
+    .stack-v2-header-headline { grid-column: 1; }
+    .stack-v2-header-sub { grid-column: 1; }
+  }
+  @media (max-width: 900px) {
+    .stack-v2 { padding: 96px 24px 48px; }
+  }
+
+  /* ─── WHY SHORT (home) ───────────────────────────── */
+  .why-v2 {
+    background: var(--paper-warm);
+    padding: 140px 56px;
+  }
+  .why-v2-header {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+  }
+
+  .why-v2-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .why-v2-card {
+    padding: 56px 40px 56px 0;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .why-v2-card:last-child { border-right: none; padding-right: 0; }
+  .why-v2-card:not(:first-child) { padding-left: 40px; }
+
+  .why-v2-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: block;
+  }
+  .why-v2-title {
+    font-family: var(--sans);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .why-v2-body {
+    font-size: 0.98rem;
+    color: var(--mid);
+    line-height: 1.6;
+    max-width: 36ch;
+  }
+
+  @media (max-width: 900px) {
+    .why-v2 { padding: 96px 24px; }
+    .why-v2-grid { grid-template-columns: 1fr; }
+    .why-v2-card { padding: 40px 0 !important; border-right: none; }
+    .why-v2-card:last-child { border-bottom: none; }
+  }
+
+  /* ─── PROOF STRIP (home) ─────────────────────────── */
+  .proof-v2 {
+    background: var(--ink);
+    color: var(--white);
+    padding: 100px 56px;
+  }
+  .proof-v2-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .proof-v2-headline {
+    font-family: var(--sans);
+    font-size: clamp(2rem, 3.8vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--white);
+    max-width: 18ch;
+  }
+  .proof-v2-headline em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+
+  .proof-v2-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 32px;
+  }
+  .proof-v2-stat {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 24px;
+  }
+  .proof-v2-num {
+    font-family: var(--sans);
+    font-size: 3rem;
+    font-weight: 500;
+    color: var(--white);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .proof-v2-num em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .proof-v2-num span { color: var(--accent); }
+  .proof-v2-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 900px) {
+    .proof-v2 { padding: 80px 24px; }
+    .proof-v2-inner { grid-template-columns: 1fr; gap: 48px; }
+    .proof-v2-stats { gap: 32px 24px; }
+    .proof-v2-num { font-size: 2.4rem; }
+  }
+
+  /* ─── TEAM SHORT (home) ──────────────────────────── */
+  .team-v2 {
+    background: var(--paper);
+    padding: 140px 56px;
+  }
+  .team-v2-header {
+    max-width: 1400px;
+    margin: 0 auto 64px;
+  }
+  .team-v2-sub {
+    font-size: 1.05rem;
+    color: var(--mid);
+    line-height: 1.6;
+    margin-top: 24px;
+    max-width: 48ch;
+  }
+  .team-v2-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .team-v2-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    padding: 48px 40px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .team-v2-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .team-v2-photo {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 28px;
+  }
+  .team-v2-name {
+    font-family: var(--sans);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.025em;
+    margin-bottom: 4px;
+  }
+  .team-v2-role {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .team-v2-bio {
+    font-size: 0.98rem;
+    color: var(--mid);
+    line-height: 1.65;
+  }
+  .team-v2-meet {
+    margin-top: 48px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (max-width: 900px) {
+    .team-v2 { padding: 96px 24px; }
+    .team-v2-grid { grid-template-columns: 1fr; }
+    .team-v2-card { padding: 36px 28px; }
+  }
+
+  /* ─── NEXT NAV ───────────────────────────────────── */
+  .next-v2 {
+    background: var(--paper-warm);
+    padding: 80px 56px;
+    border-top: 1px solid var(--rule);
+  }
+  .next-v2-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 64px;
+    align-items: center;
+  }
+  .next-v2-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .next-v2-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .next-v2-meta-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--mid);
+  }
+  .next-v2-headline {
+    font-family: var(--sans);
+    font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 30ch;
+  }
+  .next-v2-headline em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 900px) {
+    .next-v2 { padding: 56px 24px; }
+    .next-v2-inner { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.55);
+    padding: 80px 56px 40px;
+  }
+  .footer-grid {
+    max-width: 1400px;
+    margin: 0 auto 56px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .footer-brand {
+    font-family: var(--sans);
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.035em;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+  .footer-brand span { color: var(--accent); }
+  .footer-tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+    max-width: 32ch;
+  }
+  .footer-col-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .footer-links-v2 {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-links-v2 a {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links-v2 a:hover { color: var(--white); }
+  .footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.45);
+  }
+  .footer-bottom a { color: rgba(255,255,255,0.55); text-decoration: none; }
+  @media (max-width: 900px) {
+    footer { padding: 64px 24px 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── PAGE INTRO (inner pages) ───────────────────── */
+  .page-intro-v2 {
+    background: var(--paper);
+    padding: 200px 56px 100px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-intro-v2-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .page-intro-v2-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .page-intro-v2-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .page-intro-v2-headline {
+    font-family: var(--sans);
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+    max-width: 16ch;
+    margin-bottom: 40px;
+  }
+  .page-intro-v2-headline em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+  }
+  .page-intro-v2-sub {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--mid);
+    max-width: 56ch;
+  }
+  @media (max-width: 900px) {
+    .page-intro-v2 { padding: 140px 24px 72px; }
+  }
+
+  /* ─── MANIFESTO BLOCK (why-mycio) ────────────────── */
+  .manifesto-v2 {
+    background: var(--paper);
+    padding: 140px 56px;
+  }
+  .manifesto-v2-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .manifesto-v2-text {
+    font-family: var(--sans);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .manifesto-v2-text:last-child { margin-bottom: 0; }
+  .manifesto-v2-text em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .manifesto-v2-text strong {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 900px) {
+    .manifesto-v2 { padding: 96px 24px; }
+  }
+
+  /* ─── DIFFERENTIATORS (why-mycio long) ───────────── */
+  .diff-v2 {
+    background: var(--ink);
+    color: var(--white);
+    padding: 0;
+  }
+  .diff-v2-row {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 80px 1fr 1.4fr;
+    gap: 56px;
+    padding: 96px 56px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    align-items: start;
+  }
+  .diff-v2-row:last-child { border-bottom: none; }
+  .diff-v2-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--accent);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    padding-top: 8px;
+  }
+  .diff-v2-headline {
+    font-family: var(--sans);
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--white);
+  }
+  .diff-v2-headline em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .diff-v2-body {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  .diff-v2-body strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+  @media (max-width: 1024px) {
+    .diff-v2-row { grid-template-columns: 60px 1fr; gap: 32px; padding: 72px 24px; }
+    .diff-v2-body { grid-column: 2; }
+  }
+
+  /* ─── CLIENT PROOF QUOTES (why-mycio) ────────────── */
+  .quote-v2 {
+    background: var(--accent);
+    color: var(--white);
+    padding: 140px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-v2::before {
+    content: '\201C';
+    position: absolute;
+    top: 40px;
+    left: 56px;
+    font-family: var(--serif);
+    font-size: 18rem;
+    line-height: 0.8;
+    color: rgba(255,255,255,0.12);
+    pointer-events: none;
+  }
+  .quote-v2-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .quote-v2-text {
+    font-family: var(--sans);
+    font-size: clamp(1.8rem, 3.4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 40px;
+  }
+  .quote-v2-text em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .quote-v2-attr {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  @media (max-width: 900px) {
+    .quote-v2 { padding: 96px 24px; }
+    .quote-v2::before { font-size: 12rem; left: 24px; top: 20px; }
+  }
+
+  /* ─── FULL TEAM (why-mycio) ──────────────────────── */
+  .team-full-v2 {
+    background: var(--paper);
+    padding: 140px 56px;
+  }
+  .team-full-v2-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .team-full-v2-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 64px;
+  }
+  .team-full-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    padding: 56px 48px;
+    transition: border-color 0.25s;
+  }
+  .team-full-card:hover { border-color: var(--accent); }
+  .team-full-photo {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .team-full-name {
+    font-family: var(--sans);
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+  }
+  .team-full-role {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .team-full-bio {
+    font-size: 1rem;
+    color: var(--mid);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+  .team-full-bio strong { color: var(--ink); font-weight: 500; }
+  .team-full-proof {
+    margin-top: 32px;
+    padding: 24px 0 0 24px;
+    border-left: 2px solid var(--accent);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+  @media (max-width: 900px) {
+    .team-full-v2 { padding: 96px 24px; }
+    .team-full-v2-grid { grid-template-columns: 1fr; }
+    .team-full-card { padding: 40px 28px; }
+  }
+
+  /* ─── STATS (why-mycio) ──────────────────────────── */
+  .stats-v2 {
+    background: var(--paper-warm);
+    padding: 100px 56px;
+  }
+  .stats-v2-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .stats-v2-cell {
+    padding: 56px 32px 56px 0;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stats-v2-cell:last-child { border-right: none; padding-right: 0; }
+  .stats-v2-cell:not(:first-child) { padding-left: 32px; }
+  .stats-v2-num {
+    font-family: var(--sans);
+    font-size: 4rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.045em;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .stats-v2-num span { color: var(--accent); }
+  .stats-v2-num em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.4rem;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .stats-v2-label {
+    font-size: 0.88rem;
+    color: var(--mid);
+    line-height: 1.4;
+    max-width: 22ch;
+  }
+  @media (max-width: 900px) {
+    .stats-v2 { padding: 72px 24px; }
+    .stats-v2-inner { grid-template-columns: 1fr 1fr; }
+    .stats-v2-cell:nth-child(even) { border-right: none; padding-right: 0; }
+    .stats-v2-cell:nth-child(odd) { padding-left: 0; }
+    .stats-v2-num { font-size: 2.6rem; }
+  }
+  @media (max-width: 600px) {
+    .stats-v2-inner { grid-template-columns: 1fr; }
+    .stats-v2-cell { padding: 32px 0 !important; border-right: none !important; }
+  }
+
+  /* ─── CLOSING CTA ────────────────────────────────── */
+  .cta-v2 {
+    background: var(--ink);
+    color: var(--white);
+    padding: 140px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-v2::before {
+    content: 'myCIO';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--sans);
+    font-size: 28vw;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: rgba(255,255,255,0.025);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .cta-v2-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-v2-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--accent-soft);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .cta-v2-eyebrow::before,
+  .cta-v2-eyebrow::after {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--accent-soft);
+  }
+  .cta-v2-headline {
+    font-family: var(--sans);
+    font-size: clamp(2.6rem, 5.5vw, 5rem);
+    font-weight: 500;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--white);
+    margin-bottom: 32px;
+    max-width: 18ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-v2-headline em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.025em;
+  }
+  .cta-v2-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.55;
+    margin-bottom: 56px;
+    max-width: 56ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (max-width: 900px) {
+    .cta-v2 { padding: 96px 24px; }
+  }
+
+</style>
+
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index-v2.html" class="nav-logo">my<span>CIO</span></a>
+  <ul class="nav-links">
+    <li><a href="real-picture-v2.html">Real picture</a></li>
+    <li><a href="what-we-do-v2.html">What we do</a></li>
+    <li><a href="how-we-work-v2.html">How we work</a></li>
+    <li><a href="why-mycio-v2.html">Why myCIO</a></li>
+    <li><a href="health-check-v2.html">Health check</a></li>
+  </ul>
+  <a href="contact-v2.html" class="nav-cta">Talk to us</a>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero-v2">
+  <div class="hero-mark">my</div>
+  <div class="hero-inner-v2">
+    <div>
+      <div class="hero-eyebrow-v2">Technology advisory &middot; New Zealand</div>
+      <h1 class="hero-headline-v2">
+        Your technology<br>is costing more<br>than <em>it should.</em>
+      </h1>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-sub-v2">
+        There is a gap between what your business needs and what your technology delivers. Vendors on autopilot, projects that stall, decisions nobody owns. We help NZ businesses close it.
+      </p>
+      <div class="hero-actions-v2">
+        <a href="contact-v2.html" class="btn-primary">Get a clear picture <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="health-check-v2.html" class="btn-ghost">Take the health check <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FIVE SIGNS -->
+<section class="signs-v2">
+  <div class="section-inner">
+    <div class="section-eyebrow" style="color:var(--accent-soft);">Sound familiar</div>
+    <h2 class="section-headline" style="color:var(--white); max-width:20ch;">Five signs the gap is <em>already costing you.</em></h2>
+
+    <div class="signs-v2-grid">
+      <div class="signs-v2-list">
+
+        <div class="sign-row">
+          <div class="sign-num-v2">01</div>
+          <div class="sign-content-v2">
+            <h3 class="sign-title-v2">AI is on the agenda, but nothing has moved.</h3>
+            <p class="sign-body-v2">Pilots have been tried. Nothing has stuck. Twelve months from now the conversation will be the same, and the businesses that did figure it out will be further ahead than they are today.</p>
+          </div>
+        </div>
+
+        <div class="sign-row">
+          <div class="sign-num-v2">02</div>
+          <div class="sign-content-v2">
+            <h3 class="sign-title-v2">The business runs on what is in people's heads.</h3>
+            <p class="sign-body-v2">The real knowledge lives with a handful of senior people. When one of them leaves, something goes with them. It is also why every attempt at AI or automation runs into the same wall.</p>
+          </div>
+        </div>
+
+        <div class="sign-row">
+          <div class="sign-num-v2">03</div>
+          <div class="sign-content-v2">
+            <h3 class="sign-title-v2">Nobody owns the technology direction.</h3>
+            <p class="sign-body-v2">Decisions get made by whoever is closest to the problem. No strategy. No roadmap. No single person accountable for where it is all going. Everyone owns a piece of it, and nobody owns the outcome.</p>
+          </div>
+        </div>
+
+        <div class="sign-row">
+          <div class="sign-num-v2">04</div>
+          <div class="sign-content-v2">
+            <h3 class="sign-title-v2">Technology spend keeps climbing, and the board wants answers.</h3>
+            <p class="sign-body-v2">Invoices go up every year. Nobody can connect the spend to a business outcome. Risk, roadmap, cyber insurance, AI. The honest answer is "I will find out," and that answer is getting used more often than it used to.</p>
+          </div>
+        </div>
+
+        <div class="sign-row">
+          <div class="sign-num-v2">05</div>
+          <div class="sign-content-v2">
+            <h3 class="sign-title-v2">Vendor contracts get renewed because nobody has the time to review them.</h3>
+            <p class="sign-body-v2">Nobody has looked at what you are paying, what you are getting, or whether the terms still make sense. Vendors know this. They are counting on you not asking.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- BRIDGE -->
+<section class="bridge-v2">
+  <p class="bridge-v2-text">If two or more sound familiar, the gap is costing you. <em>That gap does not close on its own.</em></p>
+</section>
+
+
+<!-- STACK TEASE -->
+<section class="stack-v2">
+  <div class="stack-v2-header">
+    <div class="stack-v2-header-headline">
+      <div class="section-eyebrow">The real picture</div>
+      <h2 class="section-headline">Most are sold the top of the stack, while the foundation <em>quietly buckles.</em></h2>
+    </div>
+    <p class="stack-v2-sub stack-v2-header-sub">AI is the current buzzword. Cloud was before it. The cycle is endless. None of it works if the business underneath is not solid.</p>
+  </div>
+
+  <div class="stack-v2-list">
+
+    <div class="stack-v2-item">
+      <div class="stack-v2-num">01</div>
+      <div>
+        <div class="stack-v2-name">Business <em>outcomes.</em></div>
+      </div>
+      <p class="stack-v2-desc">Revenue. Efficiency. Competitive advantage. Where every technology conversation should start.</p>
+      <span class="stack-v2-tag">Top of stack</span>
+    </div>
+
+    <div class="stack-v2-item">
+      <div class="stack-v2-num">02</div>
+      <div>
+        <div class="stack-v2-name">AI and <em>automation.</em></div>
+      </div>
+      <p class="stack-v2-desc">Most NZ businesses are stuck using AI as a tool individuals visit, not a layer running through the business.</p>
+      <span class="stack-v2-tag">Where growth happens</span>
+    </div>
+
+    <div class="stack-v2-item">
+      <div class="stack-v2-num">03</div>
+      <div>
+        <div class="stack-v2-name">Your <em>data.</em></div>
+      </div>
+      <p class="stack-v2-desc">The layer most businesses are missing. The foundation AI actually builds on.</p>
+      <span class="stack-v2-tag">The missing layer</span>
+    </div>
+
+    <div class="stack-v2-item">
+      <div class="stack-v2-num">04</div>
+      <div>
+        <div class="stack-v2-name">The <em>plumbing.</em></div>
+      </div>
+      <p class="stack-v2-desc">Networking. Servers. Cloud. Microsoft 365. Security. The foundation everything else depends on.</p>
+      <span class="stack-v2-tag">Where it starts</span>
+    </div>
+
+  </div>
+
+  <div style="max-width:1400px; margin: 56px auto 0;">
+    <a href="real-picture-v2.html" class="btn-primary">See the full picture <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+
+<!-- WHY SHORT -->
+<section class="why-v2">
+  <div class="why-v2-header">
+    <div class="section-eyebrow">Why myCIO</div>
+    <h2 class="section-headline">Three things no one else is doing <em>together.</em></h2>
+  </div>
+
+  <div class="why-v2-grid">
+    <div class="why-v2-card">
+      <span class="why-v2-num">01</span>
+      <h3 class="why-v2-title">We do not leave until it is working.</h3>
+      <p class="why-v2-body">Most consultants deliver a report and move on. We own the outcome and fix what breaks.</p>
+    </div>
+    <div class="why-v2-card">
+      <span class="why-v2-num">02</span>
+      <h3 class="why-v2-title">Your vendors finally have someone to answer to.</h3>
+      <p class="why-v2-body">We hold them accountable, renegotiate what is not working, and close the gaps they have been ignoring.</p>
+    </div>
+    <div class="why-v2-card">
+      <span class="why-v2-num">03</span>
+      <h3 class="why-v2-title">Built so you are never held hostage.</h3>
+      <p class="why-v2-body">Documented, portable, and not dependent on any single vendor or person. Built to a seven-year standard.</p>
+    </div>
+  </div>
+
+  <div style="max-width:1400px; margin: 64px auto 0;">
+    <a href="why-mycio-v2.html" class="btn-primary">Read the full story <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+
+<!-- TEAM SHORT -->
+<section class="team-v2">
+  <div class="team-v2-header">
+    <div class="section-eyebrow">The team</div>
+    <h2 class="section-headline">No account managers.<br><em>No junior handoffs.</em></h2>
+    <p class="team-v2-sub">The two people whose names are on the door are the people in your business.</p>
+  </div>
+
+  <div class="team-v2-grid">
+    <div class="team-v2-card">
+      <div class="team-v2-photo">EM</div>
+      <h3 class="team-v2-name">Elton McDowall</h3>
+      <div class="team-v2-role">Co-founder &amp; Director</div>
+      <p class="team-v2-bio">Twenty years across strategy, security, governance, and technology leadership. Elton turns the complex stuff into decisions that make sense to owners, CFOs, and directors. Plain language, no jargon.</p>
+    </div>
+
+    <div class="team-v2-card">
+      <div class="team-v2-photo">MN</div>
+      <h3 class="team-v2-name">Michael Nicolle</h3>
+      <div class="team-v2-role">Co-founder &amp; Director</div>
+      <p class="team-v2-bio">Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. Stalled projects, expired vendor relationships, broken trust. That is where the work starts.</p>
+    </div>
+  </div>
+
+  <div class="team-v2-meet">
+    <a href="why-mycio-v2.html" class="btn-ghost">Meet the team in full <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+
+<!-- PROOF -->
+<section class="proof-v2">
+  <div class="proof-v2-inner">
+    <h2 class="proof-v2-headline">Senior, in the room, and <em>responsible for the outcome.</em></h2>
+    <div class="proof-v2-stats">
+      <div class="proof-v2-stat">
+        <div class="proof-v2-num">35<span>+</span></div>
+        <div class="proof-v2-label">Years combined IT experience</div>
+      </div>
+      <div class="proof-v2-stat">
+        <div class="proof-v2-num">$500k</div>
+        <div class="proof-v2-label">Saved by one client in the first vendor review</div>
+      </div>
+      <div class="proof-v2-stat">
+        <div class="proof-v2-num"><em>NZ only</em></div>
+        <div class="proof-v2-label">No offshore handoffs. Ever.</div>
+      </div>
+      <div class="proof-v2-stat">
+        <div class="proof-v2-num">2</div>
+        <div class="proof-v2-label">Senior founders. Both in delivery.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-v2">
+  <div class="cta-v2-inner">
+    <div class="cta-v2-eyebrow">Let's talk</div>
+    <h2 class="cta-v2-headline">Start with a <em>conversation.</em></h2>
+    <p class="cta-v2-sub">Thirty minutes. No prep needed. You will leave with a clear picture of where your technology actually stands.</p>
+    <a href="contact-v2.html" class="btn-primary btn-on-dark">Book a free 30-minute call <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">my<span>CIO</span></div>
+      <p class="footer-tagline">Senior technology advisory for growing New Zealand businesses.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">The story</div>
+      <ul class="footer-links-v2">
+        <li><a href="real-picture-v2.html">Real picture</a></li>
+        <li><a href="what-we-do-v2.html">What we do</a></li>
+        <li><a href="how-we-work-v2.html">How we work</a></li>
+        <li><a href="why-mycio-v2.html">Why myCIO</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Get started</div>
+      <ul class="footer-links-v2">
+        <li><a href="health-check-v2.html">Health check</a></li>
+        <li><a href="faq-v2.html">FAQ</a></li>
+        <li><a href="contact-v2.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links-v2">
+        <li><a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a></li>
+        <li>New Zealand</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 myCIO Advisory Ltd</span>
+    <span>All rights reserved</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 32);
+    });
+  }
+</script>
+
+</body>
+</html>
