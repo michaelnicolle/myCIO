@@ -71,9 +71,10 @@
   .nav-logo span { color: var(--accent); }
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a {
-    font-size: 0.83rem;
+    font-size: 0.78rem;
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--mid);
     text-decoration: none;
     transition: color 0.2s;
@@ -87,6 +88,10 @@
     bottom: -6px; left: 0; right: 0;
     height: 1px;
     background: var(--accent);
+  }
+  .nav-links a .brand-mark {
+    text-transform: none;
+    letter-spacing: -0.02em;
   }
   .nav-cta {
     font-size: 0.82rem;
@@ -337,7 +342,7 @@
   }
   @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
 
-  /* ─── LAYER SECTIONS (real-picture) ──────────────── */
+  /* ─── LAYER SECTIONS (how-tech-works) ────────────── */
   .layer-v2 {
     position: relative;
     padding: 0;
@@ -1088,6 +1093,128 @@
     .hc-header-v2 { padding: 24px; }
   }
 
+  /* ─── GET STARTED INTRO (two paths) ──────────────── */
+  .get-started-intro {
+    background: var(--paper);
+    padding: 200px 56px 100px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .get-started-intro-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .get-started-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .get-started-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .get-started-headline {
+    font-family: var(--sans);
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+    max-width: 16ch;
+    margin-bottom: 32px;
+  }
+  .get-started-headline em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+  }
+  .get-started-sub {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--mid);
+    max-width: 56ch;
+    margin-bottom: 80px;
+  }
+
+  .get-started-paths {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .path-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    padding: 48px 40px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+  }
+  .path-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(13,13,12,0.06);
+  }
+  .path-card-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .path-card-content { display: flex; flex-direction: column; gap: 16px; }
+  .path-card-title {
+    font-family: var(--sans);
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .path-card-title em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.025em;
+  }
+  .path-card-desc {
+    font-size: 0.98rem;
+    color: var(--mid);
+    line-height: 1.65;
+  }
+  .path-card-cta {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .path-card:hover .path-card-cta { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .get-started-intro { padding: 140px 24px 72px; }
+    .get-started-paths { grid-template-columns: 1fr; }
+    .path-card { padding: 36px 28px; }
+  }
+
+  /* On the get-started page, hc-v2 should not have the 200px top padding
+     since the page intro already provides hero spacing */
+  .get-started-intro + .hc-v2 { padding-top: 100px; }
+
   /* ─── FAQ ────────────────────────────────────────── */
   .faq-v2 {
     background: var(--ink);
@@ -1176,6 +1303,7 @@
     position: relative;
     overflow: hidden;
   }
+  .hc-v2 + .contact-v2 { padding-top: 100px; }
   .contact-v2::before {
     content: 'myCIO';
     position: absolute;
@@ -1383,13 +1511,12 @@
 <nav id="nav">
   <a href="index-v2.html" class="nav-logo">my<span>CIO</span></a>
   <ul class="nav-links">
-    <li><a href="real-picture-v2.html">REAL PICTURE</a></li>
-    <li><a href="what-we-do-v2.html">WHAT WE DO</a></li>
-    <li><a href="how-we-work-v2.html">HOW WE WORK</a></li>
-    <li><a href="why-mycio-v2.html">WHY myCIO</a></li>
-    <li><a href="health-check-v2.html">HEATLTH CHECK</a></li>
+    <li><a href="what-we-do-v2.html">What we do</a></li>
+    <li><a href="how-we-work-v2.html">How we work</a></li>
+    <li><a href="why-mycio-v2.html">Why <span class="brand-mark">myCIO</span></a></li>
+    <li><a href="get-started-v2.html#health-check">Health check</a></li>
   </ul>
-  <a href="contact-v2.html" class="nav-cta">Talk to us</a>
+  <a href="get-started-v2.html#talk-to-us" class="nav-cta">Talk to us</a>
 </nav>
 
 
@@ -1472,7 +1599,7 @@
       <span class="next-v2-meta-label">Next</span>
     </div>
     <h3 class="next-v2-headline">Book a thirty-minute call. <em>No prep needed.</em></h3>
-    <a href="contact-v2.html" class="btn-primary">Book a call <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="get-started-v2.html#talk-to-us" class="btn-primary">Book a call <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
 </section>
 
@@ -1486,7 +1613,6 @@
     <div>
       <div class="footer-col-title">The story</div>
       <ul class="footer-links-v2">
-        <li><a href="real-picture-v2.html">Real picture</a></li>
         <li><a href="what-we-do-v2.html">What we do</a></li>
         <li><a href="how-we-work-v2.html">How we work</a></li>
         <li><a href="why-mycio-v2.html">Why myCIO</a></li>
@@ -1495,9 +1621,9 @@
     <div>
       <div class="footer-col-title">Get started</div>
       <ul class="footer-links-v2">
-        <li><a href="health-check-v2.html">Health check</a></li>
+        <li><a href="get-started-v2.html#health-check">Health check</a></li>
+        <li><a href="get-started-v2.html#talk-to-us">Talk to us</a></li>
         <li><a href="faq-v2.html">FAQ</a></li>
-        <li><a href="contact-v2.html">Contact</a></li>
       </ul>
     </div>
     <div>

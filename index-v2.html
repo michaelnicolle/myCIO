@@ -88,9 +88,10 @@
 
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a {
-    font-size: 0.83rem;
+    font-size: 0.78rem;
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--mid);
     text-decoration: none;
     transition: color 0.2s;
@@ -104,6 +105,10 @@
     bottom: -6px; left: 0; right: 0;
     height: 1px;
     background: var(--accent);
+  }
+  .nav-links a .brand-mark {
+    text-transform: none;
+    letter-spacing: -0.02em;
   }
   nav.dark .nav-links a { color: rgba(255,255,255,0.55); }
   nav.dark .nav-links a:hover { color: var(--white); }
@@ -471,34 +476,28 @@
   .stack-v2-header {
     max-width: 1400px;
     margin: 0 auto 80px;
-    display: grid;
-    grid-template-columns: 80px 1fr 1.5fr auto;
-    gap: 48px;
-    align-items: end;
-  }
-  .stack-v2-header-headline {
-    grid-column: 1 / 3;
-  }
-  .stack-v2-header-sub {
-    grid-column: 3 / 4;
   }
   .stack-v2-sub {
     font-size: 1.05rem;
     line-height: 1.6;
     color: var(--mid);
-    max-width: 52ch;
+    max-width: 64ch;
+    margin-top: 32px;
   }
 
   .stack-v2-list {
     max-width: 1400px;
     margin: 0 auto;
     border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 80px 1fr 1.5fr auto;
+    column-gap: 48px;
   }
 
   .stack-v2-item {
     display: grid;
-    grid-template-columns: 80px 1fr 1.5fr auto;
-    gap: 48px;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     padding: 48px 0;
     border-bottom: 1px solid var(--rule);
     align-items: center;
@@ -552,14 +551,11 @@
   }
 
   @media (max-width: 1024px) {
-    .stack-v2-item { grid-template-columns: 60px 1fr; gap: 24px; }
+    .stack-v2-list { grid-template-columns: 60px 1fr; column-gap: 24px; }
     .stack-v2-desc, .stack-v2-tag { grid-column: 2; }
     .stack-v2-tag { margin-top: 4px; text-align: left; }
     .stack-v2-name { font-size: 1.5rem; }
     .stack-v2-num { font-size: 1.8rem; }
-    .stack-v2-header { grid-template-columns: 1fr; gap: 32px; }
-    .stack-v2-header-headline { grid-column: 1; }
-    .stack-v2-header-sub { grid-column: 1; }
   }
   @media (max-width: 900px) {
     .stack-v2 { padding: 96px 24px 48px; }
@@ -1323,13 +1319,12 @@
 <nav id="nav">
   <a href="index-v2.html" class="nav-logo">my<span>CIO</span></a>
   <ul class="nav-links">
-    <li><a href="real-picture-v2.html">REAL PICTURE</a></li>
-    <li><a href="what-we-do-v2.html">WHAT WE DO</a></li>
-    <li><a href="how-we-work-v2.html">HOW WE WORK</a></li>
-    <li><a href="why-mycio-v2.html">WHY myCIO</a></li>
-    <li><a href="health-check-v2.html">HEATLTH CHECK</a></li>
+    <li><a href="what-we-do-v2.html">What we do</a></li>
+    <li><a href="how-we-work-v2.html">How we work</a></li>
+    <li><a href="why-mycio-v2.html">Why <span class="brand-mark">myCIO</span></a></li>
+    <li><a href="get-started-v2.html#health-check">Health check</a></li>
   </ul>
-  <a href="contact-v2.html" class="nav-cta">Talk to us</a>
+  <a href="get-started-v2.html#talk-to-us" class="nav-cta">Talk to us</a>
 </nav>
 
 
@@ -1348,8 +1343,8 @@
         There is a gap between what your business needs and what your technology delivers. Vendors on autopilot, projects that stall, decisions nobody owns. We help NZ businesses close it.
       </p>
       <div class="hero-actions-v2">
-        <a href="contact-v2.html" class="btn-primary">Get a clear picture <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="health-check-v2.html" class="btn-ghost">Take the health check <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="get-started-v2.html#talk-to-us" class="btn-primary">Get a clear picture <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="get-started-v2.html#health-check" class="btn-ghost">Take the health check <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
   </div>
@@ -1420,11 +1415,9 @@
 <!-- STACK TEASE -->
 <section class="stack-v2">
   <div class="stack-v2-header">
-    <div class="stack-v2-header-headline">
-      <div class="section-eyebrow">The real picture</div>
-      <h2 class="section-headline">Most are sold the top of the stack, while the foundation <em>quietly buckles.</em></h2>
-    </div>
-    <p class="stack-v2-sub stack-v2-header-sub">AI is the current buzzword. Cloud was before it. The cycle is endless. None of it works if the business underneath is not solid.</p>
+    <div class="section-eyebrow">How technology actually works</div>
+    <h2 class="section-headline" style="max-width: 28ch;">Most are sold the top of the stack, while the foundation <em>quietly buckles.</em></h2>
+    <p class="stack-v2-sub">AI is the current buzzword. Cloud was before it. The cycle is endless. None of it works if the business underneath is not solid.</p>
   </div>
 
   <div class="stack-v2-list">
@@ -1468,7 +1461,7 @@
   </div>
 
   <div style="max-width:1400px; margin: 56px auto 0;">
-    <a href="real-picture-v2.html" class="btn-primary">See the full picture <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="what-we-do-v2.html" class="btn-primary">See what we do <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
 </section>
 
@@ -1566,7 +1559,7 @@
     <div class="cta-v2-eyebrow">Let's talk</div>
     <h2 class="cta-v2-headline">Start with a <em>conversation.</em></h2>
     <p class="cta-v2-sub">Thirty minutes. No prep needed. You will leave with a clear picture of where your technology actually stands.</p>
-    <a href="contact-v2.html" class="btn-primary btn-on-dark">Book a free 30-minute call <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="get-started-v2.html#talk-to-us" class="btn-primary btn-on-dark">Book a free 30-minute call <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
 </section>
 
@@ -1580,7 +1573,6 @@
     <div>
       <div class="footer-col-title">The story</div>
       <ul class="footer-links-v2">
-        <li><a href="real-picture-v2.html">Real picture</a></li>
         <li><a href="what-we-do-v2.html">What we do</a></li>
         <li><a href="how-we-work-v2.html">How we work</a></li>
         <li><a href="why-mycio-v2.html">Why myCIO</a></li>
@@ -1589,9 +1581,9 @@
     <div>
       <div class="footer-col-title">Get started</div>
       <ul class="footer-links-v2">
-        <li><a href="health-check-v2.html">Health check</a></li>
+        <li><a href="get-started-v2.html#health-check">Health check</a></li>
+        <li><a href="get-started-v2.html#talk-to-us">Talk to us</a></li>
         <li><a href="faq-v2.html">FAQ</a></li>
-        <li><a href="contact-v2.html">Contact</a></li>
       </ul>
     </div>
     <div>
