@@ -204,6 +204,44 @@
   }
   @media (max-width: 900px) { .page-intro-v2 { padding: 140px 24px 72px; } }
 
+  /* POSITIONING BAND (sits below hero on what-we-do) */
+  .positioning-v2 {
+    background: var(--paper);
+    padding: 0 56px 100px;
+  }
+  .positioning-v2-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 64px;
+    border-top: 1px solid var(--rule);
+  }
+  .positioning-v2-statement {
+    font-family: var(--sans);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 60ch;
+    margin-bottom: 32px;
+  }
+  .positioning-v2-statement em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .positioning-v2-body {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--mid);
+  }
+  @media (max-width: 900px) {
+    .positioning-v2 { padding: 0 24px 80px; }
+    .positioning-v2-inner { padding-top: 48px; }
+  }
+
   /* CTA */
   .cta-v2 {
     background: var(--ink); color: var(--white);
@@ -1520,24 +1558,21 @@
 </nav>
 
 
-<!-- INTRO -->
+<!-- HERO -->
 <section class="page-intro-v2">
   <div class="page-intro-v2-inner">
     <div class="page-intro-v2-eyebrow">What we do</div>
-    <h1 class="page-intro-v2-headline">From the foundations up to <em>where growth happens.</em></h1>
-    <p class="page-intro-v2-sub">Your technology partner. From the layer everyone sees down to the foundation everything depends on.</p>
+    <h1 class="page-intro-v2-headline">AI is the current buzzword. Cloud was before it. <em>The cycle is endless.</em></h1>
+    <p class="page-intro-v2-sub">None of it works if the business underneath is not solid.</p>
   </div>
 </section>
 
 
-<!-- STACK INTRO -->
-<section class="layer-v2 layer-outcomes-v2" style="padding-top: 80px;">
-  <div class="layer-v2-inner" style="grid-template-columns: 1fr; padding-bottom: 0;">
-    <div>
-      <div class="section-eyebrow">How technology actually works</div>
-      <h2 class="section-headline" style="max-width: 28ch;">AI is the current buzzword. Cloud was before it. <em>The cycle is endless.</em></h2>
-      <p style="font-size: 1.05rem; line-height: 1.6; color: var(--mid); max-width: 90ch; margin-top: 32px;">None of it works if the business underneath is not solid. Your technology is only as good as the business it sits on top of. And your business is only as good as what survives your best person walking out the door.</p>
-    </div>
+<!-- POSITIONING BAND -->
+<section class="positioning-v2">
+  <div class="positioning-v2-inner">
+    <p class="positioning-v2-statement">Your technology partner. From the layer everyone sees down to <em>the foundation everything depends on.</em></p>
+    <p class="positioning-v2-body">Your technology is only as good as the business it sits on top of. And your business is only as good as what survives your best person walking out the door.</p>
   </div>
 </section>
 
