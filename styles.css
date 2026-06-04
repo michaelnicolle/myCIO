@@ -370,3 +370,98 @@ footer ul a:hover { color: var(--accent); }
   .stage .s-out { grid-column: 2; }
   .foot-top { grid-template-columns: 1fr; gap: 30px; }
 }
+
+/* ---------- Trust strip ---------- */
+.trust {
+  background: var(--ink);
+  color: rgba(250,247,241,0.85);
+  border: 0;
+  padding: 0;
+}
+.trust .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+.trust .ts-item { display: flex; align-items: baseline; gap: 10px; font-size: 0.96rem; }
+.trust .ts-item b { color: var(--accent); font-weight: 700; font-size: 1.05rem; }
+.trust .ts-sep { color: rgba(250,247,241,0.25); }
+
+/* ---------- Stack intro ---------- */
+.stack-intro { text-align: left; }
+.stack-intro .big-statement {
+  font-size: clamp(2rem, 4.6vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  max-width: 20ch;
+}
+.stack-intro .lead-sub { font-size: 1.1rem; color: var(--muted); max-width: 56ch; margin-top: 22px; }
+
+/* ---------- Layer sections (full-bleed alternating) ---------- */
+.layer-section { padding: 96px 0; border-bottom: 1px solid var(--line); }
+.layer-section.dark { border-bottom: 1px solid rgba(255,255,255,0.1); }
+.layer-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.layer-section:nth-of-type(even) .layer-inner { grid-template-columns: 1fr 1fr; }
+.layer-section .flip .layer-copy { order: 2; }
+.layer-section .flip .layer-art { order: 1; }
+.layer-tag {
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
+  font-weight: 600; color: var(--accent); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+.layer-tag .lt-num { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 1.5rem; text-transform: none; letter-spacing: 0; }
+.layer-copy h2 {
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  font-weight: 700; letter-spacing: -0.035em; line-height: 1.08; margin-bottom: 18px;
+}
+.layer-copy p { color: var(--muted); font-size: 1.06rem; margin-bottom: 16px; max-width: 52ch; }
+.layer-section.dark .layer-copy p { color: rgba(250,247,241,0.7); }
+.layer-copy p:last-child { margin-bottom: 0; }
+.layer-copy strong { color: inherit; font-weight: 700; }
+.layer-art {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.layer-section.dark .layer-art { border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); }
+.layer-art svg { width: 100%; height: 100%; }
+
+/* ---------- Accordion (how we work, on home) ---------- */
+.accordion { margin-top: 46px; border-top: 1px solid var(--line); }
+.accordion details { border-bottom: 1px solid var(--line); }
+.accordion summary {
+  cursor: pointer; list-style: none; padding: 30px 0;
+  display: grid; grid-template-columns: 64px 1fr auto; gap: 24px; align-items: baseline;
+}
+.accordion summary::-webkit-details-marker { display: none; }
+.accordion .ac-num { font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--accent); font-size: 1.4rem; }
+.accordion .ac-name { font-weight: 700; font-size: 1.45rem; letter-spacing: -0.03em; }
+.accordion .ac-time { font-size: 0.84rem; color: var(--muted); margin-top: 4px; }
+.accordion summary::after { content: "+"; color: var(--accent); font-size: 1.6rem; font-weight: 400; transition: transform 0.2s; align-self: center; }
+.accordion details[open] summary::after { transform: rotate(45deg); }
+.accordion .ac-body { padding: 0 0 30px 88px; }
+.accordion .ac-body p { color: var(--muted); font-size: 1.02rem; max-width: 64ch; }
+.accordion .ac-body .ac-out { color: var(--ink-soft); font-weight: 500; margin-bottom: 10px; }
+
+@media (max-width: 860px) {
+  .layer-inner { grid-template-columns: 1fr; gap: 30px; }
+  .layer-section .flip .layer-copy { order: 1; }
+  .layer-section .flip .layer-art { order: 2; }
+  .accordion summary { grid-template-columns: 44px 1fr auto; gap: 14px; }
+  .accordion .ac-body { padding-left: 58px; }
+  .trust .wrap { gap: 14px; }
+  .trust .ts-sep { display: none; }
+}
