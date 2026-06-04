@@ -465,3 +465,24 @@ footer ul a:hover { color: var(--accent); }
   .trust .wrap { gap: 14px; }
   .trust .ts-sep { display: none; }
 }
+
+/* ---------- Stage rows (BetaSys myCIO two-column layout) ---------- */
+.stage-rows { margin-top: 52px; border: 1px solid var(--line); }
+.stage-row {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1.3fr;
+  gap: 40px;
+  padding: 38px 36px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.stage-row:last-child { border-bottom: 0; }
+.stage-row .sr-head .sr-num { font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--accent); font-size: 1.15rem; display: block; margin-bottom: 8px; }
+.stage-row .sr-head .sr-name { font-weight: 700; font-size: 1.55rem; letter-spacing: -0.03em; }
+.stage-row .sr-head .sr-time { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-top: 8px; }
+.stage-row .sr-col .sr-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+.stage-row .sr-col p { font-size: 1rem; color: var(--ink-soft); }
+.stage-row .sr-col.what p { color: var(--muted); }
+
+@media (max-width: 860px) {
+  .stage-row { grid-template-columns: 1fr; gap: 20px; padding: 30px 24px; }
+}
