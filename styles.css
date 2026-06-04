@@ -466,7 +466,7 @@ footer ul a:hover { color: var(--accent); }
   .trust .ts-sep { display: none; }
 }
 
-/* ---------- Stage rows (BetaSys myCIO two-column layout) ---------- */
+/* ---------- Stage rows (two-column layout) ---------- */
 .stage-rows { margin-top: 52px; border: 1px solid var(--line); }
 .stage-row {
   display: grid;
