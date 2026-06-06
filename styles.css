@@ -495,3 +495,34 @@ footer ul a:hover { color: var(--accent); }
 @media (max-width: 860px) {
   .reassure { grid-template-columns: 1fr; gap: 0; }
 }
+
+/* ---------- Offer blocks (What we do lead products) ---------- */
+.offer {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 56px;
+  padding: 56px 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+.offer:first-of-type { border-top: 0; }
+.offer .offer-label {
+  font-family: 'Libre Baskerville', serif; font-style: italic;
+  font-size: 1.1rem; color: var(--accent); margin-bottom: 16px;
+}
+.offer h3 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; }
+.offer .offer-body p { color: var(--ink-soft); font-size: 1.08rem; margin-bottom: 16px; max-width: 56ch; }
+.offer .offer-body p:last-of-type { margin-bottom: 0; }
+.offer .offer-body strong { font-weight: 700; color: var(--ink); }
+.offer .offer-points { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+.offer .offer-points .op {
+  padding-left: 26px; position: relative; font-size: 1rem; color: var(--ink-soft);
+}
+.offer .offer-points .op::before { content: "\2192"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+/* deliver intro band */
+.deliver-lead .section-sub { max-width: 62ch; }
+
+@media (max-width: 860px) {
+  .offer { grid-template-columns: 1fr; gap: 22px; padding: 40px 0; }
+}
