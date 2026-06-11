@@ -707,8 +707,8 @@ footer {
 }
 
 /* ---------- Subpage hero ---------- */
-.page-hero { min-height: 74vh; min-height: 74svh; }
-.page-hero .hero-content { padding: 150px 28px 150px; }
+.page-hero { min-height: 100vh; min-height: 100svh; }
+.page-hero .hero-content { padding: 130px 28px 170px; }
 .page-hero h1 {
   font-size: clamp(2.3rem, 5vw, 4rem);
   font-weight: 400;
@@ -783,6 +783,24 @@ footer {
   border-radius: 100px;
   background: var(--accent);
   flex-shrink: 0;
+}
+
+
+/* ---------- Offer sections: rotate in on scroll, both directions ---------- */
+.offer-sec { padding: 26px 0; }
+.offer-sec.first { padding-top: 80px; }
+.offer.rotor { opacity: 0; transform-origin: 50% 0; }
+.offer.rotor.in {
+  opacity: 1;
+  animation: rotorIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@keyframes rotorIn {
+  from { opacity: 0; transform: perspective(1200px) rotateX(16deg) translateY(70px); }
+  to { opacity: 1; transform: perspective(1200px) rotateX(0deg) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .offer.rotor { opacity: 1; }
+  .offer.rotor.in { animation: none; }
 }
 
 /* ---------- Stage rows (how we work) ---------- */
@@ -910,7 +928,6 @@ footer {
 </header>
 
 <section class="hero page-hero" aria-label="Introduction">
-  <canvas id="wave" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="inner">
       <p class="hj-eyebrow">What we do</p>
@@ -918,15 +935,22 @@ footer {
       <p class="lead">We own your technology outcome. At the centre sit two things: senior leadership, where we own the direction, and transformation, where we run the work that moves you forward. Below them, the capability we deliver and orchestrate across the full stack. Here is all of it.</p>
     </div>
   </div>
+  <div class="hero-foot">
+    <span>Independent.</span>
+    <span class="hf-dot" aria-hidden="true"></span>
+    <span>In the room.</span>
+    <span class="hf-dot" aria-hidden="true"></span>
+    <span>NZ owned.</span>
+  </div>
   <div class="hero-scroll" aria-hidden="true"><span class="chev"></span></div>
 </section>
 
 <div class="fade-light" aria-hidden="true"></div>
 
-<!-- LEAD OFFERS -->
-<section>
+<!-- LEAD OFFERS: one section per card -->
+<section class="offer-sec first">
   <div class="wrap">
-    <div class="offer reveal">
+<div class="offer rotor">
       <div>
         <div class="offer-label">01</div>
         <h3>Technology <span class="accent">leadership</span></h3>
@@ -942,8 +966,12 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="offer reveal">
+<section class="offer-sec">
+  <div class="wrap">
+<div class="offer rotor">
       <div>
         <div class="offer-label">02</div>
         <h3>Digital <span class="accent">transformation</span></h3>
@@ -959,8 +987,12 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="offer reveal">
+<section class="offer-sec">
+  <div class="wrap">
+<div class="offer rotor">
       <div>
         <div class="offer-label">03</div>
         <h3>AI and <span class="accent">automation</span></h3>
@@ -975,8 +1007,12 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="offer reveal">
+<section class="offer-sec">
+  <div class="wrap">
+<div class="offer rotor">
       <div>
         <div class="offer-label">04</div>
         <h3>Data and business <span class="accent">knowledge</span></h3>
@@ -991,8 +1027,12 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="offer reveal">
+<section class="offer-sec">
+  <div class="wrap">
+<div class="offer rotor">
       <div>
         <div class="offer-label">05</div>
         <h3>Modern work with <span class="accent">Microsoft 365</span></h3>
@@ -1007,8 +1047,12 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="offer reveal">
+<section class="offer-sec">
+  <div class="wrap">
+<div class="offer rotor">
       <div>
         <div class="offer-label">06</div>
         <h3>Security and <span class="accent">governance</span></h3>
@@ -1023,8 +1067,12 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="offer reveal">
+<section class="offer-sec">
+  <div class="wrap">
+<div class="offer rotor">
       <div>
         <div class="offer-label">07</div>
         <h3>Hybrid cloud and <span class="accent">infrastructure</span></h3>
@@ -1039,8 +1087,12 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="offer reveal">
+<section class="offer-sec">
+  <div class="wrap">
+<div class="offer rotor">
       <div>
         <div class="offer-label">08</div>
         <h3>Secure <span class="accent">networking</span></h3>
@@ -1055,6 +1107,11 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="offer-sec" style="padding-top:10px;">
+  <div class="wrap" style="text-align:center;">
     <a href="how-we-work.html" class="cta-link reveal">See how we work <span class="arr">&rarr;</span></a>
   </div>
 </section>
@@ -1220,6 +1277,25 @@ footer {
 
   if (reduce) { draw(0); return; }
   requestAnimationFrame(frame);
+})();
+
+
+// Offer cards: rotate in whenever they enter the viewport, both scroll directions
+(function () {
+  var els = document.querySelectorAll('.rotor');
+  if (!els.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+      else entry.target.classList.remove('in');
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function (el) { io.observe(el); });
 })();
 </script>
 </body>
