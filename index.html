@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>myCIO | Senior Technology Leadership for NZ Business</title>
-<meta name="description" content="myCIO is the senior technology and security leadership growing New Zealand businesses need but cannot justify hiring full time. Independent. Accountable. We own the outcome.">
+<meta name="description" content="myCIO is senior technology leadership for New Zealand businesses. Independent, accountable, in the room. We own the technology outcome.">
 <style>
 /* myCIO website styles, launch redesign */
 
@@ -200,6 +200,13 @@ header.nav {
   margin: 24px auto 0;
 }
 .hero-content .lead strong { color: var(--white); font-weight: 600; }
+.hero-content .lead .lead-owner {
+  display: block;
+  margin-top: 12px;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.06em;
+}
 .hero-actions { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
 .hero-foot {
   position: absolute;
@@ -523,9 +530,24 @@ section[id] { scroll-margin-top: 90px; }
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--white);
-  padding: 38px 36px;
+  padding: 42px 40px;
   overflow: hidden;
+  text-align: center;
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
+}
+.layer-num {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--accent);
+  border-radius: 100px;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--accent);
 }
 .layer-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.35); }
 .layer-card.sand { background: var(--sand); }
@@ -545,20 +567,21 @@ section[id] { scroll-margin-top: 90px; }
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.1;
-  margin-bottom: 16px;
-  max-width: 14ch;
+  margin: 0 auto 16px;
 }
-.layer-card p { color: var(--muted); font-size: 0.99rem; margin-top: 12px; max-width: 52ch; }
+.layer-card p { color: var(--muted); font-size: 0.99rem; margin: 12px auto 0; max-width: 52ch; }
 .layer-card p strong { color: var(--ink); }
 .layer-card.dark-card p strong { color: var(--paper); }
-.layer-art {
-  position: absolute;
-  top: 26px;
-  right: 26px;
-  width: 84px;
-  opacity: 0.9;
+
+
+/* ---------- Next page band ---------- */
+.next-band {
+  padding: 70px 0;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
-.layer-art svg { width: 100%; height: auto; display: block; }
+.next-band .btn { padding: 15px 34px; font-size: 1rem; }
 
 /* ---------- Why cards ---------- */
 .why-story { max-width: 760px; margin: 36px auto 0; display: flex; flex-direction: column; gap: 18px; }
@@ -708,7 +731,6 @@ footer {
   .signs { grid-template-columns: 1fr; }
   section { padding: 72px 0; }
   .sv-note { display: none; }
-  .layer-art { width: 64px; top: 20px; right: 20px; }
   .hero-foot { bottom: 70px; gap: 6px 20px; }
   .hero-foot span { font-size: 0.78rem; }
 }
@@ -724,8 +746,8 @@ footer {
       <a href="index.html">Why myCIO</a>
       <a href="what-we-do.html">What we do</a>
       <a href="how-we-work.html">How we work</a>
-      <a href="contact.html">Contact</a>
-      <a href="contact.html" class="btn btn-nav">Book a 30 min call</a>
+      <a href="contact.html">Meet the team</a>
+      <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
     </nav>
   </div>
 </header>
@@ -737,9 +759,9 @@ footer {
     <div class="inner">
       <p class="hj-eyebrow">Senior technology leadership &middot; New Zealand</p>
       <h1>You run the business.<span class="h1-line2">We run the technology.</span></h1>
-      <p class="lead">Most growing businesses have technology, vendors, and good intentions, but no one senior owning the direction. <strong>myCIO is that owner.</strong></p>
+      <p class="lead">Most growing businesses have technology, vendors, and good intentions, but no one senior owning the direction.<span class="lead-owner">myCIO is that owner.</span></p>
       <div class="hero-actions">
-        <a href="contact.html" class="btn btn-light">Talk to us about saving your technology projects <span class="chev-r">&rsaquo;</span></a>
+        <a href="contact.html" class="btn btn-light">Talk to us about sorting your technology out <span class="chev-r">&rsaquo;</span></a>
       </div>
     </div>
   </div>
@@ -771,8 +793,8 @@ footer {
         <span>Vendors held to account from day one</span>
       </div>
       <div class="ps-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10 h18 M8 3 v4 M16 3 v4" stroke-linecap="round"/></svg>
-        <span>A roadmap reviewed every quarter</span>
+        <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11 V8 a4 4 0 0 1 7.5 -1.8" stroke-linecap="round"/></svg>
+        <span>No lock-in, not even to us</span>
       </div>
     </div>
   </div>
@@ -874,7 +896,7 @@ footer {
               <text x="72" y="322" font-family="'Hanken Grotesk', sans-serif" font-size="26" font-weight="700" fill="rgba(250,247,241,0.95)">99.98%</text>
               <text x="72" y="344" font-family="'Hanken Grotesk', sans-serif" font-size="12" fill="rgba(250,247,241,0.45)">uptime across every site</text>
               <text x="300" y="322" font-family="'Hanken Grotesk', sans-serif" font-size="26" font-weight="700" fill="#e05a30">$500k</text>
-              <text x="300" y="344" font-family="'Hanken Grotesk', sans-serif" font-size="12" fill="rgba(250,247,241,0.45)">recovered in one vendor review</text>
+              <text x="300" y="344" font-family="'Hanken Grotesk', sans-serif" font-size="12" fill="rgba(250,247,241,0.45)">saved in one vendor review</text>
             </g>
           </svg></div>
         <h2>Ours ends with technology <span class="accent">people enjoy using.</span></h2>
@@ -918,7 +940,7 @@ footer {
         <p>Nobody has looked at what you are paying, what you are getting, or whether the terms still make sense. Vendors know this. They are counting on you not asking.</p>
       </div>
     </div>
-    <p class="signs-close reveal">If two or more of these sound familiar, your technology is likely costing you more than it should. <span class="accent">That gap does not close on its own.</span></p>
+    <p class="signs-close reveal">If any of these sound familiar, your technology is likely costing you more than it should. <span class="accent">That gap does not close on its own.</span></p>
   </div>
 </section>
 
@@ -951,14 +973,7 @@ footer {
 
     <div class="layers">
       <div class="layer-card reveal">
-        <div class="layer-art">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <g stroke="#e05a30" stroke-width="8" fill="none">
-              <path d="M60 230 L130 170 L200 195 L270 110 L340 70"/>
-              <circle cx="340" cy="70" r="16" fill="#e05a30"/>
-            </g>
-          </svg>
-        </div>
+        <div class="layer-num">01</div>
         <div class="layer-tag">Top of the stack</div>
         <h3>Business <span class="accent">outcomes.</span></h3>
         <p>Revenue. Efficiency. Uptime. The edge over the business across town. This is the only layer that actually matters to an owner, and it is where almost no technology conversation starts.</p>
@@ -966,22 +981,7 @@ footer {
       </div>
 
       <div class="layer-card sand reveal">
-        <div class="layer-art">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <g stroke="#e05a30" stroke-width="7" fill="none">
-              <circle cx="200" cy="150" r="40"/>
-              <circle cx="90" cy="70" r="22"/>
-              <circle cx="310" cy="70" r="22"/>
-              <circle cx="90" cy="230" r="22"/>
-              <circle cx="310" cy="230" r="22"/>
-              <line x1="110" y1="86" x2="170" y2="128"/>
-              <line x1="290" y1="86" x2="230" y2="128"/>
-              <line x1="110" y1="214" x2="170" y2="172"/>
-              <line x1="290" y1="214" x2="230" y2="172"/>
-            </g>
-            <circle cx="200" cy="150" r="12" fill="#e05a30"/>
-          </svg>
-        </div>
+        <div class="layer-num">02</div>
         <div class="layer-tag">Where growth happens</div>
         <h3>AI and <span class="accent">automation.</span></h3>
         <p>This is the layer everyone is chasing right now. Most businesses are stuck at the shallow end, a few people using ChatGPT for one-off tasks. Useful, but it is not moving the business. The value sits in AI woven through how the work actually gets done.</p>
@@ -989,15 +989,7 @@ footer {
       </div>
 
       <div class="layer-card sand reveal">
-        <div class="layer-art">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <g stroke="#e05a30" stroke-width="7" fill="none">
-              <ellipse cx="200" cy="80" rx="110" ry="32"/>
-              <path d="M90 80 V200 a110 32 0 0 0 220 0 V80"/>
-              <path d="M90 140 a110 32 0 0 0 220 0"/>
-            </g>
-          </svg>
-        </div>
+        <div class="layer-num">03</div>
         <div class="layer-tag">The layer everyone skips</div>
         <h3>Your <span class="accent">data and knowledge.</span></h3>
         <p>This is the layer almost every business skips, and the reason their AI ambitions stall. The way things really get done lives in the heads of a handful of long-serving people. The business runs on it. It also stops the day one of them leaves.</p>
@@ -1005,25 +997,11 @@ footer {
       </div>
 
       <div class="layer-card dark-card reveal">
-        <div class="layer-art">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <g stroke="#e05a30" stroke-width="7" fill="none">
-              <rect x="150" y="30" width="100" height="52" rx="8"/>
-              <rect x="50" y="130" width="100" height="52" rx="8"/>
-              <rect x="250" y="130" width="100" height="52" rx="8"/>
-              <rect x="150" y="226" width="100" height="52" rx="8"/>
-              <line x1="200" y1="82" x2="200" y2="106"/>
-              <line x1="100" y1="106" x2="300" y2="106"/>
-              <line x1="100" y1="106" x2="100" y2="130"/>
-              <line x1="300" y1="106" x2="300" y2="130"/>
-              <line x1="200" y1="182" x2="200" y2="226"/>
-            </g>
-          </svg>
-        </div>
+        <div class="layer-num">04</div>
         <div class="layer-tag">Where it all starts</div>
         <h3>The <span class="accent">foundations.</span></h3>
         <p>Networking, servers, cloud, Microsoft 365, the technology in every site, and the security wrapped around all of it. This is the plumbing. It is invisible when it works and impossible to ignore when it does not. Get it wrong and nothing above it holds.</p>
-        <p>This is where most businesses are quietly exposed, and where the years on the hamster wheel quietly pile up technical debt. It is also where we are strongest. We build foundations that are stable, secure, and not dependent on any single vendor or person to keep them running. <strong>Solid here, and every layer above it has a chance.</strong></p>
+        <p>This is where most businesses are quietly exposed, and where the years on the hamster wheel quietly pile up technical debt. It is also where we are strongest. We build foundations to a seven-year standard, not the industry norm of three. Stable, secure, and never dependent on any single vendor or person to keep them running, including us. <strong>Solid here, and every layer above it has a chance.</strong></p>
       </div>
     </div>
   </div>
@@ -1035,8 +1013,8 @@ footer {
     <p class="eyebrow reveal">Why myCIO</p>
     <h2 class="section-head reveal">Senior technology leadership<br><span class="accent">that owns the outcome.</span></h2>
     <div class="why-story" style="text-align:left;">
-      <p class="reveal">Most growing businesses reach a point where technology is too important to leave to chance, but not yet big enough to justify a full-time CIO on six figures. So the decisions fall to the owner, the office manager, or whoever shouts loudest, and the provider just keeps billing.</p>
-      <p class="reveal">That gap is where we live. You get senior technology leadership the way a large company has it in-house, the experience, the independence, the accountability, shared across a handful of businesses that each need a slice of it. At a fraction of the cost of one full-time hire, and with none of the empire building.</p>
+      <p class="reveal">Most businesses reach a point where technology is too important to leave to chance, but a full-time technology executive is not the answer. So the decisions fall to the owner, the office manager, or whoever shouts loudest, and the provider just keeps billing.</p>
+      <p class="reveal">That gap is where we live. You get senior technology leadership the way a large company has it in-house, the experience, the independence, the accountability, shared across a handful of businesses that each need a slice of it. Senior experience without the overhead, and none of the empire building.</p>
       <p class="reveal">And you are not betting the business on a single person. <strong>You get a senior team, not a sole operator.</strong> More than one experienced brain on your technology, covering each other, challenging each other, and bringing the range of strategy, security, and delivery that no one individual has on their own. Here is how that works.</p>
     </div>
     <div class="cards-3">
@@ -1056,48 +1034,14 @@ footer {
         <p>The day-to-day runs underneath us, by your team, your provider, or a partner we bring in. We direct it and hold it to account. One number to call. Nothing falls through the cracks.</p>
       </div>
     </div>
-    <p class="note-line reveal">The first thing an owner usually notices: vendors that finally answer to someone. One client recovered <span class="accent">$500k in the first vendor review.</span></p>
-    <a href="what-we-do.html" class="cta-link reveal">See what we do <span class="arr">&rarr;</span></a>
+    <p class="note-line reveal">The first thing an owner usually notices: vendors that finally answer to someone. One client saved <span class="accent">over $500k in a single competitive vendor review.</span></p>
   </div>
 </section>
 
-<!-- TEAM -->
-<section id="team" class="sand-section">
-  <div class="wrap center-head">
-    <p class="eyebrow reveal">The team</p>
-    <h2 class="section-head reveal">No account managers. No junior handoffs. <span class="accent">The names on the door are the people in your business.</span></h2>
-    <div class="team-grid" style="text-align:left;">
-      <div class="member reveal">
-        <div class="member-head">
-          <span class="member-mark">EM</span>
-          <div>
-            <h3>Elton McDowall</h3>
-            <span class="member-role">Co-founder and Director</span>
-          </div>
-        </div>
-        <p>Twenty years across strategy, security, governance, and technology leadership. Elton turns the complex stuff into decisions that make sense to owners, CFOs, and directors. Plain language, no jargon.</p>
-        <p>Elton also sits on the board of <strong>Tael Solutions</strong>, named Emerging Advisory Firm of the Year at The Gap Reunion 2025. Real directorship, real accountability for business outcomes, and the view from the other side of the table.</p>
-        <blockquote class="member-quote">"Elton saved us half a million dollars on our ERP upgrade just by asking the right tough questions."<cite>NZ manufacturer</cite></blockquote>
-      </div>
-      <div class="member reveal">
-        <div class="member-head">
-          <span class="member-mark">MN</span>
-          <div>
-            <h3>Michael Nicolle</h3>
-            <span class="member-role">Co-founder and Director</span>
-          </div>
-        </div>
-        <p>Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. Stalled projects, expired vendor relationships, broken trust. That is where the work starts.</p>
-        <p>Led the technology programme for one of NZ's largest food producers. Full infrastructure architecture, a nationwide network, and operational resiliency. Delivered.</p>
-        <blockquote class="member-quote">"Michael delivered outstanding network transformation across our plants, cutting those weekly outages out completely."<cite>NZ food producer</cite></blockquote>
-      </div>
-    </div>
-    <div class="team-stats">
-      <div class="ts-stat reveal"><b>35+</b><span>years combined experience</span></div>
-      <div class="ts-stat reveal"><b>NZ only</b><span>no offshore handoffs, ever</span></div>
-      <div class="ts-stat reveal"><b>2</b><span>senior founders, both in delivery</span></div>
-      <div class="ts-stat reveal"><b>0</b><span>junior handoffs, ever</span></div>
-    </div>
+<!-- NEXT -->
+<section class="next-band">
+  <div class="wrap" style="text-align:center;">
+    <a href="what-we-do.html" class="btn reveal">See what we do</a>
   </div>
 </section>
 
