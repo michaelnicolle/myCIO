@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>myCIO | What We Do</title>
-<meta name="description" content="Senior technology leadership, digital transformation, and the full stack underneath. What myCIO delivers for growing New Zealand businesses.">
+<title>myCIO | AI Transformation</title>
+<meta name="description" content="AI is not a tool you buy. It is a destination you build up to, layer by layer. The myCIO approach to AI transformation for New Zealand businesses, foundations first.">
 <style>
 /* myCIO website styles, launch redesign */
 
@@ -200,6 +200,13 @@ header.nav {
   margin: 24px auto 0;
 }
 .hero-content .lead strong { color: var(--white); font-weight: 600; }
+.hero-content .lead .lead-owner {
+  display: block;
+  margin-top: 12px;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.06em;
+}
 .hero-actions { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
 .hero-foot {
   position: absolute;
@@ -316,6 +323,23 @@ header.nav {
   .drift, .dash-pulse { animation: none; }
 }
 
+
+/* Layer cards stack into place */
+.layers .layer-card.reveal { transform: none; transition: none; opacity: 0; }
+.layers .layer-card.reveal.in {
+  opacity: 1;
+  animation: stackIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes stackIn {
+  0% { opacity: 0; transform: translateY(100px) scale(0.95); }
+  70% { opacity: 1; transform: translateY(-7px) scale(1.004); }
+  100% { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .layers .layer-card.reveal.in { animation: none; opacity: 1; transform: none; }
+  .layers .layer-card.reveal { opacity: 1; }
+}
+
 /* ---------- Dark to light transition ---------- */
 .fade-light {
   height: 180px;
@@ -326,58 +350,51 @@ header.nav {
 .pipe-band {
   background: #0a0b0e;
   color: var(--white);
-  padding: 10px 0 110px;
-}
-.pipe-tiles {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.ptile {
-  position: relative;
-  border-radius: 18px;
-  background: #14151b;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 130px 0 96px;
   overflow: hidden;
-  height: 270px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 26px 26px 64px;
-  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), border-color 0.25s;
-}
-.ptile:nth-child(even) { background: #17181e; }
-.ptile:hover { transform: translateY(-4px); border-color: rgba(224, 90, 48, 0.45); }
-.ptile-art { width: 100%; max-width: 180px; }
-.ptile-art svg { width: 100%; height: auto; display: block; }
-.ptile .ptile-label {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 20px;
-  text-align: center;
-  font-size: 0.86rem;
-  font-weight: 600;
-  color: rgba(250, 247, 241, 0.85);
 }
 .pipe-statement {
-  margin-top: 60px;
-  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
-  line-height: 1.55;
-  max-width: 64ch;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
 }
-.pipe-statement .w { color: var(--white); font-weight: 600; }
-.pipe-statement .m { color: rgba(250, 247, 241, 0.5); }
+.pipe-statement-head {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--white);
+}
+.pipe-statement-head .accent-i {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+}
+.pipe-statement-sub {
+  margin: 18px auto 0;
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.6;
+  color: rgba(250, 247, 241, 0.55);
+  max-width: 62ch;
+}
 .pipe-strip {
-  margin-top: 56px;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 58px;
   display: flex;
   flex-wrap: wrap;
-  gap: 18px 48px;
+  justify-content: center;
+  gap: 22px 64px;
 }
-.pipe-strip .ps-item { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; color: rgba(250, 247, 241, 0.6); }
-.pipe-strip .ps-item svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; flex-shrink: 0; }
+.pipe-strip .ps-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgba(250, 247, 241, 0.95);
+}
+.pipe-strip .ps-item svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 2.2; flex-shrink: 0; }
 
 /* ---------- Shared section styles ---------- */
 .eyebrow {
@@ -513,9 +530,24 @@ section[id] { scroll-margin-top: 90px; }
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--white);
-  padding: 38px 36px;
+  padding: 42px 40px;
   overflow: hidden;
+  text-align: center;
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
+}
+.layer-num {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--accent);
+  border-radius: 100px;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--accent);
 }
 .layer-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.35); }
 .layer-card.sand { background: var(--sand); }
@@ -535,20 +567,82 @@ section[id] { scroll-margin-top: 90px; }
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.1;
-  margin-bottom: 16px;
-  max-width: 14ch;
+  margin: 0 auto 16px;
 }
-.layer-card p { color: var(--muted); font-size: 0.99rem; margin-top: 12px; max-width: 52ch; }
+.layer-card p { color: var(--muted); font-size: 0.99rem; margin: 12px auto 0; max-width: 52ch; }
 .layer-card p strong { color: var(--ink); }
 .layer-card.dark-card p strong { color: var(--paper); }
-.layer-art {
-  position: absolute;
-  top: 26px;
-  right: 26px;
-  width: 84px;
-  opacity: 0.9;
+
+
+/* ---------- Next page band ---------- */
+.next-band {
+  padding: 70px 0;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
-.layer-art svg { width: 100%; height: auto; display: block; }
+.next-band .btn { padding: 15px 34px; font-size: 1rem; }
+
+
+/* ---------- Journey curve (the climb) ---------- */
+.journey { background: var(--paper); }
+.journey-stage-wrap { margin-top: 60px; }
+.journey-svg-holder { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; }
+.journey-svg-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
+.jline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.journey.in .jline { animation: drawLine 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+.jnode { opacity: 0; }
+.journey.in .jnode { animation: nodePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.journey.in .jnode.j1 { animation-delay: 0.25s; }
+.journey.in .jnode.j2 { animation-delay: 0.65s; }
+.journey.in .jnode.j3 { animation-delay: 1.05s; }
+.journey.in .jnode.j4 { animation-delay: 1.45s; }
+.journey.in .jnode.j5 { animation-delay: 1.85s; }
+@keyframes nodePop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+.jlabel { opacity: 0; }
+.journey.in .jlabel { animation: labelIn 0.6s ease forwards; }
+.journey.in .jlabel.l1 { animation-delay: 0.4s; }
+.journey.in .jlabel.l2 { animation-delay: 0.8s; }
+.journey.in .jlabel.l3 { animation-delay: 1.2s; }
+.journey.in .jlabel.l4 { animation-delay: 1.6s; }
+.journey.in .jlabel.l5 { animation-delay: 2.0s; }
+@keyframes labelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .jline { stroke-dashoffset: 0; }
+  .jnode, .jlabel { opacity: 1; }
+}
+/* mobile: stack the journey as a vertical list */
+.journey-mobile { display: none; }
+@media (max-width: 760px) {
+  .journey-svg-holder { display: none; }
+  .journey-mobile { display: block; margin-top: 44px; }
+  .jm-step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .jm-step:last-child { border-bottom: 0; }
+  .jm-dot {
+    width: 44px; height: 44px;
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-style: italic; font-size: 1rem;
+    color: var(--white);
+  }
+  .jm-step h4 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.02em; }
+  .jm-step .jm-time { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .jm-step p { font-size: 0.92rem; color: var(--muted); margin-top: 8px; }
+}
 
 /* ---------- Why cards ---------- */
 .why-story { max-width: 760px; margin: 36px auto 0; display: flex; flex-direction: column; gap: 18px; }
@@ -678,8 +772,6 @@ footer {
   .team-grid { grid-template-columns: 1fr; }
   .team-stats { grid-template-columns: 1fr 1fr; }
   .foot-top { grid-template-columns: 1fr; gap: 32px; }
-  .pipe-tiles { grid-template-columns: 1fr 1fr; }
-  .ptile { height: 240px; }
 }
 @media (max-width: 760px) {
   .nav-links {
@@ -700,12 +792,9 @@ footer {
   .signs { grid-template-columns: 1fr; }
   section { padding: 72px 0; }
   .sv-note { display: none; }
-  .layer-art { width: 64px; top: 20px; right: 20px; }
-  .pipe-tiles { grid-template-columns: 1fr; }
   .hero-foot { bottom: 70px; gap: 6px 20px; }
   .hero-foot span { font-size: 0.78rem; }
 }
-
 /* ---------- Subpage hero ---------- */
 .page-hero { min-height: 100vh; min-height: 100svh; }
 .page-hero .hero-content { padding: 130px 28px 170px; }
@@ -919,6 +1008,30 @@ footer {
   .offer-points { grid-template-columns: 1fr; }
   .page-hero .hero-content { padding: 130px 28px 120px; }
 }
+
+/* ---------- AI page: maturity ladders ---------- */
+.ladder { margin-top: 48px; display: grid; gap: 14px; }
+.rung {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 22px;
+  align-items: start;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), border-color 0.25s;
+}
+.rung:hover { transform: translateX(5px); border-color: rgba(224,90,48,0.4); }
+.rung-n {
+  font-family: var(--display); font-style: italic; color: var(--accent);
+  font-size: 1.05rem; padding-top: 3px;
+}
+.rung-last { border-color: var(--accent); background: var(--accent-soft); }
+.rung h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+.rung h3 .tag { font-family: var(--sans); font-style: normal; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-left: 10px; }
+.rung p { color: var(--muted); font-size: 0.97rem; }
+.ladder-note { text-align:center; margin-top: 34px; font-size: 1.08rem; color: var(--ink-soft); max-width: 64ch; margin-left:auto; margin-right:auto; }
 </style>
 </head>
 <body>
@@ -938,12 +1051,12 @@ footer {
   </div>
 </header>
 
-<section class="hero page-hero" aria-label="Introduction">
+<section class="hero page-hero" aria-label="AI Transformation">
   <div class="hero-content">
     <div class="inner">
-      <p class="hj-eyebrow">What we do</p>
-      <h1>Everything we own.<span class="h1-line2">Everything we deliver.</span></h1>
-      <p class="lead">We own your technology outcome. At the centre sit two things: senior leadership, where we own the direction, and transformation, where we run the work that moves you forward. Below them, the capability we deliver and orchestrate across the full stack. Here is all of it.</p>
+      <p class="hj-eyebrow">AI Transformation</p>
+      <h1>The board is asking about AI.<span class="h1-line2">Here is the honest answer.</span></h1>
+      <p class="lead">AI is not a tool you buy. It is a destination you build up to, layer by layer. Most businesses are stuck at the shallow end and cannot work out why their pilots never stick. The reason is always the same. The layers underneath are not ready.</p>
     </div>
   </div>
   <div class="hero-foot">
@@ -958,190 +1071,155 @@ footer {
 
 <div class="fade-light" aria-hidden="true"></div>
 
-<!-- LEAD OFFERS: one section per card -->
-<section class="offer-sec first">
+<!-- POSITIONING + STACK MODEL -->
+<section id="stack-intro" class="position">
   <div class="wrap">
-<div class="offer rotor">
-      <div>
-        <div class="offer-label">01</div>
-        <h3>Technology <span class="accent">leadership</span></h3>
+    <h2 class="position-statement reveal">Most providers sell you one layer of your technology. <span class="accent">We work across all four, and we build from the bottom up.</span></h2>
+    <p class="position-sub reveal">Foundations first. Then the data and knowledge that sit on them. Then the AI and automation everyone is chasing. Every layer serving the one thing you actually care about: the business outcome on top. Get the order wrong and it falls over.</p>
+
+    <div class="stackviz reveal" aria-hidden="true">
+      <div class="sv-row sv-1">
+        <div class="sv-bar"><span class="sv-n">01</span><span class="sv-name">Business outcomes</span></div>
+        <span class="sv-note">What you actually care about</span>
       </div>
-      <div class="offer-body">
-        <p>A senior team owns your technology direction and the outcome, not just the activity. They hold your existing vendors to account, guide every major decision, and deliver a roadmap reviewed every quarter.</p>
-        <p>You always know what has been delivered, what is in progress, and what is next. <strong>No surprises, and clean answers when the board asks the hard questions.</strong> This is the senior technology leadership most businesses need but do not have in the building.</p>
-        <div class="offer-points">
-          <div class="op">A senior team that owns your technology direction</div>
-          <div class="op">A rolling roadmap, reviewed and reported every quarter</div>
-          <div class="op">Vendors directed and held to their commitments</div>
-          <div class="op">Board ready reporting on risk, spend, and progress</div>
-        </div>
+      <div class="sv-row sv-2">
+        <div class="sv-bar"><span class="sv-n">02</span><span class="sv-name">AI and automation</span></div>
+        <span class="sv-note">Where growth happens</span>
+      </div>
+      <div class="sv-row sv-3">
+        <div class="sv-bar"><span class="sv-n">03</span><span class="sv-name">Data and knowledge</span></div>
+        <span class="sv-note">The layer everyone skips</span>
+      </div>
+      <div class="sv-row sv-4">
+        <div class="sv-bar"><span class="sv-n">04</span><span class="sv-name">Foundations</span></div>
+        <span class="sv-note">Where it all starts</span>
+      </div>
+      <div class="sv-arrow"><span>We build in this direction</span></div>
+    </div>
+    <p class="lead-sub reveal">We build upward, foundations first. Here is what sits at each layer.</p>
+
+    <div class="layers">
+      <div class="layer-card reveal">
+        <div class="layer-num">01</div>
+        <div class="layer-tag">Top of the stack</div>
+        <h3>Business <span class="accent">outcomes.</span></h3>
+        <p>Revenue. Efficiency. Uptime. The edge over the business across town. This is the only layer that actually matters to an owner, and it is where almost no technology conversation starts.</p>
+        <p>Most providers sell you the layer they happen to deliver, then leave you to connect it to the business yourself. We work the other way. We start with the outcome you are chasing, then work down through the layers to the technology that gets you there. <strong>If a decision does not serve the business, we do not make it.</strong></p>
+      </div>
+
+      <div class="layer-card sand reveal">
+        <div class="layer-num">02</div>
+        <div class="layer-tag">Where growth happens</div>
+        <h3>AI and <span class="accent">automation.</span></h3>
+        <p>This is the layer everyone is chasing right now. Most businesses are stuck at the shallow end, a few people using ChatGPT for one-off tasks. Useful, but it is not moving the business. The value sits in AI woven through how the work actually gets done.</p>
+        <p>You cannot get there by buying a tool. It only works when the layers underneath are solid, which is exactly where most attempts fall over. We work out where you are, where you need to go, and the order to do it in. <strong>The goal is not to be using AI. It is to be faster and sharper than the business next to you.</strong></p>
+      </div>
+
+      <div class="layer-card sand reveal">
+        <div class="layer-num">03</div>
+        <div class="layer-tag">The layer everyone skips</div>
+        <h3>Your <span class="accent">data and knowledge.</span></h3>
+        <p>This is the layer almost every business skips, and the reason their AI ambitions stall. The way things really get done lives in the heads of a handful of long-serving people. The business runs on it. It also stops the day one of them leaves.</p>
+        <p>AI is only ever as good as the knowledge it can reach. Without this layer, every initiative is working with whatever someone remembers to paste in. We help you capture what your people know, structure the data you already have, and turn it into a foundation the business can actually build on. <strong>This is the unglamorous work that makes everything above it possible.</strong></p>
+      </div>
+
+      <div class="layer-card dark-card reveal">
+        <div class="layer-num">04</div>
+        <div class="layer-tag">Where it all starts</div>
+        <h3>The <span class="accent">foundations.</span></h3>
+        <p>Networking, servers, cloud, Microsoft 365, the technology in every site, and the security wrapped around all of it. This is the plumbing. It is invisible when it works and impossible to ignore when it does not. Get it wrong and nothing above it holds.</p>
+        <p>This is where most businesses are quietly exposed, and where the years on the hamster wheel quietly pile up technical debt. It is also where we are strongest. We build foundations to a seven-year standard, not the industry norm of three. Stable, secure, and never dependent on any single vendor or person to keep them running, including us. <strong>Solid here, and every layer above it has a chance.</strong></p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="offer-sec">
-  <div class="wrap">
-<div class="offer rotor">
-      <div>
-        <div class="offer-label">02</div>
-        <h3>Digital <span class="accent">transformation</span></h3>
-      </div>
-      <div class="offer-body">
-        <p>A roadmap is only worth what gets delivered. We run the transformation programmes that take a business from where it is to where it needs to be. Structured, phased, and tied to a business outcome at every step.</p>
-        <p>Fix the foundations first. Stable infrastructure, stronger security, standardised systems across every site. Then move up the stack to modern work, AI, and automation that sticks. Everything is built to a seven-year standard and built so you are never locked in. Not to a vendor, and not to us. <strong>The goal is not to be using new technology. It is to be faster and sharper than the business next to you.</strong></p>
-        <div class="offer-points">
-          <div class="op">Programmes scoped, led, and owned end to end</div>
-          <div class="op">Foundations fixed before anything is built on top</div>
-          <div class="op">Modern work, AI, and automation built to last</div>
-          <div class="op">Every initiative measured against a business outcome</div>
-        </div>
-      </div>
+<!-- WHY PILOTS FAIL -->
+<section class="sand-section">
+  <div class="wrap center-head">
+    <p class="eyebrow reveal">Why pilots fail</p>
+    <h2 class="section-head reveal">The tool is never the problem. <span class="accent">The work underneath is.</span></h2>
+    <p class="section-sub reveal">What changes at each layer is not the technology. It is the data that feeds it and the governance that keeps it useful and safe. That is the work most attempts skip, and the reason most attempts stall. It is also the work myCIO exists to own.</p>
+    <div class="cards-3" style="text-align:left;">
+      <div class="card reveal"><span class="num">01</span><h3>The data is not ready</h3><p>AI is only ever as good as the knowledge it can reach. If your business runs on what is in people's heads, there is nothing solid for AI to work with.</p></div>
+      <div class="card reveal"><span class="num">02</span><h3>Nobody owns it</h3><p>A pilot without an owner is a science experiment. It needs someone senior accountable for the outcome, the governance, and the rollout. That is the role we step into.</p></div>
+      <div class="card reveal"><span class="num">03</span><h3>No path to scale</h3><p>One clever automation is not transformation. Scaling across the business needs standardisation, auditability, and feedback loops built in from the start.</p></div>
     </div>
   </div>
 </section>
 
-<section class="offer-sec">
-  <div class="wrap">
-    <div class="offer rotor">
-      <div>
-        <div class="offer-label">Ongoing</div>
-        <h3>The <span class="accent">day-to-day,</span> run your way</h3>
+<!-- DATA LADDER -->
+<section>
+  <div class="wrap center-head">
+    <p class="eyebrow reveal">Layer two: your knowledge</p>
+    <h2 class="section-head reveal">Where your business knowledge lives <span class="accent">decides what AI can do.</span></h2>
+    <p class="section-sub reveal">It sits in one of four places. The difference between them determines whether your business can scale, survive key people leaving, and make AI actually work.</p>
+    <div class="ladder">
+      <div class="rung reveal">
+        <div class="rung-n">01</div>
+        <div><h3>In heads<span class="tag">Where most sit</span></h3><p>The way things really get done lives with a handful of long-serving people. The business runs on it. It also stops the day one of them leaves.</p></div>
       </div>
-      <div class="offer-body">
-        <p>Most businesses get sold a fixed support model and made to fit it. We work the other way. The everyday running of your technology sits wherever it delivers the best outcome. Your own team, your existing provider, us, or a combination, with us owning that it gets done and gets done right.</p>
-        <p>This is where we are different from a traditional provider. We are not here to lock you into a managed service and bill you to stand still. <strong>We bring the governance and advisory that grows the business, and we shape the delivery underneath it around where you are going.</strong></p>
-        <div class="offer-points">
-          <div class="op">Your team, your provider, us, or a mix</div>
-          <div class="op">Senior governance over whoever delivers</div>
-          <div class="op">Support that serves the roadmap, not just the queue</div>
-          <div class="op">No lock-in, and a clean exit if the journey ends</div>
-        </div>
+      <div class="rung reveal">
+        <div class="rung-n">02</div>
+        <div><h3>Captured<span class="tag">A start</span></h3><p>Documented somewhere. Wikis, SharePoint, shared drives, that one spreadsheet nobody is allowed to touch. Better than heads, but scattered and out of date within a year.</p></div>
       </div>
+      <div class="rung reveal">
+        <div class="rung-n">03</div>
+        <div><h3>Structured<span class="tag">The wall</span></h3><p>Organised, queryable, and maintained as the business changes. Process, policy, product, and customer knowledge the business can reference and trust. Most businesses hit a wall here, because structure needs an owner and nobody owns it.</p></div>
+      </div>
+      <div class="rung rung-last reveal">
+        <div class="rung-n">04</div>
+        <div><h3>Connected<span class="tag">The foundation for AI</span></h3><p>Your structured knowledge joined to the systems and workflows the business runs on. This is what AI and automation actually build on. Without it, every AI initiative works with whatever someone remembers to paste in.</p></div>
+      </div>
+    </div>
+    <p class="ladder-note reveal">Most New Zealand businesses sit in the first two. <span class="accent">The move up is slow, unglamorous, and the work that makes everything above it possible.</span></p>
+  </div>
+</section>
+
+<!-- AI LADDER -->
+<section class="sand-section">
+  <div class="wrap center-head">
+    <p class="eyebrow reveal">Layer one: the climb</p>
+    <h2 class="section-head reveal">From a handy tool <span class="accent">to a layer running through your business.</span></h2>
+    <p class="section-sub reveal">The value gap between the first rung and the last is enormous. Here is the climb, and where the real value sits.</p>
+    <div class="ladder">
+      <div class="rung reveal">
+        <div class="rung-n">01</div>
+        <div><h3>Prompting<span class="tag">Where most sit</span></h3><p>Individuals using ChatGPT or Copilot to get better answers to one-off questions. Useful. Foundational. Not business transformation.</p></div>
+      </div>
+      <div class="rung reveal">
+        <div class="rung-n">02</div>
+        <div><h3>Context<span class="tag">A start</span></h3><p>Custom GPTs and shared projects loaded with your brand, your policies, your prior work. Consistent outputs, but still bounded by what someone remembers to load in.</p></div>
+      </div>
+      <div class="rung reveal">
+        <div class="rung-n">03</div>
+        <div><h3>Data<span class="tag">Real value</span></h3><p>AI connected to the information your business actually runs on. Your documents, your processes, your knowledge. The quality of what AI produces starts matching the quality of what your business knows.</p></div>
+      </div>
+      <div class="rung rung-last reveal">
+        <div class="rung-n">04</div>
+        <div><h3>Operating layer<span class="tag">The destination</span></h3><p>AI stops being a tool your people visit and becomes a layer running through the business. Connected to your data, your workflows, your systems, with the governance and auditability that lets you roll it out safely at scale.</p></div>
+      </div>
+    </div>
+    <p class="ladder-note reveal">The goal is not to be using AI. <span class="accent">It is to be faster and sharper than the business next to you.</span></p>
+  </div>
+</section>
+
+<!-- OUR ROLE -->
+<section class="dark-band">
+  <div class="wrap center-head">
+    <p class="eyebrow reveal">What we own</p>
+    <h2 class="section-head reveal">We work out where you are,<br><span class="accent">where you need to go, and the order to do it in.</span></h2>
+    <p class="section-sub reveal" style="color:rgba(250,247,241,0.6);">Then we make it happen. Foundations first, because nothing above them holds without it. We own the strategy, the governance, and the rollout. The hands-on delivery sits wherever it works best, your team, your provider, us, or a mix, and we are accountable for the result either way.</p>
+    <div class="stats">
+      <div class="stat reveal"><div class="big">Build up</div><p>Foundations, data, then AI. In that order, every time.</p></div>
+      <div class="stat reveal"><div class="big">Own it</div><p>A senior team accountable for the outcome, not a pilot owner you appoint.</p></div>
+      <div class="stat reveal"><div class="big">Govern it</div><p>Auditability and guardrails built in so you scale safely.</p></div>
+      <div class="stat reveal"><div class="big">No lock-in</div><p>Built so you are never trapped. Not to a vendor, not to us.</p></div>
     </div>
   </div>
 </section>
 
-<section class="offer-sec">
-  <div class="wrap">
-<div class="offer rotor">
-      <div>
-        <div class="offer-label">03</div>
-        <h3>AI and <span class="accent">automation</span></h3>
-      </div>
-      <div class="offer-body">
-        <p>We work out where you are, where you need to go, and the order to do it in. Then we make it happen. The goal is not to be using AI. <strong>The goal is to be faster and sharper than the business next to you.</strong></p>
-        <div class="offer-points">
-          <div class="op">Readiness assessment</div>
-          <div class="op">Copilot rollout</div>
-          <div class="op">Workflow automation</div>
-          <div class="op">Agent design</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="offer-sec">
-  <div class="wrap">
-<div class="offer rotor">
-      <div>
-        <div class="offer-label">04</div>
-        <h3>Data and business <span class="accent">knowledge</span></h3>
-      </div>
-      <div class="offer-body">
-        <p>Your business knows things. The question is where that knowledge lives. We help you capture what your people know, structure the data you already have, and <strong>build the foundation that makes AI useful.</strong></p>
-        <div class="offer-points">
-          <div class="op">Maturity assessment</div>
-          <div class="op">Knowledge capture</div>
-          <div class="op">Data platform strategy</div>
-          <div class="op">Governance</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="offer-sec">
-  <div class="wrap">
-<div class="offer rotor">
-      <div>
-        <div class="offer-label">05</div>
-        <h3>Modern work with <span class="accent">Microsoft 365</span></h3>
-      </div>
-      <div class="offer-body">
-        <p>Most businesses pay for Microsoft 365 and use a fraction of it. We fix that. Proper configuration, tenant hygiene, identity done right, and <strong>the Copilot capabilities that turn it into where work happens.</strong></p>
-        <div class="offer-points">
-          <div class="op">Configuration and hardening</div>
-          <div class="op">Licensing review</div>
-          <div class="op">Identity and access</div>
-          <div class="op">SharePoint and Teams</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="offer-sec">
-  <div class="wrap">
-<div class="offer rotor">
-      <div>
-        <div class="offer-label">06</div>
-        <h3>Security and <span class="accent">governance</span></h3>
-      </div>
-      <div class="offer-body">
-        <p>Security is not a layer. It runs through every decision we make. We work the full picture. Current posture, the gaps, the risk, the roadmap, and <strong>the ongoing governance that keeps it on track.</strong></p>
-        <div class="offer-points">
-          <div class="op">Posture assessment</div>
-          <div class="op">Cyber insurance prep</div>
-          <div class="op">Incident response</div>
-          <div class="op">Board risk reporting</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="offer-sec">
-  <div class="wrap">
-<div class="offer rotor">
-      <div>
-        <div class="offer-label">07</div>
-        <h3>Hybrid cloud and <span class="accent">infrastructure</span></h3>
-      </div>
-      <div class="offer-body">
-        <p>On-premise, in the cloud, or somewhere in between. We start with what the business needs, then design the environment that supports it. <strong>Right workload, right platform, right cost profile.</strong></p>
-        <div class="offer-points">
-          <div class="op">Cloud strategy</div>
-          <div class="op">Azure and AWS</div>
-          <div class="op">Workload placement</div>
-          <div class="op">Backup and disaster recovery</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="offer-sec">
-  <div class="wrap">
-<div class="offer rotor">
-      <div>
-        <div class="offer-label">08</div>
-        <h3>Secure <span class="accent">networking</span></h3>
-      </div>
-      <div class="offer-body">
-        <p>The network is where your business connects to itself, its customers, and the internet. We design architectures that fit how you operate. <strong>Multi-site, multi-cloud, and people who work from anywhere.</strong></p>
-        <div class="offer-points">
-          <div class="op">Network architecture</div>
-          <div class="op">SASE and zero trust</div>
-          <div class="op">Multi-site connectivity</div>
-          <div class="op">Security reviews</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- NEXT -->
 <section class="next-band">
   <div class="wrap" style="text-align:center;">
     <a href="how-we-work.html" class="btn reveal">See how we work</a>
@@ -1154,7 +1232,7 @@ footer {
     <p class="eyebrow reveal">Ready when you are</p>
     <h2 class="section-head reveal">Thirty minutes. You leave knowing exactly <span class="accent">where you stand.</span></h2>
     <p class="cta-sub reveal">No pitch. No prep. An honest read on where your technology stands and what to do next. If we are not the right fit, we will tell you.</p>
-    <a href="contact.html" class="btn reveal">Book your 30 minute call</a>
+    <a href="contact.html#contact" class="btn reveal">Book your 30 minute call</a>
     <p class="cta-micro reveal">Prefer email? <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a></p>
   </div>
 </section>
@@ -1312,22 +1390,18 @@ footer {
 })();
 
 
-// Offer cards: rotate in whenever they enter the viewport, both scroll directions
+// Journey curve: trigger draw when it enters view, replay on re-entry
 (function () {
-  var els = document.querySelectorAll('.rotor');
-  if (!els.length) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !('IntersectionObserver' in window)) {
-    els.forEach(function (el) { el.classList.add('in'); });
-    return;
-  }
+  var j = document.getElementById('journey-curve');
+  if (!j) return;
+  if (!('IntersectionObserver' in window)) { j.classList.add('in'); return; }
   var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) entry.target.classList.add('in');
-      else entry.target.classList.remove('in');
+    entries.forEach(function (e) {
+      if (e.isIntersecting) j.classList.add('in');
+      else j.classList.remove('in');
     });
-  }, { threshold: 0.16, rootMargin: '0px 0px -40px 0px' });
-  els.forEach(function (el) { io.observe(el); });
+  }, { threshold: 0.3 });
+  io.observe(j);
 })();
 </script>
 </body>
