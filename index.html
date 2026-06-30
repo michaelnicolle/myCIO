@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>myCIO | Senior Technology Leadership for NZ Business</title>
 <meta name="description" content="myCIO is senior technology leadership for New Zealand businesses. Independent, accountable, in the room. We own the technology outcome.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="myCIO | Senior Technology Leadership for NZ Business">
+<meta property="og:description" content="myCIO is senior technology leadership for New Zealand businesses. Independent, accountable, in the room. We own the technology outcome.">
+<meta property="og:url" content="https://mycio.co.nz/">
+<meta property="og:image" content="https://mycio.co.nz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="myCIO | Senior Technology Leadership for NZ Business">
+<meta name="twitter:description" content="myCIO is senior technology leadership for New Zealand businesses. Independent, accountable, in the room.">
 <style>
 /* myCIO website styles, launch redesign */
 
@@ -12,7 +20,7 @@
 
 :root {
   --accent: #e05a30;
-  --accent-dark: #c44a24;
+  --accent-dark: #cd4d26;
   --accent-soft: rgba(224, 90, 48, 0.10);
   --ink: #161412;
   --ink-soft: #3a352f;
@@ -28,6 +36,7 @@
   --white: #ffffff;
   --max: 1180px;
   --radius: 22px;
+  --shadow-border: 0px 0px 0px 1px rgba(0,0,0,0.06), 0px 1px 2px -1px rgba(0,0,0,0.06), 0px 2px 4px 0px rgba(0,0,0,0.04);
   --display: 'Fraunces', Georgia, serif;
   --sans: 'Hanken Grotesk', system-ui, sans-serif;
 }
@@ -54,10 +63,12 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+p { text-wrap: pretty; }
 
 h1, h2, h3, .section-head, .big-statement, .stat .big {
   font-family: var(--display);
   font-optical-sizing: auto;
+  text-wrap: balance;
 }
 
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
@@ -111,7 +122,7 @@ header.nav {
 .btn {
   display: inline-block;
   background: var(--accent);
-  color: var(--white);
+  color: var(--ink);
   padding: 12px 24px;
   border-radius: 100px;
   font-weight: 600;
@@ -121,6 +132,10 @@ header.nav {
   cursor: pointer;
 }
 .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+.btn:active { transform: scale(0.96); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.nav-links a:not(.btn):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.signs-cta-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 .btn-nav {
   background: transparent;
   color: var(--white);
@@ -150,7 +165,8 @@ header.nav {
   flex-direction: column;
   overflow: hidden;
   background:
-    radial-gradient(1100px 600px at 70% -15%, rgba(224, 90, 48, 0.07), transparent 60%),
+    radial-gradient(1100px 700px at 68% -10%, rgba(224, 90, 48, 0.14), transparent 58%),
+    radial-gradient(900px 700px at 12% 110%, rgba(224, 90, 48, 0.07), transparent 60%),
     #0a0b0e;
 }
 #wave {
@@ -173,31 +189,35 @@ header.nav {
 }
 .hero-content .inner { max-width: 920px; }
 .hj-eyebrow {
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(250, 247, 241, 0.5);
-  margin-bottom: 26px;
+  color: rgba(250, 247, 241, 0.28);
+  margin-bottom: 20px;
 }
 .hero-content h1 {
-  font-size: clamp(2.7rem, 6vw, 4.9rem);
+  font-size: clamp(2rem, 4.2vw, 3.6rem);
   font-weight: 400;
-  letter-spacing: -0.025em;
-  line-height: 1.04;
+  letter-spacing: -0.022em;
+  line-height: 1.06;
   color: var(--white);
 }
 .hero-content h1 .h1-line2 {
   display: block;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--accent);
+  font-size: clamp(3.4rem, 8vw, 6rem);
+  letter-spacing: -0.03em;
+  line-height: 0.97;
+  margin-top: 0.08em;
 }
 .hero-content .lead {
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  color: rgba(250, 247, 241, 0.6);
-  max-width: 50ch;
-  margin: 24px auto 0;
+  font-size: clamp(1rem, 1.45vw, 1.18rem);
+  color: rgba(250, 247, 241, 0.82);
+  max-width: 54ch;
+  margin: 32px auto 0;
 }
 .hero-content .lead strong { color: var(--white); font-weight: 600; }
 .hero-content .lead .lead-owner {
@@ -207,7 +227,8 @@ header.nav {
   font-weight: 700;
   font-size: 1.06em;
 }
-.hero-actions { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
+.hero-actions { display: flex; gap: 14px; margin-top: 44px; flex-wrap: wrap; justify-content: center; }
+.hero-actions .btn { padding: 16px 40px; font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
 .hero-foot {
   position: absolute;
   left: 0; right: 0;
@@ -224,12 +245,12 @@ header.nav {
   font-family: var(--display);
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.7rem);
   letter-spacing: -0.01em;
   color: rgba(250, 247, 241, 0.95);
 }
 .hero-foot .hf-dot {
-  width: 7px; height: 7px;
+  width: 9px; height: 9px;
   border-radius: 100px;
   background: var(--accent);
   flex-shrink: 0;
@@ -442,6 +463,7 @@ section[id] { scroll-margin-top: 90px; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 34px 32px;
+  box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
 }
 .sign:nth-child(1), .sign:nth-child(2) { grid-column: span 3; }
@@ -450,17 +472,13 @@ section[id] { scroll-margin-top: 90px; }
   border-color: rgba(224, 90, 48, 0.45);
   box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.35);
 }
-.sign-n {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px; height: 40px;
+.sign::before {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 3px;
+  background: var(--accent);
   border-radius: 100px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 1rem;
   margin-bottom: 20px;
 }
 .sign h3 {
@@ -478,6 +496,22 @@ section[id] { scroll-margin-top: 90px; }
   text-align: center;
   max-width: 64ch;
 }
+.signs-cta {
+  margin: 20px auto 0;
+  text-align: center;
+}
+.signs-cta-link {
+  font-family: var(--sans);
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: opacity 0.2s;
+}
+.signs-cta-link:hover { opacity: 0.75; }
+.signs-cta-link .chev-r { display: inline-block; margin-left: 4px; transition: transform 0.2s; }
+.signs-cta-link:hover .chev-r { transform: translateX(3px); }
 
 /* ---------- Stack viz ---------- */
 .position { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -533,6 +567,7 @@ section[id] { scroll-margin-top: 90px; }
   padding: 42px 40px;
   overflow: hidden;
   text-align: center;
+  box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
 }
 .layer-num {
@@ -601,7 +636,7 @@ section[id] { scroll-margin-top: 90px; }
 .journey.in .jline { animation: drawLine 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 @keyframes drawLine { to { stroke-dashoffset: 0; } }
 .jnode { opacity: 0; }
-.journey.in .jnode { animation: nodePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.journey.in .jnode { animation: nodePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 .journey.in .jnode.j1 { animation-delay: 0.25s; }
 .journey.in .jnode.j2 { animation-delay: 0.65s; }
 .journey.in .jnode.j3 { animation-delay: 1.05s; }
@@ -660,6 +695,7 @@ section[id] { scroll-margin-top: 90px; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 36px 32px;
+  box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
 }
 .card:hover { transform: translateY(-4px); border-color: rgba(224, 90, 48, 0.45); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.35); }
@@ -692,6 +728,7 @@ section[id] { scroll-margin-top: 90px; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 38px 36px;
+  box-shadow: var(--shadow-border);
 }
 .member-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
 .member-mark {
@@ -709,9 +746,8 @@ section[id] { scroll-margin-top: 90px; }
 .member-quote {
   margin-top: 22px;
   padding: 18px 22px;
-  background: var(--paper);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 12px 12px 0;
+  background: var(--accent-soft);
+  border-radius: 12px;
   font-family: var(--display);
   font-style: italic;
   font-size: 1.02rem;
@@ -754,7 +790,7 @@ footer {
 .foot-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 48px; }
 .foot-top .logo { font-size: 1.4rem; margin-bottom: 14px; display: inline-block; }
 .foot-top p { font-size: 0.95rem; max-width: 36ch; }
-.foot-top h5 { color: var(--white); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
+.foot-top h3 { font-family: var(--sans); color: var(--white); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
 .foot-top ul { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.94rem; }
 .foot-top a:hover { color: var(--accent); }
 .foot-bottom {
@@ -794,7 +830,7 @@ footer {
   section { padding: 72px 0; }
   .sv-note { display: none; }
   .hero-foot { bottom: 70px; gap: 6px 20px; }
-  .hero-foot span { font-size: 0.78rem; }
+  .hero-foot span { font-size: 0.9rem; }
 }
 </style>
 </head>
@@ -805,9 +841,9 @@ footer {
     <a href="index.html" class="logo">my<span>CIO</span></a>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#8801;</button>
         <nav class="nav-links">
-      <a href="index.html">Why myCIO</a>
-      <a href="transformation.html">Transformation</a>
+      <a href="index.html" aria-current="page">Why myCIO</a>
       <a href="how-we-work.html">How we work</a>
+      <a href="transformation.html">Transformation</a>
       <a href="contact.html">Contact</a>
       <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
     </nav>
@@ -815,7 +851,7 @@ footer {
 </header>
 
 <!-- HERO: A5G full-screen with flowing wave -->
-<section class="hero" id="top" aria-label="Introduction">
+<section class="hero" id="top" aria-label="Why myCIO">
   <canvas id="wave" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="inner">
@@ -823,7 +859,7 @@ footer {
       <h1>You run the business.<span class="h1-line2">We run the technology.</span></h1>
       <p class="lead">Most growing businesses have technology, vendors, and good intentions, but no one senior owning the direction.<span class="lead-owner">myCIO is that owner.</span></p>
       <div class="hero-actions">
-        <a href="contact.html" class="btn btn-light">Talk to us about sorting your technology out <span class="chev-r">&rsaquo;</span></a>
+        <a href="contact.html" class="btn btn-light">Book your 30 minute call <span class="chev-r">&rsaquo;</span></a>
       </div>
     </div>
   </div>
@@ -843,32 +879,28 @@ footer {
     <h2 class="section-head reveal">You know the feeling. <span class="accent">Five signs the gap is already costing you.</span></h2>
     <div class="signs">
       <div class="sign reveal">
-        <span class="sign-n">01</span>
         <h3>AI is on the agenda, but nothing has moved.</h3>
         <p>Pilots have been tried. Nothing has stuck. Twelve months from now the conversation will be the same, and the businesses that did figure it out will be further ahead than they are today.</p>
       </div>
       <div class="sign reveal">
-        <span class="sign-n">02</span>
         <h3>The business runs on what is in people's heads.</h3>
         <p>The real knowledge lives with a handful of senior people. When one of them leaves, something goes with them. It is also why every attempt at AI or automation runs into the same wall.</p>
       </div>
       <div class="sign reveal">
-        <span class="sign-n">03</span>
         <h3>Nobody owns the technology direction.</h3>
         <p>Decisions land with whoever happens to be closest to the problem, with no roadmap behind them and no one accountable for where it all ends up. Everyone owns a piece, so nobody owns the result.</p>
       </div>
       <div class="sign reveal">
-        <span class="sign-n">04</span>
         <h3>Spend keeps climbing, and the board wants answers.</h3>
         <p>Invoices go up every year. Nobody can connect the spend to a business outcome. Risk, roadmap, cyber insurance, AI. The honest answer is "I will find out," and that answer is getting used more often than it used to.</p>
       </div>
       <div class="sign reveal">
-        <span class="sign-n">05</span>
         <h3>Vendor contracts renew because nobody has time to review them.</h3>
         <p>Nobody has looked at what you are paying, what you are getting, or whether the terms still make sense. Vendors know this. They are counting on you not asking.</p>
       </div>
     </div>
     <p class="signs-close reveal">If any of these sound familiar, your technology is likely costing you more than it should. <span class="accent">That gap does not close on its own.</span></p>
+    <p class="signs-cta reveal"><a href="contact.html" class="signs-cta-link">Talk to us about what you are seeing <span class="chev-r">&rsaquo;</span></a></p>
   </div>
 </section>
 
@@ -886,7 +918,7 @@ footer {
 
           <!-- node 1: Discover -->
           <g class="jnode j1" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="95" cy="398" r="15" fill="#58c08a"/>
+            <circle cx="95" cy="398" r="15" fill="#e0a878"/>
             <circle cx="95" cy="398" r="6" fill="#0a0b0e" opacity="0.25"/>
           </g>
           <g class="jlabel l1">
@@ -896,7 +928,7 @@ footer {
 
           <!-- node 2: Stabilise -->
           <g class="jnode j2" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="380" cy="304" r="15" fill="#d8503f"/>
+            <circle cx="380" cy="304" r="15" fill="#e05a30"/>
             <circle cx="380" cy="304" r="6" fill="#0a0b0e" opacity="0.2"/>
           </g>
           <g class="jlabel l2">
@@ -906,7 +938,7 @@ footer {
 
           <!-- node 3: Standardise -->
           <g class="jnode j3" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="580" cy="188" r="15" fill="#e8943a"/>
+            <circle cx="580" cy="188" r="15" fill="#cd4d26"/>
             <circle cx="580" cy="188" r="6" fill="#0a0b0e" opacity="0.2"/>
           </g>
           <g class="jlabel l3">
@@ -916,7 +948,7 @@ footer {
 
           <!-- node 4: Transform -->
           <g class="jnode j4" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="800" cy="108" r="15" fill="#6a4ea3"/>
+            <circle cx="800" cy="108" r="15" fill="#3a352f"/>
             <circle cx="800" cy="108" r="6" fill="#0a0b0e" opacity="0.2"/>
           </g>
           <g class="jlabel l4">
@@ -926,7 +958,7 @@ footer {
 
           <!-- node 5: Secure -->
           <g class="jnode j5" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="905" cy="80" r="15" fill="#1f7a5e"/>
+            <circle cx="905" cy="80" r="15" fill="#161412"/>
             <circle cx="905" cy="80" r="6" fill="#0a0b0e" opacity="0.2"/>
           </g>
           <g class="jlabel l5">
@@ -938,11 +970,11 @@ footer {
 
       <!-- mobile vertical version -->
       <div class="journey-mobile">
-        <div class="jm-step"><div class="jm-dot" style="background:#58c08a;">01</div><div><h4>Discover</h4><div class="jm-time">Weeks 1&ndash;2</div><p>An honest picture of every risk, gap, and priority. No upsell agenda.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#d8503f;">02</div><div><h4>Stabilise</h4><div class="jm-time">Months 1&ndash;2</div><p>The fires go out. Technology stops holding the business back.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#e8943a;">03</div><div><h4>Standardise</h4><div class="jm-time">Months 2&ndash;4</div><p>Documented, defensible, and no longer dependent on any one person.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#6a4ea3;">04</div><div><h4>Transform</h4><div class="jm-time">Month 4+</div><p>Modern work, AI, and automation that stick. A genuine edge.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#1f7a5e;">05</div><div><h4>Secure</h4><div class="jm-time">Ongoing</div><p>Clean board answers. A posture you can stand behind.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#e0a878;">01</div><div><h4>Discover</h4><div class="jm-time">Weeks 1&ndash;2</div><p>An honest picture of every risk, gap, and priority. No upsell agenda.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#e05a30;">02</div><div><h4>Stabilise</h4><div class="jm-time">Months 1&ndash;2</div><p>The fires go out. Technology stops holding the business back.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#cd4d26;">03</div><div><h4>Standardise</h4><div class="jm-time">Months 2&ndash;4</div><p>Documented, defensible, and no longer dependent on any one person.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#3a352f;">04</div><div><h4>Transform</h4><div class="jm-time">Month 4+</div><p>Modern work, AI, and automation that stick. A genuine edge.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#161412;">05</div><div><h4>Secure</h4><div class="jm-time">Ongoing</div><p>Clean board answers. A posture you can stand behind.</p></div></div>
       </div>
     </div>
 
@@ -998,7 +1030,7 @@ footer {
         <p>The everyday running sits wherever it works best. Your team, your existing provider, us, or a mix of all three. We own that it gets done right and that it serves where the business is heading, not just the ticket queue.</p>
       </div>
     </div>
-    <p class="note-line reveal">The first thing an owner usually notices: vendors that finally answer to someone. One client saved <span class="accent">over $500k in a single competitive vendor review.</span></p>
+    <p class="note-line reveal">One client saved <span class="accent">over $500k in a single competitive vendor review.</span> The first thing most owners notice when we come in: vendors that finally answer to someone.</p>
   </div>
 </section>
 
@@ -1031,15 +1063,15 @@ footer {
         <p>Senior technology and security leadership for growing New Zealand businesses. On your side of the table.</p>
       </div>
       <div>
-        <h5>The story</h5>
+        <h3>The story</h3>
         <ul>
           <li><a href="index.html">Why myCIO</a></li>
-          <li><a href="transformation.html">Transformation</a></li>
           <li><a href="how-we-work.html">How we work</a></li>
+          <li><a href="transformation.html">Transformation</a></li>
         </ul>
       </div>
       <div>
-        <h5>Get started</h5>
+        <h3>Get started</h3>
         <ul>
           <li><a href="contact.html">Talk to us</a></li>
         </ul>
@@ -1110,11 +1142,11 @@ footer {
   }
 
   var ribbons = [
-    { amp: 52, freq: 0.0036, speed: 0.00020, off: -20, color: '224,90,48',   a: 0.16, core: 0.65, strokes: 14, gap: 4.5 },
-    { amp: 38, freq: 0.0050, speed: 0.00028, off: 34,  color: '240,150,90',  a: 0.13, core: 0.50, strokes: 12, gap: 4.0 },
-    { amp: 64, freq: 0.0028, speed: 0.00015, off: -64, color: '224,90,48',   a: 0.09, core: 0.35, strokes: 16, gap: 5.5 },
-    { amp: 26, freq: 0.0066, speed: 0.00036, off: 70,  color: '250,247,241', a: 0.06, core: 0.28, strokes: 10, gap: 3.5 },
-    { amp: 46, freq: 0.0042, speed: 0.00024, off: 8,   color: '244,120,64',  a: 0.12, core: 0.45, strokes: 12, gap: 4.5 }
+    { amp: 70, freq: 0.0036, speed: 0.00020, off: -20, color: '224,90,48',   a: 0.20, core: 0.75, strokes: 14, gap: 4.5 },
+    { amp: 52, freq: 0.0050, speed: 0.00028, off: 34,  color: '240,150,90',  a: 0.16, core: 0.60, strokes: 12, gap: 4.0 },
+    { amp: 86, freq: 0.0028, speed: 0.00015, off: -64, color: '224,90,48',   a: 0.12, core: 0.42, strokes: 16, gap: 5.5 },
+    { amp: 36, freq: 0.0066, speed: 0.00036, off: 70,  color: '250,247,241', a: 0.08, core: 0.32, strokes: 10, gap: 3.5 },
+    { amp: 62, freq: 0.0042, speed: 0.00024, off: 8,   color: '244,120,64',  a: 0.15, core: 0.55, strokes: 12, gap: 4.5 }
   ];
 
   function ribbonY(rb, x, t, r, k) {
@@ -1125,7 +1157,7 @@ footer {
   function draw(t) {
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = 'lighter';
-    var baseY = H * 0.74;
+    var baseY = H * 0.66;
     for (var r = 0; r < ribbons.length; r++) {
       var rb = ribbons[r];
       // soft glow fan

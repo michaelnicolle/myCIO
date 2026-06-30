@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>myCIO | How We Work</title>
 <meta name="description" content="How myCIO owns and drives lasting change for growing New Zealand businesses, from where you are to where the business is going.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="myCIO | How We Work">
+<meta property="og:description" content="From a structured discovery to a running business. Every step owned by us, built to run without us at the end.">
+<meta property="og:url" content="https://mycio.co.nz/how-we-work.html">
+<meta property="og:image" content="https://mycio.co.nz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="myCIO | How We Work">
+<meta name="twitter:description" content="From a structured discovery to a running business. Every step owned by us, built to run without us at the end.">
 <style>
 /* myCIO website styles, launch redesign */
 
@@ -12,7 +20,7 @@
 
 :root {
   --accent: #e05a30;
-  --accent-dark: #c44a24;
+  --accent-dark: #cd4d26;
   --accent-soft: rgba(224, 90, 48, 0.10);
   --ink: #161412;
   --ink-soft: #3a352f;
@@ -28,6 +36,7 @@
   --white: #ffffff;
   --max: 1180px;
   --radius: 22px;
+  --shadow-border: 0px 0px 0px 1px rgba(0,0,0,0.06), 0px 1px 2px -1px rgba(0,0,0,0.06), 0px 2px 4px 0px rgba(0,0,0,0.04);
   --display: 'Fraunces', Georgia, serif;
   --sans: 'Hanken Grotesk', system-ui, sans-serif;
 }
@@ -54,10 +63,12 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+p { text-wrap: pretty; }
 
 h1, h2, h3, .section-head, .big-statement, .stat .big {
   font-family: var(--display);
   font-optical-sizing: auto;
+  text-wrap: balance;
 }
 
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
@@ -111,7 +122,7 @@ header.nav {
 .btn {
   display: inline-block;
   background: var(--accent);
-  color: var(--white);
+  color: var(--ink);
   padding: 12px 24px;
   border-radius: 100px;
   font-weight: 600;
@@ -121,6 +132,9 @@ header.nav {
   cursor: pointer;
 }
 .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+.btn:active { transform: scale(0.96); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.nav-links a:not(.btn):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .btn-nav {
   background: transparent;
   color: var(--white);
@@ -150,7 +164,8 @@ header.nav {
   flex-direction: column;
   overflow: hidden;
   background:
-    radial-gradient(1100px 600px at 70% -15%, rgba(224, 90, 48, 0.07), transparent 60%),
+    radial-gradient(1100px 700px at 68% -10%, rgba(224, 90, 48, 0.14), transparent 58%),
+    radial-gradient(900px 700px at 12% 110%, rgba(224, 90, 48, 0.07), transparent 60%),
     #0a0b0e;
 }
 #wave {
@@ -266,7 +281,7 @@ header.nav {
 .updown {
   background: #0a0b0e;
   color: var(--white);
-  padding: 0 0 110px;
+  padding: 52px 0 110px;
 }
 .ud-grid {
   display: grid;
@@ -335,7 +350,7 @@ header.nav {
 }
 .ptile {
   position: relative;
-  border-radius: 18px;
+  border-radius: var(--radius);
   background: #14151b;
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
@@ -425,6 +440,7 @@ section[id] { scroll-margin-top: 90px; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 34px 32px;
+  box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
 }
 .sign:nth-child(1), .sign:nth-child(2) { grid-column: span 3; }
@@ -515,6 +531,7 @@ section[id] { scroll-margin-top: 90px; }
   background: var(--white);
   padding: 38px 36px;
   overflow: hidden;
+  box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
 }
 .layer-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.35); }
@@ -565,6 +582,7 @@ section[id] { scroll-margin-top: 90px; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 36px 32px;
+  box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
 }
 .card:hover { transform: translateY(-4px); border-color: rgba(224, 90, 48, 0.45); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.35); }
@@ -597,6 +615,7 @@ section[id] { scroll-margin-top: 90px; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 38px 36px;
+  box-shadow: var(--shadow-border);
 }
 .member-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
 .member-mark {
@@ -614,9 +633,8 @@ section[id] { scroll-margin-top: 90px; }
 .member-quote {
   margin-top: 22px;
   padding: 18px 22px;
-  background: var(--paper);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 12px 12px 0;
+  background: var(--accent-soft);
+  border-radius: 12px;
   font-family: var(--display);
   font-style: italic;
   font-size: 1.02rem;
@@ -659,7 +677,7 @@ footer {
 .foot-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 48px; }
 .foot-top .logo { font-size: 1.4rem; margin-bottom: 14px; display: inline-block; }
 .foot-top p { font-size: 0.95rem; max-width: 36ch; }
-.foot-top h5 { color: var(--white); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
+.foot-top h3 { font-family: var(--sans); color: var(--white); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
 .foot-top ul { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.94rem; }
 .foot-top a:hover { color: var(--accent); }
 .foot-bottom {
@@ -710,24 +728,31 @@ footer {
 .page-hero { min-height: 100vh; min-height: 100svh; }
 .page-hero .hero-content { padding: 130px 28px 170px; }
 .page-hero h1 {
-  font-size: clamp(2.3rem, 5vw, 4rem);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
   font-weight: 400;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.022em;
   line-height: 1.06;
   color: var(--white);
   font-family: var(--display);
+  text-wrap: balance;
 }
 .page-hero h1 .h1-line2 {
   display: block;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--accent);
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  letter-spacing: -0.03em;
+  line-height: 0.97;
+  margin-top: 0.08em;
 }
 .page-hero .lead {
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  color: rgba(250, 247, 241, 0.6);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  line-height: 1.75;
+  color: rgba(250, 247, 241, 0.82);
   max-width: 56ch;
-  margin: 24px auto 0;
+  margin: 32px auto 0;
+  text-wrap: pretty;
 }
 
 /* ---------- Offer cards (what we do) ---------- */
@@ -740,6 +765,7 @@ footer {
   border-radius: var(--radius);
   padding: 42px 40px;
   margin-bottom: 18px;
+  box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
 }
 .offer:hover { transform: translateY(-3px); border-color: rgba(224, 90, 48, 0.4); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.3); }
@@ -801,7 +827,7 @@ footer {
 .journey.in .jline { animation: drawLine 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 @keyframes drawLine { to { stroke-dashoffset: 0; } }
 .jnode { opacity: 0; }
-.journey.in .jnode { animation: nodePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.journey.in .jnode { animation: nodePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 .journey.in .jnode.j1 { animation-delay: 0.25s; }
 .journey.in .jnode.j2 { animation-delay: 0.65s; }
 .journey.in .jnode.j3 { animation-delay: 1.05s; }
@@ -857,7 +883,8 @@ footer {
   border-radius: var(--radius);
   padding: 36px 36px;
   margin-bottom: 14px;
-  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), border-color 0.25s;
+  box-shadow: var(--shadow-border);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
 }
 .stage-row:hover { transform: translateY(-3px); border-color: rgba(224, 90, 48, 0.4); }
 .sr-num { font-family: var(--display); font-style: italic; color: var(--accent); font-size: 1rem; display: block; }
@@ -915,6 +942,7 @@ footer {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 34px 32px;
+  box-shadow: var(--shadow-border);
 }
 .contact-card h3 { font-family: var(--display); font-size: 1.3rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
 .contact-card p { color: var(--muted); font-size: 0.97rem; }
@@ -928,7 +956,7 @@ footer {
   color: var(--ink);
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 13px 15px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -962,19 +990,19 @@ footer {
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#8801;</button>
         <nav class="nav-links">
       <a href="index.html">Why myCIO</a>
+      <a href="how-we-work.html" aria-current="page">How we work</a>
       <a href="transformation.html">Transformation</a>
-      <a href="how-we-work.html">How we work</a>
       <a href="contact.html">Contact</a>
       <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
     </nav>
   </div>
 </header>
 
-<section class="hero page-hero" aria-label="Introduction">
+<section class="hero page-hero" aria-label="How We Work overview">
   <div class="hero-content">
     <div class="inner">
       <h1>From where you are,<span class="h1-line2">to where your business is going.</span></h1>
-      <p class="lead">We start where you are and take ownership of the change itself, not a slide deck about it. By the end your business is running on something documented, defensible, and genuinely yours.</p>
+      <p class="lead">We start where you are and take ownership of the change itself, not just a slide deck about the process. By the end, your business runs on something documented, defensible, and genuinely yours.</p>
     </div>
   </div>
   <div class="hero-scroll" aria-hidden="true"><span class="chev"></span></div>
@@ -1132,14 +1160,10 @@ footer {
     <p class="section-sub reveal">Most businesses without senior technology ownership make decisions reactively, or let vendors make them. A myCIO retainer changes that. Here is what is included, not billed as extras.</p>
     <div class="cards-3" style="text-align:left;">
       <div class="card reveal"><h3>A senior leadership team</h3><p>Experienced technology leaders who own your outcomes, available for decisions, escalations, and the hard calls. More than one brain on your business, not a sole operator.</p></div>
-      <div class="card reveal"><h3>Quarterly Business Reviews</h3><p>A structured review of security posture, infrastructure health, and programme progress. The roadmap is maintained, not shelved.</p></div>
-      <div class="card reveal"><h3>A rolling 12-month roadmap</h3><p>Updated every quarter and tied to your business priorities. You always know what is planned, delivered, and next.</p></div>
       <div class="card reveal"><h3>Board ready reporting</h3><p>Security posture, active risks, and measurable improvement over time, in plain language the board and your insurer can act on.</p></div>
       <div class="card reveal"><h3>A technology risk register</h3><p>The main risks to your business, what is being done about each, and where the technical debt sits. Paid down deliberately.</p></div>
-      <div class="card reveal"><h3>Budget and procurement</h3><p>Independent advice on spend before commitments are made. The right outcome, not the one a vendor is pushing.</p></div>
       <div class="card reveal"><h3>Vendor management</h3><p>We hold your technology vendors to their contracts and service levels. This alone recovers value most businesses leave on the table.</p></div>
       <div class="card reveal"><h3>Tested incident response</h3><p>A plan kept current enough to be useful on the day, with scheduled walk-throughs and a senior hand when something real happens.</p></div>
-      <div class="card reveal"><h3>Priced before you commit</h3><p>We quote and work in day rates, not hours. Assessments start at a three-day engagement. Scope and cost are confirmed before any work begins.</p></div>
     </div>
   </div>
 </section>
@@ -1175,15 +1199,15 @@ footer {
         <p>Senior technology and security leadership for growing New Zealand businesses. On your side of the table.</p>
       </div>
       <div>
-        <h5>The story</h5>
+        <h3>The story</h3>
         <ul>
           <li><a href="index.html">Why myCIO</a></li>
-          <li><a href="transformation.html">Transformation</a></li>
           <li><a href="how-we-work.html">How we work</a></li>
+          <li><a href="transformation.html">Transformation</a></li>
         </ul>
       </div>
       <div>
-        <h5>Get started</h5>
+        <h3>Get started</h3>
         <ul>
           <li><a href="contact.html">Talk to us</a></li>
         </ul>
