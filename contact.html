@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>myCIO | Meet the Team</title>
-<meta name="description" content="Meet the myCIO team. Senior technology leadership for New Zealand businesses, and how to talk to us.">
+<title>myCIO | Talk to us</title>
+<meta name="description" content="Talk to myCIO. Book a thirty minute call or send us your email for an honest read on where your technology stands.">
 <style>
 /* myCIO website styles, launch redesign */
 
@@ -891,6 +891,20 @@ footer {
   .offer-points { grid-template-columns: 1fr; }
   .page-hero .hero-content { padding: 130px 28px 120px; }
 }
+
+/* WHY MYCIO on contact */
+.why-contact { background: var(--paper); padding: 96px 0; }
+.why-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.why-contact-story p { font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 22px; line-height: 1.6; }
+.why-contact-story strong { color: var(--ink); font-weight: 600; }
+.why-contact-kicker { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 1.25rem; color: var(--ink); margin-top: 6px; }
+.why-contact-cards { display: flex; flex-direction: column; gap: 30px; padding-top: 6px; }
+.wc-card { border-left: 2px solid var(--accent); padding: 4px 0 4px 26px; }
+.wc-card h3 { font-family: var(--display); font-weight: 600; font-size: 1.32rem; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 12px; color: var(--ink); }
+.wc-card p { font-size: 1rem; color: var(--muted); line-height: 1.6; }
+@media (max-width: 860px) {
+  .why-contact-grid { grid-template-columns: 1fr; gap: 40px; }
+}
 </style>
 </head>
 <body>
@@ -901,10 +915,9 @@ footer {
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#8801;</button>
         <nav class="nav-links">
       <a href="index.html">Why myCIO</a>
-      <a href="what-we-do.html">What we do</a>
-      <a href="ai-transformation.html">AI Transformation</a>
+      <a href="transformation.html">Transformation</a>
       <a href="how-we-work.html">How we work</a>
-      <a href="contact.html">Meet the team</a>
+      <a href="contact.html">Contact</a>
       <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
     </nav>
   </div>
@@ -913,17 +926,9 @@ footer {
 <section class="hero page-hero" aria-label="Introduction">
   <div class="hero-content">
     <div class="inner">
-      <p class="hj-eyebrow">Meet the team</p>
-      <h1>The names on the door<span class="h1-line2">are the people in your business.</span></h1>
-      <p class="lead">Two senior founders. Thirty-five plus years across strategy, security, infrastructure, and delivery. The people you meet are the people who do the work, and they are accountable for the outcome.</p>
+      <h1>Let's talk about<span class="h1-line2">where your business is going.</span></h1>
+      <p class="lead">A thirty minute conversation, senior people on the call, and an honest read on where your technology stands. The fastest way to find out whether we are the right fit for each other.</p>
     </div>
-  </div>
-  <div class="hero-foot">
-    <span>Independent.</span>
-    <span class="hf-dot" aria-hidden="true"></span>
-    <span>In the room.</span>
-    <span class="hf-dot" aria-hidden="true"></span>
-    <span>NZ owned.</span>
   </div>
   <div class="hero-scroll" aria-hidden="true"><span class="chev"></span></div>
 </section>
@@ -931,100 +936,51 @@ footer {
 <div class="fade-light" aria-hidden="true"></div>
 
 <!-- TEAM -->
-<section id="team" class="sand-section">
-  <div class="wrap center-head">
-    <p class="eyebrow reveal">The founders</p>
-    <h2 class="section-head reveal">No account managers. <span class="accent">No junior handoffs.</span></h2>
-    <div class="team-grid" style="text-align:left;">
-      <div class="member reveal">
-        <div class="member-head">
-          <span class="member-mark">EM</span>
-          <div>
-            <h3>Elton McDowall</h3>
-            <span class="member-role">Co-founder and Director</span>
-          </div>
-        </div>
-        <p>Twenty years across strategy, security, governance, and technology leadership. Elton turns the complex stuff into decisions that make sense to owners, CFOs, and directors. Plain language, no jargon.</p>
-        <p>Elton also sits on the board of <strong>Tael Solutions</strong>, named Emerging Advisory Firm of the Year at The Gap Reunion 2025. Real directorship, real accountability for business outcomes, and the view from the other side of the table.</p>
-        <blockquote class="member-quote">"Elton saved us half a million dollars on our ERP upgrade just by asking the right tough questions."<cite>NZ manufacturer</cite></blockquote>
-      </div>
-      <div class="member reveal">
-        <div class="member-head">
-          <span class="member-mark">MN</span>
-          <div>
-            <h3>Michael Nicolle</h3>
-            <span class="member-role">Co-founder and Director</span>
-          </div>
-        </div>
-        <p>Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. Stalled projects, expired vendor relationships, broken trust. That is where the work starts.</p>
-        <p>Led the technology programme for one of NZ's largest food producers. Full infrastructure architecture, a nationwide network, and operational resiliency. Delivered.</p>
-        <blockquote class="member-quote">"Michael delivered outstanding network transformation across our plants, cutting those weekly outages out completely."<cite>NZ food producer</cite></blockquote>
-      </div>
+
+<section class="why-contact">
+  <div class="wrap why-contact-grid">
+    <div class="why-contact-story reveal">
+      <p>We started myCIO because we kept seeing good businesses get let down by their own technology.</p>
+      <p>Not through bad luck. Through a model that was never built to deliver outcomes. Providers who keep the lights on, bill their hours, and walk away. The owner gets left holding the decisions nobody else will own.</p>
+      <p><strong>So we built the missing piece.</strong> Senior enough to set the direction. Accountable enough to see it through. Present, not reporting from a distance.</p>
+      <p class="why-contact-kicker">Technology should work for your business. <span class="accent">That is the whole point.</span></p>
     </div>
-    <div class="team-stats">
-      <div class="ts-stat reveal"><b>35+</b><span>years combined experience</span></div>
-      <div class="ts-stat reveal"><b>NZ only</b><span>no offshore handoffs, ever</span></div>
-      <div class="ts-stat reveal"><b>2</b><span>senior founders, both in delivery</span></div>
-      <div class="ts-stat reveal"><b>0</b><span>junior handoffs, ever</span></div>
+    <div class="why-contact-cards">
+      <div class="wc-card reveal">
+        <h3>We don't leave until it's working.</h3>
+        <p>Most consultants deliver a report and move on. We own the outcome and fix what breaks. You stop being the person explaining to the board why it did not land.</p>
+      </div>
+      <div class="wc-card reveal">
+        <h3>Your vendors finally have someone to answer to.</h3>
+        <p>We hold them accountable, renegotiate what is not working, and close the gaps they have been ignoring. One client saved half a million dollars in the first review. That is not unusual.</p>
+      </div>
+      <div class="wc-card reveal">
+        <h3>Built so you are never held hostage.</h3>
+        <p>We build your environment so it belongs to you. Documented, portable, and not dependent on any single vendor or person. Seven years from now, it should still make sense.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="contact">
   <div class="wrap">
-    <div class="contact-grid">
-      <div>
-        <p class="eyebrow reveal">The fastest way</p>
-        <h2 class="section-head reveal" style="font-size:1.9rem;">Book a call <span class="accent">directly.</span></h2>
-        <p class="section-sub reveal" style="margin-left:0;">Pick a time that suits you and we will be ready. If you would rather email first, that works too.</p>
-        <div class="contact-card reveal" style="margin-top:30px;">
-          <h3>Book a 30 minute call</h3>
-          <p>Grab a slot on the calendar. We will come prepared with the right questions.</p>
-          <!-- Replace the href below with your Calendly link before launch -->
-          <a href="https://calendly.com/mycio" class="btn" style="margin-top:18px;">Open the calendar</a>
-        </div>
-        <div class="contact-card reveal" style="margin-top:18px;">
-          <h3>Email us</h3>
-          <p>Tell us what is slowing the business down. We will tell you how to fix it.</p>
-          <a class="email" href="mailto:hello@mycio.co.nz?subject=Intro%20call%20with%20myCIO">hello@mycio.co.nz</a>
-          <p style="margin-top:14px;">Auckland, New Zealand</p>
-        </div>
+    <div class="center-head">
+      <h2 class="section-head reveal">Thirty minutes. <span class="accent">You leave knowing exactly where you stand.</span></h2>
+      <p class="section-sub reveal">No slide deck, no obligation. Tell us what is slowing your business down and we will give you an honest read on what to do next. If we are not the right fit, we will say so.</p>
+    </div>
+    <div class="contact-card reveal" style="max-width:560px; margin:44px auto 0;">
+      <h3>Send us a message</h3>
+      <p>Leave your email and a line on what is going on. We will come back to you within one business day.</p>
+      <div class="field" style="margin-top:16px;">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="jane@business.co.nz">
       </div>
-
-      <div>
-        <p class="eyebrow reveal">Or send a message</p>
-        <h2 class="section-head reveal" style="font-size:1.9rem;">Tell us what is <span class="accent">going on.</span></h2>
-        <p class="section-sub reveal" style="margin-left:0;">A few lines is enough. We will come back to you within one business day.</p>
-        <div class="contact-card reveal" style="margin-top:30px;">
-          <div class="field">
-            <label for="name">Your name</label>
-            <input type="text" id="name" placeholder="Jane Smith">
-          </div>
-          <div class="field">
-            <label for="company">Company</label>
-            <input type="text" id="company" placeholder="Your business">
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="jane@business.co.nz">
-          </div>
-          <div class="field">
-            <label for="situation">What's the situation?</label>
-            <select id="situation">
-              <option value="No one senior owns our technology direction">No one senior owns our technology direction</option>
-              <option value="The board is asking technology questions we cannot answer">The board is asking technology questions we cannot answer</option>
-              <option value="A project has stalled or overrun">A project has stalled or overrun</option>
-              <option value="We are about to make a big technology investment">We are about to make a big technology investment</option>
-              <option value="Something else">Something else</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="message">Tell us more</label>
-            <textarea id="message" placeholder="A few lines on what is slowing the business down."></textarea>
-          </div>
-          <button class="btn" id="send" style="width:100%;">Send it through</button>
-        </div>
+      <div class="field">
+        <label for="message">What is going on?</label>
+        <textarea id="message" placeholder="A few lines is enough."></textarea>
       </div>
+      <button class="btn" id="send" style="width:100%;">Send it through</button>
+      <p style="margin-top:18px; font-size:0.92rem; color:var(--muted);">Prefer email directly? <a class="email" href="mailto:hello@mycio.co.nz?subject=Intro%20call%20with%20myCIO" style="color:var(--accent);">hello@mycio.co.nz</a> &middot; Auckland, New Zealand</p>
     </div>
   </div>
 </section>
@@ -1041,16 +997,14 @@ footer {
         <h5>The story</h5>
         <ul>
           <li><a href="index.html">Why myCIO</a></li>
-          <li><a href="what-we-do.html">What we do</a></li>
-          <li><a href="index.html#stack-intro">How it works</a></li>
+          <li><a href="transformation.html">Transformation</a></li>
+          <li><a href="how-we-work.html">How we work</a></li>
         </ul>
       </div>
       <div>
         <h5>Get started</h5>
         <ul>
-          <li><a href="how-we-work.html">How we work</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Book a 30 min call</a></li>
+          <li><a href="contact.html">Talk to us</a></li>
         </ul>
       </div>
     </div>
@@ -1188,17 +1142,11 @@ footer {
   var send = document.getElementById('send');
   if (!send) return;
   send.addEventListener('click', function () {
-    var name = document.getElementById('name').value || '';
-    var company = document.getElementById('company').value || '';
     var email = document.getElementById('email').value || '';
-    var situation = document.getElementById('situation').value || '';
     var message = document.getElementById('message').value || '';
-    var subject = encodeURIComponent('Website enquiry from ' + (name || 'a visitor'));
+    var subject = encodeURIComponent('Website enquiry');
     var body = encodeURIComponent(
-      'Name: ' + name + '\n' +
-      'Company: ' + company + '\n' +
-      'Email: ' + email + '\n' +
-      'Situation: ' + situation + '\n\n' +
+      'Email: ' + email + '\n\n' +
       message
     );
     window.location.href = 'mailto:hello@mycio.co.nz?subject=' + subject + '&body=' + body;
