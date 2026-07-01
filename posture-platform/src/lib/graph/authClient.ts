@@ -119,6 +119,13 @@ export interface GraphClientOptions {
  * tenant — which should always be exactly `REQUIRED_GRAPH_APPLICATION_SCOPES` (see
  * src/lib/graph/README.md). This function does not itself request individual scopes; Graph
  * app-only tokens are all-or-nothing per `.default`.
+ *
+ * NOTE on middleware wiring: `Client.initWithMiddleware` throws if both `authProvider` and
+ * `middleware` are supplied together (they're mutually exclusive init paths in this SDK version).
+ * Since we need custom retry/backoff behavior, we build the *entire* chain ourselves —
+ * `AuthenticationHandler` (wrapping our token credential) feeding into the retry middleware,
+ * which in turn terminates in `HTTPMessageHandler` (see `createRetryMiddlewareChain`) — and pass
+ * only `middleware`, never `authProvider`, to `initWithMiddleware`.
  */
 export function createGraphClient(config: GraphAuthConfig, options: GraphClientOptions = {}): Client {
   let credential: TokenCredential;
@@ -131,15 +138,16 @@ export function createGraphClient(config: GraphAuthConfig, options: GraphClientO
   const authProvider = new TokenCredentialAuthenticationProvider(credential, {
     scopes: [GRAPH_DEFAULT_SCOPE],
   });
+  const authenticationHandler = new AuthenticationHandler(authProvider);
 
-  const retryMiddleware = createRetryMiddlewareChain({
+  const retryChain = createRetryMiddlewareChain({
     maxRetries: options.maxRetries,
     maxTotalWaitMs: options.maxTotalWaitMs,
   });
+  authenticationHandler.setNext(retryChain);
 
   return Client.initWithMiddleware({
-    authProvider,
-    middleware: retryMiddleware,
+    middleware: authenticationHandler,
   });
 }
 

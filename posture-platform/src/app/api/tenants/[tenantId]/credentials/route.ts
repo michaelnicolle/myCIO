@@ -14,7 +14,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/client';
-import { encryptCredential } from '@/lib/crypto/envelope';
+import { encryptCredential, type EncryptedBlob } from '@/lib/crypto/envelope';
 import { writeAuditLog } from '@/lib/audit/log';
 import { submitCredentialSchema } from '../../schemas';
 import { requireTenantManagementRoleOrAudit } from '../../route-helpers';
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest, { params }: RouteParams): Promi
   const input = parsed.data;
   const plaintext = input.credentialType === 'CERTIFICATE' ? input.privateKeyPem : input.clientSecret;
 
-  let encrypted;
+  let encrypted: EncryptedBlob;
   try {
     encrypted = await encryptCredential(plaintext);
   } catch (err) {
