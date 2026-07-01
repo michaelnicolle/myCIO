@@ -1124,6 +1124,313 @@ export function evaluateSecurityDefaultsOrCaBaseline(signals: TenantCollectionRe
 }
 
 // ---------------------------------------------------------------------------
+// audit-log-retention-enabled
+//
+// WEAK/INDIRECT PROXY, DOCUMENTED: this control's description covers unified audit log
+// retention/ingestion, but the only Graph-derived signal available to it is `recentSignIns`
+// (Entra sign-in logs), which says nothing about Unified Audit Log ingestion itself — it only
+// shows that sign-in activity is being recorded/observable at all. Treat this purely as a weak
+// "is *something* being logged" smoke test, not a real audit-log-retention check.
+// The authoritative, direct check for this same concern is `unified-audit-log-ingestion-verified`
+// (see its evaluator above), backed by the Security & Compliance PowerShell
+// `unifiedAuditLogConfig` signal — prefer that control's result whenever its signal is available.
+// ---------------------------------------------------------------------------
+
+export function evaluateAuditLogRetentionEnabled(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.recentSignIns) {
+    return missingSignalOutcome(signals, 'recentSignIns', 'Audit log retention/ingestion enabled');
+  }
+  if (signals.recentSignIns.length > 0) {
+    return {
+      status: 'PASS',
+      detail:
+        `${signals.recentSignIns.length} recent sign-in record(s) are present, a weak indirect proxy that sign-in ` +
+        'activity is being logged/observable at all. This does NOT directly confirm Unified Audit Log ' +
+        'retention/ingestion is enabled — see the authoritative `unified-audit-log-ingestion-verified` control ' +
+        '(backed by the direct Security & Compliance PowerShell signal) for that determination.',
+      evidence: { recentSignInCount: signals.recentSignIns.length, weakIndirectProxy: true },
+    };
+  }
+  return {
+    status: 'PARTIAL',
+    detail:
+      'The recentSignIns signal was collected but returned zero records in this window, so even this weak ' +
+      'indirect logging-activity proxy cannot be confirmed. This does not by itself confirm Unified Audit Log ' +
+      'ingestion is disabled — see `unified-audit-log-ingestion-verified` for a direct, authoritative check.',
+    evidence: { recentSignInCount: 0, weakIndirectProxy: true },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// ca-compliant-device-admin-access
+// ---------------------------------------------------------------------------
+
+/** Graph `grantControls.builtInControls` string values for device-based grant requirements. */
+const COMPLIANT_DEVICE_CONTROLS = ['compliantdevice', 'domainjoineddevice'];
+
+function grantsCompliantOrJoinedDevice(policy: GraphConditionalAccessPolicy): boolean {
+  const controls = policy.grantControls?.builtInControls ?? [];
+  return controls.some((c) => COMPLIANT_DEVICE_CONTROLS.includes(c.toLowerCase()));
+}
+
+export function evaluateCaCompliantDeviceAdminAccess(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'conditionalAccessPolicies', 'CA requires compliant device for admin access');
+  }
+  const policies = signals.conditionalAccessPolicies;
+  const enabledAdminDevicePolicies = policies.filter(
+    (p) => isEnabled(p) && conditionTargetsAdminRoles(p.conditions) && grantsCompliantOrJoinedDevice(p)
+  );
+
+  if (enabledAdminDevicePolicies.length > 0) {
+    return {
+      status: 'PASS',
+      detail: `${enabledAdminDevicePolicies.length} enabled CA polic${enabledAdminDevicePolicies.length === 1 ? 'y requires' : 'ies require'} a compliant or hybrid-joined device for admin role sign-in.`,
+      evidence: { policyIds: enabledAdminDevicePolicies.map((p) => p.id) },
+    };
+  }
+
+  const reportOnlyAdminDevicePolicies = policies.filter(
+    (p) =>
+      p.state === 'enabledForReportingButNotEnforced' &&
+      conditionTargetsAdminRoles(p.conditions) &&
+      grantsCompliantOrJoinedDevice(p)
+  );
+  if (reportOnlyAdminDevicePolicies.length > 0) {
+    return {
+      status: 'PARTIAL',
+      detail: 'A compliant/hybrid-joined-device policy for admin roles exists but is only in report-only mode, not enforced.',
+      evidence: { reportOnlyPolicyIds: reportOnlyAdminDevicePolicies.map((p) => p.id) },
+    };
+  }
+
+  return {
+    status: 'FAIL',
+    detail: 'No enabled conditional access policy requires a compliant or hybrid-joined device for administrative role sign-in.',
+    evidence: { enabledPolicyCount: policies.filter(isEnabled).length },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// privileged-role-activation-requires-approval
+//
+// DOCUMENTED GAP (UNKNOWN-by-design, same precedent as device-code-flow-blocked above):
+// `GraphDirectoryRoleAssignment` (src/types/graph.ts) only carries `roleName` / `principalId` /
+// `principalType` / `isPrivileged` — a snapshot of *active* role assignments. It has no fields at
+// all describing PIM eligibility, activation requests, or approval policy. Whether activation
+// requires approval is governed by PIM's role-management-policy configuration, which lives at a
+// completely different Graph endpoint (`GET /roleManagement/directory/roleManagementPolicies` and
+// its `roleManagementPolicyAssignments`/`roleManagementPolicyRules`), not currently collected.
+// Rather than guess at approval status from data that cannot possibly answer the question, this
+// evaluator always reports UNKNOWN with the specific missing endpoint called out, so it's a
+// tracked, legitimate follow-up rather than a silently wrong PASS/FAIL.
+// ---------------------------------------------------------------------------
+
+export function evaluatePrivilegedRoleActivationRequiresApproval(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.privilegedRoleAssignments) {
+    return missingSignalOutcome(signals, 'privilegedRoleAssignments', 'Privileged role activation requires approval');
+  }
+  const privilegedCount = signals.privilegedRoleAssignments.filter((r) => r.isPrivileged).length;
+  return {
+    status: 'UNKNOWN',
+    detail:
+      `${privilegedCount} privileged role assignment(s) exist to potentially review, but whether activation ` +
+      'requires approval cannot be evaluated from the currently collected `privilegedRoleAssignments` signal — ' +
+      'that signal is only a snapshot of active assignments (roleName/principalId/principalType/isPrivileged) ' +
+      'and carries no PIM eligibility/approval-policy data. Evaluating this control requires collecting PIM ' +
+      'role-management-policy data from `GET /roleManagement/directory/roleManagementPolicies` (and its ' +
+      'associated policy-rule/assignment endpoints), which this platform does not currently collect. This is a ' +
+      'documented data gap, not a bug.',
+    evidence: { privilegedAssignmentCount: privilegedCount, missingEndpoint: 'roleManagement/directory/roleManagementPolicies' },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// privileged-role-assignment-drift-detected
+//
+// STRUCTURAL-READINESS CHECK, NOT TRUE DRIFT DETECTION: detecting drift (a change from the prior
+// collection cycle) needs a previous cycle's `privilegedRoleAssignments` to diff against, but
+// evaluators in this file are stateless pure functions over a single `TenantCollectionResult`
+// snapshot (see engine.ts's `deriveFindings`, which takes an explicit `previous` parameter
+// precisely because this comparison happens one layer up, not inside an evaluator). This evaluator
+// therefore validates that the platform IS collecting the data a drift review would need each
+// cycle — PASS means the collector is populating this signal, so the historical
+// ControlResult/PostureSnapshot record in Postgres gives an analyst something to diff/review
+// cycle-over-cycle; it does NOT itself mean "no drift occurred" or raise an automated drift alert.
+// A literal point-in-time drift alert (e.g. "3 new Global Admin assignments since last cycle")
+// would need a genuinely stateful comparison this evaluator layer doesn't perform — that's a
+// legitimate follow-up (e.g. compare against the previous ControlResult's evidence, or a
+// dedicated role-assignment-history table) if automated drift alerting is wanted later.
+// ---------------------------------------------------------------------------
+
+export function evaluatePrivilegedRoleAssignmentDriftDetected(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.privilegedRoleAssignments) {
+    return missingSignalOutcome(signals, 'privilegedRoleAssignments', 'Privileged role assignment drift detected');
+  }
+  return {
+    status: 'PASS',
+    detail:
+      `Privileged role assignment data (${signals.privilegedRoleAssignments.length} assignment(s)) is being collected ` +
+      'each cycle, so the existing ControlResult/PostureSnapshot history provides the record an analyst can review ' +
+      'for unexpected privilege escalation. NOTE: this validates data-collection readiness for drift review, not an ' +
+      'automated drift alert itself — true point-in-time drift detection would require a stateful comparison against ' +
+      'the prior cycle that this evaluator layer intentionally does not perform (see code comment above).',
+    evidence: { privilegedAssignmentCount: signals.privilegedRoleAssignments.length, structuralReadinessOnly: true },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// break-glass-accounts-excluded-and-monitored
+// ---------------------------------------------------------------------------
+
+/** Best-effort read of `conditions.users.excludeUsers`, mirroring how conditionTargetsAllUsers/conditionTargetsAdminRoles read includeUsers/includeRoles off the same loosely-typed bag. */
+function conditionHasUserExclusions(conditions: Record<string, unknown>): boolean {
+  const users = conditions['users'] as Record<string, unknown> | undefined;
+  const excludeUsers = users?.['excludeUsers'];
+  return Array.isArray(excludeUsers) && excludeUsers.length > 0;
+}
+
+export function evaluateBreakGlassAccountsExcludedAndMonitored(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'conditionalAccessPolicies', 'Break-glass accounts excluded and monitored');
+  }
+  if (!signals.recentSignIns) {
+    return missingSignalOutcome(signals, 'recentSignIns', 'Break-glass accounts excluded and monitored');
+  }
+
+  const enabledPoliciesWithExclusions = signals.conditionalAccessPolicies.filter(
+    (p) => isEnabled(p) && conditionHasUserExclusions(p.conditions)
+  );
+
+  if (enabledPoliciesWithExclusions.length === 0) {
+    return {
+      status: 'FAIL',
+      detail:
+        'No enabled Conditional Access policy has any user exclusions, suggesting no break-glass/emergency-access ' +
+        'account exclusion exists at all. At least two dedicated break-glass accounts should be deliberately ' +
+        'excluded from standard CA policies.',
+      evidence: { enabledPolicyCount: signals.conditionalAccessPolicies.filter(isEnabled).length },
+    };
+  }
+
+  // We can confirm exclusions exist and that sign-in activity is observable (implying monitoring
+  // capability), but we cannot confirm from Graph data alone that any excluded account is
+  // SPECIFICALLY a tagged/identified break-glass account being actively alerted on — this platform
+  // has no dedicated break-glass account-tagging mechanism. Be honest about that limit rather than
+  // claiming a false PASS.
+  return {
+    status: 'PARTIAL',
+    detail:
+      `${enabledPoliciesWithExclusions.length} enabled CA polic${enabledPoliciesWithExclusions.length === 1 ? 'y has' : 'ies have'} ` +
+      `user exclusions, and ${signals.recentSignIns.length} recent sign-in record(s) confirm sign-in activity is ` +
+      'observable (i.e. monitoring capability exists). This confirms exclusions exist and sign-ins are observable, ' +
+      'but cannot confirm break-glass accounts are specifically identified or actively alerted on — this platform ' +
+      'has no dedicated account-tagging mechanism to distinguish a break-glass exclusion from any other excluded ' +
+      'user/group. Manual verification of the excluded account(s) and their alerting is still required.',
+    evidence: {
+      policiesWithExclusions: enabledPoliciesWithExclusions.map((p) => p.id),
+      recentSignInCount: signals.recentSignIns.length,
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// inactive-account-review
+//
+// DOCUMENTED GAP (UNKNOWN-by-design): `collectRecentSignIns` (src/lib/graph/collectors.ts) only
+// pulls a 48-hour window (`SIGN_IN_WINDOW_HOURS = 48`) of `/auditLogs/signIns`, by design (kept
+// small/paged for collection cost). A 48-hour window fundamentally cannot answer a "no interactive
+// sign-in in 90 days" staleness question — a user absent from this window may simply not have
+// signed in during these particular 48 hours, not be dormant for 90+ days. Inferring staleness from
+// this narrow window would produce systematic false FAILs for perfectly active but infrequent users.
+// Evaluating this control properly requires either a much longer sign-in window, or (preferably) a
+// dedicated collector against `GET /users?$select=signInActivity` (the `lastSignInDateTime` /
+// `lastNonInteractiveSignInDateTime` properties), neither of which is currently collected. This is
+// a legitimate, documented follow-up (new collector + new `TenantCollectionResult` field), not
+// something to guess at with the data on hand.
+// ---------------------------------------------------------------------------
+
+export function evaluateInactiveAccountReview(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.recentSignIns) {
+    return missingSignalOutcome(signals, 'recentSignIns', 'Inactive/stale account review process in place');
+  }
+  return {
+    status: 'UNKNOWN',
+    detail:
+      'Inactive/stale account review cannot be evaluated from the collected `recentSignIns` signal: that collector ' +
+      'only pulls a 48-hour window of sign-in events, which cannot distinguish a dormant 90+-day account from one ' +
+      'that simply did not sign in during this particular 48-hour window. Evaluating staleness requires a ' +
+      'longer-window signal, e.g. a new collector against `GET /users?$select=signInActivity` (using the ' +
+      '`lastSignInDateTime` property), which is not currently collected. This is a documented data gap, not a bug.',
+    evidence: { recentSignInWindowHours: 48, missingSignal: 'users.signInActivity.lastSignInDateTime' },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// risky-sign-ins-blocked-or-step-up
+// ---------------------------------------------------------------------------
+
+function conditionIncludesMediumOrHighSignInRisk(conditions: Record<string, unknown>): boolean {
+  return (
+    conditionIncludesRiskLevel(conditions, 'signInRiskLevels', 'medium') ||
+    conditionIncludesRiskLevel(conditions, 'signInRiskLevels', 'high')
+  );
+}
+
+export function evaluateRiskySignInsBlockedOrStepUp(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'conditionalAccessPolicies', 'Risky sign-ins blocked or require step-up');
+  }
+  const enabled = signals.conditionalAccessPolicies.filter(isEnabled);
+  const coveringPolicies = enabled.filter(
+    (p) => conditionIncludesMediumOrHighSignInRisk(p.conditions) && (grantsMfa(p) || grantsBlock(p))
+  );
+
+  // Corroborating evidence only — never the basis for the PASS/FAIL verdict itself, since a
+  // tenant with zero risky sign-ins this cycle but no policy at all must still FAIL, not
+  // PASS-by-absence-of-risk-activity.
+  const riskDetectionCount = signals.riskDetections?.length ?? 0;
+  const riskyUserCount = signals.riskyUsers?.length ?? 0;
+
+  if (coveringPolicies.length > 0) {
+    return {
+      status: 'PASS',
+      detail:
+        `${coveringPolicies.length} enabled CA polic${coveringPolicies.length === 1 ? 'y requires' : 'ies require'} ` +
+        `MFA or block for medium/high sign-in risk. Corroborating signal this cycle: ${riskDetectionCount} risk ` +
+        `detection(s) and ${riskyUserCount} risky user(s) reported by Identity Protection.`,
+      evidence: { policyIds: coveringPolicies.map((p) => p.id), riskDetectionCount, riskyUserCount },
+    };
+  }
+
+  const reportOnlyCoveringPolicies = signals.conditionalAccessPolicies.filter(
+    (p) =>
+      p.state === 'enabledForReportingButNotEnforced' &&
+      conditionIncludesMediumOrHighSignInRisk(p.conditions) &&
+      (grantsMfa(p) || grantsBlock(p))
+  );
+  if (reportOnlyCoveringPolicies.length > 0) {
+    return {
+      status: 'PARTIAL',
+      detail:
+        'A sign-in-risk-based CA policy (MFA or block for medium/high risk) exists but is only in report-only mode, ' +
+        `not enforced. Corroborating signal this cycle: ${riskDetectionCount} risk detection(s), ${riskyUserCount} ` +
+        'risky user(s).',
+      evidence: { reportOnlyPolicyIds: reportOnlyCoveringPolicies.map((p) => p.id), riskDetectionCount, riskyUserCount },
+    };
+  }
+
+  return {
+    status: 'FAIL',
+    detail:
+      'No enabled Conditional Access policy requires MFA or blocks sign-in for medium/high sign-in risk. ' +
+      `(This cycle reported ${riskDetectionCount} risk detection(s) and ${riskyUserCount} risky user(s), but the ` +
+      'PASS/FAIL verdict is based on policy configuration, not on whether risky sign-ins happened to occur this cycle.)',
+    evidence: { enabledPolicyCount: enabled.length, riskDetectionCount, riskyUserCount },
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Exchange Online / Security & Compliance / Microsoft Teams evaluators.
 // Signals live at signals.exoTeams.{exoCompliance,teams} — see src/types/exoTeams.ts.
 // Every evaluator below returns UNKNOWN via missingSignalOutcome for any
@@ -1844,6 +2151,13 @@ export const EVALUATOR_REGISTRY: Record<string, Evaluator> = {
   'guest-access-review-configured': evaluateGuestAccessReviewed,
   'admin-consent-workflow-required': evaluateAdminConsentWorkflowRequired,
   'security-defaults-or-ca-baseline-enabled': evaluateSecurityDefaultsOrCaBaseline,
+  'audit-log-retention-enabled': evaluateAuditLogRetentionEnabled,
+  'ca-compliant-device-admin-access': evaluateCaCompliantDeviceAdminAccess,
+  'privileged-role-activation-requires-approval': evaluatePrivilegedRoleActivationRequiresApproval,
+  'privileged-role-assignment-drift-detected': evaluatePrivilegedRoleAssignmentDriftDetected,
+  'break-glass-accounts-excluded-and-monitored': evaluateBreakGlassAccountsExcludedAndMonitored,
+  'inactive-account-review': evaluateInactiveAccountReview,
+  'risky-sign-ins-blocked-or-step-up': evaluateRiskySignInsBlockedOrStepUp,
   'weak-authentication-methods-disabled': evaluateWeakAuthMethodsDisabled,
   'authenticator-number-matching-required': evaluateAuthenticatorNumberMatching,
   'fido2-attestation-enforced': evaluateFido2AttestationEnforced,
