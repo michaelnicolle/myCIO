@@ -118,6 +118,21 @@ export async function PATCH(request: NextRequest, { params }: RouteParams): Prom
     );
   }
 
+  if (target.id === session.userId && role !== undefined && role !== target.role) {
+    await writeAuditLog({
+      organizationId: session.organizationId,
+      actorUserId: session.userId,
+      action: 'user.role_change.self_denied',
+      targetType: 'User',
+      targetId: userId,
+      metadata: { reason: 'cannot_change_own_role', attemptedRole: role },
+    }).catch(() => {});
+    return NextResponse.json(
+      { error: 'You cannot change your own role.' },
+      { status: 400 },
+    );
+  }
+
   const previousRole = target.role;
   const previousIsActive = target.isActive;
 

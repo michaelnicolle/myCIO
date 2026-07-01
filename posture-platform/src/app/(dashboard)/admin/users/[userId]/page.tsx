@@ -46,6 +46,21 @@ async function updateRoleAction(userId: string, formData: FormData): Promise<voi
   const { role } = parsed.data;
   const previousRole = target.role;
 
+  if (userId === session.userId && role !== undefined && role !== previousRole) {
+    // Footgun prevention: a SUPER_ADMIN must not be able to change their own
+    // role — could otherwise leave the organization with zero SUPER_ADMIN
+    // accounts and no way to self-recover via this UI.
+    await writeAuditLog({
+      organizationId: session.organizationId,
+      actorUserId: session.userId,
+      action: 'user.role_change.self_denied',
+      targetType: 'User',
+      targetId: userId,
+      metadata: { reason: 'cannot_change_own_role', attemptedRole: role },
+    }).catch(() => {});
+    redirect(`/admin/users/${userId}?error=cannot_change_own_role`);
+  }
+
   const updated = await prisma.user.update({
     where: { id: userId },
     data: { role },
@@ -264,6 +279,11 @@ export default async function EditUserPage({ params, searchParams }: PageProps) 
       {error === 'cannot_deactivate_self' && (
         <p className="mt-4 text-sm text-red-600" role="alert">
           You cannot deactivate your own account.
+        </p>
+      )}
+      {error === 'cannot_change_own_role' && (
+        <p className="mt-4 text-sm text-red-600" role="alert">
+          You cannot change your own role.
         </p>
       )}
       {error === 'not_customer_viewer' && (
