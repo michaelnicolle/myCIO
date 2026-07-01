@@ -9,6 +9,7 @@
  * leakage is a critical-severity bug class for this product.
  */
 
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 import type { ControlResult, Finding, PostureSnapshot } from '@/types/domain';
 
@@ -47,7 +48,7 @@ export async function persistCycleResults(
           status: r.status,
           evaluatedAt: new Date(r.evaluatedAt),
           detail: r.detail,
-          evidence: r.evidence ?? undefined,
+          evidence: r.evidence as Prisma.InputJsonValue | undefined,
         })),
       });
     }
@@ -88,10 +89,10 @@ export async function persistCycleResults(
         tenantId,
         takenAt: new Date(snapshot.takenAt),
         overallScore: snapshot.overallScore,
-        functionScores: snapshot.functionScores,
+        functionScores: snapshot.functionScores as unknown as Prisma.InputJsonValue,
         secureScoreCurrent: snapshot.secureScore?.current,
         secureScoreMax: snapshot.secureScore?.max,
-        openFindingsBySeverity: snapshot.openFindingsBySeverity,
+        openFindingsBySeverity: snapshot.openFindingsBySeverity as unknown as Prisma.InputJsonValue,
       },
     });
   });

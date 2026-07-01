@@ -128,12 +128,7 @@ export interface GraphClientOptions {
  * only `middleware`, never `authProvider`, to `initWithMiddleware`.
  */
 export function createGraphClient(config: GraphAuthConfig, options: GraphClientOptions = {}): Client {
-  let credential: TokenCredential;
-  try {
-    credential = buildCredential(config);
-  } catch (err) {
-    throw toSafeError(err, 'failed to construct credential');
-  }
+  const credential: TokenCredential = buildCredential(config);
 
   const authProvider = new TokenCredentialAuthenticationProvider(credential, {
     scopes: [GRAPH_DEFAULT_SCOPE],

@@ -159,10 +159,20 @@ model TenantCredential {
   /// Entra app registration (application) client id — not secret.
   clientId String
 
-  /// Reference to the external KMS key used to encrypt the blobs below
+  /// Which KmsProvider wrapped the data key for this row (see EncryptedBlob.provider
+  /// in src/lib/crypto/envelope.ts) — required to pick the matching provider on
+  /// decrypt, since a provider migration/rotation can leave old and new rows
+  /// side by side.
+  kmsProvider String
+
+  /// Reference to the external KMS key used to wrap the data-encryption key below
   /// (e.g. Azure Key Vault key id + version, or a local KMS key alias).
   kmsKeyId      String
   kmsKeyVersion String
+
+  /// The wrapped (KMS-encrypted) data-encryption key itself. Without this, the
+  /// ciphertext below can never be decrypted — it is NOT optional.
+  wrappedDataKey Bytes
 
   /// Encrypted client secret or certificate private key. Ciphertext, IV/nonce,
   /// and auth tag are stored separately so the app never has to guess an

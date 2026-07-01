@@ -20,7 +20,7 @@ import { submitCredentialSchema } from '@/app/api/tenants/schemas';
 
 interface PageProps {
   params: { tenantId: string };
-  searchParams: { error?: string };
+  searchParams: { error?: string; success?: string };
 }
 
 function buildAdminConsentUrl(entraTenantId: string, platformClientId: string): string {
@@ -99,8 +99,10 @@ async function submitCredentialAction(tenantId: string, formData: FormData): Pro
         tenantId,
         credentialType: input.credentialType,
         clientId: input.clientId,
+        kmsProvider: encrypted.provider,
         kmsKeyId: encrypted.kmsKeyId,
         kmsKeyVersion: encrypted.kmsKeyVersion,
+        wrappedDataKey: Buffer.from(encrypted.wrappedDataKey, 'base64'),
         encryptionAlgorithm: encrypted.algorithm,
         ciphertext: Buffer.from(encrypted.ciphertext, 'base64'),
         iv: Buffer.from(encrypted.iv, 'base64'),

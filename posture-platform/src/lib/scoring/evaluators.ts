@@ -397,12 +397,16 @@ export function evaluateGuestAccessReviewed(_signals: TenantCollectionResult): E
  * engine.ts, so it's safe for the catalog to define more controls than are
  * listed here.
  */
+// NOTE: these keys must match the `id` fields in src/lib/controls/catalog.ts exactly
+// (the catalog and this registry were built concurrently by different agents, and
+// the ids initially drifted apart — evaluateTenant looks up evaluators by
+// CONTROL_CATALOG's actual `control.id`, not by these function/variable names).
 export const EVALUATOR_REGISTRY: Record<string, Evaluator> = {
-  'mfa-admins-required': evaluateMfaForAdmins,
+  'mfa-admin-roles-required': evaluateMfaForAdmins,
   'mfa-all-users-required': evaluateMfaForAllUsers,
-  'legacy-auth-blocked': evaluateLegacyAuthBlocked,
-  'privileged-roles-no-standing-access': evaluatePrivilegedRolesNoStandingAccess,
-  'risky-users-addressed': evaluateRiskyUsersAddressed,
+  'legacy-authentication-blocked': evaluateLegacyAuthBlocked,
+  'no-standing-privileged-roles': evaluatePrivilegedRolesNoStandingAccess,
+  'high-risk-users-remediated': evaluateRiskyUsersAddressed,
   'secure-score-above-threshold': evaluateSecureScoreAboveThreshold,
-  'guest-external-access-reviewed': evaluateGuestAccessReviewed,
+  'guest-access-review-configured': evaluateGuestAccessReviewed,
 };

@@ -8,6 +8,7 @@
  * unknown>) — callers must never pass plaintext secrets/keys in `metadata`.
  */
 
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 
 export interface WriteAuditLogInput {
@@ -50,7 +51,7 @@ export async function writeAuditLog(input: WriteAuditLogInput): Promise<void> {
         action,
         targetType,
         targetId,
-        metadata: metadata ?? undefined,
+        metadata: metadata as Prisma.InputJsonValue | undefined,
       },
     });
   } catch (err) {
