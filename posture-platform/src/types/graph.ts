@@ -168,5 +168,13 @@ export interface TenantCollectionResult {
   applications?: GraphApplication[];
   privilegedServicePrincipals?: GraphServicePrincipal[];
   userRegistrationDetails?: GraphUserRegistrationDetail[];
+  /**
+   * Exchange Online/Security & Compliance/Teams PowerShell-sourced signals, collected via a
+   * structurally separate auth session (see src/lib/powershell) — NOT Microsoft Graph. Nested
+   * here (rather than a wholly separate top-level bag threaded through every function
+   * signature) so evaluators keep the existing single-`TenantCollectionResult`-argument
+   * pattern. See src/types/exoTeams.ts.
+   */
+  exoTeams?: import('./exoTeams').ExoTeamsSignals;
   errors?: Array<{ signal: string; message: string }>;
 }
