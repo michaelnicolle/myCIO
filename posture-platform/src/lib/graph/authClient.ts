@@ -13,7 +13,7 @@
  */
 
 import { ClientCertificateCredential, ClientSecretCredential, type TokenCredential } from '@azure/identity';
-import { Client } from '@microsoft/microsoft-graph-client';
+import { AuthenticationHandler, Client } from '@microsoft/microsoft-graph-client';
 import { TokenCredentialAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials';
 
 import { REQUIRED_GRAPH_APPLICATION_SCOPES } from '@/types/domain';
