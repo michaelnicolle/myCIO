@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+build/
+
+# env — never commit real secrets
+.env
+.env.local
+.env.*.local
+
+# prisma
+prisma/*.db
+
+# logs
+npm-debug.log*
+*.log
+
+# misc
+.DS_Store
+*.tsbuildinfo
+coverage/
