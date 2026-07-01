@@ -17,6 +17,8 @@ import type { Tenant, TenantCredential } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 import { decryptCredential, type EncryptedBlob } from '@/lib/crypto/envelope';
 import { collectTenantSignals, type GraphAuthConfig } from '@/lib/graph';
+import { collectExoComplianceSignals } from '@/lib/powershell/collectExoCompliance';
+import { collectTeamsSignals } from '@/lib/powershell/collectTeams';
 import { evaluateTenant, deriveFindings } from '@/lib/scoring/engine';
 import { computeSnapshot } from '@/lib/trends/snapshot';
 import { persistCycleResults } from '@/lib/trends/persist';
@@ -112,6 +114,22 @@ export async function collectAndScoreTenant(tenantId: string): Promise<CollectTe
   // collectTenantSignals stamps the customer's Entra tenant GUID onto the result;
   // everything downstream (scoring, persistence) keys by our own internal Tenant.id.
   signals.tenantId = tenant.id;
+
+  // Exchange Online/Security & Compliance/Teams PowerShell collection reuses the SAME
+  // certificate, but only when one is configured — EXO/Teams app-only auth is
+  // certificate-only (no client-secret path), unlike Graph. A secret-based tenant simply
+  // gets no `exoTeams` signals; every evaluator that depends on them already degrades to
+  // UNKNOWN for a missing signal rather than guessing, so this is a graceful, expected gap,
+  // not an error. Both collectors already catch their own connection/collection failures
+  // internally and never throw (see src/lib/powershell), consistent with the "one signal
+  // source failing never blocks the rest of the cycle" principle applied everywhere else.
+  if (authConfig.kind === 'certificate') {
+    const [exoCompliance, teams] = await Promise.all([
+      collectExoComplianceSignals(authConfig),
+      collectTeamsSignals(authConfig),
+    ]);
+    signals.exoTeams = { exoCompliance, teams };
+  }
 
   const results = evaluateTenant(tenant.id, signals);
   const openFindingsBefore = await getOpenFindings(tenant.id);

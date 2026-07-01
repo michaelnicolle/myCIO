@@ -86,5 +86,17 @@ cp .env.example .env.local   # fill in real values, never commit
 npm run prisma:generate
 npm run prisma:migrate
 npm run prisma:seed
+BOOTSTRAP_ADMIN_EMAIL=you@yourcompany.com BOOTSTRAP_ORG_NAME="Your MSP Name" npm run bootstrap:admin
 npm run dev
 ```
+
+The `bootstrap:admin` step creates the first `SUPER_ADMIN` user so someone can
+actually sign in and use the admin UI to provision everyone else afterward —
+without it, there is no `User` row for anyone to sign in as (see
+`src/lib/auth/options.ts` `lookupPortalUser`), a chicken-and-egg problem the
+admin UI itself can't solve since it requires an existing SUPER_ADMIN session.
+`BOOTSTRAP_ADMIN_EMAIL` must exactly match an email address that will sign in
+via Entra ID SSO. It is safe to leave this command in your notes/scripts and
+re-run it later — it refuses to do anything if a SUPER_ADMIN already exists.
+See `DEPLOYMENT.md` ("Bootstrapping the first SUPER_ADMIN") for the full
+details and production usage.

@@ -15,6 +15,10 @@ import type {
   GraphConditionalAccessPolicy,
   GraphAuthenticationMethodsPolicy,
 } from '@/types/graph';
+import type {
+  ExoComplianceCollectionResult,
+  TeamsCollectionResult,
+} from '@/types/exoTeams';
 import type { ControlStatus } from '@/types/domain';
 
 /**
@@ -1120,6 +1124,702 @@ export function evaluateSecurityDefaultsOrCaBaseline(signals: TenantCollectionRe
 }
 
 // ---------------------------------------------------------------------------
+// Exchange Online / Security & Compliance / Microsoft Teams evaluators.
+// Signals live at signals.exoTeams.{exoCompliance,teams} — see src/types/exoTeams.ts.
+// Every evaluator below returns UNKNOWN via missingSignalOutcome for any
+// undefined signal at any level (exoTeams, exoCompliance/teams, or the specific
+// field), consistent with the file-level "never infer from absence" rule.
+// ---------------------------------------------------------------------------
+
+function exoCompliance(signals: TenantCollectionResult): ExoComplianceCollectionResult | undefined {
+  return signals.exoTeams?.exoCompliance;
+}
+
+function teams(signals: TenantCollectionResult): TeamsCollectionResult | undefined {
+  return signals.exoTeams?.teams;
+}
+
+// ---------------------------------------------------------------------------
+// dkim-signing-enabled-all-domains
+// ---------------------------------------------------------------------------
+
+export function evaluateDkimSigningEnabledAllDomains(signals: TenantCollectionResult): EvaluationOutcome {
+  const dkimConfigs = exoCompliance(signals)?.dkimConfigs;
+  if (!dkimConfigs) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.dkimConfigs', 'DKIM signing enabled for all domains');
+  }
+  const disabled = dkimConfigs.filter((d) => !d.enabled);
+  if (disabled.length === 0) {
+    return {
+      status: 'PASS',
+      detail: `DKIM signing is enabled for all ${dkimConfigs.length} domain(s).`,
+      evidence: { domainCount: dkimConfigs.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `DKIM signing is disabled for ${disabled.length} of ${dkimConfigs.length} domain(s).`,
+    evidence: { disabledDomains: disabled.map((d) => d.domain) },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// dmarc-policy-reject
+// ---------------------------------------------------------------------------
+
+export function evaluateDmarcPolicyReject(signals: TenantCollectionResult): EvaluationOutcome {
+  const dmarcConfigs = exoCompliance(signals)?.dmarcConfigs;
+  if (!dmarcConfigs) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.dmarcConfigs', 'DMARC policy set to reject');
+  }
+  // A missing DMARC record (policy: null) on a domain we actually checked is itself the
+  // finding — it means the domain has no DMARC enforcement at all — so it counts as a FAIL
+  // input here, not UNKNOWN. UNKNOWN is reserved for the whole signal being uncollected (above).
+  const notReject = dmarcConfigs.filter((d) => d.policy !== 'reject');
+  if (notReject.length === 0) {
+    return {
+      status: 'PASS',
+      detail: `All ${dmarcConfigs.length} domain(s) publish a DMARC record with policy "reject".`,
+      evidence: { domainCount: dmarcConfigs.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `${notReject.length} of ${dmarcConfigs.length} domain(s) do not enforce a DMARC "reject" policy.`,
+    evidence: {
+      nonRejectDomains: notReject.map((d) => ({ domain: d.domain, policy: d.policy })),
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// smtp-auth-disabled-tenant-wide
+// ---------------------------------------------------------------------------
+
+export function evaluateSmtpAuthDisabledTenantWide(signals: TenantCollectionResult): EvaluationOutcome {
+  const orgConfig = exoCompliance(signals)?.organizationMailConfig;
+  if (!orgConfig) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.organizationMailConfig', 'SMTP AUTH disabled tenant-wide');
+  }
+  if (orgConfig.smtpClientAuthenticationDisabled === true) {
+    return {
+      status: 'PASS',
+      detail: 'Legacy SMTP AUTH is disabled tenant-wide.',
+      evidence: { smtpClientAuthenticationDisabled: true },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: 'Legacy SMTP AUTH is not disabled tenant-wide, leaving a non-Conditional-Access-aware authentication path available.',
+    evidence: { smtpClientAuthenticationDisabled: orgConfig.smtpClientAuthenticationDisabled },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// mailbox-auditing-not-bypassed
+// ---------------------------------------------------------------------------
+
+export function evaluateMailboxAuditingNotBypassed(signals: TenantCollectionResult): EvaluationOutcome {
+  const bypassEntries = exoCompliance(signals)?.mailboxAuditBypass;
+  // An empty array IS meaningful collected data (checked, found zero bypasses) — distinct from
+  // `undefined` (not collected at all). Only the latter is UNKNOWN.
+  if (bypassEntries === undefined) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.mailboxAuditBypass', 'Mailbox auditing not bypassed');
+  }
+  const enabledBypass = bypassEntries.filter((b) => b.auditBypassEnabled);
+  if (enabledBypass.length === 0) {
+    return {
+      status: 'PASS',
+      detail: 'No mailboxes have audit-bypass enabled.',
+      evidence: { bypassEntryCount: bypassEntries.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `${enabledBypass.length} mailbox(es) have audit-bypass enabled, silently suppressing their audit records.`,
+    evidence: { bypassedMailboxes: enabledBypass.map((b) => b.identity) },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// mailbox-auditing-enabled-tenant-wide
+// ---------------------------------------------------------------------------
+
+export function evaluateMailboxAuditingEnabledTenantWide(signals: TenantCollectionResult): EvaluationOutcome {
+  const orgConfig = exoCompliance(signals)?.organizationMailConfig;
+  if (!orgConfig) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.organizationMailConfig', 'Mailbox auditing enabled tenant-wide');
+  }
+  if (orgConfig.auditDisabled === false) {
+    return {
+      status: 'PASS',
+      detail: 'Tenant-wide (per-mailbox) Exchange mailbox auditing is enabled.',
+      evidence: { auditDisabled: false },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: 'Tenant-wide (per-mailbox) Exchange mailbox auditing is disabled, suppressing per-mailbox audit record generation.',
+    evidence: { auditDisabled: orgConfig.auditDisabled },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// transport-rules-no-external-forwarding
+// ---------------------------------------------------------------------------
+
+export function evaluateTransportRulesNoExternalForwarding(signals: TenantCollectionResult): EvaluationOutcome {
+  const transportRules = exoCompliance(signals)?.transportRules;
+  if (!transportRules) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.transportRules', 'Transport rules no external forwarding');
+  }
+  const offendingRules = transportRules.filter((r) => r.state === 'Enabled' && r.isExternalForwardingRule);
+  if (offendingRules.length === 0) {
+    return {
+      status: 'PASS',
+      detail: 'No enabled transport rule auto-forwards or BCCs mail to external recipients.',
+      evidence: { transportRuleCount: transportRules.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `${offendingRules.length} enabled transport rule(s) auto-forward or BCC mail externally.`,
+    evidence: { offendingRules: offendingRules.map((r) => ({ id: r.id, name: r.name })) },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// remote-domain-auto-forward-disabled
+// ---------------------------------------------------------------------------
+
+function isDefaultRemoteDomain(domainName: string): boolean {
+  return domainName === '*' || domainName.toLowerCase() === 'default';
+}
+
+export function evaluateRemoteDomainAutoForwardDisabled(signals: TenantCollectionResult): EvaluationOutcome {
+  const remoteDomains = exoCompliance(signals)?.remoteDomains;
+  if (!remoteDomains) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.remoteDomains', 'Remote domain auto-forward disabled');
+  }
+  const offending = remoteDomains.filter((d) => d.autoForwardEnabled);
+  if (offending.length === 0) {
+    return {
+      status: 'PASS',
+      detail: `No remote domain (of ${remoteDomains.length}) has automatic forwarding enabled.`,
+      evidence: { remoteDomainCount: remoteDomains.length },
+    };
+  }
+  const offendingDefault = offending.filter((d) => isDefaultRemoteDomain(d.domainName));
+  return {
+    status: 'FAIL',
+    detail: offendingDefault.length > 0
+      ? `The default remote domain allows automatic forwarding, along with ${offending.length - offendingDefault.length} other domain(s).`
+      : `${offending.length} remote domain(s) allow automatic forwarding.`,
+    evidence: { offendingDomains: offending.map((d) => d.domainName) },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// mailbox-forwarding-external-blocked
+//
+// This control previously had no registered evaluator (it existed in the catalog with only
+// `requiredSignals: ['secureScore']`, presumably intended to be inferred indirectly from a
+// Secure Score control-improvement-action signal, but no such evaluator was ever implemented).
+// We implement it directly here now that authoritative Exchange signals exist, reusing the same
+// remoteDomains + transportRules checks as remote-domain-auto-forward-disabled /
+// transport-rules-no-external-forwarding — both angles (transport rules AND remote domain
+// auto-forward) must be clear for external auto-forwarding to be considered blocked. This is a
+// strictly more direct/confident check than the old Secure-Score-inference approach the catalog
+// description implied, so we treat it as superseding that in confidence (catalog's
+// `requiredSignals` is updated to the direct PowerShell signals accordingly).
+// ---------------------------------------------------------------------------
+
+export function evaluateMailboxForwardingExternalBlocked(signals: TenantCollectionResult): EvaluationOutcome {
+  const remoteDomains = exoCompliance(signals)?.remoteDomains;
+  const transportRules = exoCompliance(signals)?.transportRules;
+  if (!remoteDomains && !transportRules) {
+    return missingSignalOutcome(
+      signals,
+      'exoTeams.exoCompliance.remoteDomains',
+      'Mailbox forwarding to external domains blocked'
+    );
+  }
+
+  const offendingRemoteDomains = (remoteDomains ?? []).filter((d) => d.autoForwardEnabled);
+  const offendingTransportRules = (transportRules ?? []).filter(
+    (r) => r.state === 'Enabled' && r.isExternalForwardingRule
+  );
+
+  if (offendingRemoteDomains.length === 0 && offendingTransportRules.length === 0) {
+    if (!remoteDomains || !transportRules) {
+      // One of the two contributing signals is present and clean, but the other wasn't
+      // collected at all — we can't fully rule out an external-forwarding path via the
+      // uncollected mechanism, so this is a partial (not full) pass.
+      return {
+        status: 'PARTIAL',
+        detail:
+          'No external-forwarding transport rules or remote-domain auto-forwarding were found among ' +
+          'the collected signal(s), but one of the two contributing signals (remote domains, transport ' +
+          'rules) was not collected this cycle, so this cannot be fully confirmed.',
+        evidence: {
+          remoteDomainsCollected: !!remoteDomains,
+          transportRulesCollected: !!transportRules,
+        },
+      };
+    }
+    return {
+      status: 'PASS',
+      detail: 'No remote domain allows automatic forwarding and no enabled transport rule forwards/BCCs mail externally.',
+      evidence: { remoteDomainCount: remoteDomains.length, transportRuleCount: transportRules.length },
+    };
+  }
+
+  return {
+    status: 'FAIL',
+    detail:
+      `${offendingRemoteDomains.length} remote domain(s) allow automatic forwarding and ` +
+      `${offendingTransportRules.length} enabled transport rule(s) forward/BCC mail externally.`,
+    evidence: {
+      offendingRemoteDomains: offendingRemoteDomains.map((d) => d.domainName),
+      offendingTransportRules: offendingTransportRules.map((r) => ({ id: r.id, name: r.name })),
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// calendar-sharing-not-external
+// ---------------------------------------------------------------------------
+
+export function evaluateCalendarSharingNotExternal(signals: TenantCollectionResult): EvaluationOutcome {
+  const sharingPolicies = exoCompliance(signals)?.sharingPolicies;
+  if (!sharingPolicies) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.sharingPolicies', 'Calendar sharing not external');
+  }
+  const offending = sharingPolicies.filter((p) => p.sharesCalendarDetailsExternally);
+  if (offending.length === 0) {
+    return {
+      status: 'PASS',
+      detail: `No sharing policy (of ${sharingPolicies.length}) shares calendar details externally.`,
+      evidence: { sharingPolicyCount: sharingPolicies.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `${offending.length} sharing polic${offending.length === 1 ? 'y shares' : 'ies share'} calendar details with external domains/anonymous users.`,
+    evidence: { offendingPolicies: offending.map((p) => ({ id: p.id, name: p.name })) },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// spam-filter-policy-active
+// ---------------------------------------------------------------------------
+
+export function evaluateSpamFilterPolicyActive(signals: TenantCollectionResult): EvaluationOutcome {
+  const policies = exoCompliance(signals)?.hostedContentFilterPolicies;
+  if (!policies) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.hostedContentFilterPolicies', 'Spam filter policy active');
+  }
+  const active = policies.filter((p) => !p.isEffectivelyDisabled);
+  if (active.length > 0) {
+    return {
+      status: 'PASS',
+      detail: `${active.length} of ${policies.length} hosted content filter polic${policies.length === 1 ? 'y is' : 'ies are'} active.`,
+      evidence: { activePolicyCount: active.length, totalPolicyCount: policies.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: policies.length === 0
+      ? 'No hosted content filter (anti-spam) policy is configured.'
+      : `All ${policies.length} hosted content filter polic${policies.length === 1 ? 'y is' : 'ies are'} effectively disabled.`,
+    evidence: { totalPolicyCount: policies.length },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// no-connection-filter-ip-allowlist
+// ---------------------------------------------------------------------------
+
+export function evaluateNoConnectionFilterIpAllowlist(signals: TenantCollectionResult): EvaluationOutcome {
+  const policies = exoCompliance(signals)?.hostedConnectionFilterPolicies;
+  if (!policies) {
+    return missingSignalOutcome(
+      signals,
+      'exoTeams.exoCompliance.hostedConnectionFilterPolicies',
+      'No connection filter IP allow-list'
+    );
+  }
+  const withAllowlist = policies.filter((p) => p.ipAllowList.length > 0);
+  if (withAllowlist.length === 0) {
+    return {
+      status: 'PASS',
+      detail: `No hosted connection filter policy (of ${policies.length}) has IP allow-list entries.`,
+      evidence: { policyCount: policies.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `${withAllowlist.length} hosted connection filter polic${withAllowlist.length === 1 ? 'y has' : 'ies have'} non-empty IP allow-list entries, bypassing spam filtering for those IPs.`,
+    evidence: {
+      policiesWithAllowlist: withAllowlist.map((p) => ({ id: p.id, name: p.name, ipAllowListSize: p.ipAllowList.length })),
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// anti-phishing-policy-hardened
+// ---------------------------------------------------------------------------
+
+export function evaluateAntiPhishingPolicyHardened(signals: TenantCollectionResult): EvaluationOutcome {
+  const policies = exoCompliance(signals)?.antiPhishPolicies;
+  if (!policies) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.antiPhishPolicies', 'Anti-phishing policy hardened');
+  }
+  if (policies.length === 0) {
+    return {
+      status: 'FAIL',
+      detail: 'No anti-phish policy is configured.',
+      evidence: { policyCount: 0 },
+    };
+  }
+  // Check the default policy primarily, as instructed; fall back to the first policy if no
+  // default is flagged (still evaluated the same way, just noted in the detail).
+  const target = policies.find((p) => p.isDefault) ?? policies[0]!;
+  const flags = [target.enableMailboxIntelligence, target.enableSpoofIntelligence, target.enableTargetedUserProtection];
+  const enabledCount = flags.filter(Boolean).length;
+
+  const usedFallback = !policies.some((p) => p.isDefault);
+  const detailSuffix = usedFallback ? ' (no policy flagged as default; evaluated the first reported policy instead)' : '';
+
+  if (enabledCount === 3) {
+    return {
+      status: 'PASS',
+      detail: `The ${usedFallback ? 'evaluated' : 'default'} anti-phish policy has mailbox intelligence, spoof intelligence, and targeted user protection all enabled${detailSuffix}.`,
+      evidence: { policyId: target.id, ...flagsEvidence(target) },
+    };
+  }
+  if (enabledCount > 0) {
+    return {
+      status: 'PARTIAL',
+      detail: `The ${usedFallback ? 'evaluated' : 'default'} anti-phish policy has ${enabledCount} of 3 hardening flags enabled${detailSuffix}.`,
+      evidence: { policyId: target.id, ...flagsEvidence(target) },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `The ${usedFallback ? 'evaluated' : 'default'} anti-phish policy has none of mailbox intelligence, spoof intelligence, or targeted user protection enabled${detailSuffix}.`,
+    evidence: { policyId: target.id, ...flagsEvidence(target) },
+  };
+}
+
+function flagsEvidence(p: {
+  enableMailboxIntelligence: boolean;
+  enableSpoofIntelligence: boolean;
+  enableTargetedUserProtection: boolean;
+}): Record<string, unknown> {
+  return {
+    enableMailboxIntelligence: p.enableMailboxIntelligence,
+    enableSpoofIntelligence: p.enableSpoofIntelligence,
+    enableTargetedUserProtection: p.enableTargetedUserProtection,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// safe-attachments-enabled
+// ---------------------------------------------------------------------------
+
+const BLOCKING_ACTION_MARKERS = ['block'];
+const WEAK_ACTION_MARKERS = ['allow', 'monitor'];
+
+export function evaluateSafeAttachmentsEnabled(signals: TenantCollectionResult): EvaluationOutcome {
+  const policies = exoCompliance(signals)?.safeAttachmentsPolicies;
+  if (!policies) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.safeAttachmentsPolicies', 'Safe Attachments enabled');
+  }
+  if (policies.length === 0) {
+    return {
+      status: 'FAIL',
+      detail: 'No Safe Attachments policy is configured.',
+      evidence: { policyCount: 0 },
+    };
+  }
+  const target = policies.find((p) => p.isDefault) ?? policies[0]!;
+  if (!target.enabled) {
+    return {
+      status: 'FAIL',
+      detail: 'The Safe Attachments policy is disabled.',
+      evidence: { policyId: target.id, enabled: false, action: target.action },
+    };
+  }
+  const actionLower = target.action.toLowerCase();
+  if (BLOCKING_ACTION_MARKERS.some((m) => actionLower.includes(m))) {
+    return {
+      status: 'PASS',
+      detail: `The Safe Attachments policy is enabled with a blocking action ("${target.action}").`,
+      evidence: { policyId: target.id, enabled: true, action: target.action },
+    };
+  }
+  if (WEAK_ACTION_MARKERS.some((m) => actionLower.includes(m))) {
+    return {
+      status: 'PARTIAL',
+      detail: `The Safe Attachments policy is enabled but its action ("${target.action}") does not block delivery.`,
+      evidence: { policyId: target.id, enabled: true, action: target.action },
+    };
+  }
+  return {
+    status: 'PARTIAL',
+    detail: `The Safe Attachments policy is enabled with an unrecognized action ("${target.action}") that could not be confirmed as blocking.`,
+    evidence: { policyId: target.id, enabled: true, action: target.action },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// safe-links-enabled-all-surfaces
+// ---------------------------------------------------------------------------
+
+export function evaluateSafeLinksEnabledAllSurfaces(signals: TenantCollectionResult): EvaluationOutcome {
+  const policies = exoCompliance(signals)?.safeLinksPolicies;
+  if (!policies) {
+    return missingSignalOutcome(signals, 'exoTeams.exoCompliance.safeLinksPolicies', 'Safe Links enabled all surfaces');
+  }
+  if (policies.length === 0) {
+    return {
+      status: 'FAIL',
+      detail: 'No Safe Links policy is configured.',
+      evidence: { policyCount: 0 },
+    };
+  }
+  const target = policies.find((p) => p.isDefault) ?? policies[0]!;
+  const flags = [target.enableSafeLinksForEmail, target.enableSafeLinksForTeams, target.enableSafeLinksForOffice];
+  const enabledCount = flags.filter(Boolean).length;
+  const evidence = {
+    policyId: target.id,
+    enableSafeLinksForEmail: target.enableSafeLinksForEmail,
+    enableSafeLinksForTeams: target.enableSafeLinksForTeams,
+    enableSafeLinksForOffice: target.enableSafeLinksForOffice,
+  };
+
+  if (enabledCount === 3) {
+    return {
+      status: 'PASS',
+      detail: 'Safe Links is enabled for Email, Teams, and Office apps.',
+      evidence,
+    };
+  }
+  if (enabledCount > 0) {
+    return {
+      status: 'PARTIAL',
+      detail: `Safe Links is enabled for ${enabledCount} of 3 surfaces (Email/Teams/Office).`,
+      evidence,
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: 'Safe Links is not enabled for any surface (Email, Teams, or Office apps).',
+    evidence,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// unified-audit-log-ingestion-verified
+//
+// The existing `audit-log-retention-enabled` control (catalog.ts) is described as covering both
+// "retention" and "ingestion", but its only `requiredSignals` entry is `recentSignIns` and it has
+// no registered evaluator — sign-in records only corroborate that sign-ins are happening, not
+// that Unified Audit Log ingestion itself is enabled, so implementing it as a proxy for THIS
+// control's authoritative signal would be a materially weaker/different check than its
+// description promises. Rather than overload that id with a mismatched direct signal, this is
+// added as a distinct new control (`unified-audit-log-ingestion-verified`) backed by the direct
+// PowerShell signal, and `audit-log-retention-enabled` is intentionally left as-is (still
+// evaluator-less/UNKNOWN-by-fallback) since fixing its indirect inference is out of scope here.
+// ---------------------------------------------------------------------------
+
+export function evaluateUnifiedAuditLogIngestionVerified(signals: TenantCollectionResult): EvaluationOutcome {
+  const config = exoCompliance(signals)?.unifiedAuditLogConfig;
+  if (!config) {
+    return missingSignalOutcome(
+      signals,
+      'exoTeams.exoCompliance.unifiedAuditLogConfig',
+      'Unified Audit Log ingestion verified'
+    );
+  }
+  if (config.unifiedAuditLogIngestionEnabled === true) {
+    return {
+      status: 'PASS',
+      detail: 'Unified Audit Log ingestion is directly verified as enabled.',
+      evidence: { unifiedAuditLogIngestionEnabled: true },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: 'Unified Audit Log ingestion is disabled, so tenant activity is not being recorded for investigation/detection.',
+    evidence: { unifiedAuditLogIngestionEnabled: config.unifiedAuditLogIngestionEnabled },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// teams-external-federation-restricted
+// ---------------------------------------------------------------------------
+
+export function evaluateTeamsExternalFederationRestricted(signals: TenantCollectionResult): EvaluationOutcome {
+  const federationConfig = teams(signals)?.federationConfig;
+  if (!federationConfig) {
+    return missingSignalOutcome(signals, 'exoTeams.teams.federationConfig', 'Teams external federation restricted');
+  }
+  if (federationConfig.allowFederatedUsers === false) {
+    return {
+      status: 'PASS',
+      detail: 'Teams external federation is disabled.',
+      evidence: { allowFederatedUsers: false },
+    };
+  }
+  if (federationConfig.allowedDomainsIsUnrestricted === false) {
+    return {
+      status: 'PARTIAL',
+      detail: 'Teams external federation is allowed, but restricted to an explicit domain allow-list.',
+      evidence: { allowFederatedUsers: true, allowedDomainsIsUnrestricted: false },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: 'Teams external federation is allowed with no domain restriction (unrestricted).',
+    evidence: { allowFederatedUsers: true, allowedDomainsIsUnrestricted: true },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// teams-anonymous-meeting-join-restricted / teams-meeting-recording-governed
+// ---------------------------------------------------------------------------
+
+/**
+ * Picks the Global (tenant-default) Teams meeting policy. Matches an `id` of "Global"
+ * case-insensitively (Teams PowerShell conventionally names the default policy "Global"); if no
+ * policy matches that name, falls back to the first entry in the array and callers note this
+ * assumption in their `detail` output, since we can't otherwise reliably identify the tenant
+ * default from this shape alone.
+ */
+function findGlobalMeetingPolicy(
+  policies: TeamsCollectionResult['meetingPolicies']
+): { policy: NonNullable<TeamsCollectionResult['meetingPolicies']>[number]; usedFallback: boolean } | undefined {
+  if (!policies || policies.length === 0) return undefined;
+  const global = policies.find((p) => p.id.toLowerCase() === 'global');
+  if (global) return { policy: global, usedFallback: false };
+  return { policy: policies[0]!, usedFallback: true };
+}
+
+export function evaluateTeamsAnonymousMeetingJoinRestricted(signals: TenantCollectionResult): EvaluationOutcome {
+  const meetingPolicies = teams(signals)?.meetingPolicies;
+  if (!meetingPolicies) {
+    return missingSignalOutcome(signals, 'exoTeams.teams.meetingPolicies', 'Teams anonymous meeting join restricted');
+  }
+  const found = findGlobalMeetingPolicy(meetingPolicies);
+  if (!found) {
+    return {
+      status: 'UNKNOWN',
+      detail: 'Teams anonymous meeting join could not be evaluated: no meeting policies were reported.',
+      evidence: { policyCount: 0 },
+    };
+  }
+  const { policy, usedFallback } = found;
+  const fallbackNote = usedFallback
+    ? ' (no policy named "Global" found; evaluated the first reported meeting policy instead)'
+    : '';
+
+  if (!policy.allowAnonymousUsersToJoinMeeting && !policy.allowAnonymousUsersToStartMeeting) {
+    return {
+      status: 'PASS',
+      detail: `The Global Teams meeting policy blocks anonymous users from joining or starting meetings${fallbackNote}.`,
+      evidence: {
+        policyId: policy.id,
+        allowAnonymousUsersToJoinMeeting: policy.allowAnonymousUsersToJoinMeeting,
+        allowAnonymousUsersToStartMeeting: policy.allowAnonymousUsersToStartMeeting,
+      },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `The Global Teams meeting policy allows anonymous users to ${policy.allowAnonymousUsersToJoinMeeting ? 'join' : ''}${
+      policy.allowAnonymousUsersToJoinMeeting && policy.allowAnonymousUsersToStartMeeting ? ' and ' : ''
+    }${policy.allowAnonymousUsersToStartMeeting ? 'start' : ''} meetings${fallbackNote}.`,
+    evidence: {
+      policyId: policy.id,
+      allowAnonymousUsersToJoinMeeting: policy.allowAnonymousUsersToJoinMeeting,
+      allowAnonymousUsersToStartMeeting: policy.allowAnonymousUsersToStartMeeting,
+    },
+  };
+}
+
+export function evaluateTeamsMeetingRecordingGoverned(signals: TenantCollectionResult): EvaluationOutcome {
+  const meetingPolicies = teams(signals)?.meetingPolicies;
+  if (!meetingPolicies) {
+    return missingSignalOutcome(signals, 'exoTeams.teams.meetingPolicies', 'Teams meeting recording governed');
+  }
+  const found = findGlobalMeetingPolicy(meetingPolicies);
+  if (!found) {
+    return {
+      status: 'UNKNOWN',
+      detail: 'Teams meeting recording governance could not be evaluated: no meeting policies were reported.',
+      evidence: { policyCount: 0 },
+    };
+  }
+  const { policy, usedFallback } = found;
+  const fallbackNote = usedFallback
+    ? ' (no policy named "Global" found; evaluated the first reported meeting policy instead)'
+    : '';
+
+  if (!policy.allowCloudRecording) {
+    return {
+      status: 'PASS',
+      detail: `Cloud recording is disabled on the Global Teams meeting policy${fallbackNote}.`,
+      evidence: { policyId: policy.id, allowCloudRecording: false },
+    };
+  }
+  // Judgment call (see catalog description): recording itself isn't inherently insecure, so this
+  // is a PARTIAL review flag rather than a FAIL.
+  return {
+    status: 'PARTIAL',
+    detail: `Cloud recording is enabled on the Global Teams meeting policy${fallbackNote}; confirm this is a deliberate data-handling decision with an appropriate retention/access review.`,
+    evidence: { policyId: policy.id, allowCloudRecording: true },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// teams-external-access-restricted
+// ---------------------------------------------------------------------------
+
+export function evaluateTeamsExternalAccessRestricted(signals: TenantCollectionResult): EvaluationOutcome {
+  const clientConfig = teams(signals)?.clientConfig;
+  if (!clientConfig) {
+    return missingSignalOutcome(signals, 'exoTeams.teams.clientConfig', 'Teams external access restricted');
+  }
+  const { allowExternalAccess, allowGuestUser } = clientConfig;
+
+  if (!allowExternalAccess && !allowGuestUser) {
+    return {
+      status: 'PASS',
+      detail: 'Teams external access and guest access are both disabled.',
+      evidence: { allowExternalAccess, allowGuestUser },
+    };
+  }
+
+  // Judgment call (see catalog description): both are legitimate collaboration features, not
+  // clear-cut misconfigurations like the other controls in this file, so enabled values are
+  // flagged PARTIAL for organizational review rather than FAIL. We reserve FAIL for cases we
+  // can directly confirm are unsafe (e.g. paired with an unrestricted federation allow-list),
+  // which this signal alone can't establish.
+  const enabledFeatures = [
+    allowExternalAccess ? 'external access' : null,
+    allowGuestUser ? 'guest access' : null,
+  ].filter((f): f is string => f !== null);
+
+  return {
+    status: 'PARTIAL',
+    detail: `Teams ${enabledFeatures.join(' and ')} ${enabledFeatures.length === 1 ? 'is' : 'are'} enabled; confirm this matches the organization's intended external-collaboration posture.`,
+    evidence: { allowExternalAccess, allowGuestUser },
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Registry
 // ---------------------------------------------------------------------------
 
@@ -1162,4 +1862,25 @@ export const EVALUATOR_REGISTRY: Record<string, Evaluator> = {
   'privileged-service-principal-no-owners': evaluatePrivilegedServicePrincipalNoOwners,
   'privileged-service-principal-no-client-secrets': evaluatePrivilegedServicePrincipalNoClientSecrets,
   'non-privileged-users-mfa-registered': evaluateNonPrivilegedUsersMfaRegistered,
+
+  // Exchange Online / Security & Compliance / Microsoft Teams controls.
+  'dkim-signing-enabled-all-domains': evaluateDkimSigningEnabledAllDomains,
+  'dmarc-policy-reject': evaluateDmarcPolicyReject,
+  'smtp-auth-disabled-tenant-wide': evaluateSmtpAuthDisabledTenantWide,
+  'mailbox-auditing-not-bypassed': evaluateMailboxAuditingNotBypassed,
+  'mailbox-auditing-enabled-tenant-wide': evaluateMailboxAuditingEnabledTenantWide,
+  'transport-rules-no-external-forwarding': evaluateTransportRulesNoExternalForwarding,
+  'remote-domain-auto-forward-disabled': evaluateRemoteDomainAutoForwardDisabled,
+  'mailbox-forwarding-external-blocked': evaluateMailboxForwardingExternalBlocked,
+  'calendar-sharing-not-external': evaluateCalendarSharingNotExternal,
+  'spam-filter-policy-active': evaluateSpamFilterPolicyActive,
+  'no-connection-filter-ip-allowlist': evaluateNoConnectionFilterIpAllowlist,
+  'anti-phishing-policy-hardened': evaluateAntiPhishingPolicyHardened,
+  'safe-attachments-enabled': evaluateSafeAttachmentsEnabled,
+  'safe-links-enabled-all-surfaces': evaluateSafeLinksEnabledAllSurfaces,
+  'unified-audit-log-ingestion-verified': evaluateUnifiedAuditLogIngestionVerified,
+  'teams-external-federation-restricted': evaluateTeamsExternalFederationRestricted,
+  'teams-anonymous-meeting-join-restricted': evaluateTeamsAnonymousMeetingJoinRestricted,
+  'teams-meeting-recording-governed': evaluateTeamsMeetingRecordingGoverned,
+  'teams-external-access-restricted': evaluateTeamsExternalAccessRestricted,
 };

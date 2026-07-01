@@ -173,6 +173,35 @@ export default async function TenantCredentialsPage({ params, searchParams }: Pa
         )}
       </div>
 
+      <div className="rounded border border-amber-300 bg-amber-50 p-4">
+        <h3 className="text-sm font-semibold text-amber-900">
+          Optional: additional setup for Exchange &amp; Teams controls
+        </h3>
+        <p className="mt-2 text-sm text-amber-900">
+          The admin consent above is enough for every Graph-based control — nothing further is
+          required and this tenant can be fully onboarded without it. If you also want this
+          platform&apos;s Exchange Online / Security &amp; Compliance / Microsoft Teams controls to
+          collect data for {tenant.displayName}, the customer&apos;s Global Administrator must
+          additionally, on the same app registration:
+        </p>
+        <ul className="mt-2 list-disc pl-5 text-sm text-amber-900 space-y-1">
+          <li>
+            Grant the <code>Exchange.ManageAsApp</code> API permission (Office 365 Exchange Online)
+            with admin consent, in addition to the Graph scopes above.
+          </li>
+          <li>
+            Assign the app registration&apos;s service principal the{' '}
+            <strong>Exchange Administrator</strong> and <strong>Teams Administrator</strong> Entra
+            ID roles (Entra admin center → Roles &amp; administrators → assign to the service
+            principal, not to a user).
+          </li>
+        </ul>
+        <p className="mt-2 text-sm text-amber-900">
+          This is incremental and can be done at any time, before or after the rest of onboarding —
+          it does not block marking this tenant ACTIVE below.
+        </p>
+      </div>
+
       <div>
         <h2 className="text-lg font-medium mb-4">3. Submit the tenant credential</h2>
         <p className="text-sm text-gray-600 mb-4">
@@ -230,14 +259,25 @@ export default async function TenantCredentialsPage({ params, searchParams }: Pa
 
           <div>
             <label htmlFor="privateKeyPem" className="block text-sm font-medium">
-              Certificate private key (PEM) — required if credential type is Certificate
+              Certificate + private key (combined PEM) — required if credential type is Certificate
             </label>
+            <p className="mt-1 text-xs text-gray-500">
+              Paste BOTH PEM blocks together, certificate first then private key — a single
+              <code className="mx-1">-----BEGIN CERTIFICATE-----</code>/<code className="mx-1">-----END CERTIFICATE-----</code>
+              block followed by a <code className="mx-1">-----BEGIN PRIVATE KEY-----</code>/<code className="mx-1">-----END PRIVATE KEY-----</code>
+              (or <code className="mx-1">RSA PRIVATE KEY</code>/<code className="mx-1">EC PRIVATE KEY</code>) block. The
+              certificate alone or the private key alone is not sufficient — both this platform&apos;s
+              Graph API client and its Exchange/Teams PowerShell collector require the combined form.
+            </p>
             <textarea
               id="privateKeyPem"
               name="privateKeyPem"
-              rows={6}
+              rows={10}
               className="mt-1 block w-full rounded border border-gray-300 p-2 font-mono text-xs"
-              placeholder="-----BEGIN PRIVATE KEY-----..."
+              placeholder={
+                '-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n' +
+                '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
+              }
             />
           </div>
 

@@ -18,6 +18,10 @@ own `package.json`, `Dockerfile`, `railway.json`, etc., all directly under
 `posture-platform/`, not the repo root). Every Railway service you create for this
 app must be pointed at that subdirectory — see step 2.
 
+There are **two** Dockerfiles in `posture-platform/`: `Dockerfile` (used by the
+`web` service) and `Dockerfile.worker` (used by the `worker` service, which
+additionally needs PowerShell 7 — see step 5).
+
 ---
 
 ## 1. Create the Railway project
@@ -141,6 +145,80 @@ The worker (`src/worker/index.ts`) collects Graph signals per tenant on a
 schedule (`COLLECTION_INTERVAL_CRON`, default `0 */6 * * *` — every 6 hours).
 Two ways to run it on Railway; **recommendation: option A (Cron Schedule)**.
 
+### Build image: `Dockerfile.worker`, not `Dockerfile` (important)
+
+The worker now also runs PowerShell 7 (`pwsh`) to drive Exchange Online,
+Security & Compliance, and Microsoft Teams PowerShell modules (see
+`src/lib/powershell/README.md` for what that layer does — it's a separate,
+concurrent effort from this deployment change; this document only covers
+getting it deployed).
+
+`pwsh` plus the `ExchangeOnlineManagement` and `MicrosoftTeams` PowerShell
+Gallery modules add roughly 500MB-1GB to the image and noticeably lengthen
+the build (an extra APT repo registration + package install, then a
+PowerShell Gallery module install with a non-trivial dependency graph). The
+`web` service never uses PowerShell, so forcing that cost onto its image
+would be pure waste on every `web` deploy. Instead:
+
+- `web` keeps building from `Dockerfile` (unchanged) — small, fast, no
+  PowerShell.
+- `worker` builds from **`Dockerfile.worker`** (new, committed alongside
+  `Dockerfile` at `posture-platform/Dockerfile.worker`) — same Next.js
+  build + Prisma client generation as `Dockerfile`, plus `pwsh` and the two
+  Exchange/Teams modules baked into the final image layer at build time (not
+  installed at container startup — this avoids the worker depending on
+  PowerShell Gallery being reachable at 3am for a scheduled run).
+
+**Docker has no mechanism for one Dockerfile to `FROM` a stage defined in a
+different Dockerfile**, so `Dockerfile.worker` duplicates the `deps` and
+`builder` stages from `Dockerfile` verbatim (same base image, same `npm ci` /
+`npm run build` / `prisma generate` steps) rather than sharing them, and only
+diverges in the final runtime stage where it installs `pwsh` + modules. The
+practical effect: the Next.js app is built twice per deploy cycle (once for
+each image) instead of once. This was accepted as the simplest, most
+self-contained option; the alternative (build one shared base image, push it
+to a registry, and have both Dockerfiles `FROM` that registry tag) would
+avoid the duplicate build but adds a registry-push step and a
+freshness/tagging problem (which base tag does a given commit correspond to)
+that wasn't judged worth it for a Next.js build that takes well under a
+minute. If build time or CI cost becomes a real problem later, that
+shared-base approach is the next lever to pull. **If you change the `deps`
+or `builder` stage in `Dockerfile`, make the same change in
+`Dockerfile.worker`** — nothing enforces they stay in sync.
+
+### Pointing the `worker` service at `Dockerfile.worker` on Railway
+
+Railway's config-as-code file (`railway.json`) is discovered once per service
+based on that service's Root Directory, and this repo's `railway.json` is
+shared, single-service-shaped config (`build`/`deploy` objects, not a
+`services` array) that both `web` and `worker` would otherwise pick up
+identically. Rather than restructuring `railway.json` into a multi-service
+array (a bigger, riskier change to a file `web` already depends on), the
+worker's Dockerfile override is set **per-service in the Railway dashboard**,
+which always takes precedence for that one setting:
+
+1. Open the `worker` service -> **Settings -> Build**.
+2. Find **Custom Dockerfile Path** (or set the service variable
+   `RAILWAY_DOCKERFILE_PATH`, which is the config-as-code/variable-level
+   equivalent of the same dashboard field) and set it to:
+   ```
+   Dockerfile.worker
+   ```
+   This is relative to the service's Root Directory (`posture-platform`, per
+   step 2 above) — do **not** prefix it with `posture-platform/`.
+3. Leave **Builder** as `Dockerfile` (it already is, inherited from detection)
+   and leave everything else (Root Directory, Start Command, env vars) as
+   already configured per this section.
+4. Confirm on the next deploy that the build log shows `Dockerfile.worker`
+   being used (Railway's build log prints the Dockerfile path near the top)
+   and that the image build includes the `pwsh`/PowerShell Gallery install
+   steps — if it doesn't, the override didn't take, and the service is still
+   building from the default `Dockerfile`.
+
+Do **not** make this change on the `web` service — it should keep building
+from the default `Dockerfile` (no override needed; that's what `railway.json`
+already specifies for it).
+
 ### Option A (recommended): Railway Cron Schedule + one-shot `worker:once`
 
 Railway service settings include a **Cron Schedule** field: Railway starts the
@@ -207,9 +285,42 @@ handles its own scheduling exactly as it does today outside Railway). If your
 collection interval were minutes rather than hours, this option would be the
 better fit since Railway's Cron minimum granularity is 5 minutes.
 
-**Either option uses the same Docker image as `web`** — nothing to build or
-push separately; you're only changing the Start Command (and, for Option A,
-setting Cron Schedule) on a second service.
+**Either option builds from `Dockerfile.worker`** (see above) rather than the
+same image as `web` — this is the one place the worker's setup now differs
+from a "just change the Start Command" second service; everything else about
+Option A/B below (Start Command, Cron Schedule, env vars) is unchanged.
+
+### Per-tenant prerequisite for the new Exchange/Teams controls
+
+Everything in steps 1-5 above (Graph-based collection) works for every
+onboarded tenant exactly as before — nothing about the PowerShell layer
+changes onboarding for existing, Graph-only controls, and no action is
+required to keep those working.
+
+The **new** Exchange Online / Security & Compliance / Microsoft Teams
+controls (collected via `pwsh`, see `src/lib/powershell/README.md`) need
+additional per-tenant setup beyond the Graph admin-consent flow in
+`src/lib/graph/README.md`, because Exchange/Teams PowerShell cmdlets
+authenticate and authorize differently than Graph application permissions:
+
+1. The customer's app registration needs the **`Exchange.ManageAsApp`** API
+   permission (Office 365 Exchange Online API), granted via admin consent —
+   this is in addition to, not a replacement for, the Graph application scopes
+   already listed in `src/lib/graph/README.md`.
+2. The app registration's **service principal** must be assigned the
+   **Exchange Administrator** and **Teams Administrator** Entra ID roles in
+   the customer's tenant (Entra admin center -> Roles & administrators ->
+   assign to the service principal, not to a user).
+
+This is documented in full, including exact steps, in
+`src/lib/powershell/README.md` once that module lands — treat that file as
+authoritative for the precise cmdlet-level requirements; this section only
+flags that the extra setup exists and that it's a per-tenant, incremental
+step. The onboarding UI (`src/app/(onboarding)/onboarding/tenants/[tenantId]/credentials/page.tsx`)
+surfaces this to the analyst as an additional, clearly-marked, non-blocking
+note alongside the existing Graph admin-consent instructions — a tenant can
+be fully onboarded and productive on Graph-based controls without ever doing
+this, and can have it added later with no re-onboarding needed.
 
 ## 6. Migrations and seeding
 
@@ -225,6 +336,67 @@ setting Cron Schedule) on a second service.
   CLI, targets the `web` service's environment) or a one-off Railway CLI shell.
   Do not wire it into the container startup path — that would re-seed (or
   attempt to) on every restart.
+
+## 6a. Bootstrapping the first SUPER_ADMIN
+
+**This is a blocking step for a fresh deployment — do it once, right after
+migrating (and, optionally, seeding the control catalog), before you try to
+sign in.**
+
+Sign-in is denied for every Entra ID principal unless a matching, active
+`User` row already exists in Postgres (see `src/lib/auth/options.ts`
+`lookupPortalUser`). Creating a `User` row via the admin UI/API in turn
+requires an existing authenticated `SUPER_ADMIN` session
+(`requireRole(['SUPER_ADMIN'])` — see
+`src/app/api/admin/users/route-helpers.ts`). On a fresh database there are
+zero `User` rows, so nobody can sign in to create the first one, and the admin
+UI can't bootstrap itself. `prisma/bootstrap-admin.ts` (run via `npm run
+bootstrap:admin`) exists solely to break this chicken-and-egg problem.
+
+Run it manually/on-demand — the same way you'd run `prisma:seed` (Railway CLI
+`railway run`, or a one-off shell), targeting the `web` service's environment:
+
+```bash
+railway run --service web \
+  env BOOTSTRAP_ADMIN_EMAIL=you@yourcompany.com BOOTSTRAP_ORG_NAME="Your MSP Name" \
+  npm run bootstrap:admin
+```
+
+(Locally: `BOOTSTRAP_ADMIN_EMAIL=you@yourcompany.com BOOTSTRAP_ORG_NAME="Your MSP Name" npm run bootstrap:admin`.)
+
+What it does:
+
+- Reads `BOOTSTRAP_ADMIN_EMAIL` (must exactly match the email address of the
+  Entra ID account that will sign in — there are no passwords anywhere in this
+  app) and `BOOTSTRAP_ORG_NAME` (the `Organization` to create if none yet
+  exists with that name; an existing one with the same name is reused).
+- Creates exactly one `User` row: the given email, `role: SUPER_ADMIN`,
+  `isActive: true`.
+- Is idempotent and **safe to leave wired up / re-run**: if a `User` row with
+  `role: SUPER_ADMIN` already exists *anywhere* in the database (not just in
+  the target organization), it refuses to create another one and exits
+  cleanly, printing:
+  > A SUPER_ADMIN already exists; refusing to bootstrap another one
+  > automatically — use the admin UI or a manual database operation if you
+  > need to add more admins.
+
+  This is the key safety property: it's deliberately **not** automatic on
+  every deploy (that would be a standing security risk — e.g. accidentally
+  re-creating a known admin account after a real admin was intentionally
+  removed), but it's also safe if `BOOTSTRAP_ADMIN_EMAIL` is accidentally left
+  set in the environment across a redeploy, because the SUPER_ADMIN-exists
+  check makes it a no-op after the first successful run.
+- Fails loudly (non-zero exit) if `BOOTSTRAP_ADMIN_EMAIL`/`BOOTSTRAP_ORG_NAME`
+  are missing, or `BOOTSTRAP_ADMIN_EMAIL` isn't a plausible email shape, so a
+  misconfigured invocation doesn't silently do nothing.
+
+After this succeeds, sign in as that email via the portal's normal Entra ID
+SSO login — you'll land with a `SUPER_ADMIN` session and can use **Admin ->
+Users** to provision every other portal user (staff and customer viewers)
+from there on. Do not add `BOOTSTRAP_ADMIN_EMAIL`/`BOOTSTRAP_ORG_NAME` to your
+permanent env var set on Railway — set them only for the single invocation
+above (e.g. via `railway run env ... npm run bootstrap:admin`, as shown), then
+they're no longer needed.
 
 ## 7. `NEXTAUTH_URL` and TLS
 
@@ -291,4 +463,18 @@ on each service (**Settings -> Source -> Watch Paths**) scoped to
 | `COLLECTION_INTERVAL_CRON` | no | Option B only (ignored/unused under Option A `--once`) |
 
 See `posture-platform/.env.example` for the authoritative, commented list of
-every variable and what it's for.
+every variable and what it's for. Any additional env vars the PowerShell/Exchange
+layer needs (e.g. app-only auth for `Connect-ExchangeOnline`/`Connect-MicrosoftTeams`)
+are documented in `src/lib/powershell/README.md`, not here — this table only
+covers vars this deployment doc's own setup steps reference.
+
+## 11. Build image summary: `Dockerfile` vs `Dockerfile.worker`
+
+| | `web` | `worker` |
+|---|---|---|
+| Dockerfile | `Dockerfile` | `Dockerfile.worker` |
+| Contains `pwsh` + Exchange/Teams PowerShell modules | no | yes |
+| Approx. image size impact | baseline | +500MB-1GB |
+| Configured via | `railway.json` (`build.dockerfilePath`, committed) | Railway dashboard per-service override (`Settings -> Build -> Custom Dockerfile Path`, or `RAILWAY_DOCKERFILE_PATH` variable) — see step 5 |
+
+See step 5 for the full rationale and setup steps.

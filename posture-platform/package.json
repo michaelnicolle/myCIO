@@ -17,6 +17,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "tsx prisma/seed.ts",
+    "bootstrap:admin": "tsx prisma/bootstrap-admin.ts",
     "worker": "tsx src/worker/index.ts",
     "worker:once": "tsx src/worker/index.ts --once"
   },

@@ -164,7 +164,12 @@ export const CONTROL_CATALOG: ControlDefinition[] = [
     description:
       'Exchange Online transport/mail-flow rules or anti-exfiltration policy must block ' +
       'automatic forwarding of mail to external domains, a common data-exfiltration and ' +
-      'business-email-compromise persistence technique.',
+      'business-email-compromise persistence technique. ' +
+      'NOTE: this control now has a direct evaluator backed by the authoritative ' +
+      '`exoTeams.exoCompliance.remoteDomains`/`transportRules` PowerShell signals (see ' +
+      'src/lib/scoring/evaluators.ts), superseding the original plan to infer this indirectly ' +
+      'from Secure Score control-improvement-action data; `requiredSignals` below has been ' +
+      'updated to reflect the direct signals actually consumed.',
     nistFunction: 'PROTECT',
     severity: 'HIGH',
     mappings: [
@@ -172,7 +177,7 @@ export const CONTROL_CATALOG: ControlDefinition[] = [
       { framework: 'NIST_800_53_R5', controlId: 'SC-7' },
       { framework: 'CIS_M365_V3', controlId: '6.2.1' },
     ],
-    requiredSignals: ['secureScore'],
+    requiredSignals: ['exoTeams.exoCompliance.remoteDomains', 'exoTeams.exoCompliance.transportRules'],
   },
   {
     id: 'admin-consent-workflow-required',
@@ -582,5 +587,310 @@ export const CONTROL_CATALOG: ControlDefinition[] = [
       { framework: 'CIS_M365_V3', controlId: '5.2.2.3' },
     ],
     requiredSignals: ['userRegistrationDetails'],
+  },
+
+  // ---------------------------------------------------------------------------
+  // Exchange Online / Security & Compliance / Microsoft Teams controls, sourced
+  // from the PowerShell-collected signals in src/types/exoTeams.ts (nested at
+  // TenantCollectionResult.exoTeams.{exoCompliance,teams}). Appended below
+  // without reordering the 35 existing controls above. requiredSignals here use
+  // a dot-path convention (e.g. 'exoTeams.exoCompliance.dkimConfigs') since these
+  // signals are nested rather than flat top-level TenantCollectionResult keys —
+  // requiredSignals is documentation/UI-facing (see evaluators.ts), not a literal
+  // key lookup, so this remains consistent with its existing usage.
+  // ---------------------------------------------------------------------------
+
+  {
+    id: 'dkim-signing-enabled-all-domains',
+    title: 'DKIM signing enabled for all accepted domains',
+    description:
+      'DomainKeys Identified Mail (DKIM) signing must be enabled for every accepted domain in ' +
+      'Exchange Online, allowing receiving mail systems to cryptographically verify mail was not ' +
+      'altered in transit and was sent from an authorized source, and underpinning DMARC alignment.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.DS-02' },
+      { framework: 'NIST_800_53_R5', controlId: 'SC-8' },
+      { framework: 'CIS_M365_V3', controlId: '2.1.9' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.dkimConfigs'],
+  },
+  {
+    id: 'dmarc-policy-reject',
+    title: 'DMARC policy set to reject for all domains',
+    description:
+      'Every domain must publish a DMARC record with a policy of "p=reject", instructing ' +
+      'receiving mail systems to reject mail failing SPF/DKIM alignment outright rather than ' +
+      'merely flagging or quarantining it, closing off domain-spoofing phishing/BEC campaigns.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.DS-02' },
+      { framework: 'NIST_800_53_R5', controlId: 'SC-8' },
+      { framework: 'CIS_M365_V3', controlId: '2.1.10' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.dmarcConfigs'],
+  },
+  {
+    id: 'smtp-auth-disabled-tenant-wide',
+    title: 'Legacy SMTP AUTH disabled tenant-wide',
+    description:
+      'Legacy basic authentication for SMTP (client submission) must be disabled tenant-wide in ' +
+      'the Exchange Online organization configuration, since it cannot enforce Conditional Access ' +
+      'or MFA and is a common target for password-spray campaigns against mailboxes.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.PS-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'CM-7' },
+      { framework: 'CIS_M365_V3', controlId: '6.5.3' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.organizationMailConfig'],
+  },
+  {
+    id: 'mailbox-auditing-not-bypassed',
+    title: 'No mailboxes have audit-bypass enabled',
+    description:
+      'No mailbox should have per-mailbox audit-bypass enabled, since a bypass entry silently ' +
+      'suppresses audit record generation for that mailbox even while tenant-wide mailbox auditing ' +
+      'is otherwise on, creating an investigative blind spot that is easy to overlook.',
+    nistFunction: 'DETECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'DE.AE-02' },
+      { framework: 'NIST_800_53_R5', controlId: 'AU-12' },
+      { framework: 'CIS_M365_V3', controlId: '3.1.2' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.mailboxAuditBypass'],
+  },
+  {
+    id: 'mailbox-auditing-enabled-tenant-wide',
+    title: 'Tenant-wide mailbox auditing enabled',
+    description:
+      'Per-mailbox Exchange audit logging (distinct from the Unified Audit Log) must not be ' +
+      'disabled at the organization level, ensuring mailbox-level actions (access, sends, folder ' +
+      'permission changes) remain recorded for investigation.',
+    nistFunction: 'DETECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'DE.AE-02' },
+      { framework: 'NIST_800_53_R5', controlId: 'AU-12' },
+      { framework: 'CIS_M365_V3', controlId: '3.1.2' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.organizationMailConfig'],
+  },
+  {
+    id: 'transport-rules-no-external-forwarding',
+    title: 'No transport rules auto-forward or BCC mail externally',
+    description:
+      'No enabled Exchange Online mail-flow (transport) rule should automatically forward or BCC ' +
+      'messages to an external recipient, a common data-exfiltration and business-email-compromise ' +
+      'persistence technique used after an initial mailbox compromise.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.DS-02' },
+      { framework: 'NIST_800_53_R5', controlId: 'SC-7' },
+      { framework: 'CIS_M365_V3', controlId: '6.2.1' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.transportRules'],
+  },
+  {
+    id: 'remote-domain-auto-forward-disabled',
+    title: 'Remote domains do not allow automatic forwarding',
+    description:
+      'Remote domain configurations (especially the default "*" remote domain) must not have ' +
+      'automatic forwarding enabled, preventing mailboxes from silently auto-forwarding mail to ' +
+      'external addresses outside of the reviewed transport-rule/anti-exfiltration path.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.DS-02' },
+      { framework: 'NIST_800_53_R5', controlId: 'SC-7' },
+      { framework: 'CIS_M365_V3', controlId: '6.2.2' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.remoteDomains'],
+  },
+  {
+    id: 'calendar-sharing-not-external',
+    title: 'Calendar sharing policies do not expose details externally',
+    description:
+      'Sharing policies must not share calendar free/busy or detailed availability information ' +
+      'with all external domains or anonymous users, limiting reconnaissance value available to ' +
+      'an external party from calendar metadata alone.',
+    nistFunction: 'PROTECT',
+    severity: 'LOW',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.DS-05' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-21' },
+      { framework: 'CIS_M365_V3', controlId: '6.5.2' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.sharingPolicies'],
+  },
+  {
+    id: 'spam-filter-policy-active',
+    title: 'At least one active hosted content (spam) filter policy',
+    description:
+      'At least one hosted content filter (anti-spam) policy must be active and not effectively ' +
+      'disabled, ensuring inbound mail receives baseline spam-scoring and filtering action rather ' +
+      'than passing through unfiltered.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.PS-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'SI-8' },
+      { framework: 'CIS_M365_V3', controlId: '2.1.1' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.hostedContentFilterPolicies'],
+  },
+  {
+    id: 'no-connection-filter-ip-allowlist',
+    title: 'Connection filter policy has no IP allow-list entries',
+    description:
+      'The hosted connection filter policy should not contain entries in its IP allow-list, since ' +
+      'allow-listed source IPs bypass spam filtering entirely — a frequently over-permissive ' +
+      'misconfiguration that can be abused if any listed sender IP is later compromised or spoofed.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.PS-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'SI-8' },
+      { framework: 'CIS_M365_V3', controlId: '2.1.2' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.hostedConnectionFilterPolicies'],
+  },
+  {
+    id: 'anti-phishing-policy-hardened',
+    title: 'Anti-phish policy has mailbox/spoof intelligence and targeted user protection enabled',
+    description:
+      'The default anti-phish policy must have mailbox intelligence, spoof intelligence, and ' +
+      'targeted user protection all enabled, providing layered detection of impersonation and ' +
+      'spoofing attacks beyond basic spam/malware filtering.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.PS-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'SI-8' },
+      { framework: 'CIS_M365_V3', controlId: '2.1.3' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.antiPhishPolicies'],
+  },
+  {
+    id: 'safe-attachments-enabled',
+    title: 'Safe Attachments policy enabled with a blocking action',
+    description:
+      'A Safe Attachments (Defender for Office 365) policy must be enabled with an action that ' +
+      'blocks delivery of detected malicious attachments, rather than only monitoring or allowing ' +
+      'them through with a warning.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.PS-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'SI-3' },
+      { framework: 'CIS_M365_V3', controlId: '2.1.4' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.safeAttachmentsPolicies'],
+  },
+  {
+    id: 'safe-links-enabled-all-surfaces',
+    title: 'Safe Links enabled for Email, Teams, and Office apps',
+    description:
+      'Safe Links (Defender for Office 365) must be enabled across all three surfaces — Email, ' +
+      'Microsoft Teams, and Office apps — rather than only protecting one channel while leaving ' +
+      'malicious-link click-time protection off elsewhere.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.PS-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'SI-3' },
+      { framework: 'CIS_M365_V3', controlId: '2.1.5' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.safeLinksPolicies'],
+  },
+  {
+    id: 'unified-audit-log-ingestion-verified',
+    title: 'Unified Audit Log ingestion directly verified as enabled',
+    description:
+      'The Microsoft 365 Unified Audit Log must be directly verified as ingesting events (via the ' +
+      'Security & Compliance PowerShell admin audit log config), rather than inferred indirectly ' +
+      'from the presence of Entra ID sign-in log records, which only corroborates that sign-ins are ' +
+      'occurring — not that unified audit ingestion itself is on.',
+    nistFunction: 'DETECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'DE.AE-02' },
+      { framework: 'NIST_800_53_R5', controlId: 'AU-11' },
+      { framework: 'CIS_M365_V3', controlId: '3.1.1' },
+    ],
+    requiredSignals: ['exoTeams.exoCompliance.unifiedAuditLogConfig'],
+  },
+  {
+    id: 'teams-external-federation-restricted',
+    title: 'Microsoft Teams external federation restricted',
+    description:
+      'Microsoft Teams external federation (communication with users in other Microsoft 365 ' +
+      'tenants) must either be disabled outright, or enabled only with a restricted allow-list of ' +
+      'specific external domains rather than left unrestricted to federate with any domain.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-05' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-4' },
+      { framework: 'CIS_M365_V3', controlId: '8.5.1' },
+    ],
+    requiredSignals: ['exoTeams.teams.federationConfig'],
+  },
+  {
+    id: 'teams-anonymous-meeting-join-restricted',
+    title: 'Anonymous users cannot join or start Teams meetings by default',
+    description:
+      'The Global (default) Teams meeting policy must not allow anonymous users to join or start ' +
+      'meetings, preventing unauthenticated external parties from entering meetings absent an ' +
+      'explicit, deliberate per-meeting decision to allow it.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-05' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-3' },
+      { framework: 'CIS_M365_V3', controlId: '8.1.1' },
+    ],
+    requiredSignals: ['exoTeams.teams.meetingPolicies'],
+  },
+  {
+    id: 'teams-meeting-recording-governed',
+    title: 'Teams cloud meeting recording is a deliberate policy decision',
+    description:
+      'Cloud recording of Teams meetings on the Global meeting policy should reflect a deliberate, ' +
+      'reviewed data-handling decision rather than an unreviewed default; recording captures ' +
+      'potentially sensitive discussion content and its retention/access should be governed. ' +
+      'Judgment call: enabled recording is not inherently insecure, so this is scored as a review ' +
+      'flag rather than an outright failure.',
+    nistFunction: 'GOVERN',
+    severity: 'LOW',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'GV.PO-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'AU-11' },
+      { framework: 'CIS_M365_V3', controlId: '8.1.2' },
+    ],
+    requiredSignals: ['exoTeams.teams.meetingPolicies'],
+  },
+  {
+    id: 'teams-external-access-restricted',
+    title: 'Teams external access and guest access are deliberately configured',
+    description:
+      'Teams external access (federation-adjacent contact/1:1-communication with users in other ' +
+      'tenants) and guest access should reflect a deliberate configuration matched to the ' +
+      'organization\'s collaboration needs rather than being left wide open by default. Judgment ' +
+      'call: both are legitimate business features, not inherently misconfigurations, so enabled ' +
+      'values are scored as a review flag rather than an outright failure.',
+    nistFunction: 'GOVERN',
+    severity: 'LOW',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'GV.PO-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-20' },
+      { framework: 'CIS_M365_V3', controlId: '8.5.2' },
+    ],
+    requiredSignals: ['exoTeams.teams.clientConfig'],
   },
 ];

@@ -1,0 +1,201 @@
+# syntax=docker/dockerfile:1
+#
+# Multi-stage production image for posture-platform's WORKER service only.
+#
+# This is a sibling of the main `Dockerfile`, not a replacement for it. It
+# exists solely because the worker (src/worker/index.ts) now also needs to
+# shell out to PowerShell 7 (`pwsh`) to drive Exchange Online / Security &
+# Compliance / Microsoft Teams PowerShell modules (see
+# src/lib/powershell/README.md for what/why — that module is owned by a
+# separate, concurrent effort and is not touched by this Dockerfile).
+#
+# Why a separate Dockerfile instead of one shared image for both services:
+#   - `pwsh` itself plus the `ExchangeOnlineManagement` and `MicrosoftTeams`
+#     PowerShell Gallery modules baked in at build time (see Stage 3 below)
+#     add roughly 500MB-1GB to the image and noticeably lengthen the build
+#     (an extra APT repo + package install, then a module install that
+#     resolves and downloads a non-trivial dependency graph from the
+#     PowerShell Gallery).
+#   - The `web` service (Next.js) never touches PowerShell — it would pay
+#     that size/build-time cost on every deploy for a capability it never
+#     uses. Keeping `web` on the original, smaller `Dockerfile` avoids that
+#     entirely.
+#
+# On stage reuse: Docker does not support one Dockerfile `FROM`-ing a stage
+# defined in a different Dockerfile, so Stages 1-2 below are a deliberate,
+# straight duplication of the `deps` and `builder` stages in the main
+# `Dockerfile` (same base image, same commands) rather than a clever trick to
+# avoid it. Concretely this means the Next.js app build (`npm ci` + `npm run
+# build`) happens twice in CI/Railway — once for `web`'s image, once for
+# `worker`'s — which is the accepted tradeoff for keeping `web`'s image lean
+# and each Dockerfile simple/self-contained. See DEPLOYMENT.md for the
+# alternative that was considered and rejected (a shared prebuilt base image
+# pushed to a registry and referenced by tag from both Dockerfiles) and why
+# it wasn't worth the added CI complexity here.
+#
+# IMPORTANT: if you change the `deps` or `builder` stage in the main
+# `Dockerfile` (e.g. bump the Node version, add a build-time system package),
+# make the same change here. There is no automated check that these two
+# Dockerfiles stay in sync.
+#
+# Build with Railway's "Root Directory" set to `posture-platform` for the
+# worker service, same as `web` — see DEPLOYMENT.md. The worker service's
+# `railway.json`-equivalent config (or dashboard override — see
+# DEPLOYMENT.md) must point its build at THIS file (`Dockerfile.worker`),
+# not the default `Dockerfile`.
+
+# ---------------------------------------------------------------------------
+# Stage 1: install dependencies (including devDependencies, needed to build)
+# Duplicated from Dockerfile's `deps` stage — see note above.
+# ---------------------------------------------------------------------------
+FROM node:20-bookworm-slim AS deps
+WORKDIR /app
+
+# openssl is required by the Prisma engines at both generate-time and (in the
+# runner stage) at query-engine-load time.
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# ---------------------------------------------------------------------------
+# Stage 2: generate the Prisma client + build the Next.js app
+# Duplicated from Dockerfile's `builder` stage — see note above.
+# ---------------------------------------------------------------------------
+FROM node:20-bookworm-slim AS builder
+WORKDIR /app
+
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Prisma client codegen needs the schema but does NOT need a live database
+# connection, so this is safe to run at build time with no DATABASE_URL set.
+RUN npx prisma generate
+
+# Next.js build-time env: values below are placeholders so `next build` can
+# statically analyze/collect page data; real secrets are injected at runtime
+# by Railway and do not need to match these. NEXT_TELEMETRY_DISABLED avoids
+# a network call during the build.
+#
+# The worker doesn't serve the Next.js app at runtime, but it reuses this
+# build stage as-is (rather than forking a worker-only variant) to run
+# `prisma generate` and keep the two Dockerfiles as close to identical as
+# possible up to this point — trading a few seconds of unnecessary `next
+# build` time in the worker image for much less drift risk between the two
+# Dockerfiles.
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
+
+# ---------------------------------------------------------------------------
+# Stage 3: minimal runtime image + PowerShell 7 (pwsh) + Exchange
+# Online/Teams modules for the worker's Exchange/Security & Compliance/Teams
+# PowerShell-based collection (src/lib/powershell — separate, concurrent
+# effort; see src/lib/powershell/README.md once it exists for what it does
+# with pwsh).
+# ---------------------------------------------------------------------------
+FROM node:20-bookworm-slim AS runner
+WORKDIR /app
+
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
+
+# --- PowerShell 7 (pwsh) via Microsoft's official APT repo ---
+#
+# node:20-bookworm-slim is Debian 12 (bookworm), so this uses the
+# packages.microsoft.com "debian/12" repo config, matching Microsoft's
+# documented install instructions for PowerShell on Debian 12. If the base
+# image's Debian version ever changes, this path must change to match (see
+# the top-of-file note about keeping the two Dockerfiles in sync).
+#
+# Not using --no-install-recommends here: software-properties-common and
+# apt-transport-https pull in a handful of recommended packages
+# (ca-certificates chain tooling, etc.) that the packages.microsoft.com repo
+# registration + subsequent `apt-get install powershell` expects to be
+# present; the base `openssl` install above already uses
+# --no-install-recommends deliberately for image size, but this repo-registration
+# step is small and one-time relative to the pwsh package itself.
+RUN apt-get update -y \
+    && apt-get install -y wget apt-transport-https software-properties-common \
+    && wget -q https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+    && dpkg -i packages-microsoft-prod.deb \
+    && apt-get update \
+    && apt-get install -y powershell \
+    && rm packages-microsoft-prod.deb \
+    && rm -rf /var/lib/apt/lists/*
+
+# --- ExchangeOnlineManagement + MicrosoftTeams PowerShell Gallery modules ---
+#
+# Installed --Scope AllUsers so they land under a system-wide module path
+# (readable by the unprivileged `node` user this image runs as later in this
+# stage — Install-Module with -Scope AllUsers defaults to a location under
+# /usr/local/share/powershell/Modules which is world-readable), rather than
+# CurrentUser (which would install under /root and not be usable once we
+# switch to USER node below).
+#
+# Set-PSRepository ... -InstallationPolicy Trusted first avoids an
+# interactive "Untrusted repository" confirmation prompt, which would hang a
+# non-interactive Docker build forever.
+#
+# Baking these in at build time (rather than installing them at container
+# startup) means the worker never depends on PowerShell Gallery being
+# reachable/healthy at runtime — much more reliable for a scheduled job that
+# may run unattended at 3am, and avoids adding minutes to every container
+# cold start.
+RUN pwsh -NoLogo -NoProfile -Command "\
+    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; \
+    Install-Module -Name ExchangeOnlineManagement, MicrosoftTeams -Scope AllUsers -Force -AllowClobber"
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+# Run as an unprivileged user (the official node image ships a `node` user/group).
+RUN mkdir -p /app && chown -R node:node /app
+
+# The `prisma` CLI (for `prisma migrate deploy` at startup) and `tsx` (to run
+# the worker entrypoint, src/worker/index.ts, directly from TypeScript source
+# in this same image — see DEPLOYMENT.md) are needed in addition to whatever
+# the Next.js server itself uses. Rather than hand-picking each CLI's
+# transitive runtime dependencies one at a time (fragile — e.g. `tsx` needs
+# `esbuild`, `prisma` needs `@prisma/engines`, and such a list silently drifts
+# as versions change), start from the full pre-build node_modules (the `deps`
+# stage, before pruning/tracing), which already has everything both CLIs need.
+COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/prisma ./prisma
+COPY --from=builder --chown=node:node /app/package.json ./package.json
+COPY --from=builder --chown=node:node /app/src ./src
+COPY --from=builder --chown=node:node /app/tsconfig.json ./tsconfig.json
+
+# Layer the standalone Next.js server output on top, LAST, for the same
+# reasons as the main Dockerfile (see its Stage 3 comments) — this worker
+# image doesn't run the Next server, but keeping this identical to the main
+# Dockerfile minimizes drift and means the same COPY set behaves predictably
+# if the worker's entrypoint command ever changes.
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /app/public ./public
+
+COPY --chown=node:node docker-entrypoint.sh ./docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
+
+USER node
+
+# No EXPOSE — this image is never used as the `web` service and never
+# serves HTTP traffic (see DEPLOYMENT.md, "Do not give this service a public
+# domain").
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
+
+# Default command for this image is the worker, not "server" — this image is
+# never intended to be deployed as the `web` service. Railway's Start Command
+# for the worker service should still set this explicitly (`worker` or
+# `worker:once`, per DEPLOYMENT.md) rather than relying on this default, but
+# the default is changed here (vs. the main Dockerfile's `CMD ["server"]`) as
+# a safety net in case a service ever gets pointed at this Dockerfile without
+# an explicit Start Command.
+CMD ["worker:once"]
