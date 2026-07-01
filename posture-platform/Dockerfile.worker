@@ -93,9 +93,8 @@ RUN npm run build
 # ---------------------------------------------------------------------------
 # Stage 3: minimal runtime image + PowerShell 7 (pwsh) + Exchange
 # Online/Teams modules for the worker's Exchange/Security & Compliance/Teams
-# PowerShell-based collection (src/lib/powershell — separate, concurrent
-# effort; see src/lib/powershell/README.md once it exists for what it does
-# with pwsh).
+# PowerShell-based collection (src/lib/powershell — see
+# src/lib/powershell/README.md for what it does with pwsh).
 # ---------------------------------------------------------------------------
 FROM node:20-bookworm-slim AS runner
 WORKDIR /app

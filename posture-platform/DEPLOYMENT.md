@@ -186,6 +186,17 @@ shared-base approach is the next lever to pull. **If you change the `deps`
 or `builder` stage in `Dockerfile`, make the same change in
 `Dockerfile.worker`** — nothing enforces they stay in sync.
 
+**A known risk worth checking on first deploy:** while building this feature, PowerShell
+Gallery (`powershellgallery.com`) registration/module installation was unreliable in the
+sandboxed environment this was developed in — likely a narrow, environment-specific network
+restriction on PSGallery's OData protocol (plain HTTPS to other hosts, including
+`packages.microsoft.com` for `pwsh` itself, worked fine). Railway's build infrastructure is a
+different, standard cloud environment and most likely won't hit this, but if `Dockerfile.worker`'s
+`Install-Module` step fails or hangs during a Railway build, that's the first thing to check —
+Railway's build logs will show exactly where it fails. If it does turn out to be flaky, the next
+lever to pull is pinning specific module versions (`-RequiredVersion`) and/or vendoring the
+modules into the repo rather than fetching them at build time.
+
 ### Pointing the `worker` service at `Dockerfile.worker` on Railway
 
 Railway's config-as-code file (`railway.json`) is discovered once per service
@@ -313,10 +324,9 @@ authenticate and authorize differently than Graph application permissions:
    assign to the service principal, not to a user).
 
 This is documented in full, including exact steps, in
-`src/lib/powershell/README.md` once that module lands — treat that file as
-authoritative for the precise cmdlet-level requirements; this section only
-flags that the extra setup exists and that it's a per-tenant, incremental
-step. The onboarding UI (`src/app/(onboarding)/onboarding/tenants/[tenantId]/credentials/page.tsx`)
+`src/lib/powershell/README.md` — treat that file as authoritative for the
+precise cmdlet-level requirements; this section only flags that the extra
+setup exists and that it's a per-tenant, incremental step. The onboarding UI (`src/app/(onboarding)/onboarding/tenants/[tenantId]/credentials/page.tsx`)
 surfaces this to the analyst as an additional, clearly-marked, non-blocking
 note alongside the existing Graph admin-consent instructions — a tenant can
 be fully onboarded and productive on Graph-based controls without ever doing
