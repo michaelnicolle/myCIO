@@ -13,8 +13,8 @@
 import type { AuthOptions, Session } from 'next-auth';
 import type { JWT } from 'next-auth/jwt';
 import AzureADProvider from 'next-auth/providers/azure-ad';
-import type { Role } from './rbac';
-import { isRole } from './rbac';
+import type { Role } from './types';
+import { isRole } from './types';
 
 const AZURE_AD_CLIENT_ID = requireEnv('AZURE_AD_CLIENT_ID');
 const AZURE_AD_CLIENT_SECRET = requireEnv('AZURE_AD_CLIENT_SECRET');

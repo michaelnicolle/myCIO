@@ -89,7 +89,6 @@ class DevLocalKmsProvider implements KmsProvider {
     this.wrappingKey = decoded;
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async wrapKey(plaintextDataKey: Buffer): Promise<WrappedKey> {
     const iv = randomBytes(IV_LENGTH_BYTES);
     const cipher = createCipheriv(ALGORITHM, this.wrappingKey, iv);
@@ -104,7 +103,6 @@ class DevLocalKmsProvider implements KmsProvider {
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async unwrapKey(wrapped: WrappedKey): Promise<Buffer> {
     const packed = Buffer.from(wrapped.wrappedKeyB64, 'base64');
     const iv = packed.subarray(0, IV_LENGTH_BYTES);

@@ -12,7 +12,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/client';
-import { encryptCredential } from '@/lib/crypto/envelope';
+import { encryptCredential, type EncryptedBlob } from '@/lib/crypto/envelope';
 import { writeAuditLog } from '@/lib/audit/log';
 import { submitCredentialSchema } from '../../../../schemas';
 import { requireTenantManagementRoleOrAudit } from '../../../../route-helpers';

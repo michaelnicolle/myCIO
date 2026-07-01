@@ -14,7 +14,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { prisma } from '@/lib/db/client';
 import { requireRole } from '@/lib/auth/rbac';
-import { encryptCredential } from '@/lib/crypto/envelope';
+import { encryptCredential, type EncryptedBlob } from '@/lib/crypto/envelope';
 import { writeAuditLog } from '@/lib/audit/log';
 import { submitCredentialSchema } from '@/app/api/tenants/schemas';
 
@@ -73,7 +73,7 @@ async function submitCredentialAction(tenantId: string, formData: FormData): Pro
   const input = parsed.data;
   const plaintext = input.credentialType === 'CERTIFICATE' ? input.privateKeyPem : input.clientSecret;
 
-  let encrypted;
+  let encrypted: EncryptedBlob;
   try {
     encrypted = await encryptCredential(plaintext);
   } catch {

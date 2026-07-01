@@ -213,7 +213,7 @@ const signInSchema = z
  * Requires: SecurityEvents.Read.All
  */
 export async function collectSecureScore(client: Client): Promise<GraphSecureScore | undefined> {
-  const raw = await client.api(GRAPH_BETA_SECURITY_SCORE_PATH).top(1).get();
+  const raw = await client.api(SECURE_SCORES_PATH).top(1).get();
   const parsed = secureScoreCollectionSchema.parse(raw);
   const latest = parsed.value[0];
   return latest;
@@ -224,7 +224,7 @@ export async function collectSecureScore(client: Client): Promise<GraphSecureSco
  * Requires: IdentityRiskyUser.Read.All
  */
 export async function collectRiskyUsers(client: Client): Promise<GraphRiskyUser[]> {
-  const initialRequest = client.api(RISKY_USERS_PATH).top(999);
+  const initialRequest = client.api(RISKY_USERS_PATH).top(RISKY_USERS_PAGE_SIZE);
   const rawItems = await fetchAllPages(client, initialRequest, {});
   return rawItems.map((item) => riskyUserSchema.parse(item));
 }
@@ -238,7 +238,7 @@ export async function collectRiskDetections(client: Client): Promise<GraphRiskDe
   const initialRequest = client
     .api(RISK_DETECTIONS_PATH)
     .filter(`detectedDateTime ge ${since}`)
-    .top(999);
+    .top(RISK_DETECTIONS_PAGE_SIZE);
   const rawItems = await fetchAllPages(client, initialRequest, {});
   return rawItems.map((item) => riskDetectionSchema.parse(item));
 }
@@ -248,7 +248,7 @@ export async function collectRiskDetections(client: Client): Promise<GraphRiskDe
  * Requires: Policy.Read.All
  */
 export async function collectConditionalAccessPolicies(client: Client): Promise<GraphConditionalAccessPolicy[]> {
-  const initialRequest = client.api(CONDITIONAL_ACCESS_POLICIES_PATH).top(999);
+  const initialRequest = client.api(CONDITIONAL_ACCESS_POLICIES_PATH).top(CONDITIONAL_ACCESS_POLICIES_PAGE_SIZE);
   const rawItems = await fetchAllPages(client, initialRequest, {});
   return rawItems.map((item) => {
     const parsed = conditionalAccessPolicySchema.parse(item);
@@ -277,7 +277,7 @@ export async function collectPrivilegedRoleAssignments(client: Client): Promise<
   const initialRequest = client
     .api(ROLE_ASSIGNMENTS_PATH)
     .expand('roleDefinition,principal')
-    .top(999);
+    .top(ROLE_ASSIGNMENTS_PAGE_SIZE);
   const rawItems = await fetchAllPages(client, initialRequest, {});
 
   return rawItems.map((item) => {

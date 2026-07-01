@@ -1,21 +1,16 @@
 /**
- * Role definitions and the requireRole() authorization guard used by API route
- * handlers and server components. Mirrors the Prisma `UserRole` enum
- * (SUPER_ADMIN / ANALYST / CUSTOMER_VIEWER) — kept as a local literal union
- * (rather than importing the Prisma enum type) so this module has no hard
- * dependency on Prisma client generation having run yet.
+ * The requireRole() authorization guard used by API route handlers and server
+ * components. See src/lib/auth/types.ts for the Role type definition (kept
+ * separate to avoid a circular import between this file and ./options, which
+ * both need Role).
  */
 
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './options';
+import type { Role } from './types';
 
-export type Role = 'SUPER_ADMIN' | 'ANALYST' | 'CUSTOMER_VIEWER';
-
-const ALL_ROLES: readonly Role[] = ['SUPER_ADMIN', 'ANALYST', 'CUSTOMER_VIEWER'];
-
-export function isRole(value: unknown): value is Role {
-  return typeof value === 'string' && (ALL_ROLES as readonly string[]).includes(value);
-}
+export type { Role } from './types';
+export { isRole } from './types';
 
 export interface AuthorizedSession {
   userId: string;

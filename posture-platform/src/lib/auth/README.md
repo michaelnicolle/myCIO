@@ -69,3 +69,10 @@ sensitive actions (tenant credential view/create/rotate) — still call
 `getAuthorizedSession()` returns `null` instead of throwing; use it only when
 you need the actor identity to log a denial without wanting the helper itself
 to throw (rare — most call sites should use `requireRole`).
+
+**Signature note:** `requireRole` takes only `allowedRoles`, not a `request`
+argument. NextAuth v4's `getServerSession(authOptions)` reads the session from
+`next/headers` cookies internally in both Route Handlers and Server
+Components under the App Router, so there is nothing for a route handler to
+pass in — threading `request` through would be dead weight. This is a
+deliberate deviation from a `requireRole(request, allowedRoles)` sketch.
