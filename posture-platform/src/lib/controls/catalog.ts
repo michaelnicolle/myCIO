@@ -286,4 +286,301 @@ export const CONTROL_CATALOG: ControlDefinition[] = [
     ],
     requiredSignals: ['privilegedRoleAssignments'],
   },
+
+  // ---------------------------------------------------------------------------
+  // New controls informed by CISA ScubaGear / Maester / Prowler / EIDSCA checks.
+  // Appended below without renumbering/reordering the 17 existing controls above.
+  // ---------------------------------------------------------------------------
+
+  {
+    id: 'weak-authentication-methods-disabled',
+    title: 'Weak (phishable) authentication methods disabled tenant-wide',
+    description:
+      'SMS, Voice Call, and Email One-Time-Passcode authentication methods must be disabled in ' +
+      'the tenant-wide Authentication Methods Policy. These methods are phishable and vulnerable ' +
+      'to SIM-swapping and should not be available as an MFA or self-service-password-reset factor.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-03' },
+      { framework: 'NIST_800_53_R5', controlId: 'IA-2(1)' },
+      { framework: 'CIS_M365_V3', controlId: '5.2.2.1' },
+    ],
+    requiredSignals: ['authenticationMethodsPolicy'],
+  },
+  {
+    id: 'authenticator-number-matching-required',
+    title: 'Microsoft Authenticator push requires number matching',
+    description:
+      'The Microsoft Authenticator method configuration must require number matching on push ' +
+      'notification approvals, closing off MFA-fatigue ("push bombing") attacks where a user ' +
+      'accidentally approves an attacker-initiated sign-in.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-03' },
+      { framework: 'NIST_800_53_R5', controlId: 'IA-2(1)' },
+      { framework: 'CIS_M365_V3', controlId: '5.2.2.2' },
+    ],
+    requiredSignals: ['authenticationMethodsPolicy'],
+  },
+  {
+    id: 'fido2-attestation-enforced',
+    title: 'FIDO2 security key attestation enforced when FIDO2 is enabled',
+    description:
+      'If FIDO2 security keys are enabled as an authentication method, the Authentication Methods ' +
+      'Policy must require key attestation so that only authenticator models the organization has ' +
+      'vetted can be registered, rather than any FIDO2-compliant device.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-03' },
+      { framework: 'NIST_800_53_R5', controlId: 'IA-2(1)' },
+    ],
+    requiredSignals: ['authenticationMethodsPolicy'],
+  },
+  {
+    id: 'phishing-resistant-mfa-required',
+    title: 'Phishing-resistant MFA (authentication strength) required for broad user scope',
+    description:
+      'At least one enabled Conditional Access policy must require a phishing-resistant ' +
+      'authentication strength (FIDO2, Windows Hello for Business, certificate-based auth) via ' +
+      'grantControls.authenticationStrength for all/broad user scope. Stronger than generic MFA, ' +
+      'which remains vulnerable to real-time phishing/adversary-in-the-middle relay attacks.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-03' },
+      { framework: 'NIST_800_53_R5', controlId: 'IA-2(1)' },
+      { framework: 'CIS_M365_V3', controlId: '5.2.2.4' },
+    ],
+    requiredSignals: ['conditionalAccessPolicies'],
+  },
+  {
+    id: 'device-code-flow-blocked',
+    title: 'OAuth device-code authentication flow blocked',
+    description:
+      'The OAuth 2.0 device-code authorization flow must be blocked tenant-wide via Conditional ' +
+      'Access unless explicitly required for specific managed devices (e.g. shared/kiosk ' +
+      'hardware), since it is a common technique used to bypass Conditional Access/MFA in ' +
+      'phishing campaigns targeting Entra ID.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.PS-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'CM-7' },
+      { framework: 'CIS_M365_V3', controlId: '5.2.2.7' },
+    ],
+    requiredSignals: ['conditionalAccessPolicies'],
+  },
+  {
+    id: 'managed-device-required-for-mfa-registration',
+    title: 'Managed/compliant device required to register security information',
+    description:
+      'Registering new MFA/security-info methods must be restricted to compliant or hybrid-joined ' +
+      'devices via a Conditional Access policy scoped to the "register security information" user ' +
+      'action, preventing an attacker with only a stolen password from enrolling their own MFA ' +
+      'method from an unmanaged device.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-05' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-19' },
+      { framework: 'CIS_M365_V3', controlId: '5.2.2.8' },
+    ],
+    requiredSignals: ['conditionalAccessPolicies'],
+  },
+  {
+    id: 'high-risk-users-blocked-by-ca',
+    title: 'Conditional Access blocks sign-in for high user-risk',
+    description:
+      'At least one enabled Conditional Access policy must block sign-in outright for users ' +
+      'Identity Protection has scored at "high" risk, rather than only requiring step-up, ' +
+      'proactively containing accounts most likely already compromised.',
+    nistFunction: 'PROTECT',
+    severity: 'CRITICAL',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-03' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-2(12)' },
+      { framework: 'CIS_M365_V3', controlId: '5.2.3.1' },
+    ],
+    requiredSignals: ['conditionalAccessPolicies'],
+  },
+  {
+    id: 'high-risk-signins-blocked-by-ca',
+    title: 'Conditional Access blocks sign-in for high sign-in-risk',
+    description:
+      'At least one enabled Conditional Access policy must block sign-in when the session-level ' +
+      '(sign-in) risk is scored "high" by Identity Protection, addressing risk detected at the ' +
+      'individual authentication event rather than the longer-lived user risk score.',
+    nistFunction: 'PROTECT',
+    severity: 'CRITICAL',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-03' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-2(12)' },
+      { framework: 'CIS_M365_V3', controlId: '5.2.3.3' },
+    ],
+    requiredSignals: ['conditionalAccessPolicies'],
+  },
+  {
+    id: 'global-admin-count-in-range',
+    title: 'Global Administrator count within a safe range (2-8)',
+    description:
+      'The tenant should have between 2 and 8 active (permanent) Global Administrator role ' +
+      'assignments: fewer than 2 creates a bus-factor/lockout risk with no redundancy, while more ' +
+      'than 8 unnecessarily broadens the blast radius of a single compromised admin credential.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-6(1)' },
+      { framework: 'CIS_M365_V3', controlId: '5.1.1' },
+    ],
+    requiredSignals: ['privilegedRoleAssignments'],
+  },
+  {
+    id: 'user-app-registration-restricted',
+    title: 'Only admins can register new application registrations',
+    description:
+      'The default user role permissions must disable non-admin users\' ability to register new ' +
+      'application registrations in Entra ID, preventing unreviewed/unmanaged app registrations ' +
+      'from becoming an OAuth-consent-phishing or persistence vector.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-05' },
+      { framework: 'NIST_800_53_R5', controlId: 'CM-7(1)' },
+      { framework: 'CIS_M365_V3', controlId: '5.1.6.2' },
+    ],
+    requiredSignals: ['authorizationPolicy'],
+  },
+  {
+    id: 'user-consent-to-apps-restricted',
+    title: 'Regular users cannot grant consent to application permissions themselves',
+    description:
+      'The default user role permissions must not leave a broad, unrestricted user-consent policy ' +
+      'assigned, so that granting an application permissions to tenant data requires an admin (or ' +
+      'a tightly scoped admin-reviewed policy) rather than any end user clicking "Accept" on an ' +
+      'OAuth consent-phishing prompt.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-05' },
+      { framework: 'NIST_800_53_R5', controlId: 'CM-7(1)' },
+      { framework: 'CIS_M365_V3', controlId: '5.1.6.1' },
+    ],
+    requiredSignals: ['authorizationPolicy'],
+  },
+  {
+    id: 'guest-user-restricted-role',
+    title: 'Guest users are assigned the most-restricted guest role',
+    description:
+      'The tenant-wide default guest user role must be set to the most-restrictive built-in guest ' +
+      'role (limited to their own object properties), rather than granting guests the same ' +
+      'directory-object visibility as members.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-05' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-6' },
+      { framework: 'CIS_M365_V3', controlId: '1.2.1' },
+    ],
+    requiredSignals: ['authorizationPolicy'],
+  },
+  {
+    id: 'guest-invites-restricted-to-admins',
+    title: 'Guest invitations restricted to admins/designated inviters',
+    description:
+      'The tenant-wide "who can invite guests" setting must be restricted to admins and users ' +
+      'explicitly granted the guest-inviter role, not left open to all members or everyone, so ' +
+      'external access grants go through an accountable party.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-05' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-2(1)' },
+      { framework: 'CIS_M365_V3', controlId: '1.2.2' },
+    ],
+    requiredSignals: ['authorizationPolicy'],
+  },
+  {
+    id: 'password-never-expires-policy',
+    title: 'Verified domains use a never-expiring password policy',
+    description:
+      'Verified managed domains should configure passwords to never expire (per NIST 800-63B and ' +
+      'OMB M-22-09 guidance against forced periodic rotation, which drives predictable password ' +
+      'patterns), relying instead on MFA, risk-based sign-in, and breach-triggered resets.',
+    nistFunction: 'PROTECT',
+    severity: 'LOW',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-03' },
+      { framework: 'NIST_800_53_R5', controlId: 'IA-5(1)' },
+      { framework: 'CIS_M365_V3', controlId: '1.3.1' },
+    ],
+    requiredSignals: ['domains'],
+  },
+  {
+    id: 'app-registration-credential-hygiene',
+    title: 'Application registrations use bounded-lifetime, certificate-preferred credentials',
+    description:
+      'App registrations should prefer certificate credentials over client secrets, and any ' +
+      'credential in use should have a bounded lifetime (client secrets no longer than 180 days, ' +
+      'certificates no longer than 365 days), limiting the exposure window of a leaked long-lived ' +
+      'secret.',
+    nistFunction: 'PROTECT',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'IA-5(1)' },
+      { framework: 'CIS_M365_V3', controlId: '5.1.7' },
+    ],
+    requiredSignals: ['applications'],
+  },
+  {
+    id: 'privileged-service-principal-no-owners',
+    title: 'Privileged service principals have zero owners',
+    description:
+      'Service principals holding a permanent privileged directory role must have zero assigned ' +
+      'owners; any owner can rotate the service principal\'s credentials and thereby inherit its ' +
+      'privileged role entirely outside of any approval workflow.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'AC-6(1)' },
+    ],
+    requiredSignals: ['privilegedServicePrincipals'],
+  },
+  {
+    id: 'privileged-service-principal-no-client-secrets',
+    title: 'Privileged service principals use no client secrets',
+    description:
+      'Service principals holding a permanent privileged directory role should authenticate via ' +
+      'certificate credentials or managed identity rather than client secrets, reducing the risk ' +
+      'of a leaked long-lived shared secret granting privileged directory access.',
+    nistFunction: 'PROTECT',
+    severity: 'HIGH',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'PR.AA-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'IA-5(1)' },
+    ],
+    requiredSignals: ['privilegedServicePrincipals'],
+  },
+  {
+    id: 'non-privileged-users-mfa-registered',
+    title: 'Non-privileged users have an MFA method registered',
+    description:
+      'Nearly all non-admin user accounts should have at least one MFA method registered, ' +
+      'independent of whether a Conditional Access policy currently enforces its use, so that ' +
+      'enforcement can be tightened without a wave of users being locked out for lack of an ' +
+      'enrolled factor.',
+    nistFunction: 'IDENTIFY',
+    severity: 'MEDIUM',
+    mappings: [
+      { framework: 'NIST_CSF_2_0', controlId: 'ID.RA-01' },
+      { framework: 'NIST_800_53_R5', controlId: 'IA-2(1)' },
+      { framework: 'CIS_M365_V3', controlId: '5.2.2.3' },
+    ],
+    requiredSignals: ['userRegistrationDetails'],
+  },
 ];

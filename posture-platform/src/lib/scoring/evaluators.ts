@@ -10,8 +10,33 @@
  * Never infer PASS/FAIL from absent data.
  */
 
-import type { TenantCollectionResult, GraphConditionalAccessPolicy } from '@/types/graph';
+import type {
+  TenantCollectionResult,
+  GraphConditionalAccessPolicy,
+  GraphAuthenticationMethodsPolicy,
+} from '@/types/graph';
 import type { ControlStatus } from '@/types/domain';
+
+/**
+ * Well-known Global Administrator directory role template id (stable across all tenants).
+ * Mirrors the same GUID used in `PRIVILEGED_ROLE_TEMPLATE_IDS` in src/lib/graph/collectors.ts
+ * (see that file's comment block for the Microsoft documentation reference). Duplicated here
+ * as a local literal — rather than importing from collectors.ts — since that module is being
+ * actively developed in parallel by a concurrent effort and this file should not couple to its
+ * in-flight state; it's a single stable constant so drift risk is minimal.
+ */
+const GLOBAL_ADMINISTRATOR_ROLE_TEMPLATE_ID = '62e90394-69f5-4237-9190-012177145e10';
+const GLOBAL_ADMINISTRATOR_DISPLAY_NAME = 'global administrator';
+
+/**
+ * Well-known built-in "Guest User" (most restrictive) directory role template id. This is the
+ * default/most-restricted of the three guest-access levels Microsoft documents (Guest User /
+ * Guest User (most restrictive) / Member User) for `authorizationPolicy.guestUserRoleId`.
+ * NOTE: verify against https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference
+ * if this control ever produces surprising results on a live tenant — recorded here as the
+ * commonly documented value rather than independently re-derived from a live tenant.
+ */
+const RESTRICTED_GUEST_USER_ROLE_TEMPLATE_ID = '2af84b1e-32c8-42b7-82bc-daa82404023b';
 
 /** Richer evaluator output; engine.ts flattens this into a ControlResult. */
 export interface EvaluationOutcome {
@@ -387,6 +412,714 @@ export function evaluateGuestAccessReviewed(_signals: TenantCollectionResult): E
 }
 
 // ---------------------------------------------------------------------------
+// weak-authentication-methods-disabled
+// ---------------------------------------------------------------------------
+
+function findMethodConfig(policy: GraphAuthenticationMethodsPolicy, id: string) {
+  return policy.authenticationMethodConfigurations.find((c) => c.id.toLowerCase() === id.toLowerCase());
+}
+
+export function evaluateWeakAuthMethodsDisabled(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.authenticationMethodsPolicy) {
+    return missingSignalOutcome(signals, 'authenticationMethodsPolicy', 'Weak authentication methods disabled');
+  }
+  const policy = signals.authenticationMethodsPolicy;
+  const weakIds = ['Sms', 'Voice', 'Email'];
+  const configs = weakIds.map((id) => ({ id, config: findMethodConfig(policy, id) }));
+  const enabledWeak = configs.filter((c) => c.config?.state === 'enabled');
+
+  if (enabledWeak.length === 0) {
+    return {
+      status: 'PASS',
+      detail: 'SMS, Voice Call, and Email OTP authentication methods are all disabled tenant-wide.',
+      evidence: { checkedMethods: weakIds },
+    };
+  }
+
+  return {
+    status: 'FAIL',
+    detail: `${enabledWeak.length} weak/phishable authentication method(s) are still enabled: ${enabledWeak.map((c) => c.id).join(', ')}.`,
+    evidence: { enabledWeakMethods: enabledWeak.map((c) => c.id) },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// authenticator-number-matching-required
+// ---------------------------------------------------------------------------
+
+export function evaluateAuthenticatorNumberMatching(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.authenticationMethodsPolicy) {
+    return missingSignalOutcome(signals, 'authenticationMethodsPolicy', 'Authenticator number matching required');
+  }
+  const config = findMethodConfig(signals.authenticationMethodsPolicy, 'MicrosoftAuthenticator');
+  if (!config || !config.featureSettings) {
+    return {
+      status: 'UNKNOWN',
+      detail:
+        'Authenticator number matching could not be evaluated: no "MicrosoftAuthenticator" configuration (or its featureSettings) was present in the authentication methods policy.',
+      evidence: { hasConfig: !!config },
+    };
+  }
+  const state = config.featureSettings.numberMatchingRequiredState?.state;
+  if (state === 'enabled') {
+    return {
+      status: 'PASS',
+      detail: 'Microsoft Authenticator push notifications require number matching.',
+      evidence: { numberMatchingState: state },
+    };
+  }
+  if (state === 'disabled') {
+    return {
+      status: 'FAIL',
+      detail: 'Microsoft Authenticator is enabled but number matching is not required, leaving push notifications vulnerable to MFA-fatigue approval.',
+      evidence: { numberMatchingState: state },
+    };
+  }
+  return {
+    status: 'UNKNOWN',
+    detail: 'Authenticator number matching could not be evaluated: numberMatchingRequiredState was not reported.',
+    evidence: { config },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// fido2-attestation-enforced
+// ---------------------------------------------------------------------------
+
+export function evaluateFido2AttestationEnforced(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.authenticationMethodsPolicy) {
+    return missingSignalOutcome(signals, 'authenticationMethodsPolicy', 'FIDO2 attestation enforced');
+  }
+  const config = findMethodConfig(signals.authenticationMethodsPolicy, 'Fido2');
+  if (!config) {
+    return {
+      status: 'UNKNOWN',
+      detail: 'FIDO2 attestation could not be evaluated: no "Fido2" configuration was present in the authentication methods policy.',
+      evidence: {},
+    };
+  }
+  if (config.state === 'disabled') {
+    return {
+      status: 'NOT_APPLICABLE',
+      detail: 'FIDO2 security keys are not enabled as an authentication method, so attestation enforcement does not apply.',
+      evidence: { fido2State: config.state },
+    };
+  }
+  if (config.isAttestationEnforced === true) {
+    return {
+      status: 'PASS',
+      detail: 'FIDO2 is enabled and key attestation is enforced.',
+      evidence: { fido2State: config.state, isAttestationEnforced: true },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: 'FIDO2 is enabled but key attestation is not enforced, allowing registration of unvetted authenticator models.',
+    evidence: { fido2State: config.state, isAttestationEnforced: config.isAttestationEnforced ?? null },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// phishing-resistant-mfa-required
+// ---------------------------------------------------------------------------
+
+function grantsPhishingResistantAuthStrength(policy: GraphConditionalAccessPolicy): boolean {
+  return !!policy.grantControls?.authenticationStrength?.id;
+}
+
+export function evaluatePhishingResistantMfaRequired(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'conditionalAccessPolicies', 'Phishing-resistant MFA required');
+  }
+  const policies = signals.conditionalAccessPolicies;
+  const enabled = policies.filter(isEnabled);
+  const strengthPolicies = enabled.filter(grantsPhishingResistantAuthStrength);
+  const broadStrengthPolicies = strengthPolicies.filter((p) => conditionTargetsAllUsers(p.conditions));
+
+  if (broadStrengthPolicies.length > 0) {
+    return {
+      status: 'PASS',
+      detail: `${broadStrengthPolicies.length} enabled CA polic${broadStrengthPolicies.length === 1 ? 'y requires' : 'ies require'} a phishing-resistant authentication strength for all users.`,
+      evidence: { policyIds: broadStrengthPolicies.map((p) => p.id) },
+    };
+  }
+
+  if (strengthPolicies.length > 0) {
+    return {
+      status: 'PARTIAL',
+      detail: `${strengthPolicies.length} enabled CA polic${strengthPolicies.length === 1 ? 'y requires' : 'ies require'} a phishing-resistant authentication strength, but only for a subset of users, not the full user population.`,
+      evidence: { policyIds: strengthPolicies.map((p) => p.id) },
+    };
+  }
+
+  return {
+    status: 'FAIL',
+    detail: 'No enabled conditional access policy requires a phishing-resistant authentication strength.',
+    evidence: { enabledPolicyCount: enabled.length },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// device-code-flow-blocked
+// ---------------------------------------------------------------------------
+
+export function evaluateDeviceCodeFlowBlocked(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'conditionalAccessPolicies', 'Device code flow blocked');
+  }
+  // As of this writing, Graph's `conditionalAccessPolicy.conditions` exposes device-code-flow
+  // targeting via `conditions.authenticationFlows.transferMethods` (a relatively new field), but
+  // we don't have confidence this exact shape is what the collector will actually receive/pass
+  // through, and guessing at a field name that turns out wrong is worse than surfacing UNKNOWN.
+  // Report UNKNOWN rather than asserting a PASS/FAIL we can't back with a well-documented check.
+  return {
+    status: 'UNKNOWN',
+    detail:
+      'Device-code authentication flow blocking cannot be reliably evaluated yet: the loosely-typed CA `conditions` object does not have a confirmed, stable field for authentication-flow targeting in this codebase. Needs verification against a live tenant/Graph schema before a PASS/FAIL determination can be trusted.',
+    evidence: { enabledPolicyCount: signals.conditionalAccessPolicies.filter(isEnabled).length },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// managed-device-required-for-mfa-registration
+// ---------------------------------------------------------------------------
+
+export function evaluateManagedDeviceRequiredForMfaRegistration(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'conditionalAccessPolicies', 'Managed device required for MFA registration');
+  }
+  // Same caveat as device-code-flow-blocked: Graph models this as `conditions.userActions`
+  // containing "urn:user:registersecurityinfo", but we don't have confirmed visibility into
+  // whether the collector surfaces that field verbatim under this loosely-typed bag. Rather than
+  // guess at a field/string that might not match what's actually collected, report UNKNOWN.
+  return {
+    status: 'UNKNOWN',
+    detail:
+      'Managed-device-for-security-info-registration cannot be reliably evaluated yet: no confirmed, stable field for the "register security information" user action was identified on the CA policy `conditions` object in this codebase. Needs verification before a PASS/FAIL determination can be trusted.',
+    evidence: { enabledPolicyCount: signals.conditionalAccessPolicies.filter(isEnabled).length },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// high-risk-users-blocked-by-ca / high-risk-signins-blocked-by-ca
+// ---------------------------------------------------------------------------
+
+function conditionIncludesRiskLevel(conditions: Record<string, unknown>, field: string, level: string): boolean {
+  const levels = conditions[field];
+  return Array.isArray(levels) && levels.some((l) => typeof l === 'string' && l.toLowerCase() === level.toLowerCase());
+}
+
+export function evaluateHighRiskUsersBlockedByCa(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'conditionalAccessPolicies', 'High-risk users blocked by Conditional Access');
+  }
+  const enabled = signals.conditionalAccessPolicies.filter(isEnabled);
+  const blockingHighUserRisk = enabled.filter(
+    (p) => grantsBlock(p) && conditionIncludesRiskLevel(p.conditions, 'userRiskLevels', 'high')
+  );
+
+  if (blockingHighUserRisk.length > 0) {
+    return {
+      status: 'PASS',
+      detail: `${blockingHighUserRisk.length} enabled CA polic${blockingHighUserRisk.length === 1 ? 'y blocks' : 'ies block'} sign-in for users at high risk.`,
+      evidence: { policyIds: blockingHighUserRisk.map((p) => p.id) },
+    };
+  }
+
+  return {
+    status: 'FAIL',
+    detail: 'No enabled conditional access policy blocks sign-in for users flagged at high risk.',
+    evidence: { enabledPolicyCount: enabled.length },
+  };
+}
+
+export function evaluateHighRiskSignInsBlockedByCa(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'conditionalAccessPolicies', 'High-risk sign-ins blocked by Conditional Access');
+  }
+  const enabled = signals.conditionalAccessPolicies.filter(isEnabled);
+  const blockingHighSignInRisk = enabled.filter(
+    (p) => grantsBlock(p) && conditionIncludesRiskLevel(p.conditions, 'signInRiskLevels', 'high')
+  );
+
+  if (blockingHighSignInRisk.length > 0) {
+    return {
+      status: 'PASS',
+      detail: `${blockingHighSignInRisk.length} enabled CA polic${blockingHighSignInRisk.length === 1 ? 'y blocks' : 'ies block'} sign-ins at high session risk.`,
+      evidence: { policyIds: blockingHighSignInRisk.map((p) => p.id) },
+    };
+  }
+
+  return {
+    status: 'FAIL',
+    detail: 'No enabled conditional access policy blocks sign-ins flagged at high session (sign-in) risk.',
+    evidence: { enabledPolicyCount: enabled.length },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// global-admin-count-in-range
+// ---------------------------------------------------------------------------
+
+const GLOBAL_ADMIN_MIN_COUNT = 2;
+const GLOBAL_ADMIN_MAX_COUNT = 8;
+
+export function evaluateGlobalAdminCountInRange(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.privilegedRoleAssignments) {
+    return missingSignalOutcome(signals, 'privilegedRoleAssignments', 'Global Administrator count in range');
+  }
+  const globalAdmins = signals.privilegedRoleAssignments.filter(
+    (r) =>
+      r.roleDefinitionId === GLOBAL_ADMINISTRATOR_ROLE_TEMPLATE_ID ||
+      r.roleName.toLowerCase() === GLOBAL_ADMINISTRATOR_DISPLAY_NAME
+  );
+  const count = globalAdmins.length;
+
+  if (count < GLOBAL_ADMIN_MIN_COUNT) {
+    return {
+      status: 'FAIL',
+      detail: `Only ${count} active Global Administrator assignment(s) found; at least ${GLOBAL_ADMIN_MIN_COUNT} are recommended to avoid a single point of failure/lockout.`,
+      evidence: { globalAdminCount: count, min: GLOBAL_ADMIN_MIN_COUNT, max: GLOBAL_ADMIN_MAX_COUNT },
+    };
+  }
+  if (count > GLOBAL_ADMIN_MAX_COUNT) {
+    return {
+      status: 'FAIL',
+      detail: `${count} active Global Administrator assignments found, exceeding the recommended maximum of ${GLOBAL_ADMIN_MAX_COUNT}; this unnecessarily broadens blast radius.`,
+      evidence: { globalAdminCount: count, min: GLOBAL_ADMIN_MIN_COUNT, max: GLOBAL_ADMIN_MAX_COUNT },
+    };
+  }
+  return {
+    status: 'PASS',
+    detail: `${count} active Global Administrator assignment(s) found, within the recommended range of ${GLOBAL_ADMIN_MIN_COUNT}-${GLOBAL_ADMIN_MAX_COUNT}.`,
+    evidence: { globalAdminCount: count, min: GLOBAL_ADMIN_MIN_COUNT, max: GLOBAL_ADMIN_MAX_COUNT },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// user-app-registration-restricted
+// ---------------------------------------------------------------------------
+
+export function evaluateUserAppRegistrationRestricted(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.authorizationPolicy) {
+    return missingSignalOutcome(signals, 'authorizationPolicy', 'User app registration restricted');
+  }
+  const allowedToCreateApps = signals.authorizationPolicy.defaultUserRolePermissions?.allowedToCreateApps;
+  if (allowedToCreateApps === undefined) {
+    return {
+      status: 'UNKNOWN',
+      detail: 'User app registration restriction could not be evaluated: defaultUserRolePermissions.allowedToCreateApps was not reported.',
+      evidence: {},
+    };
+  }
+  if (allowedToCreateApps === false) {
+    return {
+      status: 'PASS',
+      detail: 'Non-admin users are not allowed to register new application registrations.',
+      evidence: { allowedToCreateApps },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: 'Non-admin users are allowed to register new application registrations.',
+    evidence: { allowedToCreateApps },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// user-consent-to-apps-restricted
+// ---------------------------------------------------------------------------
+
+export function evaluateUserConsentToAppsRestricted(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.authorizationPolicy) {
+    return missingSignalOutcome(signals, 'authorizationPolicy', 'User consent to apps restricted');
+  }
+  const policies = signals.authorizationPolicy.defaultUserRolePermissions?.permissionGrantPoliciesAssigned;
+  if (policies === undefined) {
+    return {
+      status: 'UNKNOWN',
+      detail: 'User consent restriction could not be evaluated: defaultUserRolePermissions.permissionGrantPoliciesAssigned was not reported.',
+      evidence: {},
+    };
+  }
+  if (policies.length === 0) {
+    return {
+      status: 'PASS',
+      detail: 'No default user-consent permission-grant policy is assigned; users cannot self-consent to app permissions.',
+      evidence: { permissionGrantPoliciesAssigned: policies },
+    };
+  }
+  // We're not fully certain of the exact policy id string(s) Microsoft uses to represent
+  // "unrestricted user consent allowed" (e.g. "ManagePermissionGrantsForSelf.microsoft-user-default-legacy")
+  // versus a tightly admin-scoped custom policy, so rather than guess, treat any non-empty value
+  // as needing human review instead of asserting FAIL.
+  return {
+    status: 'PARTIAL',
+    detail:
+      `${policies.length} permission-grant polic${policies.length === 1 ? 'y is' : 'ies are'} assigned to the default user role ` +
+      '(policy id(s): ' + policies.join(', ') + '). Whether this represents unrestricted user consent or a tightly-scoped admin-approved ' +
+      'policy could not be determined with certainty from the policy id string alone — needs manual review.',
+    evidence: { permissionGrantPoliciesAssigned: policies },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// guest-user-restricted-role
+// ---------------------------------------------------------------------------
+
+export function evaluateGuestUserRestrictedRole(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.authorizationPolicy) {
+    return missingSignalOutcome(signals, 'authorizationPolicy', 'Guest user restricted role');
+  }
+  const { guestUserRoleId } = signals.authorizationPolicy;
+  if (!guestUserRoleId) {
+    return {
+      status: 'UNKNOWN',
+      detail: 'Guest user role could not be evaluated: guestUserRoleId was not reported.',
+      evidence: {},
+    };
+  }
+  if (guestUserRoleId === RESTRICTED_GUEST_USER_ROLE_TEMPLATE_ID) {
+    return {
+      status: 'PASS',
+      detail: 'Guest users are assigned the most-restricted built-in guest role.',
+      evidence: { guestUserRoleId },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: 'Guest users are not assigned the most-restricted built-in guest role; they may have broader directory visibility than intended.',
+    evidence: { guestUserRoleId, expectedRestrictedRoleId: RESTRICTED_GUEST_USER_ROLE_TEMPLATE_ID },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// guest-invites-restricted-to-admins
+// ---------------------------------------------------------------------------
+
+export function evaluateGuestInvitesRestrictedToAdmins(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.authorizationPolicy) {
+    return missingSignalOutcome(signals, 'authorizationPolicy', 'Guest invites restricted to admins');
+  }
+  const { allowInvitesFrom } = signals.authorizationPolicy;
+
+  if (allowInvitesFrom === 'none' || allowInvitesFrom === 'adminsAndGuestInviters') {
+    return {
+      status: 'PASS',
+      detail: `Guest invitations are restricted (allowInvitesFrom = "${allowInvitesFrom}").`,
+      evidence: { allowInvitesFrom },
+    };
+  }
+  if (allowInvitesFrom === 'adminsGuestInvitersAndAllMembers') {
+    return {
+      status: 'PARTIAL',
+      detail: 'Guest invitations are allowed from all members, not just admins/designated inviters.',
+      evidence: { allowInvitesFrom },
+    };
+  }
+  if (allowInvitesFrom === 'everyone') {
+    return {
+      status: 'FAIL',
+      detail: 'Guest invitations are allowed from everyone, including guests themselves.',
+      evidence: { allowInvitesFrom },
+    };
+  }
+  return {
+    status: 'UNKNOWN',
+    detail: `Guest invite restriction could not be evaluated: unrecognized allowInvitesFrom value "${String(allowInvitesFrom)}".`,
+    evidence: { allowInvitesFrom },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// password-never-expires-policy
+// ---------------------------------------------------------------------------
+
+/** Sentinel Graph uses for "password never expires" on `passwordValidityPeriodInDays`. */
+const PASSWORD_NEVER_EXPIRES_SENTINEL = 2147483647;
+
+export function evaluatePasswordNeverExpiresPolicy(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.domains) {
+    return missingSignalOutcome(signals, 'domains', 'Password never-expires policy');
+  }
+  const verifiedDomains = signals.domains.filter((d) => d.isVerified);
+  if (verifiedDomains.length === 0) {
+    return {
+      status: 'UNKNOWN',
+      detail: 'Password expiration policy could not be evaluated: no verified domains were reported.',
+      evidence: {},
+    };
+  }
+
+  const expiringDomains = verifiedDomains.filter((d) => {
+    const days = d.passwordValidityPeriodInDays;
+    return days !== null && days !== undefined && days < PASSWORD_NEVER_EXPIRES_SENTINEL;
+  });
+
+  if (expiringDomains.length === 0) {
+    return {
+      status: 'PASS',
+      detail: `All ${verifiedDomains.length} verified domain(s) are configured with a never-expiring password policy.`,
+      evidence: { verifiedDomainCount: verifiedDomains.length },
+    };
+  }
+
+  return {
+    status: 'FAIL',
+    detail: `${expiringDomains.length} of ${verifiedDomains.length} verified domain(s) enforce finite password expiration, contrary to NIST 800-63B / OMB M-22-09 guidance.`,
+    evidence: {
+      expiringDomains: expiringDomains.map((d) => ({ id: d.id, passwordValidityPeriodInDays: d.passwordValidityPeriodInDays })),
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// app-registration-credential-hygiene
+// ---------------------------------------------------------------------------
+
+const SECRET_MAX_LIFETIME_DAYS = 180;
+const CERT_MAX_LIFETIME_DAYS = 365;
+
+function credentialLifetimeDays(startDateTime?: string | null, endDateTime?: string | null): number | undefined {
+  if (!startDateTime || !endDateTime) return undefined;
+  return daysBetween(startDateTime, endDateTime);
+}
+
+export function evaluateAppRegistrationCredentialHygiene(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.applications) {
+    return missingSignalOutcome(signals, 'applications', 'App registration credential hygiene');
+  }
+  const apps = signals.applications;
+
+  const appsWithLongLivedSecrets: Array<{ id: string; displayName: string; keyId: string; lifetimeDays: number }> = [];
+  const appsWithLongLivedCerts: Array<{ id: string; displayName: string; keyId: string; lifetimeDays: number }> = [];
+  const appsWithAnySecret = new Set<string>();
+
+  for (const app of apps) {
+    for (const cred of app.passwordCredentials) {
+      appsWithAnySecret.add(app.id);
+      const lifetime = credentialLifetimeDays(cred.startDateTime, cred.endDateTime);
+      if (lifetime !== undefined && lifetime > SECRET_MAX_LIFETIME_DAYS) {
+        appsWithLongLivedSecrets.push({ id: app.id, displayName: app.displayName, keyId: cred.keyId, lifetimeDays: lifetime });
+      }
+    }
+    for (const cred of app.keyCredentials) {
+      const lifetime = credentialLifetimeDays(cred.startDateTime, cred.endDateTime);
+      if (lifetime !== undefined && lifetime > CERT_MAX_LIFETIME_DAYS) {
+        appsWithLongLivedCerts.push({ id: app.id, displayName: app.displayName, keyId: cred.keyId, lifetimeDays: lifetime });
+      }
+    }
+  }
+
+  if (appsWithLongLivedSecrets.length > 0 || appsWithLongLivedCerts.length > 0) {
+    return {
+      status: 'FAIL',
+      detail:
+        `${appsWithLongLivedSecrets.length} app registration credential(s) exceed the ${SECRET_MAX_LIFETIME_DAYS}-day client-secret lifetime bound, and ` +
+        `${appsWithLongLivedCerts.length} exceed the ${CERT_MAX_LIFETIME_DAYS}-day certificate lifetime bound.`,
+      evidence: { appsWithLongLivedSecrets, appsWithLongLivedCerts },
+    };
+  }
+
+  if (appsWithAnySecret.size > 0) {
+    return {
+      status: 'PARTIAL',
+      detail: `${appsWithAnySecret.size} app registration(s) use client secrets (rather than certificates only), though all are within the ${SECRET_MAX_LIFETIME_DAYS}-day lifetime bound. Prefer certificate credentials where feasible.`,
+      evidence: { appCountWithSecrets: appsWithAnySecret.size },
+    };
+  }
+
+  return {
+    status: 'PASS',
+    detail: 'No app registrations use client secrets, and all credential lifetimes are within bounds.',
+    evidence: { appCount: apps.length },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// privileged-service-principal-no-owners / privileged-service-principal-no-client-secrets
+// ---------------------------------------------------------------------------
+
+export function evaluatePrivilegedServicePrincipalNoOwners(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.privilegedServicePrincipals) {
+    return missingSignalOutcome(signals, 'privilegedServicePrincipals', 'Privileged service principal no owners');
+  }
+  const sps = signals.privilegedServicePrincipals;
+  if (sps.length === 0) {
+    return {
+      status: 'PASS',
+      detail: 'No service principals hold a permanent privileged directory role.',
+      evidence: { privilegedServicePrincipalCount: 0 },
+    };
+  }
+  const withOwners = sps.filter((sp) => sp.ownerIds.length > 0);
+  if (withOwners.length === 0) {
+    return {
+      status: 'PASS',
+      detail: `All ${sps.length} privileged service principal(s) have zero owners.`,
+      evidence: { privilegedServicePrincipalCount: sps.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `${withOwners.length} of ${sps.length} privileged service principal(s) have at least one owner, who could rotate credentials and inherit the privileged role.`,
+    evidence: {
+      servicePrincipalsWithOwners: withOwners.map((sp) => ({ id: sp.id, displayName: sp.displayName, ownerCount: sp.ownerIds.length })),
+    },
+  };
+}
+
+export function evaluatePrivilegedServicePrincipalNoClientSecrets(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.privilegedServicePrincipals) {
+    return missingSignalOutcome(signals, 'privilegedServicePrincipals', 'Privileged service principal no client secrets');
+  }
+  const sps = signals.privilegedServicePrincipals;
+  if (sps.length === 0) {
+    return {
+      status: 'PASS',
+      detail: 'No service principals hold a permanent privileged directory role.',
+      evidence: { privilegedServicePrincipalCount: 0 },
+    };
+  }
+  const withSecrets = sps.filter((sp) => sp.passwordCredentials.length > 0);
+  if (withSecrets.length === 0) {
+    return {
+      status: 'PASS',
+      detail: `None of the ${sps.length} privileged service principal(s) use client secrets.`,
+      evidence: { privilegedServicePrincipalCount: sps.length },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `${withSecrets.length} of ${sps.length} privileged service principal(s) authenticate via client secret rather than certificate/managed identity.`,
+    evidence: {
+      servicePrincipalsWithSecrets: withSecrets.map((sp) => ({ id: sp.id, displayName: sp.displayName, secretCount: sp.passwordCredentials.length })),
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// non-privileged-users-mfa-registered
+// ---------------------------------------------------------------------------
+
+// Thresholds are a judgment call (no single authoritative source mandates a specific percentage),
+// chosen consistently with this file's other threshold-based evaluator
+// (see SECURE_SCORE_PASS_THRESHOLD / SECURE_SCORE_PARTIAL_THRESHOLD above): PASS requires near-total
+// coverage since MFA registration gates future enforcement; PARTIAL allows meaningful but incomplete
+// rollout; anything further behind is a FAIL warranting active remediation.
+const NON_PRIVILEGED_MFA_PASS_THRESHOLD = 0.95;
+const NON_PRIVILEGED_MFA_PARTIAL_THRESHOLD = 0.8;
+
+export function evaluateNonPrivilegedUsersMfaRegistered(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.userRegistrationDetails) {
+    return missingSignalOutcome(signals, 'userRegistrationDetails', 'Non-privileged users MFA registered');
+  }
+  const nonPrivileged = signals.userRegistrationDetails.filter((u) => !u.isAdmin);
+  if (nonPrivileged.length === 0) {
+    return {
+      status: 'UNKNOWN',
+      detail: 'Non-privileged user MFA registration could not be evaluated: no non-admin users were reported in registration details.',
+      evidence: {},
+    };
+  }
+  const registeredCount = nonPrivileged.filter((u) => u.isMfaRegistered).length;
+  const ratio = registeredCount / nonPrivileged.length;
+
+  if (ratio >= NON_PRIVILEGED_MFA_PASS_THRESHOLD) {
+    return {
+      status: 'PASS',
+      detail: `${(ratio * 100).toFixed(1)}% (${registeredCount}/${nonPrivileged.length}) of non-privileged users have an MFA method registered.`,
+      evidence: { registeredCount, totalCount: nonPrivileged.length, ratio },
+    };
+  }
+  if (ratio >= NON_PRIVILEGED_MFA_PARTIAL_THRESHOLD) {
+    return {
+      status: 'PARTIAL',
+      detail: `${(ratio * 100).toFixed(1)}% (${registeredCount}/${nonPrivileged.length}) of non-privileged users have an MFA method registered, below the ${NON_PRIVILEGED_MFA_PASS_THRESHOLD * 100}% target.`,
+      evidence: { registeredCount, totalCount: nonPrivileged.length, ratio },
+    };
+  }
+  return {
+    status: 'FAIL',
+    detail: `Only ${(ratio * 100).toFixed(1)}% (${registeredCount}/${nonPrivileged.length}) of non-privileged users have an MFA method registered, below the ${NON_PRIVILEGED_MFA_PARTIAL_THRESHOLD * 100}% floor.`,
+    evidence: { registeredCount, totalCount: nonPrivileged.length, ratio },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// admin-consent-workflow-required
+// ---------------------------------------------------------------------------
+
+export function evaluateAdminConsentWorkflowRequired(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.adminConsentRequestPolicy) {
+    return missingSignalOutcome(signals, 'adminConsentRequestPolicy', 'Admin consent workflow required');
+  }
+  const { isEnabled: policyEnabled, notifyReviewers } = signals.adminConsentRequestPolicy;
+
+  if (!policyEnabled) {
+    return {
+      status: 'FAIL',
+      detail: 'The admin consent request workflow is not enabled; users blocked from self-consenting have no path to request access review.',
+      evidence: { isEnabled: policyEnabled, notifyReviewers },
+    };
+  }
+  if (notifyReviewers) {
+    return {
+      status: 'PASS',
+      detail: 'The admin consent request workflow is enabled and reviewers are notified of pending requests.',
+      evidence: { isEnabled: policyEnabled, notifyReviewers },
+    };
+  }
+  return {
+    status: 'PARTIAL',
+    detail: 'The admin consent request workflow is enabled, but reviewers are not notified of pending requests, risking requests going unreviewed.',
+    evidence: { isEnabled: policyEnabled, notifyReviewers },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// security-defaults-or-ca-baseline-enabled
+// ---------------------------------------------------------------------------
+
+export function evaluateSecurityDefaultsOrCaBaseline(signals: TenantCollectionResult): EvaluationOutcome {
+  if (!signals.securityDefaultsPolicy && !signals.conditionalAccessPolicies) {
+    return missingSignalOutcome(signals, 'securityDefaultsPolicy', 'Security defaults or CA baseline enabled');
+  }
+
+  if (signals.securityDefaultsPolicy?.isEnabled === true) {
+    return {
+      status: 'PASS',
+      detail: 'Entra ID Security Defaults are enabled, providing a tenant-wide identity security baseline.',
+      evidence: { securityDefaultsEnabled: true },
+    };
+  }
+
+  // Reuse the same "broad enabled CA policy requires MFA for all users" logic that
+  // evaluateMfaForAllUsers uses, as a proxy for "equivalent CA baseline in place", rather than
+  // duplicating the underlying policy-matching logic here.
+  if (signals.conditionalAccessPolicies) {
+    const mfaBaseline = evaluateMfaForAllUsers(signals);
+    if (mfaBaseline.status === 'PASS') {
+      return {
+        status: 'PASS',
+        detail: 'Security Defaults are disabled, but an enabled Conditional Access policy provides equivalent broad MFA coverage for all users.',
+        evidence: { securityDefaultsEnabled: signals.securityDefaultsPolicy?.isEnabled ?? null, caBaselineProxy: mfaBaseline.evidence },
+      };
+    }
+  }
+
+  if (!signals.securityDefaultsPolicy) {
+    return missingSignalOutcome(signals, 'securityDefaultsPolicy', 'Security defaults or CA baseline enabled');
+  }
+
+  return {
+    status: 'FAIL',
+    detail: 'Security Defaults are disabled and no enabled Conditional Access policy provides an equivalent broad MFA baseline.',
+    evidence: { securityDefaultsEnabled: signals.securityDefaultsPolicy.isEnabled },
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Registry
 // ---------------------------------------------------------------------------
 
@@ -409,4 +1142,24 @@ export const EVALUATOR_REGISTRY: Record<string, Evaluator> = {
   'high-risk-users-remediated': evaluateRiskyUsersAddressed,
   'secure-score-above-threshold': evaluateSecureScoreAboveThreshold,
   'guest-access-review-configured': evaluateGuestAccessReviewed,
+  'admin-consent-workflow-required': evaluateAdminConsentWorkflowRequired,
+  'security-defaults-or-ca-baseline-enabled': evaluateSecurityDefaultsOrCaBaseline,
+  'weak-authentication-methods-disabled': evaluateWeakAuthMethodsDisabled,
+  'authenticator-number-matching-required': evaluateAuthenticatorNumberMatching,
+  'fido2-attestation-enforced': evaluateFido2AttestationEnforced,
+  'phishing-resistant-mfa-required': evaluatePhishingResistantMfaRequired,
+  'device-code-flow-blocked': evaluateDeviceCodeFlowBlocked,
+  'managed-device-required-for-mfa-registration': evaluateManagedDeviceRequiredForMfaRegistration,
+  'high-risk-users-blocked-by-ca': evaluateHighRiskUsersBlockedByCa,
+  'high-risk-signins-blocked-by-ca': evaluateHighRiskSignInsBlockedByCa,
+  'global-admin-count-in-range': evaluateGlobalAdminCountInRange,
+  'user-app-registration-restricted': evaluateUserAppRegistrationRestricted,
+  'user-consent-to-apps-restricted': evaluateUserConsentToAppsRestricted,
+  'guest-user-restricted-role': evaluateGuestUserRestrictedRole,
+  'guest-invites-restricted-to-admins': evaluateGuestInvitesRestrictedToAdmins,
+  'password-never-expires-policy': evaluatePasswordNeverExpiresPolicy,
+  'app-registration-credential-hygiene': evaluateAppRegistrationCredentialHygiene,
+  'privileged-service-principal-no-owners': evaluatePrivilegedServicePrincipalNoOwners,
+  'privileged-service-principal-no-client-secrets': evaluatePrivilegedServicePrincipalNoClientSecrets,
+  'non-privileged-users-mfa-registered': evaluateNonPrivilegedUsersMfaRegistered,
 };
