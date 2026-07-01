@@ -16,12 +16,20 @@ import type { Client } from '@microsoft/microsoft-graph-client';
 import type { TenantCollectionResult } from '@/types/graph';
 import { createGraphClient, type GraphAuthConfig, type GraphClientOptions } from './authClient';
 import {
+  collectAdminConsentRequestPolicy,
+  collectApplications,
+  collectAuthenticationMethodsPolicy,
+  collectAuthorizationPolicy,
   collectConditionalAccessPolicies,
+  collectDomains,
   collectPrivilegedRoleAssignments,
+  collectPrivilegedServicePrincipals,
   collectRecentSignIns,
   collectRiskDetections,
   collectRiskyUsers,
   collectSecureScore,
+  collectSecurityDefaultsPolicy,
+  collectUserRegistrationDetails,
 } from './collectors';
 
 export * from './authClient';
@@ -77,15 +85,49 @@ export async function collectTenantSignals(
   const client = options.client ?? createGraphClient(authConfig, options);
   const errors: CollectionErrors = [];
 
-  const [secureScore, riskyUsers, riskDetections, conditionalAccessPolicies, privilegedRoleAssignments, recentSignIns] =
-    await Promise.all([
-      runCollector('secureScore', errors, () => collectSecureScore(client)),
-      runCollector('riskyUsers', errors, () => collectRiskyUsers(client)),
-      runCollector('riskDetections', errors, () => collectRiskDetections(client)),
-      runCollector('conditionalAccessPolicies', errors, () => collectConditionalAccessPolicies(client)),
-      runCollector('privilegedRoleAssignments', errors, () => collectPrivilegedRoleAssignments(client)),
-      runCollector('recentSignIns', errors, () => collectRecentSignIns(client)),
-    ]);
+  // `privilegedRoleAssignments` is awaited on its own (rather than inside the flat Promise.all
+  // below) because `collectPrivilegedServicePrincipals` depends on its output and must reuse it
+  // instead of re-calling the expensive /roleManagement/directory/roleAssignments endpoint. This
+  // does not block unrelated collectors: everything else still runs concurrently in the second
+  // Promise.all, and a failure here only prevents the two role-dependent signals (captured into
+  // `errors` exactly like any other collector failure) — all other signals are unaffected.
+  const privilegedRoleAssignments = await runCollector('privilegedRoleAssignments', errors, () =>
+    collectPrivilegedRoleAssignments(client),
+  );
+
+  const [
+    secureScore,
+    riskyUsers,
+    riskDetections,
+    conditionalAccessPolicies,
+    recentSignIns,
+    authorizationPolicy,
+    authenticationMethodsPolicy,
+    securityDefaultsPolicy,
+    adminConsentRequestPolicy,
+    domains,
+    applications,
+    privilegedServicePrincipals,
+    userRegistrationDetails,
+  ] = await Promise.all([
+    runCollector('secureScore', errors, () => collectSecureScore(client)),
+    runCollector('riskyUsers', errors, () => collectRiskyUsers(client)),
+    runCollector('riskDetections', errors, () => collectRiskDetections(client)),
+    runCollector('conditionalAccessPolicies', errors, () => collectConditionalAccessPolicies(client)),
+    runCollector('recentSignIns', errors, () => collectRecentSignIns(client)),
+    runCollector('authorizationPolicy', errors, () => collectAuthorizationPolicy(client)),
+    runCollector('authenticationMethodsPolicy', errors, () => collectAuthenticationMethodsPolicy(client)),
+    runCollector('securityDefaultsPolicy', errors, () => collectSecurityDefaultsPolicy(client)),
+    runCollector('adminConsentRequestPolicy', errors, () => collectAdminConsentRequestPolicy(client)),
+    runCollector('domains', errors, () => collectDomains(client)),
+    runCollector('applications', errors, () => collectApplications(client)),
+    privilegedRoleAssignments === undefined
+      ? Promise.resolve(undefined)
+      : runCollector('privilegedServicePrincipals', errors, () =>
+          collectPrivilegedServicePrincipals(client, privilegedRoleAssignments),
+        ),
+    runCollector('userRegistrationDetails', errors, () => collectUserRegistrationDetails(client)),
+  ]);
 
   const result: TenantCollectionResult = {
     tenantId: entraTenantId,
@@ -98,6 +140,14 @@ export async function collectTenantSignals(
   if (conditionalAccessPolicies !== undefined) result.conditionalAccessPolicies = conditionalAccessPolicies;
   if (privilegedRoleAssignments !== undefined) result.privilegedRoleAssignments = privilegedRoleAssignments;
   if (recentSignIns !== undefined) result.recentSignIns = recentSignIns;
+  if (authorizationPolicy !== undefined) result.authorizationPolicy = authorizationPolicy;
+  if (authenticationMethodsPolicy !== undefined) result.authenticationMethodsPolicy = authenticationMethodsPolicy;
+  if (securityDefaultsPolicy !== undefined) result.securityDefaultsPolicy = securityDefaultsPolicy;
+  if (adminConsentRequestPolicy !== undefined) result.adminConsentRequestPolicy = adminConsentRequestPolicy;
+  if (domains !== undefined) result.domains = domains;
+  if (applications !== undefined) result.applications = applications;
+  if (privilegedServicePrincipals !== undefined) result.privilegedServicePrincipals = privilegedServicePrincipals;
+  if (userRegistrationDetails !== undefined) result.userRegistrationDetails = userRegistrationDetails;
   if (errors.length > 0) result.errors = errors;
 
   return result;

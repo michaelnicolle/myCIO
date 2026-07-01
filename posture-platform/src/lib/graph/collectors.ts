@@ -447,3 +447,168 @@ export async function collectRecentSignIns(client: Client): Promise<GraphSignInE
   const rawItems = await fetchAllPages(client, initialRequest, { maxPages: SIGN_IN_MAX_PAGES });
   return rawItems.map((item) => signInSchema.parse(item));
 }
+
+/**
+ * Authorization policy (tenant-wide default user privileges, guest invite policy): singleton
+ * GET /policies/authorizationPolicy.
+ * Requires: Policy.Read.All
+ */
+export async function collectAuthorizationPolicy(client: Client): Promise<GraphAuthorizationPolicy> {
+  const raw = await client.api(AUTHORIZATION_POLICY_PATH).get();
+  const parsed = authorizationPolicySchema.parse(raw);
+  return {
+    id: parsed.id,
+    guestUserRoleId: parsed.guestUserRoleId,
+    allowInvitesFrom: parsed.allowInvitesFrom,
+    defaultUserRolePermissions: parsed.defaultUserRolePermissions ?? null,
+  };
+}
+
+/**
+ * Authentication methods policy (per-method state, e.g. SMS/Voice/Email/Authenticator/Fido2):
+ * singleton GET /policies/authenticationMethodsPolicy.
+ * Requires: Policy.Read.All
+ *
+ * The Microsoft Authenticator `featureSettings` (number matching / display app info) and the
+ * Fido2 `isAttestationEnforced` flag are both present on the standard v1.0
+ * authenticationMethodsPolicy response (no beta endpoint needed) but are only populated on the
+ * configuration objects they apply to — the schema above and the mapping below treat both as
+ * optional and simply omit them when absent rather than failing the collector.
+ */
+export async function collectAuthenticationMethodsPolicy(client: Client): Promise<GraphAuthenticationMethodsPolicy> {
+  const raw = await client.api(AUTHENTICATION_METHODS_POLICY_PATH).get();
+  const parsed = authenticationMethodsPolicySchema.parse(raw);
+  return {
+    id: parsed.id,
+    authenticationMethodConfigurations: parsed.authenticationMethodConfigurations.map((config) => ({
+      id: config.id,
+      state: config.state,
+      ...(config.featureSettings ? { featureSettings: config.featureSettings } : {}),
+      ...(config.isAttestationEnforced !== undefined ? { isAttestationEnforced: config.isAttestationEnforced } : {}),
+    })),
+  };
+}
+
+/**
+ * Security defaults: singleton GET /policies/identitySecurityDefaultsEnforcementPolicy.
+ * Requires: Policy.Read.All
+ */
+export async function collectSecurityDefaultsPolicy(client: Client): Promise<GraphSecurityDefaultsPolicy> {
+  const raw = await client.api(SECURITY_DEFAULTS_POLICY_PATH).get();
+  return securityDefaultsPolicySchema.parse(raw);
+}
+
+/**
+ * Admin consent request policy: singleton GET /policies/adminConsentRequestPolicy.
+ * Requires: Policy.Read.All
+ */
+export async function collectAdminConsentRequestPolicy(client: Client): Promise<GraphAdminConsentRequestPolicy> {
+  const raw = await client.api(ADMIN_CONSENT_REQUEST_POLICY_PATH).get();
+  const parsed = adminConsentRequestPolicySchema.parse(raw);
+  return {
+    id: parsed.id,
+    isEnabled: parsed.isEnabled,
+    notifyReviewers: parsed.notifyReviewers,
+    requestDurationInDays: parsed.requestDurationInDays,
+    ...(parsed.reviewers ? { reviewers: parsed.reviewers } : {}),
+  };
+}
+
+/**
+ * Verified/registered domains: GET /domains.
+ * Requires: Directory.Read.All (this endpoint does not require the separate Domain.Read.All
+ * scope for application permissions — see README.md for the note on why Domain.Read.All was
+ * determined to be unnecessary here).
+ */
+export async function collectDomains(client: Client): Promise<GraphDomain[]> {
+  const initialRequest = client.api(DOMAINS_PATH).top(DOMAINS_PAGE_SIZE);
+  const rawItems = await fetchAllPages(client, initialRequest, {});
+  return rawItems.map((item) => {
+    const parsed = domainSchema.parse(item);
+    return {
+      id: parsed.id,
+      isVerified: parsed.isVerified,
+      isDefault: parsed.isDefault,
+      passwordValidityPeriodInDays: parsed.passwordValidityPeriodInDays ?? null,
+    };
+  });
+}
+
+/**
+ * App registrations (credential hygiene): GET /applications, paged with a sane cap since large
+ * tenants can have thousands of app registrations.
+ * Requires: Application.Read.All
+ */
+export async function collectApplications(client: Client): Promise<GraphApplication[]> {
+  const initialRequest = client
+    .api(APPLICATIONS_PATH)
+    .select('id,appId,displayName,passwordCredentials,keyCredentials')
+    .top(APPLICATIONS_PAGE_SIZE);
+  const rawItems = await fetchAllPages(client, initialRequest, { maxPages: APPLICATIONS_MAX_PAGES });
+  return rawItems.map((item) => applicationSchema.parse(item));
+}
+
+/**
+ * Service principals holding a privileged directory role, with their credentials and owners.
+ * Requires: Application.Read.All (servicePrincipal read + owners), RoleManagement.Read.Directory
+ * and Directory.Read.All (via `privilegedRoleAssignments`, reused rather than re-fetched).
+ *
+ * Deliberately NOT `GET /servicePrincipals` over the whole tenant (which could be enormous).
+ * Instead this is scoped down to only the service principals already identified as privileged
+ * role holders by `collectPrivilegedRoleAssignments`, reusing that collector's output so this
+ * module never calls the expensive `/roleManagement/directory/roleAssignments` endpoint twice.
+ *
+ * This does mean an N+1 fan-out: one `GET /servicePrincipals/{id}` + one
+ * `GET /servicePrincipals/{id}/owners` per distinct privileged service principal. That fan-out is
+ * capped at `PRIVILEGED_SERVICE_PRINCIPALS_MAX_LOOKUPS` (200) distinct principals per collection
+ * cycle — comfortably above what any real tenant's privileged-role-holding service principal count
+ * should be, while still bounding worst-case request volume if role assignment data is unexpectedly
+ * large. If the cap is hit, the excess principals are silently skipped (not retried, not erroring
+ * the whole collector) since this is a best-effort enrichment signal.
+ */
+export async function collectPrivilegedServicePrincipals(
+  client: Client,
+  privilegedRoleAssignments: GraphDirectoryRoleAssignment[],
+): Promise<GraphServicePrincipal[]> {
+  const principalIds = Array.from(
+    new Set(
+      privilegedRoleAssignments
+        .filter((assignment) => assignment.isPrivileged && assignment.principalType === 'servicePrincipal')
+        .map((assignment) => assignment.principalId),
+    ),
+  ).slice(0, PRIVILEGED_SERVICE_PRINCIPALS_MAX_LOOKUPS);
+
+  const servicePrincipals = await Promise.all(
+    principalIds.map(async (id) => {
+      const [rawSp, rawOwners] = await Promise.all([
+        client.api(`${SERVICE_PRINCIPALS_PATH}/${id}`).select('id,appId,displayName,servicePrincipalType,passwordCredentials').get(),
+        client.api(`${SERVICE_PRINCIPALS_PATH}/${id}/owners`).select('id').get(),
+      ]);
+      const parsedSp = servicePrincipalSchema.parse(rawSp);
+      const ownerItems = Array.isArray((rawOwners as { value?: unknown[] })?.value) ? (rawOwners as { value: unknown[] }).value : [];
+      const ownerIds = ownerItems.map((owner) => servicePrincipalOwnerSchema.parse(owner).id);
+      return {
+        id: parsedSp.id,
+        appId: parsedSp.appId,
+        displayName: parsedSp.displayName,
+        servicePrincipalType: parsedSp.servicePrincipalType,
+        passwordCredentials: parsedSp.passwordCredentials,
+        ownerIds,
+      };
+    }),
+  );
+
+  return servicePrincipals;
+}
+
+/**
+ * Per-user authentication method registration state (MFA/SSPR registration, methods registered):
+ * GET /reports/authenticationMethods/userRegistrationDetails.
+ * Requires: Reports.Read.All, AuditLog.Read.All (Microsoft documents this report as also
+ * requiring AuditLog.Read.All in addition to Reports.Read.All for application permissions).
+ */
+export async function collectUserRegistrationDetails(client: Client): Promise<GraphUserRegistrationDetail[]> {
+  const initialRequest = client.api(USER_REGISTRATION_DETAILS_PATH).top(USER_REGISTRATION_DETAILS_PAGE_SIZE);
+  const rawItems = await fetchAllPages(client, initialRequest, {});
+  return rawItems.map((item) => userRegistrationDetailSchema.parse(item));
+}

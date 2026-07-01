@@ -29,9 +29,12 @@ is read-only (`GET` only).
 | `AuditLog.Read.All` | Read sign-in logs to observe recent authentication activity and conditional access outcomes. | `collectRecentSignIns` (`GET /auditLogs/signIns`) |
 | `Policy.Read.All` | Read Conditional Access policy configuration (state, conditions, grant controls). | `collectConditionalAccessPolicies` (`GET /identity/conditionalAccess/policies`) |
 | `RoleManagement.Read.Directory` | Read directory role assignments (who holds Global Administrator, etc.). | `collectPrivilegedRoleAssignments` (`GET /roleManagement/directory/roleAssignments`) |
-| `Directory.Read.All` | Resolve the `principal` (user/servicePrincipal/group) and `roleDefinition` objects expanded on role assignments. | `collectPrivilegedRoleAssignments` (`$expand=roleDefinition,principal`) |
+| `Directory.Read.All` | Resolve the `principal` (user/servicePrincipal/group) and `roleDefinition` objects expanded on role assignments; also sufficient on its own for reading `/domains` (see note below — `Domain.Read.All` is requested too but is not strictly required). | `collectPrivilegedRoleAssignments` (`$expand=roleDefinition,principal`), `collectDomains` (`GET /domains`) |
 | `User.Read.All` | Resolve user identity details (UPN, display name) referenced by risky users, risk detections, and sign-in events. | `collectRiskyUsers`, `collectRiskDetections`, `collectRecentSignIns` (indirectly, via user references in those payloads) |
-| `Reports.Read.All` | Reserved for tenant usage/activity reports planned as future signals; not yet called by any collector in this module, but included in the app registration's consent so a future report-based collector doesn't require a second admin-consent round trip. |
+| `Reports.Read.All` | Read per-user authentication method registration state (MFA/SSPR registration, methods registered). | `collectUserRegistrationDetails` (`GET /reports/authenticationMethods/userRegistrationDetails`) |
+| `Application.Read.All` | Read app registration credential metadata (password/key credentials, for expiry and secret-sprawl hygiene checks) and service principal details/owners for privileged-role-holding service principals. | `collectApplications` (`GET /applications`), `collectPrivilegedServicePrincipals` (`GET /servicePrincipals/{id}`, `GET /servicePrincipals/{id}/owners`) |
+| `Domain.Read.All` | Requested for domain password-policy reads, but **not actually required**: `GET /domains` with application permissions is satisfied by `Directory.Read.All` alone, which this platform already requests. `Domain.Read.All` is harmless (read-only, no broader access than `Directory.Read.All` already grants for this endpoint) but is not consumed as a hard dependency by any collector — kept in `REQUIRED_GRAPH_APPLICATION_SCOPES` for explicitness/documentation, not because `collectDomains` would fail without it. |
+| `Policy.Read.All` (additional consumers) | Also backs the new tenant-wide policy singletons below, beyond Conditional Access. | `collectAuthorizationPolicy` (`GET /policies/authorizationPolicy`), `collectAuthenticationMethodsPolicy` (`GET /policies/authenticationMethodsPolicy`), `collectSecurityDefaultsPolicy` (`GET /policies/identitySecurityDefaultsEnforcementPolicy`), `collectAdminConsentRequestPolicy` (`GET /policies/adminConsentRequestPolicy`) |
 
 All of the above are **application** (app-only) permissions, not delegated — they must be granted
 via **admin consent** in the customer's tenant, since there is no signed-in user to prompt.
@@ -92,15 +95,36 @@ Every request made through a client returned by `createGraphClient` passes throu
 ## Pagination
 
 Endpoints that can return multiple pages (`riskyUsers`, `riskDetections`, CA policies, role
-assignments, sign-ins) are followed via `@odata.nextLink` by `fetchAllPages` (`pagination.ts`), up
-to a hard cap of pages (`ABSOLUTE_MAX_PAGES = 50`, with `collectRecentSignIns` further constrained
-to 20 pages of 500 to bound worst-case volume on very active tenants).
+assignments, sign-ins, domains, applications, user registration details) are followed via
+`@odata.nextLink` by `fetchAllPages` (`pagination.ts`), up to a hard cap of pages
+(`ABSOLUTE_MAX_PAGES = 50`, with `collectRecentSignIns` further constrained to 20 pages of 500,
+and `collectApplications` to 20 pages of 500, to bound worst-case volume on very active/large
+tenants).
+
+`collectPrivilegedServicePrincipals` is the one exception to "paginate the collection endpoint":
+it deliberately never calls `GET /servicePrincipals` over the whole tenant (which could return
+tens of thousands of objects for a large customer). Instead it reuses the already-collected
+`privilegedRoleAssignments` output (avoiding a second, expensive call to
+`/roleManagement/directory/roleAssignments`), takes the distinct set of `servicePrincipal`
+principal ids that hold a privileged role, and fans out one `GET /servicePrincipals/{id}` + one
+`GET /servicePrincipals/{id}/owners` call per principal. That fan-out is capped at
+`PRIVILEGED_SERVICE_PRINCIPALS_MAX_LOOKUPS = 200` distinct service principals per collection cycle
+— comfortably above any realistic count of privileged-role-holding service principals, while still
+bounding worst-case request volume; if the cap is hit, the excess principals are silently skipped
+rather than failing the whole collector.
 
 ## Failure isolation
 
-`collectTenantSignals` runs all six collectors concurrently via `Promise.all` (each wrapped so a
+`collectTenantSignals` runs all collectors concurrently via `Promise.all` (each wrapped so a
 rejection is caught individually) and never lets one collector's failure prevent the others from
 completing. Missing permissions, a tenant having no Conditional Access policies configured, a
 transient outage that exhausts retries, or a malformed response that fails zod validation, all
 result in an entry pushed to `TenantCollectionResult.errors` (`{ signal, message }`) rather than
 an exception from `collectTenantSignals` itself.
+
+The one ordering exception: `privilegedRoleAssignments` is awaited before the rest of the
+collectors start, because `collectPrivilegedServicePrincipals` needs its output as an input (see
+"Pagination" above) rather than re-fetching it. If `privilegedRoleAssignments` fails, its error is
+recorded as usual and `privilegedServicePrincipals` is skipped entirely (also recorded, effectively
+a "dependency unavailable" case) — no other, unrelated collector is affected, and all of them still
+run concurrently in the second `Promise.all`.
