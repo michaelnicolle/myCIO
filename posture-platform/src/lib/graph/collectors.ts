@@ -17,12 +17,20 @@ import type { Client } from '@microsoft/microsoft-graph-client';
 import { z } from 'zod';
 
 import type {
+  GraphAdminConsentRequestPolicy,
+  GraphApplication,
+  GraphAuthenticationMethodsPolicy,
+  GraphAuthorizationPolicy,
   GraphConditionalAccessPolicy,
   GraphDirectoryRoleAssignment,
+  GraphDomain,
   GraphRiskDetection,
   GraphRiskyUser,
   GraphSecureScore,
+  GraphSecurityDefaultsPolicy,
+  GraphServicePrincipal,
   GraphSignInEvent,
+  GraphUserRegistrationDetail,
 } from '@/types/graph';
 import { fetchAllPages } from './pagination';
 
@@ -92,6 +100,14 @@ const RISK_DETECTIONS_PATH = '/identityProtection/riskDetections';
 const CONDITIONAL_ACCESS_POLICIES_PATH = '/identity/conditionalAccess/policies';
 const ROLE_ASSIGNMENTS_PATH = '/roleManagement/directory/roleAssignments';
 const SIGN_INS_PATH = '/auditLogs/signIns';
+const AUTHORIZATION_POLICY_PATH = '/policies/authorizationPolicy';
+const AUTHENTICATION_METHODS_POLICY_PATH = '/policies/authenticationMethodsPolicy';
+const SECURITY_DEFAULTS_POLICY_PATH = '/policies/identitySecurityDefaultsEnforcementPolicy';
+const ADMIN_CONSENT_REQUEST_POLICY_PATH = '/policies/adminConsentRequestPolicy';
+const DOMAINS_PATH = '/domains';
+const APPLICATIONS_PATH = '/applications';
+const SERVICE_PRINCIPALS_PATH = '/servicePrincipals';
+const USER_REGISTRATION_DETAILS_PATH = '/reports/authenticationMethods/userRegistrationDetails';
 
 const RISK_DETECTION_WINDOW_DAYS = 30;
 const SIGN_IN_WINDOW_HOURS = 48;
@@ -106,6 +122,15 @@ const CONDITIONAL_ACCESS_POLICIES_PAGE_SIZE = 200;
 const ROLE_ASSIGNMENTS_PAGE_SIZE = 500;
 const SIGN_IN_PAGE_SIZE = 500;
 const SIGN_IN_MAX_PAGES = 20; // 20 * 500 = up to 10,000 sign-ins per collection cycle.
+const DOMAINS_PAGE_SIZE = 100;
+const APPLICATIONS_PAGE_SIZE = 500;
+const APPLICATIONS_MAX_PAGES = 20; // 20 * 500 = up to 10,000 app registrations per collection cycle.
+const USER_REGISTRATION_DETAILS_PAGE_SIZE = 500;
+// Hard cap on individual GET /servicePrincipals/{id} (+ /owners) fan-out calls per collection
+// cycle. Scoped to privileged-role-holding service principals only (never "every SP in the
+// tenant"), but still bounded defensively in case an unusually large number of privileged role
+// assignments resolve to service principal principals.
+const PRIVILEGED_SERVICE_PRINCIPALS_MAX_LOOKUPS = 200;
 
 function isoHoursAgo(hours: number): string {
   return new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
@@ -205,6 +230,120 @@ const signInSchema = z
     clientAppUsed: z.string(),
     conditionalAccessStatus: z.enum(['success', 'failure', 'notApplied', 'unknownFutureValue']),
     riskLevelDuringSignIn: z.string(),
+  })
+  .passthrough();
+
+const authorizationPolicySchema = z
+  .object({
+    id: z.string(),
+    guestUserRoleId: z.string(),
+    allowInvitesFrom: z.enum(['none', 'adminsAndGuestInviters', 'adminsGuestInvitersAndAllMembers', 'everyone']),
+    defaultUserRolePermissions: z
+      .object({
+        allowedToCreateApps: z.boolean().optional(),
+        permissionGrantPoliciesAssigned: z.array(z.string()).optional(),
+      })
+      .nullish(),
+  })
+  .passthrough();
+
+const enabledDisabledStateSchema = z.object({ state: z.enum(['enabled', 'disabled']) });
+
+const authenticationMethodConfigurationSchema = z
+  .object({
+    id: z.string(),
+    state: z.enum(['enabled', 'disabled']),
+    featureSettings: z
+      .object({
+        numberMatchingRequiredState: enabledDisabledStateSchema.optional(),
+        displayAppInformationRequiredState: enabledDisabledStateSchema.optional(),
+      })
+      .passthrough()
+      .optional(),
+    isAttestationEnforced: z.boolean().optional(),
+  })
+  .passthrough();
+
+const authenticationMethodsPolicySchema = z
+  .object({
+    id: z.string(),
+    authenticationMethodConfigurations: z.array(authenticationMethodConfigurationSchema).default([]),
+  })
+  .passthrough();
+
+const securityDefaultsPolicySchema = z
+  .object({
+    id: z.string(),
+    isEnabled: z.boolean(),
+  })
+  .passthrough();
+
+const adminConsentRequestPolicySchema = z
+  .object({
+    id: z.string(),
+    isEnabled: z.boolean(),
+    notifyReviewers: z.boolean(),
+    requestDurationInDays: z.number(),
+    reviewers: z.array(z.record(z.unknown())).optional(),
+  })
+  .passthrough();
+
+const domainSchema = z
+  .object({
+    id: z.string(),
+    isVerified: z.boolean(),
+    isDefault: z.boolean(),
+    passwordValidityPeriodInDays: z.number().nullish(),
+  })
+  .passthrough();
+
+const credentialSchema = z
+  .object({
+    keyId: z.string(),
+    displayName: z.string().nullish(),
+    endDateTime: z.string().nullish(),
+    startDateTime: z.string().nullish(),
+  })
+  .passthrough();
+
+const keyCredentialSchema = z
+  .object({
+    keyId: z.string(),
+    type: z.string().optional(),
+    endDateTime: z.string().nullish(),
+    startDateTime: z.string().nullish(),
+  })
+  .passthrough();
+
+const applicationSchema = z
+  .object({
+    id: z.string(),
+    appId: z.string(),
+    displayName: z.string(),
+    passwordCredentials: z.array(credentialSchema).default([]),
+    keyCredentials: z.array(keyCredentialSchema).default([]),
+  })
+  .passthrough();
+
+const servicePrincipalSchema = z
+  .object({
+    id: z.string(),
+    appId: z.string(),
+    displayName: z.string(),
+    servicePrincipalType: z.string(),
+    passwordCredentials: z.array(z.object({ keyId: z.string(), endDateTime: z.string().nullish() }).passthrough()).default([]),
+  })
+  .passthrough();
+
+const servicePrincipalOwnerSchema = z.object({ id: z.string() }).passthrough();
+
+const userRegistrationDetailSchema = z
+  .object({
+    id: z.string(),
+    userPrincipalName: z.string(),
+    isMfaRegistered: z.boolean(),
+    isAdmin: z.boolean(),
+    methodsRegistered: z.array(z.string()).default([]),
   })
   .passthrough();
 

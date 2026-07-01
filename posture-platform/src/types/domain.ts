@@ -83,6 +83,11 @@ export const REQUIRED_GRAPH_APPLICATION_SCOPES = [
   'Directory.Read.All',
   'User.Read.All',
   'Reports.Read.All',
+  // Added for the Maester/Prowler-informed control batch: app registration/service
+  // principal credential hygiene (Application.Read.All) and domain password-policy
+  // checks (Domain.Read.All). Both read-only, consistent with every other scope here.
+  'Application.Read.All',
+  'Domain.Read.All',
 ] as const;
 
 export type RequiredGraphScope = (typeof REQUIRED_GRAPH_APPLICATION_SCOPES)[number];
