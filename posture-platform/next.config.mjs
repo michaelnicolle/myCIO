@@ -31,6 +31,11 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Standalone output produces a minimal, self-contained server bundle
+  // (node_modules pruned to only what's needed) under .next/standalone —
+  // used by the production Dockerfile so the final image doesn't need the
+  // full node_modules tree or the Next.js CLI. See Dockerfile.
+  output: 'standalone',
   async headers() {
     return [
       {
