@@ -14,18 +14,24 @@
 # `posture-platform` (this Dockerfile lives at the root of that directory) —
 # see DEPLOYMENT.md, this is the single most common misconfiguration.
 #
-# All stages pin the same node:20-alpine base so the Prisma query engine
-# binary generated in the builder stage (musl target) matches the runtime.
+# Base image: node:20-bookworm-slim (Debian, glibc) rather than Alpine. Prisma's
+# own docs recommend a slim Debian base for production — Alpine (musl libc)
+# requires explicit `binaryTargets` overrides in schema.prisma to avoid
+# generating the wrong query-engine binary, and this repo's schema
+# (prisma/schema.prisma) is intentionally left untouched by this deployment
+# change. All stages pin the same base so the Prisma query engine generated in
+# the builder stage matches the runtime exactly.
 
 # ---------------------------------------------------------------------------
 # Stage 1: install dependencies (including devDependencies, needed to build)
 # ---------------------------------------------------------------------------
-FROM node:20-alpine AS deps
+FROM node:20-bookworm-slim AS deps
 WORKDIR /app
 
-# openssl is required by the Prisma engines on Alpine at both generate-time
-# and (in the runner stage) at query-engine-load time.
-RUN apk add --no-cache openssl
+# openssl is required by the Prisma engines at both generate-time and (in the
+# runner stage) at query-engine-load time.
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json ./
 RUN npm ci
@@ -33,10 +39,11 @@ RUN npm ci
 # ---------------------------------------------------------------------------
 # Stage 2: generate the Prisma client + build the Next.js app
 # ---------------------------------------------------------------------------
-FROM node:20-alpine AS builder
+FROM node:20-bookworm-slim AS builder
 WORKDIR /app
 
-RUN apk add --no-cache openssl
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -55,42 +62,46 @@ RUN npm run build
 # ---------------------------------------------------------------------------
 # Stage 3: minimal runtime image
 # ---------------------------------------------------------------------------
-FROM node:20-alpine AS runner
+FROM node:20-bookworm-slim AS runner
 WORKDIR /app
 
-RUN apk add --no-cache openssl
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-# Run as an unprivileged user (Alpine's node image ships a `node` user/group).
+# Run as an unprivileged user (the official node image ships a `node` user/group).
 RUN mkdir -p /app && chown -R node:node /app
 
-# Standalone Next.js output: a self-contained server bundle with only the
-# node_modules it actually needs (see next.config.mjs `output: "standalone"`).
+# The `prisma` CLI (for `prisma migrate deploy` at startup) and `tsx` (to run
+# the worker entrypoint, src/worker/index.ts, directly from TypeScript source
+# in this same image — see DEPLOYMENT.md) are needed in addition to whatever
+# the Next.js server itself uses. Rather than hand-picking each CLI's
+# transitive runtime dependencies one at a time (fragile — e.g. `tsx` needs
+# `esbuild`, `prisma` needs `@prisma/engines`, and such a list silently drifts
+# as versions change), start from the full pre-build node_modules (the `deps`
+# stage, before pruning/tracing), which already has everything both CLIs need.
+COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/prisma ./prisma
+COPY --from=builder --chown=node:node /app/package.json ./package.json
+COPY --from=builder --chown=node:node /app/src ./src
+COPY --from=builder --chown=node:node /app/tsconfig.json ./tsconfig.json
+
+# Layer the standalone Next.js server output (see next.config.mjs
+# `output: "standalone"`) on top, LAST — it must win over the plain `deps`
+# copy above because it contains both server.js/the traced server bundle and
+# the already-`prisma generate`-d @prisma/client (with the platform-matching
+# query engine binary), whereas the `deps` node_modules copied above has only
+# the pre-generate @prisma/client stub. Docker's COPY merges directories
+# rather than replacing them wholesale, so this only overwrites the specific
+# files standalone provides (server bundle + its trimmed node_modules subset)
+# and leaves the CLI tooling copied above untouched.
 COPY --from=builder --chown=node:node /app/.next/standalone ./
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 COPY --from=builder --chown=node:node /app/public ./public
-
-# Prisma CLI + generated client + schema + migrations, needed at container
-# startup to run `prisma migrate deploy` before the server starts. The
-# standalone build's node_modules already contains @prisma/client's generated
-# engine, but not the `prisma` CLI package itself, so it's copied explicitly.
-COPY --from=builder --chown=node:node /app/node_modules/.bin/prisma ./node_modules/.bin/prisma
-COPY --from=builder --chown=node:node /app/node_modules/prisma ./node_modules/prisma
-COPY --from=builder --chown=node:node /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=builder --chown=node:node /app/prisma ./prisma
-COPY --from=builder --chown=node:node /app/package.json ./package.json
-
-# tsx + its runtime deps are needed to run the worker entrypoint
-# (src/worker/index.ts) directly from TypeScript source in this same image —
-# see DEPLOYMENT.md for the worker service's Start Command.
-COPY --from=builder --chown=node:node /app/node_modules/.bin/tsx ./node_modules/.bin/tsx
-COPY --from=builder --chown=node:node /app/node_modules/tsx ./node_modules/tsx
-COPY --from=builder --chown=node:node /app/src ./src
-COPY --from=builder --chown=node:node /app/tsconfig.json ./tsconfig.json
 
 COPY --chown=node:node docker-entrypoint.sh ./docker-entrypoint.sh
 RUN chmod +x ./docker-entrypoint.sh

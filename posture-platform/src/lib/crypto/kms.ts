@@ -99,7 +99,16 @@ export class AzureKeyVaultKmsProvider implements KmsProvider {
   private readonly vaultUrl: string;
   private readonly keyName: string;
   private readonly keyVersion: string | undefined;
+  private readonly credential: DefaultAzureCredential;
   private readonly cryptographyClient: CryptographyClient;
+  /**
+   * Cache of version-pinned CryptographyClients used ONLY for unwrap, keyed by
+   * "{keyName}/{keyVersion}". A single process lives for a long time and may need
+   * to decrypt credentials wrapped under many different historical key versions
+   * (see unwrapKey's docstring) — this avoids re-constructing a client on every
+   * call for the common case of repeatedly decrypting under the same old version.
+   */
+  private readonly versionedClients = new Map<string, CryptographyClient>();
 
   /**
    * @param vaultUrl - Key Vault URL, e.g. `https://<vault-name>.vault.azure.net/`
@@ -126,8 +135,8 @@ export class AzureKeyVaultKmsProvider implements KmsProvider {
       ? `${this.vaultUrl}keys/${this.keyName}/${keyVersion}`
       : `${this.vaultUrl}keys/${this.keyName}`;
 
-    const credential = new DefaultAzureCredential();
-    this.cryptographyClient = new CryptographyClient(keyIdentifier, credential);
+    this.credential = new DefaultAzureCredential();
+    this.cryptographyClient = new CryptographyClient(keyIdentifier, this.credential);
   }
 
   async wrapKey(plaintextDataKey: Buffer): Promise<WrappedKey> {
@@ -143,14 +152,38 @@ export class AzureKeyVaultKmsProvider implements KmsProvider {
     }
   }
 
+  /**
+   * Unwrapping is asymmetric-key-specific: a DEK wrapped under key version A can
+   * only be unwrapped using version A's private key material, never whichever
+   * version is "current" at decrypt time. Rotating the Key Vault key (recommended
+   * practice) advances "current" going forward, but every credential encrypted
+   * before the rotation still has its ORIGINAL version recorded in `wrapped.kmsKeyId`/
+   * `wrapped.kmsKeyVersion` (see envelope.ts's EncryptedBlob) — this method MUST use
+   * that recorded version, not `this.cryptographyClient` (which targets whatever
+   * this provider instance was constructed with), or every credential encrypted
+   * before a rotation would become permanently undecryptable.
+   */
   async unwrapKey(wrapped: WrappedKey): Promise<Buffer> {
     try {
+      const client = this.clientForVersion(wrapped.kmsKeyId, wrapped.kmsKeyVersion);
       const encryptedKey = Buffer.from(wrapped.wrappedKeyB64, 'base64');
-      const result = await this.cryptographyClient.unwrapKey(WRAP_ALGORITHM, encryptedKey);
+      const result = await client.unwrapKey(WRAP_ALGORITHM, encryptedKey);
       return Buffer.from(result.result);
     } catch (err) {
       throw this.sanitizedError('unwrap', err);
     }
+  }
+
+  private clientForVersion(keyName: string, keyVersion: string): CryptographyClient {
+    const cacheKey = `${keyName}/${keyVersion}`;
+    const cached = this.versionedClients.get(cacheKey);
+    if (cached) {
+      return cached;
+    }
+    const keyIdentifier = `${this.vaultUrl}keys/${keyName}/${keyVersion}`;
+    const client = new CryptographyClient(keyIdentifier, this.credential);
+    this.versionedClients.set(cacheKey, client);
+    return client;
   }
 
   /**
