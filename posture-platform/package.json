@@ -17,10 +17,12 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "tsx prisma/seed.ts",
-    "worker": "tsx src/worker/index.ts"
+    "worker": "tsx src/worker/index.ts",
+    "worker:once": "tsx src/worker/index.ts --once"
   },
   "dependencies": {
     "@azure/identity": "^4.4.1",
+    "@azure/keyvault-keys": "^4.10.2",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@prisma/client": "^5.20.0",
     "next": "^14.2.13",

@@ -2,13 +2,22 @@
  * Background collection worker entrypoint (`npm run worker`).
  *
  * Runs independently of the Next.js web process — Graph collection cycles can
- * take longer than a serverless request budget, so this is a long-lived Node
- * process scheduled by cron (COLLECTION_INTERVAL_CRON, default every 6 hours).
+ * take longer than a serverless request budget, so this is normally a
+ * long-lived Node process scheduled by cron (COLLECTION_INTERVAL_CRON,
+ * default every 6 hours).
  *
  * On each tick: load every non-suspended tenant, run a collection-and-scoring
  * cycle per tenant (bounded concurrency so one slow/rate-limited tenant
  * doesn't serialize the rest), and log a summary. One tenant failing never
  * aborts the run for the others — see collectTenant.ts.
+ *
+ * Supports an optional `--once` CLI flag: runs exactly one collection cycle
+ * and exits (0 on success, 1 if the cycle threw unexpectedly), instead of
+ * registering a node-cron schedule and staying resident. This mode exists so
+ * the same entrypoint can be invoked as a one-shot command by an external
+ * scheduler (e.g. Railway's Cron Schedule service setting) instead of running
+ * as an always-on process. The default (no flag) behavior — schedule +
+ * immediate run, process stays alive — is unchanged.
  */
 
 import cron from 'node-cron';
@@ -65,7 +74,29 @@ async function runCycle(): Promise<void> {
   );
 }
 
+/**
+ * Runs a single collection cycle and exits. Used for `--once` mode (see
+ * module doc comment above) — e.g. Railway Cron Schedule invocations.
+ */
+async function runOnceAndExit(): Promise<never> {
+  try {
+    await runCycle();
+    process.exit(0);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('[worker] --once collection cycle threw unexpectedly:', err instanceof Error ? err.message : err);
+    process.exit(1);
+  }
+}
+
 function main(): void {
+  if (process.argv.includes('--once')) {
+    // eslint-disable-next-line no-console
+    console.log('[worker] running a single collection cycle (--once) then exiting');
+    void runOnceAndExit();
+    return;
+  }
+
   const schedule = process.env['COLLECTION_INTERVAL_CRON'] || DEFAULT_CRON;
   if (!cron.validate(schedule)) {
     throw new Error(`Invalid COLLECTION_INTERVAL_CRON expression: "${schedule}"`);

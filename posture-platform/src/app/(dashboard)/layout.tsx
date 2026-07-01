@@ -52,6 +52,14 @@ export default async function DashboardLayout({ children }: { children: ReactNod
           >
             Tenants
           </Link>
+          {session.role === 'SUPER_ADMIN' ? (
+            <Link
+              href="/admin/users"
+              className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            >
+              Admin
+            </Link>
+          ) : null}
         </nav>
         <div className="px-4 py-3 border-t border-gray-200 text-xs text-gray-500">
           <p className="truncate" title={session.email}>

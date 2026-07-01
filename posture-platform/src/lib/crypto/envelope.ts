@@ -7,10 +7,11 @@
  *     encryption key (DEK) using AES-256-GCM (authenticated encryption).
  *   - The DEK itself is never persisted in plaintext. It is "wrapped" (encrypted)
  *     by a KmsProvider:
- *       (a) In production, CREDENTIAL_KMS_KEY_ID must be set, and a real
- *           KmsProvider (Azure Key Vault, etc.) must be wired up in
- *           src/lib/crypto/kms.ts. Until that real integration lands, the
- *           NotConfiguredKmsProvider throws — there is no silent fallback.
+ *       (a) In production, CREDENTIAL_KMS_KEY_ID (the Key Vault key name) and
+ *           AZURE_KEY_VAULT_URL must both be set, and getKmsProvider() below
+ *           constructs a real AzureKeyVaultKmsProvider (src/lib/crypto/kms.ts).
+ *           If CREDENTIAL_KMS_KEY_ID is unset entirely, there is still no silent
+ *           fallback — see the hard-refuse logic below.
  *       (b) In local development ONLY, CREDENTIAL_DEV_DATA_KEY (32-byte base64)
  *           may be set instead, deriving a static local "wrapping" key. This
  *           path is loudly logged once and is hard-refused whenever
@@ -22,7 +23,7 @@
  */
 
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
-import { KmsProvider, NotConfiguredKmsProvider, WrappedKey } from './kms';
+import { AzureKeyVaultKmsProvider, KmsProvider, WrappedKey } from './kms';
 
 const ALGORITHM = 'aes-256-gcm';
 const DEK_LENGTH_BYTES = 32; // AES-256
@@ -135,10 +136,22 @@ function getKmsProvider(): KmsProvider {
   const isProduction = process.env['NODE_ENV'] === 'production';
 
   if (kmsKeyId) {
-    // A real KMS key id is configured. Until a real provider implementation
-    // (Azure Key Vault, etc.) is wired up in kms.ts, this correctly throws —
-    // it must NOT silently proceed with an unimplemented "real" path.
-    cachedProvider = new NotConfiguredKmsProvider();
+    // A real KMS key is configured: CREDENTIAL_KMS_KEY_ID is the Azure Key Vault
+    // key NAME (not a full resource id/ARN — see README.md), and it must be
+    // paired with AZURE_KEY_VAULT_URL identifying which vault that key lives in.
+    // Fail loudly and specifically rather than silently falling through to the
+    // dev-key path if only one of the two is set.
+    const vaultUrl = process.env['AZURE_KEY_VAULT_URL'];
+    if (!vaultUrl) {
+      throw new Error(
+        'CREDENTIAL_KMS_KEY_ID is set but AZURE_KEY_VAULT_URL is not. Both are required together: ' +
+          'AZURE_KEY_VAULT_URL identifies the Key Vault instance (e.g. ' +
+          '"https://<vault-name>.vault.azure.net/") and CREDENTIAL_KMS_KEY_ID names the key within ' +
+          'it used to wrap/unwrap credential data keys. See src/lib/crypto/README.md.',
+      );
+    }
+    const keyVersion = process.env['CREDENTIAL_KMS_KEY_VERSION'] || undefined;
+    cachedProvider = new AzureKeyVaultKmsProvider(vaultUrl, kmsKeyId, keyVersion);
     return cachedProvider;
   }
 
