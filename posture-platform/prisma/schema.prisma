@@ -1,0 +1,321 @@
+// Prisma schema for posture-platform.
+//
+// Multi-tenant model: every customer M365/Entra tenant being monitored (`Tenant`)
+// belongs to an `Organization` (the MSP or reseller operating the portal). Every
+// tenant-scoped table below carries a non-nullable `tenantId` (or, at the org
+// level, a non-nullable `organizationId`) foreign key — this is the single
+// enforcement point application code must filter on for tenant isolation.
+//
+// Time-series-heavy tables (ControlResult, PostureSnapshot) and tenant-scoped
+// lookups (Finding) are indexed for the tenantId + time / tenantId + status
+// query patterns the dashboard and scoring engine rely on.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum UserRole {
+  SUPER_ADMIN
+  ANALYST
+  CUSTOMER_VIEWER
+}
+
+enum TenantStatus {
+  ONBOARDING
+  ACTIVE
+  CREDENTIAL_EXPIRED
+  SUSPENDED
+}
+
+enum CredentialType {
+  CLIENT_SECRET
+  CERTIFICATE
+}
+
+enum NistFunction {
+  GOVERN
+  IDENTIFY
+  PROTECT
+  DETECT
+  RESPOND
+  RECOVER
+}
+
+enum Severity {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+  INFORMATIONAL
+}
+
+enum Framework {
+  NIST_CSF_2_0
+  NIST_800_53_R5
+  CIS_M365_V3
+}
+
+enum ControlStatus {
+  PASS
+  FAIL
+  PARTIAL
+  NOT_APPLICABLE
+  UNKNOWN
+}
+
+enum FindingStatus {
+  OPEN
+  ACKNOWLEDGED
+  RESOLVED
+  RISK_ACCEPTED
+}
+
+// ---------------------------------------------------------------------------
+// Organization / User
+// ---------------------------------------------------------------------------
+
+/// The MSP (e.g. myCIO itself) or a reseller operating the portal. Top-level
+/// tenancy boundary: every Tenant, User, and AuditLog row is scoped to one.
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users      User[]
+  tenants    Tenant[]
+  auditLogs  AuditLog[]
+
+  @@index([name])
+}
+
+/// A portal user. Role governs authorization; CUSTOMER_VIEWER users are
+/// expected to be further restricted (at the application layer) to the
+/// tenants their organization owns.
+model User {
+  id             String   @id @default(cuid())
+  organizationId String
+  email          String   @unique
+  name           String?
+  role           UserRole @default(CUSTOMER_VIEWER)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  auditLogs    AuditLog[]
+
+  @@index([organizationId])
+}
+
+// ---------------------------------------------------------------------------
+// Tenant / Credentials
+// ---------------------------------------------------------------------------
+
+/// A customer's M365 / Entra ID tenant under continuous monitoring. Mirrors
+/// TenantSummary in src/types/domain.ts.
+model Tenant {
+  id             String       @id @default(cuid())
+  organizationId String
+  displayName    String
+  entraTenantId  String       @unique
+  status         TenantStatus @default(ONBOARDING)
+  onboardedAt    DateTime     @default(now())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  credentials       TenantCredential[]
+  controlResults    ControlResult[]
+  findings          Finding[]
+  postureSnapshots  PostureSnapshot[]
+
+  @@index([organizationId])
+  @@index([status])
+}
+
+/// Encrypted-at-rest storage for the per-tenant Graph app registration secret
+/// material. Only `clientId` is plaintext; client secret / certificate private
+/// key content is stored exclusively as encrypted bytes (ciphertext + iv/nonce
+/// + auth tag) referencing an external KMS key by id/version. There is no
+/// plaintext secret column anywhere in this model. One tenant may have many
+/// rows over time to support credential rotation history — `isActive` marks
+/// the currently-used credential.
+model TenantCredential {
+  id             String         @id @default(cuid())
+  tenantId       String
+  credentialType CredentialType
+
+  /// Entra app registration (application) client id — not secret.
+  clientId String
+
+  /// Reference to the external KMS key used to encrypt the blobs below
+  /// (e.g. Azure Key Vault key id + version, or a local KMS key alias).
+  kmsKeyId      String
+  kmsKeyVersion String
+
+  /// Encrypted client secret or certificate private key. Ciphertext, IV/nonce,
+  /// and auth tag are stored separately so the app never has to guess an
+  /// encoding; encryption algorithm is recorded for forward compatibility.
+  encryptionAlgorithm String  @default("AES-256-GCM")
+  ciphertext          Bytes
+  iv                  Bytes
+  authTag             Bytes
+
+  /// Certificate-only metadata (thumbprint), useful for rotation/expiry checks
+  /// without ever decrypting the private key.
+  certificateThumbprint String?
+  expiresAt             DateTime?
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  revokedAt DateTime?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, isActive])
+}
+
+// ---------------------------------------------------------------------------
+// Control catalog
+// ---------------------------------------------------------------------------
+
+/// Mirrors ControlDefinition in src/types/domain.ts. `id` is the stable
+/// string primary key referenced by evaluators, ControlResult, and Finding —
+/// never reuse or repurpose a value once shipped.
+model ControlDefinition {
+  id               String       @id
+  title            String
+  description      String
+  nistFunction     NistFunction
+  severity         Severity
+  requiredSignals  String[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  mappings       ControlMapping[]
+  controlResults ControlResult[]
+
+  @@index([nistFunction])
+}
+
+/// A control can map to multiple framework control ids (e.g. both a NIST CSF
+/// 2.0 subcategory and a CIS Microsoft 365 benchmark control number), hence a
+/// separate table rather than a single column on ControlDefinition.
+model ControlMapping {
+  id          String    @id @default(cuid())
+  controlId   String
+  framework   Framework
+  frameworkControlId String
+
+  control ControlDefinition @relation(fields: [controlId], references: [id], onDelete: Cascade)
+
+  @@unique([controlId, framework, frameworkControlId])
+  @@index([controlId])
+  @@index([framework, frameworkControlId])
+}
+
+// ---------------------------------------------------------------------------
+// Evaluation results / findings / snapshots
+// ---------------------------------------------------------------------------
+
+/// One row per (tenant, control, evaluatedAt) — an immutable evaluation
+/// result produced by the scoring engine each collection cycle.
+model ControlResult {
+  id          String        @id @default(cuid())
+  tenantId    String
+  controlId   String
+  status      ControlStatus
+  evaluatedAt DateTime      @default(now())
+  detail      String?
+  evidence    Json?
+  createdAt   DateTime      @default(now())
+
+  tenant  Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  control ControlDefinition @relation(fields: [controlId], references: [id], onDelete: Restrict)
+
+  @@index([tenantId, evaluatedAt])
+  @@index([tenantId, controlId])
+  @@index([tenantId, status])
+}
+
+/// Mirrors the Finding type: a human-facing, stateful surfacing of a
+/// failed/partial control result, tracked from first detection through
+/// resolution.
+model Finding {
+  id               String        @id @default(cuid())
+  tenantId         String
+  controlId        String
+  severity         Severity
+  title            String
+  description      String
+  status           FindingStatus @default(OPEN)
+  firstDetectedAt  DateTime      @default(now())
+  lastSeenAt       DateTime      @default(now())
+  resolvedAt       DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, status])
+  @@index([tenantId, controlId])
+  @@index([tenantId, severity])
+}
+
+/// One row per (tenant, takenAt) — aggregate posture snapshot used for trend
+/// charts. `functionScores` and `openFindingsBySeverity` are stored as Json
+/// keyed by NistFunction / Severity respectively, matching PostureSnapshot in
+/// src/types/domain.ts.
+model PostureSnapshot {
+  id                     String   @id @default(cuid())
+  tenantId               String
+  takenAt                DateTime @default(now())
+  overallScore           Int
+  functionScores         Json
+  secureScoreCurrent     Int?
+  secureScoreMax         Int?
+  openFindingsBySeverity Json
+  createdAt              DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, takenAt])
+}
+
+// ---------------------------------------------------------------------------
+// Audit log
+// ---------------------------------------------------------------------------
+
+/// Append-only audit trail. No updatedAt/soft-delete fields by design — rows
+/// are never mutated or removed by application code. `actorUserId` is
+/// nullable to allow system/automation-initiated actions (e.g. scheduled
+/// collection runs) to be logged without a human actor.
+model AuditLog {
+  id             String   @id @default(cuid())
+  organizationId String
+  actorUserId    String?
+  action         String
+  targetType     String
+  targetId       String
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  actorUser    User?        @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([targetType, targetId])
+  @@index([actorUserId])
+}
