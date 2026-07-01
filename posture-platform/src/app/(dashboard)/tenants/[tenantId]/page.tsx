@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAuthorizedSession } from '@/lib/auth';
+import { getAuthorizedSession, canAccessTenant } from '@/lib/auth';
 import { prisma } from '@/lib/db/client';
 import { getSnapshotHistory, getOpenFindings } from '@/lib/trends/query';
 import ScoreCard from '@/components/ScoreCard';
@@ -50,8 +50,19 @@ export default async function TenantDetailPage({ params }: TenantDetailPageProps
     notFound();
   }
 
-  // Ownership is now confirmed for this session's organization, so it's safe
-  // to fetch tenant-scoped data using tenantId directly.
+  // Organization ownership is confirmed, but that alone is not sufficient for
+  // CUSTOMER_VIEWER: an Organization (the MSP) can own many unrelated
+  // customers' Tenant rows, so a customer's viewer account must additionally
+  // be granted explicit access to THIS tenant (see TenantAccess in
+  // prisma/schema.prisma). SUPER_ADMIN/ANALYST are unaffected. 404 rather
+  // than 403 so this never confirms the tenant's existence to a caller
+  // without access.
+  if (!(await canAccessTenant(session, tenant.id))) {
+    notFound();
+  }
+
+  // Ownership and per-tenant access are now confirmed, so it's safe to fetch
+  // tenant-scoped data using tenantId directly.
   const [history, openFindings] = await Promise.all([
     getSnapshotHistory(tenantId, 90),
     getOpenFindings(tenantId),

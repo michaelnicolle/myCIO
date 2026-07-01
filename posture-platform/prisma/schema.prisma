@@ -98,9 +98,12 @@ model Organization {
   @@index([name])
 }
 
-/// A portal user. Role governs authorization; CUSTOMER_VIEWER users are
-/// expected to be further restricted (at the application layer) to the
-/// tenants their organization owns.
+/// A portal user. Role governs authorization. SUPER_ADMIN/ANALYST are MSP
+/// staff and see every Tenant owned by their Organization; CUSTOMER_VIEWER
+/// represents a customer's own staff and MUST be restricted to only the
+/// specific Tenant row(s) that customer owns (enforced via `tenantAccess`
+/// below) — an Organization can own many unrelated customers' Tenant rows, so
+/// organizationId scoping alone is NOT sufficient isolation for this role.
 model User {
   id             String   @id @default(cuid())
   organizationId String
@@ -111,8 +114,9 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  auditLogs    AuditLog[]
+  organization  Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  auditLogs     AuditLog[]
+  tenantAccess  TenantAccess[]
 
   @@index([organizationId])
 }
@@ -139,9 +143,30 @@ model Tenant {
   controlResults    ControlResult[]
   findings          Finding[]
   postureSnapshots  PostureSnapshot[]
+  userAccess        TenantAccess[]
 
   @@index([organizationId])
   @@index([status])
+}
+
+/// Grants a CUSTOMER_VIEWER User visibility into one specific Tenant. This is
+/// the enforcement point that prevents one MSP customer's viewer account from
+/// seeing a different customer's Tenant data even though both Tenant rows
+/// belong to the same Organization (the MSP). SUPER_ADMIN/ANALYST users are
+/// not required to have rows here — they see every Tenant in their
+/// Organization by role alone.
+model TenantAccess {
+  id        String   @id @default(cuid())
+  userId    String
+  tenantId  String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([userId])
+  @@index([tenantId])
 }
 
 /// Encrypted-at-rest storage for the per-tenant Graph app registration secret

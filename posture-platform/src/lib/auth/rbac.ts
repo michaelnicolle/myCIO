@@ -6,6 +6,7 @@
  */
 
 import { getServerSession } from 'next-auth/next';
+import { prisma } from '@/lib/db/client';
 import { authOptions } from './options';
 import type { Role } from './types';
 
@@ -73,4 +74,43 @@ export async function requireRole(allowedRoles: readonly Role[]): Promise<Author
     throw new ForbiddenError(session.role, allowedRoles);
   }
   return session;
+}
+
+/**
+ * Returns the set of Tenant ids `session` is permitted to see.
+ *
+ * SUPER_ADMIN/ANALYST are MSP staff and may see every Tenant owned by their
+ * Organization — the `'ALL'` sentinel tells callers to scope by
+ * `organizationId` alone, as before.
+ *
+ * CUSTOMER_VIEWER represents a customer's own staff. A single Organization
+ * (the MSP) can own many unrelated customers' Tenant rows, so
+ * organizationId scoping alone would let one customer's viewer see every
+ * other customer's posture data — this is the isolation boundary that
+ * matters for that role. Access is granted explicitly via `TenantAccess`
+ * rows (see prisma/schema.prisma); a CUSTOMER_VIEWER with no grants sees
+ * nothing.
+ */
+export async function getAccessibleTenantIds(session: AuthorizedSession): Promise<'ALL' | string[]> {
+  if (session.role === 'SUPER_ADMIN' || session.role === 'ANALYST') {
+    return 'ALL';
+  }
+
+  const grants = await prisma.tenantAccess.findMany({
+    where: { userId: session.userId },
+    select: { tenantId: true },
+  });
+  return grants.map((g) => g.tenantId);
+}
+
+/**
+ * Throws ForbiddenError-equivalent behavior by returning `false` if `session`
+ * may not view `tenantId`. Callers should treat `false` the same as "not
+ * found" (404), never revealing whether the tenant exists to a caller
+ * without access.
+ */
+export async function canAccessTenant(session: AuthorizedSession, tenantId: string): Promise<boolean> {
+  const accessible = await getAccessibleTenantIds(session);
+  if (accessible === 'ALL') return true;
+  return accessible.includes(tenantId);
 }

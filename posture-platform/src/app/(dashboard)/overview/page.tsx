@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAuthorizedSession } from '@/lib/auth';
+import { getAuthorizedSession, getAccessibleTenantIds } from '@/lib/auth';
 import { getLatestSnapshot } from '@/lib/trends/query';
 import { prisma } from '@/lib/db/client';
 import ScoreCard from '@/components/ScoreCard';
@@ -15,11 +15,20 @@ interface TenantRow {
   snapshot: PostureSnapshot | null;
 }
 
-async function loadTenantRows(organizationId: string): Promise<TenantRow[]> {
+async function loadTenantRows(organizationId: string, accessibleTenantIds: 'ALL' | string[]): Promise<TenantRow[]> {
   // Scoped strictly to the caller's organization — never list tenants across
-  // organizations.
+  // organizations. For CUSTOMER_VIEWER sessions, additionally restrict to the
+  // specific tenant(s) they've been granted access to: an Organization (the
+  // MSP) can own many unrelated customers' Tenant rows, so organizationId
+  // scoping alone is not sufficient isolation for that role.
+  if (accessibleTenantIds !== 'ALL' && accessibleTenantIds.length === 0) {
+    return [];
+  }
   const tenants = await prisma.tenant.findMany({
-    where: { organizationId },
+    where: {
+      organizationId,
+      ...(accessibleTenantIds === 'ALL' ? {} : { id: { in: accessibleTenantIds } }),
+    },
     orderBy: { displayName: 'asc' },
     select: { id: true, displayName: true, status: true },
   });
@@ -50,7 +59,8 @@ export default async function OverviewPage() {
     );
   }
 
-  const tenants = await loadTenantRows(session.organizationId);
+  const accessibleTenantIds = await getAccessibleTenantIds(session);
+  const tenants = await loadTenantRows(session.organizationId, accessibleTenantIds);
 
   return (
     <main className="p-8">

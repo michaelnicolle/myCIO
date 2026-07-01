@@ -2,6 +2,8 @@ export { authOptions } from './options';
 export {
   requireRole,
   getAuthorizedSession,
+  getAccessibleTenantIds,
+  canAccessTenant,
   isRole,
   UnauthenticatedError,
   ForbiddenError,
