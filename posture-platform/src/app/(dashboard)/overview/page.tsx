@@ -3,6 +3,7 @@ import { getAuthorizedSession, getAccessibleTenantIds } from '@/lib/auth';
 import { getLatestSnapshot } from '@/lib/trends/query';
 import { prisma } from '@/lib/db/client';
 import ScoreCard from '@/components/ScoreCard';
+import SecureScoreBadge from '@/components/SecureScoreBadge';
 import { SeverityBadge } from '@/components/SeverityBadge';
 import type { PostureSnapshot } from '@/types/domain';
 
@@ -97,6 +98,10 @@ export default async function OverviewPage() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tenants.map((tenant) => {
             const criticalHigh = criticalHighCount(tenant.snapshot);
+            const hasSnapshot = Boolean(tenant.snapshot);
+            const hasSecureScore = Boolean(
+              tenant.snapshot?.secureScore && tenant.snapshot.secureScore.max > 0,
+            );
             return (
               <Link
                 key={tenant.id}
@@ -123,8 +128,16 @@ export default async function OverviewPage() {
                       <span className="font-semibold text-gray-900">{criticalHigh}</span> open
                       critical/high
                     </p>
-                    {!tenant.snapshot ? (
+                    <div className="mt-1.5 flex justify-end">
+                      <SecureScoreBadge
+                        current={tenant.snapshot?.secureScore?.current}
+                        max={tenant.snapshot?.secureScore?.max}
+                      />
+                    </div>
+                    {!hasSnapshot ? (
                       <p className="mt-1 text-gray-400">No posture data yet</p>
+                    ) : !hasSecureScore ? (
+                      <p className="mt-1 text-gray-400">No Secure Score data yet</p>
                     ) : null}
                   </div>
                 </div>
