@@ -13,11 +13,19 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 import type { ControlResult, Finding, PostureSnapshot } from '@/types/domain';
 
+/** One entry of GraphSecureScore.controlScores, as passed through from the collector. */
+export interface SecureScoreControlInput {
+  controlName: string;
+  score: number;
+  controlCategory: string;
+}
+
 export async function persistCycleResults(
   tenantId: string,
   results: ControlResult[],
   findings: Finding[],
-  snapshot: PostureSnapshot
+  snapshot: PostureSnapshot,
+  secureScoreControls?: SecureScoreControlInput[]
 ): Promise<void> {
   if (snapshot.tenantId !== tenantId) {
     throw new Error(
@@ -95,5 +103,21 @@ export async function persistCycleResults(
         openFindingsBySeverity: snapshot.openFindingsBySeverity as unknown as Prisma.InputJsonValue,
       },
     });
+
+    if (secureScoreControls && secureScoreControls.length > 0) {
+      // Stamped with the same takenAt as the snapshot above so the per-control
+      // breakdown and the aggregate current/max score it decomposes are
+      // attributable to the same collection cycle.
+      const evaluatedAt = new Date(snapshot.takenAt);
+      await tx.secureScoreControlResult.createMany({
+        data: secureScoreControls.map((c) => ({
+          tenantId,
+          controlName: c.controlName,
+          controlCategory: c.controlCategory,
+          score: c.score,
+          evaluatedAt,
+        })),
+      });
+    }
   });
 }

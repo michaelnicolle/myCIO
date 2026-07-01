@@ -2,10 +2,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAuthorizedSession, canAccessTenant } from '@/lib/auth';
 import { prisma } from '@/lib/db/client';
-import { getSnapshotHistory, getOpenFindings } from '@/lib/trends/query';
+import { getSnapshotHistory, getOpenFindings, getLatestSecureScoreControls } from '@/lib/trends/query';
 import ScoreCard from '@/components/ScoreCard';
 import TrendChart from '@/components/TrendChart';
 import FindingsTable from '@/components/FindingsTable';
+import SecureScoreBreakdown from '@/components/SecureScoreBreakdown';
 import type { NistFunction } from '@/types/domain';
 
 export const dynamic = 'force-dynamic';
@@ -63,12 +64,23 @@ export default async function TenantDetailPage({ params }: TenantDetailPageProps
 
   // Ownership and per-tenant access are now confirmed, so it's safe to fetch
   // tenant-scoped data using tenantId directly.
-  const [history, openFindings] = await Promise.all([
+  const [history, openFindings, latestSecureScoreControls] = await Promise.all([
     getSnapshotHistory(tenantId, 90),
     getOpenFindings(tenantId),
+    getLatestSecureScoreControls(tenantId),
   ]);
 
   const latest = history.length > 0 ? history[history.length - 1] : undefined;
+
+  // Secure Score percentage history for the trend chart — only snapshots that
+  // actually captured a Secure Score contribute a point (max could theoretically
+  // be 0 for a fresh tenant with nothing scored yet; guard against divide-by-zero).
+  const secureScoreHistory = history
+    .filter((snapshot) => snapshot.secureScore && snapshot.secureScore.max > 0)
+    .map((snapshot) => ({
+      takenAt: snapshot.takenAt,
+      secureScorePct: Math.round((snapshot.secureScore!.current / snapshot.secureScore!.max) * 100),
+    }));
 
   return (
     <main className="p-8 space-y-8">
@@ -110,6 +122,28 @@ export default async function TenantDetailPage({ params }: TenantDetailPageProps
           dataKey="overallScore"
           title="Overall score — last 90 days"
         />
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-gray-900 mb-3">
+          Microsoft Secure Score
+        </h2>
+        <p className="text-xs text-gray-500 mb-3">
+          Microsoft&apos;s own security posture score for this tenant, separate from the NIST-based
+          composite score above. Shown as current/max percentage over time, plus the specific
+          outstanding controls Microsoft recommends addressing.
+        </p>
+        <div className="space-y-4">
+          <TrendChart
+            data={secureScoreHistory}
+            dataKey="secureScorePct"
+            title="Secure Score — last 90 days"
+          />
+          <SecureScoreBreakdown
+            controls={latestSecureScoreControls}
+            caption={`Outstanding Secure Score controls for ${tenant.displayName}`}
+          />
+        </div>
       </section>
 
       <section>

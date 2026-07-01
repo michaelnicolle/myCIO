@@ -128,7 +128,7 @@ export async function collectAndScoreTenant(tenantId: string): Promise<CollectTe
       : undefined
   );
 
-  await persistCycleResults(tenant.id, results, findings, snapshot);
+  await persistCycleResults(tenant.id, results, findings, snapshot, signals.secureScore?.controlScores);
 
   if (tenant.status === 'ONBOARDING' || tenant.status === 'CREDENTIAL_EXPIRED') {
     await prisma.tenant.update({ where: { id: tenant.id }, data: { status: 'ACTIVE' } });

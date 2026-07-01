@@ -139,11 +139,12 @@ model Tenant {
 
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
 
-  credentials       TenantCredential[]
-  controlResults    ControlResult[]
-  findings          Finding[]
-  postureSnapshots  PostureSnapshot[]
-  userAccess        TenantAccess[]
+  credentials                TenantCredential[]
+  controlResults             ControlResult[]
+  findings                   Finding[]
+  postureSnapshots           PostureSnapshot[]
+  secureScoreControlResults  SecureScoreControlResult[]
+  userAccess                 TenantAccess[]
 
   @@index([organizationId])
   @@index([status])
@@ -327,6 +328,29 @@ model PostureSnapshot {
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
   @@index([tenantId, takenAt])
+}
+
+/// One row per (tenant, controlName, evaluatedAt) — a per-control breakdown of
+/// Microsoft Secure Score, sourced from GraphSecureScore.controlScores (see
+/// src/types/graph.ts). This is intentionally a separate time-series table
+/// rather than a Json blob on PostureSnapshot: it needs to be queried/trended
+/// per individual control (e.g. "show me the history of AdminMFAV2's score",
+/// or "rank today's outstanding controls by gap") which a single Json column
+/// per snapshot cannot support efficiently. `controlName` is Microsoft's
+/// stable control identifier (e.g. "AdminMFAV2"), not a display title.
+model SecureScoreControlResult {
+  id              String   @id @default(cuid())
+  tenantId        String
+  controlName     String
+  controlCategory String
+  score           Float
+  evaluatedAt     DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, controlName, evaluatedAt])
+  @@index([tenantId, evaluatedAt])
 }
 
 // ---------------------------------------------------------------------------

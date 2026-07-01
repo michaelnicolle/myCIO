@@ -89,3 +89,79 @@ export async function getOpenFindings(tenantId: string): Promise<Finding[]> {
   });
   return rows.map(toFinding);
 }
+
+/** A single Microsoft Secure Score per-control result, as evaluated at one point in time. */
+export interface SecureScoreControlPoint {
+  controlName: string;
+  controlCategory: string;
+  score: number;
+  evaluatedAt: string; // ISO 8601
+}
+
+/** A single control's score history, oldest first, for trend/sparkline use. */
+export interface SecureScoreControlSnapshot {
+  controlName: string;
+  controlCategory: string;
+  /** Oldest first. */
+  history: Array<{ score: number; evaluatedAt: string }>;
+}
+
+/**
+ * Per-control Secure Score history for a tenant over the trailing `sinceDays`
+ * window, grouped by controlName so the UI can plot/inspect one control's
+ * trend without re-grouping a flat list itself. Every entry is scoped to the
+ * given tenantId.
+ */
+export async function getSecureScoreControlHistory(
+  tenantId: string,
+  sinceDays: number
+): Promise<SecureScoreControlSnapshot[]> {
+  const since = new Date(Date.now() - sinceDays * 24 * 60 * 60 * 1000);
+  const rows = await prisma.secureScoreControlResult.findMany({
+    where: { tenantId, evaluatedAt: { gte: since } },
+    orderBy: { evaluatedAt: 'asc' },
+  });
+
+  const byControl = new Map<string, SecureScoreControlSnapshot>();
+  for (const row of rows) {
+    let entry = byControl.get(row.controlName);
+    if (!entry) {
+      entry = { controlName: row.controlName, controlCategory: row.controlCategory, history: [] };
+      byControl.set(row.controlName, entry);
+    }
+    // Category can legitimately shift over time (Microsoft occasionally
+    // re-categorizes a control); keep the most recent category label.
+    entry.controlCategory = row.controlCategory;
+    entry.history.push({ score: row.score, evaluatedAt: row.evaluatedAt.toISOString() });
+  }
+
+  return Array.from(byControl.values());
+}
+
+/**
+ * The most recent Secure Score per-control breakdown for a tenant — i.e. what
+ * is currently outstanding — ranked by score ascending (lowest-scoring /
+ * biggest-gap controls first) so the dashboard can surface the highest-impact
+ * recommended actions at the top. Returns an empty array if no Secure Score
+ * has ever been collected for this tenant.
+ */
+export async function getLatestSecureScoreControls(tenantId: string): Promise<SecureScoreControlPoint[]> {
+  const latest = await prisma.secureScoreControlResult.findFirst({
+    where: { tenantId },
+    orderBy: { evaluatedAt: 'desc' },
+    select: { evaluatedAt: true },
+  });
+  if (!latest) return [];
+
+  const rows = await prisma.secureScoreControlResult.findMany({
+    where: { tenantId, evaluatedAt: latest.evaluatedAt },
+    orderBy: { score: 'asc' },
+  });
+
+  return rows.map((row) => ({
+    controlName: row.controlName,
+    controlCategory: row.controlCategory,
+    score: row.score,
+    evaluatedAt: row.evaluatedAt.toISOString(),
+  }));
+}
