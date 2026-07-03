@@ -809,22 +809,28 @@ section[id] { scroll-margin-top: 90px; }
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 38px 36px;
+  padding: 40px 38px;
   box-shadow: var(--shadow-border);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
 }
-.member-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.member:hover { transform: translateY(-4px); border-color: rgba(224, 90, 48, 0.4); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.32); }
+.member-head { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
 .member-mark {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 54px; height: 54px;
+  width: 60px; height: 60px;
   border-radius: 100px;
   background: var(--dark);
   color: var(--paper);
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  flex-shrink: 0;
 }
-.member h3 { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; }
-.member-role { font-size: 0.86rem; color: var(--muted); }
-.member p { color: var(--ink-soft); font-size: 0.99rem; margin-top: 12px; }
+.member h3 { font-size: 1.55rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+.member-role { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-top: 4px; }
+.member p { color: var(--ink-soft); font-size: 1rem; line-height: 1.6; margin-top: 14px; }
+.member p strong { color: var(--ink); }
 .member-quote {
   margin-top: 22px;
   padding: 18px 22px;
@@ -836,22 +842,44 @@ section[id] { scroll-margin-top: 90px; }
   color: var(--ink-soft);
 }
 .member-quote cite { display: block; margin-top: 10px; font-family: var(--sans); font-style: normal; font-size: 0.82rem; color: var(--muted); }
-.founders-quote {
-  margin: 26px auto 0;
-  max-width: 760px;
-  padding: 28px 34px;
-  background: var(--white);
-  border: 1px solid var(--line);
+.founders-card {
+  margin: 52px auto 0;
+  max-width: 860px;
+  padding: 48px 46px;
+  background: var(--dark);
   border-radius: var(--radius);
   box-shadow: var(--shadow-border);
-  font-family: var(--display);
-  font-style: italic;
-  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-  line-height: 1.5;
-  color: var(--ink-soft);
   text-align: left;
 }
-.founders-quote cite { display: block; margin-top: 14px; font-family: var(--sans); font-style: normal; font-size: 0.84rem; font-weight: 600; color: var(--muted); }
+.fc-statement {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+.fc-statement .accent { color: var(--accent); }
+.fc-line { display: block; }
+.fc-line + .fc-line { margin-top: 4px; }
+.founders-card .fc-line { opacity: 0; transform: translateY(12px); }
+.founders-card.in .fc-line { animation: heroRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.founders-card.in .fc-line:nth-child(2) { animation-delay: 0.13s; }
+.founders-card.in .fc-line:nth-child(3) { animation-delay: 0.26s; }
+@media (prefers-reduced-motion: reduce) { .founders-card .fc-line { opacity: 1; transform: none; animation: none; } }
+.fc-quote {
+  margin-top: 30px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.5;
+  color: rgba(250, 247, 241, 0.82);
+  max-width: 62ch;
+}
+.fc-quote cite { display: block; margin-top: 14px; font-family: var(--sans); font-style: normal; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; color: rgba(250, 247, 241, 0.5); }
+@media (max-width: 760px) { .founders-card { padding: 34px 26px; } }
 .team-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px; }
 .ts-stat {
   background: var(--white);
@@ -1145,30 +1173,19 @@ footer {
 </section>
 
 <!-- WHO WE ARE -->
-<section id="people">
+<section id="people" class="sand-section">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">No account managers, no sales team. <span class="accent">You get us.</span></h2>
-    <p class="section-sub reveal">myCIO is Elton and Michael, backed by a tight-knit team of specialists across AI, cloud, infrastructure, applications, and security. We do not hide behind proposals or a website. We are an AI-first partner, and yes, the website may have given that away.</p>
-    <div class="team-grid" style="text-align:left;">
-      <div class="member reveal">
-        <div class="member-head">
-          <span class="member-mark">E</span>
-          <div><h3>Elton</h3><div class="member-role">Founder and Director</div></div>
-        </div>
-        <p>Elton has spent his career in the rooms where technology decisions get made, and untangling the ones that were made badly. He leads strategy, governance, and the frank conversations that keep both honest.</p>
+    <p class="eyebrow reveal">The founders</p>
+    <h2 class="section-head reveal">No account managers. <span class="accent">No junior handoffs.</span></h2>
+    <p class="section-sub reveal">We are a tight-knit team with specialists across strategy and governance, cloud, infrastructure, applications, security, and AI. The people you meet are the people who do the work.</p>
+    <div class="founders-card reveal">
+      <div class="fc-statement">
+        <span class="fc-line">Founders who pick up the phone.</span>
+        <span class="fc-line">A senior team behind them.</span>
+        <span class="fc-line">Nothing gets handed to <span class="accent">someone learning on your business.</span></span>
       </div>
-      <div class="member reveal">
-        <div class="member-head">
-          <span class="member-mark">M</span>
-          <div><h3>Michael</h3><div class="member-role">Founder and Director</div></div>
-        </div>
-        <p>Michael builds the foundations businesses run on. Infrastructure, cloud, Microsoft 365, and security, delivered to a standard that still makes sense years after the invoice.</p>
-      </div>
+      <blockquote class="fc-quote">"We built myCIO so the people in the room are the people doing the work. Senior, accountable, and no junior helpdesk between you and an answer."<cite>Elton and Michael, Founders</cite></blockquote>
     </div>
-    <blockquote class="founders-quote reveal">
-      "We built myCIO so the people in the room are the people doing the work. Senior, accountable, and no junior helpdesk between you and an answer."
-      <cite>Elton and Michael, Founders</cite>
-    </blockquote>
   </div>
 </section>
 
