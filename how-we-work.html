@@ -13,10 +13,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="myCIO | How We Work">
 <meta name="twitter:description" content="From a structured discovery to a running business. Every step owned by us, built to run without us at the end.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
 <style>
 /* myCIO website styles, launch redesign */
-
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
 
 :root {
   --accent: #e05a30;
@@ -134,6 +135,13 @@ header.nav {
 .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
 .btn:active { transform: scale(0.96); }
 .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 120;
+  background: var(--ink); color: var(--white);
+  padding: 10px 18px; border-radius: 0 0 12px 0; font-weight: 600;
+}
+.skip-link:focus { left: 0; }
 .nav-links a:not(.btn):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .btn-nav {
   background: transparent;
@@ -303,7 +311,7 @@ header.nav {
   margin: 0 auto;
 }
 .ud-col .ud-art svg { max-height: 100%; max-width: 100%; width: auto; height: auto; display: block; }
-.ud-col h2 {
+.ud-col h3 {
   margin-top: 30px;
   font-size: clamp(1.5rem, 2.6vw, 2rem);
   font-weight: 600;
@@ -661,12 +669,12 @@ section[id] { scroll-margin-top: 90px; }
   margin: 20px auto 0;
   max-width: 52ch;
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(22, 20, 18, 0.88);
 }
 .cta .btn { background: var(--ink); color: var(--paper); margin-top: 30px; padding: 15px 32px; font-size: 1rem; }
 .cta .btn:hover { background: #000; }
-.cta .cta-micro { margin-top: 18px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.75); }
-.cta .cta-micro a { font-weight: 700; color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.cta .cta-micro { margin-top: 18px; font-size: 0.9rem; color: rgba(22, 20, 18, 0.75); }
+.cta .cta-micro a { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Footer ---------- */
 footer {
@@ -684,8 +692,137 @@ footer {
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
   margin-top: 56px; padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.84rem; color: rgba(250, 247, 241, 0.45);
+  font-size: 0.84rem; color: rgba(250, 247, 241, 0.6);
 }
+
+/* ---------- Practice grid (What it feels like section) ---------- */
+.practice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 48px;
+}
+.practice-cell {
+  padding: 36px 44px 36px 0;
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+.practice-cell:nth-child(even) {
+  padding-left: 44px;
+  padding-right: 0;
+  border-left: 1px solid var(--line);
+}
+.practice-cell::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+.practice-cell h3 {
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.practice-cell p { color: var(--muted); font-size: 0.96rem; }
+
+/* ---------- Standards spec sheet ---------- */
+.std-rows { max-width: 860px; margin: 48px auto 0; text-align: left; }
+.std-row {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 28px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+}
+.std-row:last-child { border-bottom: 1px solid var(--line); }
+.std-row h3 { font-size: 1.12rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+.std-row p { color: var(--muted); font-size: 0.97rem; }
+@media (max-width: 760px) { .std-row { grid-template-columns: 1fr; gap: 8px; } }
+
+/* ---------- End-the-cycle statement ---------- */
+.cycle-line {
+  margin: 26px auto 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* ---------- Flywheel: the circular engagement ---------- */
+.fw-holder { max-width: 620px; margin: 52px auto 0; }
+.fw-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
+.fw-arc {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.flywheel-sec.in .fw-arc { animation: drawLine 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.flywheel-sec.in .fa2 { animation-delay: 0.7s; }
+.flywheel-sec.in .fa3 { animation-delay: 1.4s; }
+.flywheel-sec.in .fa4 { animation-delay: 2.1s; }
+.fw-head, .fw-node, .fw-label, .fw-centre { opacity: 0; }
+.flywheel-sec.in .fw-node { animation: nodePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.flywheel-sec.in .fn1 { animation-delay: 0.05s; }
+.flywheel-sec.in .fn2 { animation-delay: 0.75s; }
+.flywheel-sec.in .fn3 { animation-delay: 1.45s; }
+.flywheel-sec.in .fn4 { animation-delay: 2.15s; }
+.flywheel-sec.in .fw-label { animation: labelIn 0.5s ease forwards; }
+.flywheel-sec.in .fl1 { animation-delay: 0.15s; }
+.flywheel-sec.in .fl2 { animation-delay: 0.85s; }
+.flywheel-sec.in .fl3 { animation-delay: 1.55s; }
+.flywheel-sec.in .fl4 { animation-delay: 2.25s; }
+.flywheel-sec.in .fw-head { animation: labelIn 0.35s ease forwards; }
+.flywheel-sec.in .fh1 { animation-delay: 0.85s; }
+.flywheel-sec.in .fh2 { animation-delay: 1.55s; }
+.flywheel-sec.in .fh3 { animation-delay: 2.25s; }
+.flywheel-sec.in .fh4 { animation-delay: 2.95s; }
+.flywheel-sec.in .fw-centre { animation: labelIn 0.7s ease 2.2s forwards; }
+.fw-seg { stroke-linecap: butt; stroke-width: 62; }
+.fw-ring { opacity: 0; }
+.flywheel-sec.in .fw-ring { animation: labelIn 0.8s ease 2.6s forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .fw-arc { stroke-dashoffset: 0; animation: none !important; }
+  .fw-head, .fw-node, .fw-label, .fw-centre, .fw-ring { opacity: 1; animation: none !important; }
+}
+
+/* ---------- Next page band ---------- */
+.next-band {
+  padding: 70px 0;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.next-band .btn { padding: 15px 34px; font-size: 1rem; }
+.band-statement { font-family: var(--display); font-weight: 500; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2; letter-spacing: -0.02em; max-width: 24ch; margin: 0 auto; }
+
+/* ---------- Leadership anchor + 2-col layout ---------- */
+.card.leadership-anchor {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: var(--paper);
+  margin-top: 52px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+.card.leadership-anchor:hover { border-color: rgba(250,247,241,0.12); }
+.card.leadership-anchor h3 { font-size: 1.52rem; color: var(--paper); margin-bottom: 14px; }
+.card.leadership-anchor p { color: rgba(250,247,241,0.7); font-size: 1rem; }
+.leadership-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.leadership-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
@@ -698,6 +835,12 @@ footer {
   .foot-top { grid-template-columns: 1fr; gap: 32px; }
   .pipe-tiles { grid-template-columns: 1fr 1fr; }
   .ptile { height: 240px; }
+  .practice-grid { grid-template-columns: 1fr; }
+  .practice-cell, .practice-cell:nth-child(even) { padding-left: 0; padding-right: 0; border-left: none; }
+  .leadership-cards, .leadership-cards.cols-3 { grid-template-columns: 1fr; }
+  .ud-grid { grid-template-columns: 1fr; }
+  .ud-col .ud-art { height: 220px; }
+  .fade-light { height: 110px; }
 }
 @media (max-width: 760px) {
   .nav-links {
@@ -725,7 +868,7 @@ footer {
 }
 
 /* ---------- Subpage hero ---------- */
-.page-hero { min-height: 100vh; min-height: 100svh; }
+.page-hero { min-height: 65vh; min-height: 65svh; }
 .page-hero .hero-content { padding: 130px 28px 170px; }
 .page-hero h1 {
   font-size: clamp(1.8rem, 3.5vw, 3rem);
@@ -978,27 +1121,32 @@ footer {
 }
 @media (max-width: 760px) {
   .offer-points { grid-template-columns: 1fr; }
-  .page-hero .hero-content { padding: 130px 28px 120px; }
+  .page-hero .hero-content { padding: 120px 24px 110px; }
+  .page-hero h1 { font-size: clamp(1.45rem, 6vw, 1.8rem); }
+  .page-hero h1 .h1-line2 { font-size: clamp(2rem, 9.5vw, 2.8rem); }
+  .stats { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#top">Skip to content</a>
+
 <header class="nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">my<span>CIO</span></a>
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#8801;</button>
-        <nav class="nav-links">
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">&#8801;</button>
+        <nav class="nav-links" id="nav-links">
       <a href="index.html">Why myCIO</a>
       <a href="how-we-work.html" aria-current="page">How we work</a>
       <a href="transformation.html">Transformation</a>
-      <a href="contact.html">Contact</a>
+      <a href="security-operations.html">Security and Operations</a>
       <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
     </nav>
   </div>
 </header>
 
-<section class="hero page-hero" aria-label="How We Work overview">
+<section class="hero page-hero" id="top" aria-label="How We Work overview">
   <div class="hero-content">
     <div class="inner">
       <h1>From where you are,<span class="h1-line2">to where your business is going.</span></h1>
@@ -1013,29 +1161,63 @@ footer {
 <!-- HOW WE DRIVE CHANGE -->
 <section id="drive">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">Change stalls when nobody owns it end to end. <span class="accent">We own it end to end.</span></h2>
-    <div class="cards-3 reveal" style="text-align:left; margin-top:48px;">
-      <div class="card"><h3>One owner, start to finish</h3><p>A senior team carries the outcome the whole way, answerable when the board asks. The change does not lose momentum the moment a project manager rotates off, because the same people are accountable from discovery to handover.</p></div>
-      <div class="card"><h3>We fix what hurts first.</h3><p>Early wins matter. We start with the changes that make the most immediate difference, so your team feels progress quickly and the harder work has solid ground to build on.</p></div>
-      <div class="card"><h3>It runs without us in the end</h3><p>Everything is built so your people can keep it going. We work beside your team, not above them, so the capability stays in the building. You own the systems, the data, and the way of working for good.</p></div>
+    <h2 class="section-head reveal">Change stalls when nobody owns it. <span class="accent">We own it, end to end.</span></h2>
+    <p class="section-sub reveal">We have seen too many good businesses ride the provider merry-go-round: three years of good-enough service, nothing moving forward, then bill shock.</p>
+    <p class="cycle-line reveal">myCIO exists to end that cycle.</p>
+    <div class="leadership-cards reveal" style="text-align:left; margin-top:48px;">
+      <div class="card"><h3>We own the direction</h3><p>The roadmap, the budget, the risk, and the outcome are ours to carry, discovery to handover. Never delegated.</p></div>
+      <div class="card"><h3>We fix what hurts first</h3><p>We start with the changes your team feels first, so the harder work has solid ground to build on.</p></div>
+      <div class="card"><h3>The day-to-day runs your way</h3><p>Your team, your existing provider, us, or a mix. It runs to our standard, and it serves where the business is heading.</p></div>
+      <div class="card"><h3>It runs without us in the end</h3><p>We work beside your team, not above them, so the capability stays in the building. You own the systems, the data, and the way of working.</p></div>
     </div>
-    <p class="note-line reveal" style="margin-top:44px;">We move at the pace the business can absorb. <span class="accent">Lasting change over fast change, every time.</span></p>
-    <p class="note-line reveal" style="margin-top:22px;">When the fit is right, we do not step back. <span class="accent">We become your technology team.</span></p>
+    <p class="note-line reveal" style="margin-top:44px;">We move at the pace the business can absorb, and when the fit is right we do not step back. We become <span class="accent">your technology team.</span></p>
   </div>
 </section>
 
-<section id="engage" class="sand-section">
+<!-- FLYWHEEL: the circular engagement -->
+<section id="flywheel" class="flywheel-sec sand-section">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">What it feels like <span class="accent">in practice.</span></h2>
-    <div class="cards-3" style="text-align:left;">
-      <div class="card reveal"><h3>We start by listening</h3><p>Before we recommend anything, we get a real picture of how the business runs and where it hurts. The first conversation is about you, not us.</p></div>
-      <div class="card reveal"><h3>You always know where things stand</h3><p>A clear plan, regular check-ins, and honest updates in plain language. No surprises, no jargon, and nothing hidden in a status report nobody reads.</p></div>
-      <div class="card reveal"><h3>The day-to-day runs your way</h3><p>The everyday running sits wherever it works best. Your own team, your existing provider, us, or a mix of all three. We own that it gets done and that it serves where the business is going.</p></div>
-      <div class="card reveal"><h3>We bring in the right help when it is needed</h3><p>Where a piece of work needs extra hands, we have a trusted network across New Zealand to call on. You deal with us. We own the result either way.</p></div>
-      <div class="card reveal"><h3>We stay accountable for the result</h3><p>We do not hand over a document and move on. We see the work through and own the outcome, including the parts that are uncomfortable.</p></div>
-      <div class="card reveal"><h3>It fits how you want to work</h3><p>Some businesses want us close and hands-on. Others want a lighter touch. We shape the engagement around what suits you, and adjust as things change.</p></div>
+    <h2 class="section-head reveal">Wherever you get on, <span class="accent">the wheel turns the same way.</span></h2>
+    <p class="section-sub reveal">Strategy sets the direction, Transformation delivers it, Operations keeps it turning and feeds the next round. Security is designed into every turn. You get on wherever it suits you.</p>
+    <div class="fw-holder">
+      <svg viewBox="-150 30 940 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The myCIO flywheel: Strategy and Governance, then Transformation, then Operations, turning continuously around your business, with security designed into the whole cycle.">
+        <!-- secure by design: the wrapper ring -->
+        <g class="fw-ring" aria-hidden="true">
+          <circle cx="320" cy="330" r="232" fill="none" stroke="#161412" stroke-width="1.6" stroke-dasharray="6 9" opacity="0.45"/>
+          <path d="M 546 330 L 558 330 L 552 344 Z" fill="#161412" opacity="0.5"/>
+          <path d="M 82 330 L 94 330 L 88 316 Z" fill="#161412" opacity="0.5"/>
+          <rect x="212" y="83" width="216" height="30" fill="#faf7f1"/>
+          <text x="320" y="104" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="19" font-weight="600" fill="#161412">Secure by design</text>
+        </g>
+
+        <!-- three segments, clockwise: Strategy and Governance (this page's subject), Transformation, Operations -->
+        <g>
+          <path class="fw-head fh1" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" fill="none" stroke="#e05a30" stroke-width="84" stroke-opacity="0.18" style="stroke-linecap:butt;"/>
+          <path class="fw-arc fw-seg fa1" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#e05a30"/>
+          <path class="fw-head fh1" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#e05a30"/>
+        </g>
+        <g transform="rotate(120 320 330)">
+          <path class="fw-arc fw-seg fa2" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#6d3bd6"/>
+          <path class="fw-head fh2" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#6d3bd6"/>
+        </g>
+        <g transform="rotate(240 320 330)">
+          <path class="fw-arc fw-seg fa3" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#1f7a63"/>
+          <path class="fw-head fh3" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#1f7a63"/>
+        </g>
+
+        <!-- labels -->
+        <g class="fw-label fl1">
+          <text x="546" y="210" text-anchor="start" font-family="'Fraunces', serif" font-style="italic" font-size="23" font-weight="600" fill="#1a1714">Strategy and Governance</text>
+        </g>
+        <g class="fw-label fl2">
+          <text x="320" y="600" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="23" font-weight="600" fill="#1a1714">Transformation</text>
+        </g>
+        <g class="fw-label fl3">
+          <text x="94" y="210" text-anchor="end" font-family="'Fraunces', serif" font-style="italic" font-size="23" font-weight="600" fill="#1a1714">Operations</text>
+        </g>
+
+      </svg>
     </div>
-    <p class="note-line reveal">A structured discovery. An honest read on where you stand. A recommended path forward, with cost. <span class="accent">If we are not the right fit, we say so.</span></p>
   </div>
 </section>
 
@@ -1050,7 +1232,7 @@ footer {
   <div class="wrap">
     <div class="ud-grid">
       <div class="ud-col reveal">
-        <div class="ud-art"><svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg">
+        <div class="ud-art" aria-hidden="true"><svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg">
             <!-- slide frame: strategy deck -->
             <g class="drift" transform="rotate(-7 160 130)">
               <rect x="60" y="60" width="200" height="140" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.28)" stroke-width="1.6"/>
@@ -1090,11 +1272,11 @@ footer {
               <path d="M560 200 v10 M555 205 h10"/>
             </g>
           </svg></div>
-        <h2>Technology strategy that <span class="accent">never leaves the slides.</span></h2>
+        <h3>Technology strategy that <span class="accent">never leaves the slides.</span></h3>
         <p>Big promises, roadmaps, and decks. None of it changes how the business runs.</p>
       </div>
       <div class="ud-col reveal">
-        <div class="ud-art"><svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+        <div class="ud-art" aria-hidden="true"><svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#17181f"/>
@@ -1144,25 +1326,42 @@ footer {
               <text x="300" y="344" font-family="'Hanken Grotesk', sans-serif" font-size="12" fill="rgba(250,247,241,0.45)">saved in one vendor review</text>
             </g>
           </svg></div>
-        <h2>The goal is technology <span class="accent">people enjoy using.</span></h2>
-        <p>Work that lands in the business, runs quietly, and lets your team get on with the job. That is the outcome we own.</p>
+        <h3>The goal is technology <span class="accent">people enjoy using.</span></h3>
+        <p>Technology that helps the business run, not technology that gets in the way of it. That is the outcome we own.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LEADERSHIP INCLUDED -->
+<section id="engage" class="sand-section">
+  <div class="wrap center-head">
+    <h2 class="section-head reveal">What it feels like <span class="accent">in practice.</span></h2>
+    <div class="practice-grid">
+      <div class="practice-cell reveal"><h3>We start by listening</h3><p>The first conversation is about you, not us: how the business runs, and where it hurts.</p></div>
+      <div class="practice-cell reveal"><h3>You always know where things stand</h3><p>A quarterly review and a rolling 12-month roadmap: what is delivered, what is in progress, what is next.</p></div>
+      <div class="practice-cell reveal"><h3>The right help, wherever you are</h3><p>Most work happens remotely. When someone is needed on site, trusted partners cover the whole of New Zealand. You deal with us, and we own the result.</p></div>
+      <div class="practice-cell reveal"><h3>Your applications and data shape the journey</h3><p>Every business runs on its own mix of applications and data. We learn them, protect them, and plan the journey around them, not around a template.</p></div>
+      <div class="practice-cell reveal"><h3>It fits how you want to work</h3><p>Some businesses want us close and hands-on, others a lighter touch. We shape the engagement to suit you, and adjust as things change.</p></div>
+    </div>
+    <p class="note-line reveal">Every engagement starts the same way: a structured discovery, an honest read on where you stand, and <span class="accent">a recommended path forward, with cost.</span></p>
+  </div>
+</section>
+
+<!-- ONE TEAM, BUSINESS OUTCOMES -->
 <section id="leadership">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">A senior team in the room,<br><span class="accent">accountable for the outcome.</span></h2>
-    <p class="section-sub reveal">Most businesses without senior technology ownership make decisions reactively, or let vendors make them. A myCIO retainer changes that. Here is what is included, not billed as extras.</p>
-    <div class="cards-3" style="text-align:left;">
-      <div class="card reveal"><h3>A senior leadership team</h3><p>Experienced technology leaders who own your outcomes, available for decisions, escalations, and the hard calls. More than one brain on your business, not a sole operator.</p></div>
-      <div class="card reveal"><h3>Board ready reporting</h3><p>Security posture, active risks, and measurable improvement over time, in plain language the board and your insurer can act on.</p></div>
-      <div class="card reveal"><h3>A technology risk register</h3><p>The main risks to your business, what is being done about each, and where the technical debt sits. Paid down deliberately.</p></div>
-      <div class="card reveal"><h3>Vendor management</h3><p>We hold your technology vendors to their contracts and service levels. This alone recovers value most businesses leave on the table.</p></div>
-      <div class="card reveal"><h3>Tested incident response</h3><p>A plan kept current enough to be useful on the day, with scheduled walk-throughs and a senior hand when something real happens.</p></div>
+    <h2 class="section-head reveal">One team keeps it running <span class="accent">and moves it forward.</span></h2>
+    <p class="section-sub reveal">Not a helpdesk. A senior team embedded in your business, leading with strategy and governance. The rest follows from that lead.</p>
+    <div class="card leadership-anchor reveal">
+      <h3>A senior leadership team</h3>
+      <p>Experienced technology leaders who own your outcome. More than one brain on your business, never a sole operator.</p>
     </div>
+    <div class="leadership-cards cols-3">
+      <div class="card reveal" style="text-align:left;"><h3>The board gets straight answers</h3><p>A live risk register: the main risks, what is being done about each, and the improvement over time.</p></div>
+      <div class="card reveal" style="text-align:left;"><h3>Vendors held to their contracts</h3><p>Contracts and service levels enforced on your behalf. This alone recovers value most businesses leave on the table.</p></div>
+      <div class="card reveal" style="text-align:left;"><h3>When something happens, we lead</h3><p>An incident response plan kept current and rehearsed before it is needed. Your insurer sees the evidence they want.</p></div>
+    </div>
+    <p class="note-line reveal">Under it all, the day-to-day is defended and supported to the same standard. <a href="security-operations.html" class="accent" style="font-style:italic; text-decoration:none;">See Security and Operations.</a></p>
   </div>
 </section>
 
@@ -1174,8 +1373,16 @@ footer {
       <div class="stat reveal"><div class="big">35+</div><p>Years combined experience across IT, OT, and security leadership</p></div>
       <div class="stat reveal"><div class="big">$1M+</div><p>Saved for clients by reviewing major decisions before they were signed</p></div>
       <div class="stat reveal"><div class="big">NZ only</div><p>No offshore handoffs. The people you meet do the work.</p></div>
-      <div class="stat reveal"><div class="big">7yr</div><p>The standard we build to, not the industry norm of three</p></div>
+      <div class="stat reveal"><div class="big">A to Z</div><p>One team from strategy to delivery to day-to-day support</p></div>
     </div>
+  </div>
+</section>
+
+<!-- NEXT -->
+<section class="next-band">
+  <div class="wrap" style="text-align:center;">
+    <p class="band-statement reveal">Strategy sets the direction. <span class="accent">Transformation is where it pays off.</span></p>
+    <a href="transformation.html" class="btn reveal" style="margin-top:34px;">See the transformation journey</a>
   </div>
 </section>
 
@@ -1183,8 +1390,8 @@ footer {
 <section class="cta">
   <div class="wrap">
     <h2 class="section-head reveal">Thirty minutes. You leave knowing exactly <span class="accent">where you stand.</span></h2>
-    <p class="cta-sub reveal">Half an hour, no slide deck. You get an honest read on where your technology stands and what to do about it. If we are not the right fit for you, we will say so.</p>
-    <a href="contact.html" class="btn reveal">Book your 30 minute call</a>
+    <p class="cta-sub reveal">Half an hour, no slide deck. You get an honest read on where your technology stands and what to do about it. If we are not the right fit for you, we say so.</p>
+    <a href="contact.html#contact" class="btn reveal">Book your 30 minute call</a>
     <p class="cta-micro reveal">Prefer email? <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a></p>
   </div>
 </section>
@@ -1202,6 +1409,7 @@ footer {
           <li><a href="index.html">Why myCIO</a></li>
           <li><a href="how-we-work.html">How we work</a></li>
           <li><a href="transformation.html">Transformation</a></li>
+          <li><a href="security-operations.html">Security and Operations</a></li>
         </ul>
       </div>
       <div>
@@ -1219,16 +1427,25 @@ footer {
 </footer>
 
 <script>
-// Mobile nav toggle
+// Mobile nav toggle: icon swaps to a close mark, menu closes on link tap
 (function () {
   var toggle = document.querySelector('.nav-toggle');
   var links = document.querySelector('.nav-links');
-  if (toggle && links) {
-    toggle.addEventListener('click', function () {
-      var open = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
+  if (!toggle || !links) return;
+  function setOpen(open) {
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.innerHTML = open ? '&times;' : '&#8801;';
   }
+  toggle.addEventListener('click', function () {
+    setOpen(!links.classList.contains('open'));
+  });
+  Array.prototype.forEach.call(links.querySelectorAll('a'), function (a) {
+    a.addEventListener('click', function () { setOpen(false); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && links.classList.contains('open')) setOpen(false);
+  });
 })();
 
 // Scroll reveal with sibling stagger
@@ -1273,6 +1490,7 @@ footer {
     canvas.width = W * dpr;
     canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (reduce) draw(0);
   }
 
   var ribbons = [
@@ -1351,6 +1569,20 @@ footer {
     });
   }, { threshold: 0.3 });
   io.observe(j);
+})();
+
+// Flywheel: draw the cycle when it enters view, replay on re-entry
+(function () {
+  var f = document.getElementById('flywheel');
+  if (!f) return;
+  if (!('IntersectionObserver' in window)) { f.classList.add('in'); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) f.classList.add('in');
+      else f.classList.remove('in');
+    });
+  }, { threshold: 0.3 });
+  io.observe(f);
 })();
 </script>
 </body>

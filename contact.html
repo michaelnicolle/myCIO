@@ -13,10 +13,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="myCIO | Talk to us">
 <meta name="twitter:description" content="Book a thirty minute call or send us a message. An honest read on where your technology stands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
 <style>
 /* myCIO website styles, launch redesign */
-
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
 
 :root {
   --accent: #e05a30;
@@ -134,6 +135,13 @@ header.nav {
 .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
 .btn:active { transform: scale(0.96); }
 .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 120;
+  background: var(--ink); color: var(--white);
+  padding: 10px 18px; border-radius: 0 0 12px 0; font-weight: 600;
+}
+.skip-link:focus { left: 0; }
 .nav-links a:not(.btn):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .btn-nav {
   background: transparent;
@@ -661,12 +669,12 @@ section[id] { scroll-margin-top: 90px; }
   margin: 20px auto 0;
   max-width: 52ch;
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(22, 20, 18, 0.88);
 }
 .cta .btn { background: var(--ink); color: var(--paper); margin-top: 30px; padding: 15px 32px; font-size: 1rem; }
 .cta .btn:hover { background: #000; }
-.cta .cta-micro { margin-top: 18px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.75); }
-.cta .cta-micro a { font-weight: 700; color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.cta .cta-micro { margin-top: 18px; font-size: 0.9rem; color: rgba(22, 20, 18, 0.75); }
+.cta .cta-micro a { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Footer ---------- */
 footer {
@@ -684,7 +692,7 @@ footer {
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
   margin-top: 56px; padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.84rem; color: rgba(250, 247, 241, 0.45);
+  font-size: 0.84rem; color: rgba(250, 247, 241, 0.6);
 }
 
 /* ---------- Responsive ---------- */
@@ -918,7 +926,10 @@ footer {
 }
 @media (max-width: 760px) {
   .offer-points { grid-template-columns: 1fr; }
-  .page-hero .hero-content { padding: 130px 28px 120px; }
+  .page-hero .hero-content { padding: 120px 24px 110px; }
+  .page-hero h1 { font-size: clamp(1.45rem, 6vw, 1.8rem); }
+  .page-hero h1 .h1-line2 { font-size: clamp(2rem, 9.5vw, 2.8rem); }
+  .fade-light { height: 110px; }
 }
 
 /* WHY MYCIO on contact */
@@ -930,7 +941,7 @@ footer {
 .why-contact-cards { display: flex; flex-direction: column; gap: 30px; padding-top: 6px; }
 .wc-card { padding: 4px 0; }
 .wc-card::before { content: ""; display: block; width: 28px; height: 2px; background: var(--accent); border-radius: 2px; margin-bottom: 18px; }
-.wc-card h2 { font-family: var(--display); font-weight: 600; font-size: 1.32rem; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 12px; color: var(--ink); }
+.wc-card h3 { font-family: var(--display); font-weight: 600; font-size: 1.32rem; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 12px; color: var(--ink); }
 .wc-card p { font-size: 1rem; color: var(--muted); line-height: 1.6; }
 @media (max-width: 860px) {
   .why-contact-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -939,21 +950,23 @@ footer {
 </head>
 <body>
 
+<a class="skip-link" href="#top">Skip to content</a>
+
 <header class="nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">my<span>CIO</span></a>
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#8801;</button>
-        <nav class="nav-links">
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">&#8801;</button>
+        <nav class="nav-links" id="nav-links">
       <a href="index.html">Why myCIO</a>
       <a href="how-we-work.html">How we work</a>
       <a href="transformation.html">Transformation</a>
-      <a href="contact.html" aria-current="page">Contact</a>
+      <a href="security-operations.html">Security and Operations</a>
       <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
     </nav>
   </div>
 </header>
 
-<section class="hero page-hero" aria-label="Contact overview">
+<section class="hero page-hero" id="top" aria-label="Contact overview">
   <div class="hero-content">
     <div class="inner">
       <h1>Let's talk about<span class="h1-line2">where your business is going.</span></h1>
@@ -965,45 +978,23 @@ footer {
 
 <div class="fade-light" aria-hidden="true"></div>
 
-<!-- TEAM -->
-
-<section class="why-contact">
-  <div class="wrap why-contact-grid">
-    <div class="why-contact-story reveal">
-      <p>We started myCIO because we kept seeing good businesses get let down by their own technology.</p>
-      <p>Not through bad luck. Through a model that was never built to deliver outcomes. Providers who keep the lights on, bill their hours, and walk away. The owner gets left holding the decisions nobody else will own.</p>
-      <p><strong>So we built the missing piece.</strong> Senior enough to set the direction. Accountable enough to see it through. Present, not reporting from a distance.</p>
-      <p class="why-contact-kicker">Technology should work for your business. <span class="accent">That is the whole point.</span></p>
-    </div>
-    <div class="why-contact-cards">
-      <div class="wc-card reveal">
-        <h2>We don't leave until it's working.</h2>
-        <p>We own the outcome and fix what breaks. You stop being the person explaining to the board why it did not land.</p>
-      </div>
-      <div class="wc-card reveal">
-        <h2>Your vendors finally have someone to answer to.</h2>
-        <p>We hold them accountable, renegotiate what is not working, and close the gaps they have been ignoring. One client saved half a million dollars in the first review. That is not unusual.</p>
-      </div>
-      <div class="wc-card reveal">
-        <h2>Built so you are never held hostage.</h2>
-        <p>We build your environment so it belongs to you. Documented, portable, and not dependent on any single vendor or person. Seven years from now, it should still make sense.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- CONTACT FORM FIRST: this is what the visitor came for -->
 <section id="contact">
   <div class="wrap">
     <div class="center-head">
       <h2 class="section-head reveal">Thirty minutes. <span class="accent">You leave knowing exactly where you stand.</span></h2>
-      <p class="section-sub reveal">No slide deck, no obligation. Tell us what is slowing your business down and we will give you an honest read on what to do next. If we are not the right fit, we say so.</p>
-      <p class="contact-reassurance reveal">When you hear back from us, it will be one of our Principals on the call, not a sales team. We want to understand your situation properly and give you a straight read on whether we are the right fit. Nothing is decided on a first conversation.</p>
+      <p class="section-sub reveal">No slide deck, no obligation. Tell us what is slowing the business down and you get an honest read on what to do next. If we are not the right fit, we say so.</p>
+      <p class="contact-reassurance reveal">It is one of the founders on the call, not a sales team, and nothing is decided on a first conversation.</p>
     </div>
     <div class="contact-card reveal" style="max-width:560px; margin:44px auto 0;">
       <div id="contact-form-wrap">
         <h3>Send us a message</h3>
         <p>Leave your email and what is going on. We will come back to you within one business day.</p>
-        <form id="contact-form" novalidate style="margin-top:16px;">
+        <form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" novalidate style="margin-top:16px;">
+          <div class="field">
+            <label for="cf-name">Your name</label>
+            <input type="text" id="cf-name" name="name" required placeholder="Jane" autocomplete="name">
+          </div>
           <div class="field">
             <label for="cf-email">Your email</label>
             <input type="email" id="cf-email" name="email" required placeholder="jane@business.co.nz" autocomplete="email">
@@ -1012,7 +1003,9 @@ footer {
             <label for="cf-message">What is going on?</label>
             <textarea id="cf-message" name="message" required placeholder="A few lines is enough."></textarea>
           </div>
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute; left:-9999px;" aria-hidden="true">
           <button type="submit" class="btn" id="cf-send" style="width:100%;">Send it through</button>
+          <p id="cf-invalid" role="alert" style="display:none; margin-top:12px; font-size:0.9rem; color:#c03a1a;">Please add your name, a valid email address, and a few lines about what is going on.</p>
           <p id="cf-error" role="alert" style="display:none; margin-top:12px; font-size:0.9rem; color:#c03a1a;">Something went wrong. Email us directly at <a href="mailto:hello@mycio.co.nz" style="color:var(--accent); font-weight:700;">hello@mycio.co.nz</a> and we will get back to you.</p>
         </form>
         <p style="margin-top:18px; font-size:0.9rem; color:var(--muted);">Or email us directly: <a href="mailto:hello@mycio.co.nz?subject=Intro%20call%20with%20myCIO" style="color:var(--accent); font-weight:700;">hello@mycio.co.nz</a></p>
@@ -1023,6 +1016,32 @@ footer {
         </div>
         <h3 style="font-size:1.3rem; margin-bottom:8px;">Message sent.</h3>
         <p>We will come back to you within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY WE STARTED: reassurance for the undecided, below the form -->
+<section class="why-contact">
+  <div class="wrap why-contact-grid">
+    <div class="why-contact-story reveal">
+      <p>We started myCIO because we kept seeing good businesses get let down by their own technology.</p>
+      <p>Not through bad luck. Through a model that was never built to deliver outcomes. Providers who keep the lights on, bill their hours, and walk away. The owner gets left holding the decisions nobody else will own.</p>
+      <p><strong>So we built the missing piece.</strong> Senior enough to set the direction. Accountable enough to see it through. Present, not reporting from a distance.</p>
+      <p class="why-contact-kicker">Technology should work for your business. <span class="accent">That is the whole point.</span></p>
+    </div>
+    <div class="why-contact-cards">
+      <div class="wc-card reveal">
+        <h3>We don't leave until it's working.</h3>
+        <p>We own the outcome and fix what breaks. You stop being the person explaining to the board why it did not land.</p>
+      </div>
+      <div class="wc-card reveal">
+        <h3>Your vendors finally have someone to answer to.</h3>
+        <p>We hold them accountable, renegotiate what is not working, and close the gaps they have been ignoring. The savings usually show up in the first review.</p>
+      </div>
+      <div class="wc-card reveal">
+        <h3>Built so you are never held hostage.</h3>
+        <p>We build your environment so it belongs to you. Documented, portable, and not dependent on any single vendor or person. Years from now, it should still make sense.</p>
       </div>
     </div>
   </div>
@@ -1042,6 +1061,7 @@ footer {
           <li><a href="index.html">Why myCIO</a></li>
           <li><a href="how-we-work.html">How we work</a></li>
           <li><a href="transformation.html">Transformation</a></li>
+          <li><a href="security-operations.html">Security and Operations</a></li>
         </ul>
       </div>
       <div>
@@ -1059,16 +1079,25 @@ footer {
 </footer>
 
 <script>
-// Mobile nav toggle
+// Mobile nav toggle: icon swaps to a close mark, menu closes on link tap
 (function () {
   var toggle = document.querySelector('.nav-toggle');
   var links = document.querySelector('.nav-links');
-  if (toggle && links) {
-    toggle.addEventListener('click', function () {
-      var open = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
+  if (!toggle || !links) return;
+  function setOpen(open) {
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.innerHTML = open ? '&times;' : '&#8801;';
   }
+  toggle.addEventListener('click', function () {
+    setOpen(!links.classList.contains('open'));
+  });
+  Array.prototype.forEach.call(links.querySelectorAll('a'), function (a) {
+    a.addEventListener('click', function () { setOpen(false); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && links.classList.contains('open')) setOpen(false);
+  });
 })();
 
 // Scroll reveal with sibling stagger
@@ -1113,6 +1142,7 @@ footer {
     canvas.width = W * dpr;
     canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (reduce) draw(0);
   }
 
   var ribbons = [
@@ -1181,30 +1211,38 @@ footer {
 
 
 // Contact form: Formspree JSON API with email fallback on error
-// To activate: sign up at formspree.io, create a form, paste your form ID below
+// To activate: sign up at formspree.io, create a form, and replace
+// YOUR_FORMSPREE_ID in the form's action attribute above (one place only).
 (function () {
   var form = document.getElementById('contact-form');
   if (!form) return;
   var wrap = document.getElementById('contact-form-wrap');
   var success = document.getElementById('contact-success');
   var errorMsg = document.getElementById('cf-error');
+  var invalidMsg = document.getElementById('cf-invalid');
   var btn = document.getElementById('cf-send');
-  var FORM_ID = 'YOUR_FORMSPREE_ID';
+  var ACTION = form.getAttribute('action');
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    var name = document.getElementById('cf-name').value.trim();
     var email = document.getElementById('cf-email').value.trim();
     var message = document.getElementById('cf-message').value.trim();
-    if (!email || !message) return;
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!name || !emailOk || !message) {
+      invalidMsg.style.display = 'block';
+      return;
+    }
+    invalidMsg.style.display = 'none';
 
     btn.disabled = true;
     btn.textContent = 'Sending...';
     errorMsg.style.display = 'none';
 
-    fetch('https://formspree.io/f/' + FORM_ID, {
+    fetch(ACTION, {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, message: message })
+      body: JSON.stringify({ name: name, email: email, message: message })
     })
     .then(function (res) {
       return res.json().then(function (data) { return { ok: res.ok, data: data }; });

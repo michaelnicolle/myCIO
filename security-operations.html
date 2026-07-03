@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>myCIO | Business Transformation</title>
-<meta name="description" content="Business transformation done in the right order. myCIO fixes the foundations, gets your data and knowledge ready, then makes AI and automation actually stick.">
+<title>myCIO | Security and Operations</title>
+<meta name="description" content="The engine powering every myCIO engagement. Secure at every stage, supported every day, and out of the way so your team can work.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="myCIO | Business Transformation">
-<meta property="og:description" content="Business transformation done in the right order. Foundations, data, then AI. In that order, every time.">
-<meta property="og:url" content="https://mycio.co.nz/transformation.html">
+<meta property="og:title" content="myCIO | Security and Operations">
+<meta property="og:description" content="Secure at every stage. Supported every day. Automated, enforced, and measured monthly.">
+<meta property="og:url" content="https://mycio.co.nz/security-operations.html">
 <meta property="og:image" content="https://mycio.co.nz/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="myCIO | Business Transformation">
-<meta name="twitter:description" content="Business transformation done in the right order. Foundations, data, then AI.">
+<meta name="twitter:title" content="myCIO | Security and Operations">
+<meta name="twitter:description" content="Secure at every stage. Supported every day. Automated, enforced, and measured monthly.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
@@ -223,13 +223,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   margin: 24px auto 0;
 }
 .hero-content .lead strong { color: var(--white); font-weight: 600; }
-.hero-content .lead .lead-owner {
-  display: block;
-  margin-top: 12px;
-  color: var(--white);
-  font-weight: 700;
-  font-size: 1.06em;
-}
 .hero-actions { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
 .hero-foot {
   position: absolute;
@@ -296,7 +289,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .updown {
   background: #0a0b0e;
   color: var(--white);
-  padding: 0 0 110px;
+  padding: 52px 0 110px;
 }
 .ud-grid {
   display: grid;
@@ -318,7 +311,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   margin: 0 auto;
 }
 .ud-col .ud-art svg { max-height: 100%; max-width: 100%; width: auto; height: auto; display: block; }
-.ud-col h2 {
+.ud-col h3 {
   margin-top: 30px;
   font-size: clamp(1.5rem, 2.6vw, 2rem);
   font-weight: 600;
@@ -346,23 +339,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   .drift, .dash-pulse { animation: none; }
 }
 
-
-/* Layer cards stack into place */
-.layers .layer-card.reveal { transform: none; transition: none; opacity: 0; }
-.layers .layer-card.reveal.in {
-  opacity: 1;
-  animation: stackIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes stackIn {
-  0% { opacity: 0; transform: translateY(100px) scale(0.95); }
-  70% { opacity: 1; transform: translateY(-7px) scale(1.004); }
-  100% { opacity: 1; transform: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .layers .layer-card.reveal.in { animation: none; opacity: 1; transform: none; }
-  .layers .layer-card.reveal { opacity: 1; }
-}
-
 /* ---------- Dark to light transition ---------- */
 .fade-light {
   height: 180px;
@@ -373,51 +349,58 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .pipe-band {
   background: #0a0b0e;
   color: var(--white);
-  padding: 130px 0 96px;
+  padding: 10px 0 110px;
+}
+.pipe-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ptile {
+  position: relative;
+  border-radius: var(--radius);
+  background: #14151b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
-}
-.pipe-statement {
-  text-align: center;
-  max-width: 860px;
-  margin: 0 auto;
-}
-.pipe-statement-head {
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(1.8rem, 3.4vw, 2.7rem);
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-  color: var(--white);
-}
-.pipe-statement-head .accent-i {
-  font-style: italic;
-  font-weight: 500;
-  color: var(--accent);
-}
-.pipe-statement-sub {
-  margin: 18px auto 0;
-  font-size: clamp(1rem, 1.5vw, 1.18rem);
-  line-height: 1.6;
-  color: rgba(250, 247, 241, 0.55);
-  max-width: 62ch;
-}
-.pipe-strip {
-  margin-top: 58px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 22px 64px;
-}
-.pipe-strip .ps-item {
+  height: 270px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: rgba(250, 247, 241, 0.95);
+  justify-content: center;
+  padding: 26px 26px 64px;
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), border-color 0.25s;
 }
-.pipe-strip .ps-item svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 2.2; flex-shrink: 0; }
+.ptile:nth-child(even) { background: #17181e; }
+.ptile:hover { transform: translateY(-4px); border-color: rgba(224, 90, 48, 0.45); }
+.ptile-art { width: 100%; max-width: 180px; }
+.ptile-art svg { width: 100%; height: auto; display: block; }
+.ptile .ptile-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  text-align: center;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: rgba(250, 247, 241, 0.85);
+}
+.pipe-statement {
+  margin-top: 60px;
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.55;
+  max-width: 64ch;
+}
+.pipe-statement .w { color: var(--white); font-weight: 600; }
+.pipe-statement .m { color: rgba(250, 247, 241, 0.5); }
+.pipe-strip {
+  margin-top: 56px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 48px;
+}
+.pipe-strip .ps-item { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; color: rgba(250, 247, 241, 0.6); }
+.pipe-strip .ps-item svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; flex-shrink: 0; }
 
 /* ---------- Shared section styles ---------- */
 .eyebrow {
@@ -554,25 +537,10 @@ section[id] { scroll-margin-top: 90px; }
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--white);
-  padding: 42px 40px;
+  padding: 38px 36px;
   overflow: hidden;
-  text-align: center;
   box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
-}
-.layer-num {
-  width: 46px;
-  height: 46px;
-  margin: 0 auto 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid var(--accent);
-  border-radius: 100px;
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--accent);
 }
 .layer-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.35); }
 .layer-card.sand { background: var(--sand); }
@@ -592,83 +560,20 @@ section[id] { scroll-margin-top: 90px; }
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.1;
-  margin: 0 auto 16px;
+  margin-bottom: 16px;
+  max-width: 14ch;
 }
-.layer-card p { color: var(--muted); font-size: 0.99rem; margin: 12px auto 0; max-width: 52ch; }
+.layer-card p { color: var(--muted); font-size: 0.99rem; margin-top: 12px; max-width: 52ch; }
 .layer-card p strong { color: var(--ink); }
 .layer-card.dark-card p strong { color: var(--paper); }
-
-
-/* ---------- Next page band ---------- */
-.next-band {
-  padding: 70px 0;
-  background: var(--paper-2);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+.layer-art {
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  width: 84px;
+  opacity: 0.9;
 }
-.next-band .btn { padding: 15px 34px; font-size: 1rem; }
-.band-statement { font-family: var(--display); font-weight: 500; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2; letter-spacing: -0.02em; max-width: 24ch; margin: 0 auto; }
-
-
-/* ---------- Journey curve (the climb) ---------- */
-.journey { background: var(--paper); }
-.journey-stage-wrap { margin-top: 60px; }
-.journey-svg-holder { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; }
-.journey-svg-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
-.jline {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-.journey.in .jline { animation: drawLine 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-@keyframes drawLine { to { stroke-dashoffset: 0; } }
-.jnode { opacity: 0; }
-.journey.in .jnode { animation: nodePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.journey.in .jnode.j1 { animation-delay: 0.25s; }
-.journey.in .jnode.j2 { animation-delay: 0.65s; }
-.journey.in .jnode.j3 { animation-delay: 1.05s; }
-.journey.in .jnode.j4 { animation-delay: 1.45s; }
-.journey.in .jnode.j5 { animation-delay: 1.85s; }
-@keyframes nodePop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
-.jlabel { opacity: 0; }
-.journey.in .jlabel { animation: labelIn 0.6s ease forwards; }
-.journey.in .jlabel.l1 { animation-delay: 0.4s; }
-.journey.in .jlabel.l2 { animation-delay: 0.8s; }
-.journey.in .jlabel.l3 { animation-delay: 1.2s; }
-.journey.in .jlabel.l4 { animation-delay: 1.6s; }
-.journey.in .jlabel.l5 { animation-delay: 2.0s; }
-@keyframes labelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) {
-  .jline { stroke-dashoffset: 0; }
-  .jnode, .jlabel { opacity: 1; }
-}
-/* mobile: stack the journey as a vertical list */
-.journey-mobile { display: none; }
-@media (max-width: 760px) {
-  .journey-svg-holder { display: none; }
-  .journey-mobile { display: block; margin-top: 44px; }
-  .jm-step {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 16px;
-    padding: 22px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .jm-step:last-child { border-bottom: 0; }
-  .jm-dot {
-    width: 44px; height: 44px;
-    border-radius: 100px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--display); font-style: italic; font-size: 1rem;
-    color: var(--white);
-  }
-  .jm-step h4 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.02em; }
-  .jm-step .jm-time { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-  .jm-step p { font-size: 0.92rem; color: var(--muted); margin-top: 8px; }
-}
+.layer-art svg { width: 100%; height: auto; display: block; }
 
 /* ---------- Why cards ---------- */
 .why-story { max-width: 760px; margin: 36px auto 0; display: flex; flex-direction: column; gap: 18px; }
@@ -790,6 +695,144 @@ footer {
   font-size: 0.84rem; color: rgba(250, 247, 241, 0.6);
 }
 
+/* ---------- Practice grid (What it feels like section) ---------- */
+.practice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 48px;
+}
+.practice-cell {
+  padding: 36px 44px 36px 0;
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+.practice-cell:nth-child(even) {
+  padding-left: 44px;
+  padding-right: 0;
+  border-left: 1px solid var(--line);
+}
+.practice-cell::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+.practice-cell h3 {
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.practice-cell p { color: var(--muted); font-size: 0.96rem; }
+
+/* ---------- Standards spec sheet ---------- */
+.std-rows { max-width: 860px; margin: 48px auto 0; text-align: left; }
+.std-row {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 28px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+}
+.std-row:last-child { border-bottom: 1px solid var(--line); }
+.std-row h3 { font-size: 1.12rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+.std-row p { color: var(--muted); font-size: 0.97rem; }
+@media (max-width: 760px) { .std-row { grid-template-columns: 1fr; gap: 8px; } }
+
+/* dark treatment for the owner-questions section: the page's bold beat */
+.rows-dark { background: #0a0b0e; color: var(--white); }
+.rows-dark .section-head { color: var(--white); }
+.rows-dark .section-sub { color: rgba(250,247,241,0.6); }
+.rows-dark .std-row { border-top-color: rgba(255,255,255,0.12); }
+.rows-dark .std-row:last-child { border-bottom-color: rgba(255,255,255,0.12); }
+.rows-dark .std-row h3 { color: var(--white); }
+.rows-dark .std-row p { color: rgba(250,247,241,0.62); }
+.rows-dark .note-line { color: rgba(250,247,241,0.9); }
+
+/* ---------- End-the-cycle statement ---------- */
+.cycle-line {
+  margin: 26px auto 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* ---------- Flywheel: the circular engagement ---------- */
+.fw-holder { max-width: 620px; margin: 52px auto 0; }
+.fw-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
+.fw-arc {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.flywheel-sec.in .fw-arc { animation: drawLine 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.flywheel-sec.in .fa2 { animation-delay: 0.7s; }
+.flywheel-sec.in .fa3 { animation-delay: 1.4s; }
+.flywheel-sec.in .fa4 { animation-delay: 2.1s; }
+.fw-head, .fw-node, .fw-label, .fw-centre { opacity: 0; }
+.flywheel-sec.in .fw-node { animation: nodePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.flywheel-sec.in .fn1 { animation-delay: 0.05s; }
+.flywheel-sec.in .fn2 { animation-delay: 0.75s; }
+.flywheel-sec.in .fn3 { animation-delay: 1.45s; }
+.flywheel-sec.in .fn4 { animation-delay: 2.15s; }
+.flywheel-sec.in .fw-label { animation: labelIn 0.5s ease forwards; }
+.flywheel-sec.in .fl1 { animation-delay: 0.15s; }
+.flywheel-sec.in .fl2 { animation-delay: 0.85s; }
+.flywheel-sec.in .fl3 { animation-delay: 1.55s; }
+.flywheel-sec.in .fl4 { animation-delay: 2.25s; }
+.flywheel-sec.in .fw-head { animation: labelIn 0.35s ease forwards; }
+.flywheel-sec.in .fh1 { animation-delay: 0.85s; }
+.flywheel-sec.in .fh2 { animation-delay: 1.55s; }
+.flywheel-sec.in .fh3 { animation-delay: 2.25s; }
+.flywheel-sec.in .fh4 { animation-delay: 2.95s; }
+.flywheel-sec.in .fw-centre { animation: labelIn 0.7s ease 2.2s forwards; }
+.fw-seg { stroke-linecap: butt; stroke-width: 62; }
+.fw-ring { opacity: 0; }
+.flywheel-sec.in .fw-ring { animation: labelIn 0.8s ease 2.6s forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .fw-arc { stroke-dashoffset: 0; animation: none !important; }
+  .fw-head, .fw-node, .fw-label, .fw-centre, .fw-ring { opacity: 1; animation: none !important; }
+}
+
+/* ---------- Next page band ---------- */
+.next-band {
+  padding: 70px 0;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.next-band .btn { padding: 15px 34px; font-size: 1rem; }
+.band-statement { font-family: var(--display); font-weight: 500; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2; letter-spacing: -0.02em; max-width: 24ch; margin: 0 auto; }
+
+/* ---------- Leadership anchor + 2-col layout ---------- */
+.card.leadership-anchor {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: var(--paper);
+  margin-top: 52px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+.card.leadership-anchor:hover { border-color: rgba(250,247,241,0.12); }
+.card.leadership-anchor h3 { font-size: 1.52rem; color: var(--paper); margin-bottom: 14px; }
+.card.leadership-anchor p { color: rgba(250,247,241,0.7); font-size: 1rem; }
+.leadership-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .signs { grid-template-columns: 1fr 1fr; }
@@ -799,6 +842,14 @@ footer {
   .team-grid { grid-template-columns: 1fr; }
   .team-stats { grid-template-columns: 1fr 1fr; }
   .foot-top { grid-template-columns: 1fr; gap: 32px; }
+  .pipe-tiles { grid-template-columns: 1fr 1fr; }
+  .ptile { height: 240px; }
+  .practice-grid { grid-template-columns: 1fr; }
+  .practice-cell, .practice-cell:nth-child(even) { padding-left: 0; padding-right: 0; border-left: none; }
+  .leadership-cards { grid-template-columns: 1fr; }
+  .ud-grid { grid-template-columns: 1fr; }
+  .ud-col .ud-art { height: 220px; }
+  .fade-light { height: 110px; }
 }
 @media (max-width: 760px) {
   .nav-links {
@@ -819,9 +870,12 @@ footer {
   .signs { grid-template-columns: 1fr; }
   section { padding: 72px 0; }
   .sv-note { display: none; }
+  .layer-art { width: 64px; top: 20px; right: 20px; }
+  .pipe-tiles { grid-template-columns: 1fr; }
   .hero-foot { bottom: 70px; gap: 6px 20px; }
   .hero-foot span { font-size: 0.78rem; }
 }
+
 /* ---------- Subpage hero ---------- */
 .page-hero { min-height: 65vh; min-height: 65svh; }
 .page-hero .hero-content { padding: 130px 28px 170px; }
@@ -909,33 +963,66 @@ footer {
   flex-shrink: 0;
 }
 
-
-
-/* ---------- Next page band ---------- */
-.next-band {
-  padding: 70px 0;
-  background: var(--paper-2);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+/* ---------- Journey curve (the climb) ---------- */
+.journey { background: var(--paper); }
+.journey-stage-wrap { margin-top: 60px; }
+.journey-svg-holder { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; }
+.journey-svg-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
+.jline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
 }
-.next-band .btn { padding: 15px 34px; font-size: 1rem; }
-
-/* ---------- Offer sections: rotate in on scroll, both directions ---------- */
-.offer-sec { padding: 26px 0; }
-.offer-sec.first { padding-top: 80px; }
-.offer.rotor { opacity: 0; transform-origin: 50% 0; }
-.offer.rotor.in {
-  opacity: 1;
-  animation: rotorIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-}
-@keyframes rotorIn {
-  from { opacity: 0; transform: perspective(1200px) rotateX(16deg) translateY(70px); }
-  to { opacity: 1; transform: perspective(1200px) rotateX(0deg) translateY(0); }
-}
+.journey.in .jline { animation: drawLine 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+.jnode { opacity: 0; }
+.journey.in .jnode { animation: nodePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.journey.in .jnode.j1 { animation-delay: 0.25s; }
+.journey.in .jnode.j2 { animation-delay: 0.65s; }
+.journey.in .jnode.j3 { animation-delay: 1.05s; }
+.journey.in .jnode.j4 { animation-delay: 1.45s; }
+.journey.in .jnode.j5 { animation-delay: 1.85s; }
+@keyframes nodePop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+.jlabel { opacity: 0; }
+.journey.in .jlabel { animation: labelIn 0.6s ease forwards; }
+.journey.in .jlabel.l1 { animation-delay: 0.4s; }
+.journey.in .jlabel.l2 { animation-delay: 0.8s; }
+.journey.in .jlabel.l3 { animation-delay: 1.2s; }
+.journey.in .jlabel.l4 { animation-delay: 1.6s; }
+.journey.in .jlabel.l5 { animation-delay: 2.0s; }
+@keyframes labelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
-  .offer.rotor { opacity: 1; }
-  .offer.rotor.in { animation: none; }
+  .jline { stroke-dashoffset: 0; }
+  .jnode, .jlabel { opacity: 1; }
 }
+/* mobile: stack the journey as a vertical list */
+.journey-mobile { display: none; }
+@media (max-width: 760px) {
+  .journey-svg-holder { display: none; }
+  .journey-mobile { display: block; margin-top: 44px; }
+  .jm-step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .jm-step:last-child { border-bottom: 0; }
+  .jm-dot {
+    width: 44px; height: 44px;
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-style: italic; font-size: 1rem;
+    color: var(--white);
+  }
+  .jm-step h4 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.02em; }
+  .jm-step .jm-time { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .jm-step p { font-size: 0.92rem; color: var(--muted); margin-top: 8px; }
+}
+
 
 /* ---------- Stage rows (how we work) ---------- */
 .stage-rows { margin-top: 52px; }
@@ -1047,68 +1134,6 @@ footer {
   .page-hero h1 { font-size: clamp(1.45rem, 6vw, 1.8rem); }
   .page-hero h1 .h1-line2 { font-size: clamp(2rem, 9.5vw, 2.8rem); }
   .stats { grid-template-columns: 1fr; }
-  .fade-light { height: 110px; }
-}
-
-/* ---------- AI page: maturity ladders ---------- */
-.ladder { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
-.rung {
-  display: block;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 28px 32px;
-  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), border-color 0.25s;
-}
-.rung:hover { transform: translateX(5px); border-color: rgba(224,90,48,0.4); }
-.rung-n {
-  font-family: var(--display); font-style: italic; color: var(--accent);
-  font-size: 1.05rem; padding-top: 3px;
-}
-.rung-last { border-color: var(--accent); background: var(--accent-soft); }
-.rung h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
-.rung h3 .tag { font-family: var(--sans); font-style: normal; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-left: 10px; }
-.rung p { color: var(--muted); font-size: 0.97rem; }
-.ladder-note { text-align:center; margin-top: 34px; font-size: 1.08rem; color: var(--ink-soft); max-width: 64ch; margin-left:auto; margin-right:auto; }
-
-/* ---------- Flywheel: the circular engagement ---------- */
-.fw-holder { max-width: 620px; margin: 52px auto 0; }
-.fw-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
-.fw-arc {
-  fill: none;
-  stroke-width: 5;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-.flywheel-sec.in .fw-arc { animation: drawLine 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.flywheel-sec.in .fa2 { animation-delay: 0.7s; }
-.flywheel-sec.in .fa3 { animation-delay: 1.4s; }
-.flywheel-sec.in .fa4 { animation-delay: 2.1s; }
-.fw-head, .fw-node, .fw-label, .fw-centre { opacity: 0; }
-.flywheel-sec.in .fw-node { animation: nodePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.flywheel-sec.in .fn1 { animation-delay: 0.05s; }
-.flywheel-sec.in .fn2 { animation-delay: 0.75s; }
-.flywheel-sec.in .fn3 { animation-delay: 1.45s; }
-.flywheel-sec.in .fn4 { animation-delay: 2.15s; }
-.flywheel-sec.in .fw-label { animation: labelIn 0.5s ease forwards; }
-.flywheel-sec.in .fl1 { animation-delay: 0.15s; }
-.flywheel-sec.in .fl2 { animation-delay: 0.85s; }
-.flywheel-sec.in .fl3 { animation-delay: 1.55s; }
-.flywheel-sec.in .fl4 { animation-delay: 2.25s; }
-.flywheel-sec.in .fw-head { animation: labelIn 0.35s ease forwards; }
-.flywheel-sec.in .fh1 { animation-delay: 0.85s; }
-.flywheel-sec.in .fh2 { animation-delay: 1.55s; }
-.flywheel-sec.in .fh3 { animation-delay: 2.25s; }
-.flywheel-sec.in .fh4 { animation-delay: 2.95s; }
-.flywheel-sec.in .fw-centre { animation: labelIn 0.7s ease 2.2s forwards; }
-.fw-seg { stroke-linecap: butt; stroke-width: 62; }
-.fw-ring { opacity: 0; }
-.flywheel-sec.in .fw-ring { animation: labelIn 0.8s ease 2.6s forwards; }
-@media (prefers-reduced-motion: reduce) {
-  .fw-arc { stroke-dashoffset: 0; animation: none !important; }
-  .fw-head, .fw-node, .fw-label, .fw-centre, .fw-ring { opacity: 1; animation: none !important; }
 }
 </style>
 </head>
@@ -1123,49 +1148,48 @@ footer {
         <nav class="nav-links" id="nav-links">
       <a href="index.html">Why myCIO</a>
       <a href="how-we-work.html">How we work</a>
-      <a href="transformation.html" aria-current="page">Transformation</a>
-      <a href="security-operations.html">Security and Operations</a>
+      <a href="transformation.html">Transformation</a>
+      <a href="security-operations.html" aria-current="page">Security and Operations</a>
       <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
     </nav>
   </div>
 </header>
 
-<section class="hero page-hero" id="top" aria-label="Transformation overview">
+<section class="hero page-hero" id="top" aria-label="Security and Operations overview">
   <div class="hero-content">
     <div class="inner">
-      <h1>Transformation is not a project.<span class="h1-line2">It is your business getting better at itself.</span></h1>
-      <p class="lead">Most attempts chase AI first and stall. We guide the journey in the order that holds: foundations, then knowledge, then AI doing genuine work. <strong>Here is how it unfolds.</strong></p>
+      <h1>Secure at every stage.<span class="h1-line2">Supported every day.</span></h1>
+      <p class="lead">The engine powering all of our engagements: noticeable enough to know it is there, out of the way to let your team work.</p>
     </div>
   </div>
   <div class="hero-scroll" aria-hidden="true"><span class="chev"></span></div>
 </section>
 
-<!-- OUR ROLE -->
-<section class="dark-band">
+<div class="fade-light" aria-hidden="true"></div>
+
+<!-- THE BASICS, AUTOMATED -->
+<section id="basics">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">We work out where you are, where you need to go,<br><span class="accent">and the order to do it in.</span></h2>
-    <p class="section-sub reveal" style="color:rgba(250,247,241,0.6);">Then we make it happen. We own the strategy, the governance, and the rollout. Delivery sits wherever it works best: your team, your provider, us, or a mix. We are accountable for the result either way.</p>
-    <div class="stats">
-      <div class="stat reveal"><div class="big">Build up</div><p>Foundations, data, then AI. In that order, every time.</p></div>
-      <div class="stat reveal"><div class="big">Own it</div><p>A senior team accountable for the outcome, not a pilot owner you appoint.</p></div>
-      <div class="stat reveal"><div class="big">Govern it</div><p>Auditability and guardrails built in so you scale safely.</p></div>
-      <div class="stat reveal"><div class="big">No lock-in</div><p>Built so you are never trapped. Not to a vendor, not to us.</p></div>
+    <h2 class="section-head reveal">The basics of running technology well, <span class="accent">automated and enforced.</span></h2>
+    <div class="leadership-cards reveal" style="text-align:left; margin-top:48px;">
+      <div class="card"><h3>Every device is defended</h3><p>Managed detection and response across the lot. Threats are contained and dealt with, not just reported.</p></div>
+      <div class="card"><h3>Weaknesses get found and closed</h3><p>Vulnerability management runs automatically across your systems and third-party apps. Known weaknesses close before anyone can use them.</p></div>
+      <div class="card"><h3>Backups that work on the bad day</h3><p>An immutable copy held offsite, and recovery rehearsed before it is ever needed, not improvised during.</p></div>
+      <div class="card"><h3>You always know where you stand</h3><p>Your security posture is measured and reported monthly, then worked through with you at the quarterly business review.</p></div>
     </div>
   </div>
 </section>
 
-<div class="fade-light" aria-hidden="true"></div>
-
-<!-- FLYWHEEL: transformation is one turn of the wheel -->
-<section id="flywheel" class="flywheel-sec">
+<!-- FLYWHEEL: the circular engagement -->
+<section id="flywheel" class="flywheel-sec sand-section">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">Transformation is one turn of <span class="accent">a wheel that keeps turning.</span></h2>
-    <p class="section-sub reveal">Strategy and Governance decide what changes. Transformation delivers it, Operations carries it, and what we learn feeds the next turn. Security is designed in throughout. You get on wherever it works for you.</p>
+    <h2 class="section-head reveal">Operations keeps the wheel turning. <span class="accent">Security is designed into every turn.</span></h2>
+    <p class="section-sub reveal">Operations carries the day-to-day and feeds what we learn back into strategy. Security is designed into every turn, never bolted on after.</p>
     <div class="fw-holder">
-      <svg viewBox="-150 30 940 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The myCIO flywheel: Strategy and Governance, then Transformation, then Operations, turning continuously around your business, with security designed into the whole cycle. Transformation is this page's turn of the wheel.">
+      <svg viewBox="-150 30 940 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The myCIO flywheel: Strategy and Governance, then Transformation, then Operations, turning continuously around your business, with security designed into the whole cycle. This page covers Operations and the Secure by design wrapper.">
         <!-- secure by design: the wrapper ring -->
         <g class="fw-ring" aria-hidden="true">
-          <circle cx="320" cy="330" r="232" fill="none" stroke="#161412" stroke-width="1.6" stroke-dasharray="6 9" opacity="0.45"/>
+          <circle cx="320" cy="330" r="232" fill="none" stroke="#161412" stroke-width="2.4" stroke-dasharray="6 9" opacity="0.7"/>
           <path d="M 546 330 L 558 330 L 552 344 Z" fill="#161412" opacity="0.5"/>
           <path d="M 82 330 L 94 330 L 88 316 Z" fill="#161412" opacity="0.5"/>
           <rect x="212" y="83" width="216" height="30" fill="#faf7f1"/>
@@ -1178,11 +1202,11 @@ footer {
           <path class="fw-head fh1" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#e05a30"/>
         </g>
         <g transform="rotate(120 320 330)">
-          <path class="fw-head fh2" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" fill="none" stroke="#6d3bd6" stroke-width="84" stroke-opacity="0.18" style="stroke-linecap:butt;"/>
           <path class="fw-arc fw-seg fa2" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#6d3bd6"/>
           <path class="fw-head fh2" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#6d3bd6"/>
         </g>
         <g transform="rotate(240 320 330)">
+          <path class="fw-head fh3" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" fill="none" stroke="#1f7a63" stroke-width="84" stroke-opacity="0.2" style="stroke-linecap:butt;"/>
           <path class="fw-arc fw-seg fa3" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#1f7a63"/>
           <path class="fw-head fh3" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#1f7a63"/>
         </g>
@@ -1203,105 +1227,43 @@ footer {
   </div>
 </section>
 
-<!-- POSITIONING + STACK MODEL -->
-<section id="stack-intro" class="position">
-  <div class="wrap">
-    <h2 class="position-statement reveal">Technology works in layers. We cover all four, and we always <span class="accent">build from the bottom up.</span></h2>
-    <p class="position-sub reveal">Foundations, then data and knowledge, then AI and automation, all serving the business outcome on top. Governance is what makes each layer safe to build on. Get the order wrong and it falls over.</p>
-
-    <div class="stackviz reveal" aria-hidden="true">
-      <div class="sv-row sv-1">
-        <div class="sv-bar"><span class="sv-name">Business outcomes</span></div>
-        <span class="sv-note">What you actually care about</span>
-      </div>
-      <div class="sv-row sv-2">
-        <div class="sv-bar"><span class="sv-name">AI and automation</span></div>
-        <span class="sv-note">Where growth happens</span>
-      </div>
-      <div class="sv-row sv-3">
-        <div class="sv-bar"><span class="sv-name">Data and knowledge</span></div>
-        <span class="sv-note">The layer everyone skips</span>
-      </div>
-      <div class="sv-row sv-4">
-        <div class="sv-bar"><span class="sv-name">Foundations</span></div>
-        <span class="sv-note">Where it all starts</span>
-      </div>
-      <div class="sv-arrow"><span>We build in this direction, foundations first</span></div>
-    </div>
-
-    <div class="layers">
-      <div class="layer-card dark-card reveal">
-        <div class="layer-tag">Where it all starts</div>
-        <h3>The <span class="accent">foundations.</span></h3>
-        <p>Networking, servers, cloud, Microsoft 365, and the security around all of it. Invisible when it works, and where most businesses are quietly exposed. We stabilise it, then standardise it to one baseline, never dependent on any single vendor or person, including us.</p>
-        <p><strong>Solid here, and every layer above it has a chance.</strong></p>
-      </div>
-
-      <div class="layer-card sand reveal">
-        <div class="layer-tag">The layer everyone skips</div>
-        <h3>Your <span class="accent">data and knowledge.</span></h3>
-        <p>This is the reason most AI ambitions go nowhere. We help you capture what your people know, structure the data you already have, and govern it so it stays accurate as the business changes.</p>
-        <p><strong>Get this layer right and AI finally has something to stand on.</strong></p>
-      </div>
-
-      <div class="layer-card sand reveal">
-        <div class="layer-tag">Where growth happens</div>
-        <h3>AI and <span class="accent">automation.</span></h3>
-        <p>Most businesses are stuck at the shallow end, a few people using ChatGPT for odd jobs. The real value is AI woven through the actual work, and you cannot buy your way there.</p>
-        <p><strong>Using AI was never the point. Being quicker and sharper than the business across town is.</strong></p>
-      </div>
-
-      <div class="layer-card reveal">
-        <div class="layer-tag">Top of the stack</div>
-        <h3>Business <span class="accent">outcomes.</span></h3>
-        <p>Revenue. Efficiency. Uptime. The only layer that actually matters to an owner. We start with what you need the business to do differently, then work down through the stack to the technology that gets you there.</p>
-        <p><strong>If a decision does not serve your business, we do not make it.</strong></p>
-      </div>
+<!-- STANDARDS -->
+<section id="standards">
+  <div class="wrap center-head">
+    <h2 class="section-head reveal">Run to a standard, <span class="accent">not to habit.</span></h2>
+    <p class="section-sub reveal">Every stage of the journey is held to a named standard, with security wrapped around every one. "Are we secure?" has an answer you can show your board and your insurer.</p>
+    <div class="std-rows">
+      <div class="std-row reveal"><h3>Discover</h3><p>An honest baseline measured against the NIST Cybersecurity Framework. You see where you stand before anything changes.</p></div>
+      <div class="std-row reveal"><h3>Stabilise</h3><p>Foundations brought to one deliberate standard, not the variations each vendor left behind. 3-2-1 backups with an immutable offsite copy, held in New Zealand and Australia.</p></div>
+      <div class="std-row reveal"><h3>Standardise</h3><p>A certifiable security baseline with SMB1001. Every change to production is requested, documented, and signed off by a named approver. No ad hoc changes.</p></div>
+      <div class="std-row reveal"><h3>Transform</h3><p>Change that lands and keeps landing. A monthly security posture report in plain language, so "where do we stand?" always has a current answer.</p></div>
+      <div class="std-row reveal"><h3>Secure, at every stage</h3><p>Not a stage, a wrapper around all four. Defences automated and enforced from day one.</p></div>
     </div>
   </div>
 </section>
 
-<!-- WHY PILOTS FAIL -->
-<section class="sand-section">
+<!-- THE WORK, IN OWNER'S TERMS -->
+<section id="the-work" class="rows-dark">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">The tool is never the problem. <span class="accent">The work underneath is.</span></h2>
-    <p class="section-sub reveal">Move up the stack and the technology is rarely what changes. What changes is the data feeding it and the governance keeping it safe. Most attempts skip that part. It is the part we own.</p>
-    <div class="cards-3" style="text-align:left;">
-      <div class="card reveal"><h3>The data is not ready</h3><p>AI is only ever as good as the knowledge it can reach. Scattered, undocumented, out of date, and there is nothing solid for it to work with.</p></div>
-      <div class="card reveal"><h3>Nobody owns it</h3><p>A pilot without an owner is a science experiment. It needs someone senior accountable for the outcome, the governance, and the rollout. That is the role we step into.</p></div>
-      <div class="card reveal"><h3>No path to scale</h3><p>One clever automation is not transformation. Scaling it across your business needs standardisation, auditability, and feedback loops built in from the start.</p></div>
+    <h2 class="section-head reveal">The technical work, <span class="accent">in owner's terms.</span></h2>
+    <p class="section-sub reveal">The questions every owner eventually asks, and the straight answers we build in.</p>
+    <div class="std-rows">
+      <div class="std-row reveal"><h3>"Can someone get into our accounts?"</h3><p>MFA that works for your people, not against them, and identity attacks like MFA bypass and account takeover caught in the act (ITDR).</p></div>
+      <div class="std-row reveal"><h3>"Is Microsoft 365 set up properly?"</h3><p>We wrap our arms around your Microsoft 365 data, identities, and applications: running well, configured correctly, and secure by design (ISPM).</p></div>
+      <div class="std-row reveal"><h3>"Could someone pretend to be us?"</h3><p>Email security aligned and watched (DMARC, SPF, DKIM), and security awareness training with realistic phishing practice, so the whole team gets harder to fool.</p></div>
+      <div class="std-row reveal"><h3>"What if the worst happens?"</h3><p>A response plan kept current, rehearsed through tabletop exercises, and a senior hand leading on the day. Evidence your insurer wants at renewal.</p></div>
+      <div class="std-row reveal"><h3>"Are the vendors earning their keep?"</h3><p>Contracts and service levels enforced on your behalf, and independent advice before you sign anything new.</p></div>
+      <div class="std-row reveal"><h3>"Where is the money going?"</h3><p>A clear view of what is being spent and what it is buying, with technical debt paid down deliberately, not passed on.</p></div>
     </div>
-  </div>
-</section>
-
-<!-- DATA LADDER -->
-<section>
-  <div class="wrap center-head">
-    <h2 class="section-head reveal">Where your business knowledge lives <span class="accent">decides what AI can do.</span></h2>
-    <p class="section-sub reveal">It sits in one of four places. The difference between them determines whether your business can scale, survive key people leaving, and make AI actually work.</p>
-    <div class="ladder">
-      <div class="rung reveal">
-        <div><h3>In heads<span class="tag">Where most sit</span></h3><p>The way things really get done lives with a handful of long-serving people. The business runs on it. It also stops the day one of them leaves.</p></div>
-      </div>
-      <div class="rung reveal">
-        <div><h3>Captured<span class="tag">A start</span></h3><p>Documented somewhere. Wikis, SharePoint, shared drives, that one spreadsheet nobody is allowed to touch. Better than heads, but scattered and out of date within a year.</p></div>
-      </div>
-      <div class="rung reveal">
-        <div><h3>Structured<span class="tag">The wall</span></h3><p>Organised, queryable, and maintained as the business changes. Most businesses hit a wall here, because structure needs an owner and nobody owns it.</p></div>
-      </div>
-      <div class="rung rung-last reveal">
-        <div><h3>Connected<span class="tag">The foundation for AI</span></h3><p>Your structured knowledge joined to the systems and workflows your business runs on. This is what AI and automation actually build on. Without it, every AI initiative works with whatever someone remembers to paste in.</p></div>
-      </div>
-    </div>
-    <p class="ladder-note reveal">Most New Zealand businesses sit in the first two. The move up is slow and unglamorous, <span class="accent">the work that makes everything above it possible.</span></p>
+    <p class="note-line reveal">Every answer lands in your quarterly business review: your security posture, what improved, what it costs, and what we change next. The wheel keeps turning.</p>
   </div>
 </section>
 
 <!-- NEXT -->
 <section class="next-band">
   <div class="wrap" style="text-align:center;">
-    <p class="band-statement reveal">Delivered is not the end. <span class="accent">Run and defended is.</span></p>
-    <a href="security-operations.html" class="btn reveal" style="margin-top:34px;">See Security and Operations</a>
+    <p class="band-statement reveal">Operational excellence is the byproduct. <span class="accent">Leadership is the product.</span></p>
+    <a href="how-we-work.html" class="btn reveal" style="margin-top:34px;">See how we work</a>
   </div>
 </section>
 
@@ -1475,7 +1437,6 @@ footer {
   if (reduce) { draw(0); return; }
   requestAnimationFrame(frame);
 })();
-
 
 // Journey curve: trigger draw when it enters view, replay on re-entry
 (function () {

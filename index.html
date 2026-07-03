@@ -13,10 +13,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="myCIO | Senior Technology Leadership for NZ Business">
 <meta name="twitter:description" content="myCIO is senior technology leadership for New Zealand businesses. Independent, accountable, in the room.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
 <style>
 /* myCIO website styles, launch redesign */
-
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
 
 :root {
   --accent: #e05a30;
@@ -134,6 +135,13 @@ header.nav {
 .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
 .btn:active { transform: scale(0.96); }
 .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 120;
+  background: var(--ink); color: var(--white);
+  padding: 10px 18px; border-radius: 0 0 12px 0; font-weight: 600;
+}
+.skip-link:focus { left: 0; }
 .nav-links a:not(.btn):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .signs-cta-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 .btn-nav {
@@ -189,12 +197,12 @@ header.nav {
 }
 .hero-content .inner { max-width: 920px; }
 .hj-eyebrow {
-  font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(250, 247, 241, 0.28);
-  margin-bottom: 20px;
+  color: rgba(250, 247, 241, 0.5);
+  margin-bottom: 26px;
 }
 .hero-content h1 {
   font-size: clamp(2rem, 4.2vw, 3.6rem);
@@ -402,9 +410,9 @@ header.nav {
 .pipe-strip {
   margin-top: 58px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 22px 64px;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
 }
 .pipe-strip .ps-item {
   display: flex;
@@ -416,6 +424,25 @@ header.nav {
   color: rgba(250, 247, 241, 0.95);
 }
 .pipe-strip .ps-item svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 2.2; flex-shrink: 0; }
+.pipe-proof {
+  margin-top: 56px;
+  padding-top: 44px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+.pipe-proof .pp-big {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--white);
+  max-width: 30ch;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+.pipe-proof .pp-big .accent-i { font-style: italic; font-weight: 500; color: var(--accent); }
+.pipe-proof .pp-sub { margin: 14px auto 0; font-size: 1rem; color: rgba(250, 247, 241, 0.6); max-width: 52ch; }
 
 /* ---------- Shared section styles ---------- */
 .eyebrow {
@@ -627,7 +654,7 @@ section[id] { scroll-margin-top: 90px; }
 .journey-svg-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
 .jline {
   fill: none;
-  stroke: var(--accent);
+  stroke: var(--ink-soft);
   stroke-width: 3.5;
   stroke-linecap: round;
   stroke-dasharray: 1;
@@ -643,6 +670,10 @@ section[id] { scroll-margin-top: 90px; }
 .journey.in .jnode.j4 { animation-delay: 1.45s; }
 .journey.in .jnode.j5 { animation-delay: 1.85s; }
 @keyframes nodePop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+.jaxis { opacity: 0; }
+.journey.in .jaxis { animation: labelIn 0.7s ease 0.1s forwards; }
+.jwrap { opacity: 0; }
+.journey.in .jwrap { animation: labelIn 0.8s ease 1.85s forwards; }
 .jlabel { opacity: 0; }
 .journey.in .jlabel { animation: labelIn 0.6s ease forwards; }
 .journey.in .jlabel.l1 { animation-delay: 0.4s; }
@@ -653,7 +684,7 @@ section[id] { scroll-margin-top: 90px; }
 @keyframes labelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .jline { stroke-dashoffset: 0; }
-  .jnode, .jlabel { opacity: 1; }
+  .jnode, .jlabel, .jaxis, .jwrap { opacity: 1; }
 }
 /* mobile: stack the journey as a vertical list */
 .journey-mobile { display: none; }
@@ -678,7 +709,58 @@ section[id] { scroll-margin-top: 90px; }
   .jm-step h4 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.02em; }
   .jm-step .jm-time { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
   .jm-step p { font-size: 0.92rem; color: var(--muted); margin-top: 8px; }
+  .jm-secure {
+    margin-top: 20px;
+    padding: 18px 20px;
+    background: rgba(22, 20, 18, 0.04);
+    border: 1.5px dashed rgba(22, 20, 18, 0.35);
+    border-radius: 14px;
+  }
+  .jm-secure h4 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em; color: var(--ink); }
+  .jm-secure p { font-size: 0.92rem; color: var(--muted); margin-top: 6px; }
 }
+
+/* ---------- Journey description strip (desktop only) ---------- */
+.jd-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0 20px;
+  max-width: 1000px;
+  margin: 26px auto 0;
+  border-top: 1px solid var(--line);
+}
+.jd-item {
+  padding: 22px 4px 0;
+  text-align: center;
+  opacity: 0;
+}
+.journey.in .jd-item { animation: labelIn 0.55s ease forwards; }
+.journey.in .jdi-1 { animation-delay: 0.55s; }
+.journey.in .jdi-2 { animation-delay: 0.95s; }
+.journey.in .jdi-3 { animation-delay: 1.35s; }
+.journey.in .jdi-4 { animation-delay: 1.75s; }
+.journey.in .jdi-5 { animation-delay: 2.15s; }
+@media (prefers-reduced-motion: reduce) { .jd-item { opacity: 1; } }
+.jd-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.jd-dot { width: 11px; height: 11px; border-radius: 100px; flex-shrink: 0; }
+.jd-desc {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+@media (max-width: 760px) { .jd-strip { display: none; } }
 
 /* ---------- Why cards ---------- */
 .why-story { max-width: 760px; margin: 36px auto 0; display: flex; flex-direction: column; gap: 18px; }
@@ -754,6 +836,22 @@ section[id] { scroll-margin-top: 90px; }
   color: var(--ink-soft);
 }
 .member-quote cite { display: block; margin-top: 10px; font-family: var(--sans); font-style: normal; font-size: 0.82rem; color: var(--muted); }
+.founders-quote {
+  margin: 26px auto 0;
+  max-width: 760px;
+  padding: 28px 34px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-border);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-align: left;
+}
+.founders-quote cite { display: block; margin-top: 14px; font-family: var(--sans); font-style: normal; font-size: 0.84rem; font-weight: 600; color: var(--muted); }
 .team-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px; }
 .ts-stat {
   background: var(--white);
@@ -774,12 +872,12 @@ section[id] { scroll-margin-top: 90px; }
   margin: 20px auto 0;
   max-width: 52ch;
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(22, 20, 18, 0.88);
 }
 .cta .btn { background: var(--ink); color: var(--paper); margin-top: 30px; padding: 15px 32px; font-size: 1rem; }
 .cta .btn:hover { background: #000; }
-.cta .cta-micro { margin-top: 18px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.75); }
-.cta .cta-micro a { font-weight: 700; color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.cta .cta-micro { margin-top: 18px; font-size: 0.9rem; color: rgba(22, 20, 18, 0.75); }
+.cta .cta-micro a { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Footer ---------- */
 footer {
@@ -797,7 +895,7 @@ footer {
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
   margin-top: 56px; padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.84rem; color: rgba(250, 247, 241, 0.45);
+  font-size: 0.84rem; color: rgba(250, 247, 241, 0.6);
 }
 
 /* ---------- Responsive ---------- */
@@ -831,20 +929,26 @@ footer {
   .sv-note { display: none; }
   .hero-foot { bottom: 70px; gap: 6px 20px; }
   .hero-foot span { font-size: 0.9rem; }
+  .hero-content { padding: 110px 24px 150px; }
+  .hero-content h1 { font-size: clamp(1.7rem, 7vw, 2rem); }
+  .hero-content h1 .h1-line2 { font-size: clamp(2.35rem, 11.5vw, 3.4rem); }
+  .founders-quote { padding: 24px 22px; }
 }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#top">Skip to content</a>
+
 <header class="nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">my<span>CIO</span></a>
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#8801;</button>
-        <nav class="nav-links">
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">&#8801;</button>
+        <nav class="nav-links" id="nav-links">
       <a href="index.html" aria-current="page">Why myCIO</a>
       <a href="how-we-work.html">How we work</a>
       <a href="transformation.html">Transformation</a>
-      <a href="contact.html">Contact</a>
+      <a href="security-operations.html">Security and Operations</a>
       <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
     </nav>
   </div>
@@ -859,7 +963,7 @@ footer {
       <h1>You run the business.<span class="h1-line2">We run the technology.</span></h1>
       <p class="lead">Most growing businesses have technology, vendors, and good intentions, but no one senior owning the direction.<span class="lead-owner">myCIO is that owner.</span></p>
       <div class="hero-actions">
-        <a href="contact.html" class="btn btn-light">Book your 30 minute call <span class="chev-r">&rsaquo;</span></a>
+        <a href="contact.html#contact" class="btn btn-light">Book your 30 minute call <span class="chev-r">&rsaquo;</span></a>
       </div>
     </div>
   </div>
@@ -880,7 +984,7 @@ footer {
     <div class="signs">
       <div class="sign reveal">
         <h3>AI is on the agenda, but nothing has moved.</h3>
-        <p>Pilots have been tried. Nothing has stuck. Twelve months from now the conversation will be the same, and the businesses that did figure it out will be further ahead than they are today.</p>
+        <p>Pilots have been tried. Nothing stuck. A year on, the conversation is the same, and the businesses that cracked it are further ahead.</p>
       </div>
       <div class="sign reveal">
         <h3>The business runs on what is in people's heads.</h3>
@@ -888,11 +992,11 @@ footer {
       </div>
       <div class="sign reveal">
         <h3>Nobody owns the technology direction.</h3>
-        <p>Decisions land with whoever happens to be closest to the problem, with no roadmap behind them and no one accountable for where it all ends up. Everyone owns a piece, so nobody owns the result.</p>
+        <p>Decisions land with whoever is closest to the problem, with no roadmap behind them. Everyone owns a piece, so nobody owns the result.</p>
       </div>
       <div class="sign reveal">
         <h3>Spend keeps climbing, and the board wants answers.</h3>
-        <p>Invoices go up every year. Nobody can connect the spend to a business outcome. Risk, roadmap, cyber insurance, AI. The honest answer is "I will find out," and that answer is getting used more often than it used to.</p>
+        <p>Invoices climb every year and nobody can tie the spend to an outcome. On risk, insurance, or AI, the honest answer is "I will find out," and it gets used more than it used to.</p>
       </div>
       <div class="sign reveal">
         <h3>Vendor contracts renew because nobody has time to review them.</h3>
@@ -900,7 +1004,7 @@ footer {
       </div>
     </div>
     <p class="signs-close reveal">If any of these sound familiar, your technology is likely costing you more than it should. <span class="accent">That gap does not close on its own.</span></p>
-    <p class="signs-cta reveal"><a href="contact.html" class="signs-cta-link">Talk to us about what you are seeing <span class="chev-r">&rsaquo;</span></a></p>
+    <p class="signs-cta reveal"><a href="contact.html#contact" class="signs-cta-link">Talk to us about what you are seeing <span class="chev-r">&rsaquo;</span></a></p>
   </div>
 </section>
 
@@ -908,72 +1012,105 @@ footer {
 <section id="journey-curve" class="journey">
   <div class="wrap center-head">
     <h2 class="section-head reveal">From firefighting to a transformed business. <span class="accent">One deliberate path.</span></h2>
-    <p class="section-sub reveal">Every business starts somewhere different, so we meet you where you are and move up one stage at a time, each one resting on the last. Nothing gets bet on a single big switch-over.</p>
+    <p class="section-sub reveal">Every business starts somewhere different, so we meet you where you are and move up one stage at a time, each one resting on the last. Nothing rides on a single big switch-over.</p>
 
     <div class="journey-stage-wrap">
       <div class="journey-svg-holder reveal">
-        <svg viewBox="0 0 1000 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The myCIO journey from Discover to Secure">
-          <!-- rising S-curve -->
-          <path class="jline" d="M 95 398 C 250 398 270 332 380 304 C 470 281 480 212 580 188 C 690 162 710 132 800 108 C 855 93 880 86 905 80" pathLength="1"/>
+        <svg viewBox="-52 0 1075 486" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The myCIO journey from Discover to Transform, with security wrapped around every stage: as we lead, the business optimises">
+          <!-- axes: X = Lead, Y = Optimise -->
+          <g class="jaxis" aria-hidden="true">
+            <line x1="8" y1="445" x2="8" y2="35" stroke="#cfc7ba" stroke-width="1.5"/>
+            <path d="M 8 22 L 2.5 36 L 13.5 36 Z" fill="#cfc7ba"/>
+            <line x1="8" y1="445" x2="985" y2="445" stroke="#cfc7ba" stroke-width="1.5"/>
+            <path d="M 998 445 L 984 439.5 L 984 450.5 Z" fill="#cfc7ba"/>
+            <text x="-18" y="240" transform="rotate(-90 -18 240)" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="17" font-weight="500" letter-spacing="0.04em" fill="#6f675e">Optimise</text>
+            <text x="635" y="472" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="17" font-weight="500" letter-spacing="0.04em" fill="#6f675e">Lead</text>
+          </g>
 
-          <!-- node 1: Discover -->
+          <!-- secure wrapper: security encloses every stage -->
+          <g class="jwrap" aria-hidden="true">
+            <rect x="40" y="26" width="936" height="410" rx="26" fill="none" stroke="#161412" stroke-width="1.6" stroke-dasharray="6 9" opacity="0.45"/>
+            <rect x="398" y="12" width="220" height="30" fill="#faf7f1"/>
+            <text x="508" y="33" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="19" font-weight="600" fill="#161412">Secure, at every stage</text>
+          </g>
+
+          <!-- rising S-curve, nodes evenly spaced, raw clay to fired -->
+          <path class="jline" d="M 95 398 C 185 390 275 345 365 292 S 545 240 635 186 S 815 128 905 80" pathLength="1"/>
+
+          <!-- node 1: Discover, shining a light -->
           <g class="jnode j1" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="95" cy="398" r="15" fill="#22c55e"/>
-            <circle cx="95" cy="398" r="6" fill="#0a0b0e" opacity="0.25"/>
+            <circle cx="95" cy="398" r="21" fill="none" stroke="#d4941e" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="95" cy="398" r="13" fill="#d4941e"/>
+            <circle cx="95" cy="398" r="5" fill="#0a0b0e" opacity="0.22"/>
           </g>
           <g class="jlabel l1">
-            <text x="95" y="430" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="20" font-weight="600" fill="#1a1714">Discover</text>
+            <text x="95" y="428" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Discover</text>
           </g>
 
-          <!-- node 2: Stabilise -->
+          <!-- node 2: Stabilise, the fires go out -->
           <g class="jnode j2" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="380" cy="304" r="15" fill="#f59e0b"/>
-            <circle cx="380" cy="304" r="6" fill="#0a0b0e" opacity="0.2"/>
+            <circle cx="365" cy="292" r="22" fill="none" stroke="#1f7a63" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="365" cy="292" r="14" fill="#1f7a63"/>
+            <circle cx="365" cy="292" r="5.5" fill="#0a0b0e" opacity="0.2"/>
           </g>
           <g class="jlabel l2">
-            <text x="380" y="270" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="20" font-weight="600" fill="#1a1714">Stabilise</text>
+            <text x="365" y="256" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Stabilise</text>
           </g>
 
-          <!-- node 3: Standardise -->
+          <!-- node 3: Standardise, our standard, the brand moment -->
           <g class="jnode j3" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="580" cy="188" r="15" fill="#e05a30"/>
-            <circle cx="580" cy="188" r="6" fill="#0a0b0e" opacity="0.2"/>
+            <circle cx="635" cy="186" r="24" fill="none" stroke="#e05a30" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="635" cy="186" r="15" fill="#e05a30"/>
+            <circle cx="635" cy="186" r="6" fill="#0a0b0e" opacity="0.2"/>
           </g>
           <g class="jlabel l3">
-            <text x="580" y="154" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="20" font-weight="600" fill="#1a1714">Standardise</text>
+            <text x="635" y="150" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Standardise</text>
           </g>
 
-          <!-- node 4: Transform -->
+          <!-- node 4: Transform, the summit, ambition realised -->
           <g class="jnode j4" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="800" cy="108" r="15" fill="#a855f7"/>
-            <circle cx="800" cy="108" r="6" fill="#0a0b0e" opacity="0.2"/>
+            <circle cx="905" cy="80" r="34" fill="none" stroke="#6d3bd6" stroke-width="1.2" opacity="0.18"/>
+            <circle cx="905" cy="80" r="27" fill="none" stroke="#6d3bd6" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="905" cy="80" r="18" fill="#6d3bd6"/>
+            <circle cx="905" cy="80" r="7" fill="#0a0b0e" opacity="0.2"/>
           </g>
           <g class="jlabel l4">
-            <text x="800" y="74" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="20" font-weight="600" fill="#1a1714">Transform</text>
-          </g>
-
-          <!-- node 5: Secure -->
-          <g class="jnode j5" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="905" cy="80" r="15" fill="#3b82f6"/>
-            <circle cx="905" cy="80" r="6" fill="#0a0b0e" opacity="0.2"/>
-          </g>
-          <g class="jlabel l5">
-            <text x="905" y="120" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="20" font-weight="600" fill="#1a1714">Secure</text>
+            <text x="905" y="128" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Transform</text>
           </g>
         </svg>
       </div>
 
+      <!-- desktop stage descriptions -->
+      <div class="jd-strip" aria-hidden="true">
+        <div class="jd-item jdi-1">
+          <span class="jd-stage"><span class="jd-dot" style="background:#d4941e;"></span>Discover</span>
+          <p class="jd-desc">An honest picture of every risk, gap, and priority. No upsell agenda.</p>
+        </div>
+        <div class="jd-item jdi-2">
+          <span class="jd-stage"><span class="jd-dot" style="background:#1f7a63;"></span>Stabilise</span>
+          <p class="jd-desc">The fires go out. Technology stops holding the business back.</p>
+        </div>
+        <div class="jd-item jdi-3">
+          <span class="jd-stage"><span class="jd-dot" style="background:#e05a30;"></span>Standardise</span>
+          <p class="jd-desc">One deliberate standard across everything. Documented, defensible, dependent on no one.</p>
+        </div>
+        <div class="jd-item jdi-4">
+          <span class="jd-stage"><span class="jd-dot" style="background:#6d3bd6;"></span>Transform</span>
+          <p class="jd-desc">Modern work, AI, and automation that stick. A genuine edge.</p>
+        </div>
+      </div>
+
       <!-- mobile vertical version -->
       <div class="journey-mobile">
-        <div class="jm-step"><div class="jm-dot" style="background:#22c55e;"></div><div><h4>Discover</h4><p>An honest picture of every risk, gap, and priority. No upsell agenda.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#f59e0b;"></div><div><h4>Stabilise</h4><p>The fires go out. Technology stops holding the business back.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#e05a30;"></div><div><h4>Standardise</h4><p>Documented, defensible, and no longer dependent on any one person.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#a855f7;"></div><div><h4>Transform</h4><p>Modern work, AI, and automation that stick. A genuine edge.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#3b82f6;"></div><div><h4>Secure</h4><p>Clean board answers. A posture you can stand behind.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#d4941e;"></div><div><h4>Discover</h4><p>An honest picture of every risk, gap, and priority. No upsell agenda.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#1f7a63;"></div><div><h4>Stabilise</h4><p>The fires go out. Technology stops holding the business back.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#e05a30;"></div><div><h4>Standardise</h4><p>One deliberate standard across everything. Documented, defensible, dependent on no one.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#6d3bd6;"></div><div><h4>Transform</h4><p>Modern work, AI, and automation that stick. A genuine edge.</p></div></div>
+        <div class="jm-secure"><h4>Secure, at every stage</h4><p>Security is not a stage of the journey. It is wrapped around all of them. Clean board answers and a posture you can stand behind, from day one.</p></div>
       </div>
     </div>
 
-    <p class="note-line reveal">Not every business needs all five stages. <span class="accent">We start where you are, and we are accountable the whole way up.</span></p>
+    <p class="note-line reveal">Not every business needs every stage, and security is never a stage on its own: it is wrapped around all of them, from day one. We start where you are, and we are <span class="accent">accountable the whole way up.</span></p>
   </div>
 </section>
 
@@ -999,40 +1136,46 @@ footer {
         <span>No lock-in, not even to us</span>
       </div>
     </div>
+
+    <div class="pipe-proof reveal">
+      <p class="pp-big">One client saved <span class="accent-i">over $500k</span> in a single competitive vendor review.</p>
+      <p class="pp-sub">The first thing most owners notice when we come in: vendors that finally answer to someone.</p>
+    </div>
   </div>
 </section>
 
-<!-- WHY MYCIO -->
-<section id="why">
+<!-- WHO WE ARE -->
+<section id="people">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">Technology without direction is just running cost. <span class="accent">We own the direction, and the outcome.</span></h2>
-    <div class="why-story" style="text-align:left;">
-      <p class="reveal">Most businesses reach a point where technology is too important to leave to chance, but a full-time technology executive is not the answer. So the decisions fall to the owner, the office manager, or whoever shouts loudest. The provider keeps the tickets moving and the invoices coming, but nobody is asking where the business is going or whether the spend is taking it there.</p>
-      <p class="reveal">That gap is where we live. Unless you are one of a provider's biggest clients, the governance and advice that would help you grow rarely arrives. We bring the senior leadership a large company has in-house, the experience, the independence, the accountability, shared across a handful of businesses that each need a slice of it. Senior experience without the overhead.</p>
-      <p class="reveal">And it is never one person carrying the whole thing. <strong>You get a senior team.</strong> Several experienced heads on your technology, covering each other, arguing it out when they need to, and between them holding the spread of strategy, security, and delivery that no single person can cover on their own. Here is how that works.</p>
-    </div>
-    <div class="cards-3">
-      <div class="card reveal" style="text-align:left;">
-        <h3>We own the direction.</h3>
-        <p>The roadmap, the budget, the risk, and the outcome are ours to own. A senior team accountable for where your technology is heading, and answerable when the board asks. This part is never delegated.</p>
+    <h2 class="section-head reveal">No account managers, no sales team. <span class="accent">You get us.</span></h2>
+    <p class="section-sub reveal">myCIO is Elton and Michael, backed by a tight-knit team of specialists across AI, cloud, infrastructure, applications, and security. We do not hide behind proposals or a website. We are an AI-first partner, and yes, the website may have given that away.</p>
+    <div class="team-grid" style="text-align:left;">
+      <div class="member reveal">
+        <div class="member-head">
+          <span class="member-mark">E</span>
+          <div><h3>Elton</h3><div class="member-role">Founder and Director</div></div>
+        </div>
+        <p>Elton has spent his career in the rooms where technology decisions get made, and untangling the ones that were made badly. He leads strategy, governance, and the frank conversations that keep both honest.</p>
       </div>
-      <div class="card reveal" style="text-align:left;">
-        <h3>We run the work that moves you forward.</h3>
-        <p>The transformation and delivery programmes are ours to run. We scope them, lead them, and see them through. You get a working business, not a forty-page report nobody reads.</p>
-      </div>
-      <div class="card reveal" style="text-align:left;">
-        <h3>We run, or direct, the day-to-day.</h3>
-        <p>The everyday running sits wherever it works best. Your team, your existing provider, us, or a mix of all three. We own that it gets done right and that it serves where the business is heading, not just the ticket queue.</p>
+      <div class="member reveal">
+        <div class="member-head">
+          <span class="member-mark">M</span>
+          <div><h3>Michael</h3><div class="member-role">Founder and Director</div></div>
+        </div>
+        <p>Michael builds the foundations businesses run on. Infrastructure, cloud, Microsoft 365, and security, delivered to a standard that still makes sense years after the invoice.</p>
       </div>
     </div>
-    <p class="note-line reveal">One client saved <span class="accent">over $500k in a single competitive vendor review.</span> The first thing most owners notice when we come in: vendors that finally answer to someone.</p>
+    <blockquote class="founders-quote reveal">
+      "We built myCIO so the people in the room are the people doing the work. Senior, accountable, and no junior helpdesk between you and an answer."
+      <cite>Elton and Michael, Founders</cite>
+    </blockquote>
   </div>
 </section>
 
 <!-- NEXT -->
 <section class="next-band">
   <div class="wrap" style="text-align:center;">
-    <p class="band-statement reveal">You focus on running the business. <span class="accent">We own the technology, keep it out of your way, and make sure it works for the business.</span></p>
+    <p class="band-statement reveal">You focus on running the business. <span class="accent">We own the technology</span>, keep it out of your way, and make sure it works for the business.</p>
     <a href="how-we-work.html" class="btn reveal" style="margin-top:34px;">See how we work</a>
   </div>
 </section>
@@ -1042,7 +1185,7 @@ footer {
   <div class="wrap">
     <h2 class="section-head reveal">Thirty minutes. You leave knowing exactly <span class="accent">where you stand.</span></h2>
     <p class="cta-sub reveal">Half an hour, no slide deck. You get an honest read on where your technology stands and what to do about it. If we are not the right fit for you, we say so.</p>
-    <a href="contact.html" class="btn reveal">Book your 30 minute call</a>
+    <a href="contact.html#contact" class="btn reveal">Book your 30 minute call</a>
     <p class="cta-micro reveal">Prefer email? <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a></p>
   </div>
 </section>
@@ -1063,6 +1206,7 @@ footer {
           <li><a href="index.html">Why myCIO</a></li>
           <li><a href="how-we-work.html">How we work</a></li>
           <li><a href="transformation.html">Transformation</a></li>
+          <li><a href="security-operations.html">Security and Operations</a></li>
         </ul>
       </div>
       <div>
@@ -1080,16 +1224,25 @@ footer {
 </footer>
 
 <script>
-// Mobile nav toggle
+// Mobile nav toggle: icon swaps to a close mark, menu closes on link tap
 (function () {
   var toggle = document.querySelector('.nav-toggle');
   var links = document.querySelector('.nav-links');
-  if (toggle && links) {
-    toggle.addEventListener('click', function () {
-      var open = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
+  if (!toggle || !links) return;
+  function setOpen(open) {
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.innerHTML = open ? '&times;' : '&#8801;';
   }
+  toggle.addEventListener('click', function () {
+    setOpen(!links.classList.contains('open'));
+  });
+  Array.prototype.forEach.call(links.querySelectorAll('a'), function (a) {
+    a.addEventListener('click', function () { setOpen(false); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && links.classList.contains('open')) setOpen(false);
+  });
 })();
 
 // Scroll reveal with sibling stagger
@@ -1134,6 +1287,7 @@ footer {
     canvas.width = W * dpr;
     canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (reduce) draw(0);
   }
 
   var ribbons = [
