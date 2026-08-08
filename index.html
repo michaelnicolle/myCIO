@@ -855,44 +855,6 @@ section[id] { scroll-margin-top: 90px; }
   color: var(--ink-soft);
 }
 .member-quote cite { display: block; margin-top: 10px; font-family: var(--sans); font-style: normal; font-size: 0.82rem; color: var(--muted); }
-.founders-card {
-  margin: 52px auto 0;
-  max-width: 860px;
-  padding: 48px 46px;
-  background: var(--dark);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-border);
-  text-align: left;
-}
-.fc-statement {
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(1.6rem, 3vw, 2.35rem);
-  line-height: 1.14;
-  letter-spacing: -0.02em;
-  color: var(--paper);
-}
-.fc-statement .accent { color: var(--accent); }
-.fc-line { display: block; }
-.fc-line + .fc-line { margin-top: 4px; }
-.founders-card .fc-line { opacity: 0; transform: translateY(12px); }
-.founders-card.in .fc-line { animation: heroRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.founders-card.in .fc-line:nth-child(2) { animation-delay: 0.13s; }
-.founders-card.in .fc-line:nth-child(3) { animation-delay: 0.26s; }
-@media (prefers-reduced-motion: reduce) { .founders-card .fc-line { opacity: 1; transform: none; animation: none; } }
-.fc-quote {
-  margin-top: 30px;
-  padding-top: 26px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  font-family: var(--display);
-  font-style: italic;
-  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
-  line-height: 1.5;
-  color: rgba(250, 247, 241, 0.82);
-  max-width: 62ch;
-}
-.fc-quote cite { display: block; margin-top: 14px; font-family: var(--sans); font-style: normal; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; color: rgba(250, 247, 241, 0.5); }
-@media (max-width: 760px) { .founders-card { padding: 34px 26px; } }
 .team-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px; }
 .ts-stat {
   background: var(--white);
@@ -1183,16 +1145,33 @@ footer {
 <!-- WHO WE ARE -->
 <section id="people" class="sand-section">
   <div class="wrap center-head">
-    <p class="eyebrow reveal">The founders</p>
-    <h2 class="section-head reveal">No account managers. <span class="accent">No junior handoffs.</span></h2>
-    <p class="section-sub reveal">A tight-knit team across strategy, cloud, infrastructure, security, and AI. The people you meet do the work.</p>
-    <div class="founders-card reveal">
-      <div class="fc-statement">
-        <span class="fc-line">Founders who pick up the phone.</span>
-        <span class="fc-line">A senior team behind them.</span>
-        <span class="fc-line">Nothing gets handed to <span class="accent">someone still learning the ropes on your business.</span></span>
+    <p class="eyebrow reveal">The team</p>
+    <h2 class="section-head reveal">No account managers. No junior handoffs. <span class="accent">The names on the door are the people in your business.</span></h2>
+    <div class="team-grid">
+      <div class="member reveal">
+        <div class="member-head">
+          <div class="member-mark">EM</div>
+          <div>
+            <h3>Elton McDowall</h3>
+            <div class="member-role">Co-founder and Director</div>
+          </div>
+        </div>
+        <p>Twenty years across strategy, security, governance, and technology leadership. Elton turns the complex stuff into decisions that make sense to owners, CFOs, and directors. Plain language, no jargon.</p>
+        <p>Elton also sits on the board of <strong>Tael Solutions</strong>, named Emerging Advisory Firm of the Year at The Gap Reunion 2025. Real directorship, real accountability for business outcomes, and the view from the other side of the table.</p>
+        <blockquote class="member-quote">"Elton saved us half a million dollars on our ERP upgrade just by asking the right tough questions."<cite>NZ Manufacturer</cite></blockquote>
       </div>
-      <blockquote class="fc-quote">"We built myCIO so the people in the room are the people doing the work. Senior, accountable, and no junior helpdesk between you and an answer."<cite>Elton and Michael, Founders</cite></blockquote>
+      <div class="member reveal">
+        <div class="member-head">
+          <div class="member-mark">MN</div>
+          <div>
+            <h3>Michael Nicolle</h3>
+            <div class="member-role">Co-founder and Director</div>
+          </div>
+        </div>
+        <p>Fifteen years delivering technology across NZ manufacturers, retailers, construction groups, and not-for-profits. Stalled projects, expired vendor relationships, broken trust. That is where the work starts.</p>
+        <p>Led the technology programme for one of NZ's largest food producers. Full infrastructure architecture, a nationwide network, and operational resiliency. Delivered.</p>
+        <blockquote class="member-quote">"Michael delivered outstanding network transformation across our plants, cutting those weekly outages out completely."<cite>NZ Food Producer</cite></blockquote>
+      </div>
     </div>
   </div>
 </section>
