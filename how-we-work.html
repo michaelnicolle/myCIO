@@ -999,9 +999,13 @@ footer {
 .journey.in .jlabel.l4 { animation-delay: 1.6s; }
 .journey.in .jlabel.l5 { animation-delay: 2.0s; }
 @keyframes labelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.jaxis { opacity: 0; }
+.journey.in .jaxis { animation: labelIn 0.7s ease 0.1s forwards; }
+.jwrap { opacity: 0; }
+.journey.in .jwrap { animation: labelIn 0.8s ease 1.85s forwards; }
 @media (prefers-reduced-motion: reduce) {
   .jline { stroke-dashoffset: 0; }
-  .jnode, .jlabel { opacity: 1; }
+  .jnode, .jlabel, .jaxis, .jwrap { opacity: 1; }
 }
 /* mobile: stack the journey as a vertical list */
 .journey-mobile { display: none; }
@@ -1026,7 +1030,57 @@ footer {
   .jm-step h4 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.02em; }
   .jm-step .jm-time { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
   .jm-step p { font-size: 0.92rem; color: var(--muted); margin-top: 8px; }
+  .jm-secure {
+    margin-top: 20px;
+    padding: 18px 20px;
+    background: rgba(22, 20, 18, 0.04);
+    border: 1.5px dashed rgba(22, 20, 18, 0.35);
+    border-radius: 14px;
+  }
+  .jm-secure h4 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em; color: var(--ink); }
+  .jm-secure p { font-size: 0.92rem; color: var(--muted); margin-top: 6px; }
 }
+
+/* ---------- Journey description strip (desktop only) ---------- */
+.jd-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0 20px;
+  max-width: 1000px;
+  margin: 26px auto 0;
+  border-top: 1px solid var(--line);
+}
+.jd-item {
+  padding: 22px 4px 0;
+  text-align: center;
+  opacity: 0;
+}
+.journey.in .jd-item { animation: labelIn 0.55s ease forwards; }
+.journey.in .jdi-1 { animation-delay: 0.55s; }
+.journey.in .jdi-2 { animation-delay: 0.95s; }
+.journey.in .jdi-3 { animation-delay: 1.35s; }
+.journey.in .jdi-4 { animation-delay: 1.75s; }
+@media (prefers-reduced-motion: reduce) { .jd-item { opacity: 1; } }
+.jd-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.jd-dot { width: 11px; height: 11px; border-radius: 100px; flex-shrink: 0; }
+.jd-desc {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+@media (max-width: 760px) { .jd-strip { display: none; } }
 
 
 /* ---------- Stage rows (how we work) ---------- */
@@ -1191,6 +1245,112 @@ footer {
       <div class="card"><h3>It runs without us in the end</h3><p>We work beside your team, not above them, so the capability stays in the building.</p></div>
     </div>
     <p class="note-line reveal" style="margin-top:44px;">We move at the pace the business can absorb. When the fit is right, we become <span class="accent">your technology team.</span></p>
+  </div>
+</section>
+
+<!-- JOURNEY: the climb, Discover to Transform -->
+<section id="journey-curve" class="journey">
+  <div class="wrap center-head">
+    <h2 class="section-head reveal">From firefighting to a transformed business. <span class="accent">One deliberate path.</span></h2>
+    <p class="section-sub reveal">Every business starts somewhere different, so we meet you where you are and move up one stage at a time, each one resting on the last. Nothing rides on a single big switchover.</p>
+
+    <div class="journey-stage-wrap">
+      <div class="journey-svg-holder reveal">
+        <svg viewBox="-52 0 1075 486" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The myCIO journey from Discover to Transform, with security wrapped around every stage: as we lead, the business optimises">
+          <!-- axes: X = Lead, Y = Optimise -->
+          <g class="jaxis" aria-hidden="true">
+            <line x1="8" y1="445" x2="8" y2="35" stroke="#cfc7ba" stroke-width="1.5"/>
+            <path d="M 8 22 L 2.5 36 L 13.5 36 Z" fill="#cfc7ba"/>
+            <line x1="8" y1="445" x2="985" y2="445" stroke="#cfc7ba" stroke-width="1.5"/>
+            <path d="M 998 445 L 984 439.5 L 984 450.5 Z" fill="#cfc7ba"/>
+            <text x="-18" y="240" transform="rotate(-90 -18 240)" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="17" font-weight="500" letter-spacing="0.04em" fill="#6f675e">Optimise</text>
+            <text x="635" y="472" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="17" font-weight="500" letter-spacing="0.04em" fill="#6f675e">Lead</text>
+          </g>
+
+          <!-- secure wrapper: security encloses every stage -->
+          <g class="jwrap" aria-hidden="true">
+            <rect x="40" y="26" width="936" height="410" rx="26" fill="none" stroke="#161412" stroke-width="1.6" stroke-dasharray="6 9" opacity="0.45"/>
+            <rect x="398" y="12" width="220" height="30" fill="#faf7f1"/>
+            <text x="508" y="33" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="19" font-weight="600" fill="#161412">Secure, at every stage</text>
+          </g>
+
+          <!-- rising S-curve, nodes evenly spaced, raw clay to fired -->
+          <path class="jline" d="M 95 398 C 185 390 275 345 365 292 S 545 240 635 186 S 815 128 905 80" pathLength="1"/>
+
+          <!-- node 1: Discover, shining a light -->
+          <g class="jnode j1" style="transform-box: fill-box; transform-origin: center;">
+            <circle cx="95" cy="398" r="21" fill="none" stroke="#d4941e" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="95" cy="398" r="13" fill="#d4941e"/>
+            <circle cx="95" cy="398" r="5" fill="#0a0b0e" opacity="0.22"/>
+          </g>
+          <g class="jlabel l1">
+            <text x="95" y="428" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Discover</text>
+          </g>
+
+          <!-- node 2: Stabilise, the fires go out -->
+          <g class="jnode j2" style="transform-box: fill-box; transform-origin: center;">
+            <circle cx="365" cy="292" r="22" fill="none" stroke="#1f7a63" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="365" cy="292" r="14" fill="#1f7a63"/>
+            <circle cx="365" cy="292" r="5.5" fill="#0a0b0e" opacity="0.2"/>
+          </g>
+          <g class="jlabel l2">
+            <text x="365" y="256" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Stabilise</text>
+          </g>
+
+          <!-- node 3: Standardise, our standard, the brand moment -->
+          <g class="jnode j3" style="transform-box: fill-box; transform-origin: center;">
+            <circle cx="635" cy="186" r="24" fill="none" stroke="#e05a30" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="635" cy="186" r="15" fill="#e05a30"/>
+            <circle cx="635" cy="186" r="6" fill="#0a0b0e" opacity="0.2"/>
+          </g>
+          <g class="jlabel l3">
+            <text x="635" y="150" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Standardise</text>
+          </g>
+
+          <!-- node 4: Transform, the summit, ambition realised -->
+          <g class="jnode j4" style="transform-box: fill-box; transform-origin: center;">
+            <circle cx="905" cy="80" r="34" fill="none" stroke="#6d3bd6" stroke-width="1.2" opacity="0.18"/>
+            <circle cx="905" cy="80" r="27" fill="none" stroke="#6d3bd6" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="905" cy="80" r="18" fill="#6d3bd6"/>
+            <circle cx="905" cy="80" r="7" fill="#0a0b0e" opacity="0.2"/>
+          </g>
+          <g class="jlabel l4">
+            <text x="905" y="128" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Transform</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- desktop stage descriptions -->
+      <div class="jd-strip" aria-hidden="true">
+        <div class="jd-item jdi-1">
+          <span class="jd-stage"><span class="jd-dot" style="background:#d4941e;"></span>Discover</span>
+          <p class="jd-desc">An honest picture of every risk, gap, and priority. No upsell agenda.</p>
+        </div>
+        <div class="jd-item jdi-2">
+          <span class="jd-stage"><span class="jd-dot" style="background:#1f7a63;"></span>Stabilise</span>
+          <p class="jd-desc">The fires go out. Technology stops holding the business back.</p>
+        </div>
+        <div class="jd-item jdi-3">
+          <span class="jd-stage"><span class="jd-dot" style="background:#e05a30;"></span>Standardise</span>
+          <p class="jd-desc">One deliberate standard across everything. Documented, defensible, dependent on no one.</p>
+        </div>
+        <div class="jd-item jdi-4">
+          <span class="jd-stage"><span class="jd-dot" style="background:#6d3bd6;"></span>Transform</span>
+          <p class="jd-desc">Modern work, AI, and automation that stick. A genuine edge.</p>
+        </div>
+      </div>
+
+      <!-- mobile vertical version -->
+      <div class="journey-mobile">
+        <div class="jm-step"><div class="jm-dot" style="background:#d4941e;"></div><div><h4>Discover</h4><p>An honest picture of every risk, gap, and priority. No upsell agenda.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#1f7a63;"></div><div><h4>Stabilise</h4><p>The fires go out. Technology stops holding the business back.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#e05a30;"></div><div><h4>Standardise</h4><p>One deliberate standard across everything. Documented, defensible, dependent on no one.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#6d3bd6;"></div><div><h4>Transform</h4><p>Modern work, AI, and automation that stick. A genuine edge.</p></div></div>
+        <div class="jm-secure"><h4>Secure, at every stage</h4><p>Security is not a stage of the journey. It is wrapped around all of them. Clean board answers and a posture you can stand behind, from day one.</p></div>
+      </div>
+    </div>
+
+    <p class="note-line reveal">Not every business needs every stage, and security is never a stage on its own: it runs through every one of them, from day one. Once you are through Transform, <span class="accent">the work does not stop, it turns into a rhythm.</span></p>
   </div>
 </section>
 
