@@ -401,6 +401,20 @@ header.nav {
 .pipe-strip .ps-item { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; color: rgba(250, 247, 241, 0.6); }
 .pipe-strip .ps-item svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; flex-shrink: 0; }
 
+/* ---------- Proof band ---------- */
+.wwd-proof { background: #0a0b0e; color: var(--white); padding: 96px 0; text-align: center; }
+.wwd-proof-line {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  max-width: 34ch;
+  margin: 0 auto;
+}
+.wwd-proof-line .accent-i { font-style: italic; font-weight: 500; color: var(--accent); }
+.wwd-proof-sub { margin: 16px auto 0; font-size: 1.02rem; color: rgba(250, 247, 241, 0.55); max-width: 54ch; }
+
 /* ---------- Shared section styles ---------- */
 .eyebrow {
   font-size: 0.78rem;
@@ -962,7 +976,7 @@ footer {
   <div class="hero-content">
     <div class="inner">
       <p class="hj-eyebrow">What we do</p>
-      <h1>Fractional CIO leadership.</h1>
+      <h1>Fractional leadership.</h1>
       <p class="lead">Technology consulting. Projects and delivery. Security.</p>
     </div>
   </div>
@@ -1060,6 +1074,14 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="wwd-proof">
+  <div class="wrap">
+    <p class="wwd-proof-line reveal">All in, we have saved clients <span class="accent-i">over $20M</span> in the last five to seven years.</p>
+    <p class="wwd-proof-sub reveal">Vendor reviews, contract renegotiations, and technology decisions made right the first time.</p>
   </div>
 </section>
 
