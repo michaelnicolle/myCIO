@@ -820,6 +820,37 @@ footer {
   background: var(--accent);
   flex-shrink: 0;
 }
+.offer-story {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.08rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 22px 0 0;
+  padding: 22px 26px;
+  background: var(--paper-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+}
+.offer-story strong { font-style: normal; font-weight: 600; color: var(--ink); }
+.offer-journey {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.oj-step { padding-top: 16px; border-top: 2px solid var(--accent); }
+.oj-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.oj-step p { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.5; margin: 0; }
+.offer-journey + p { margin-top: 26px; }
 
 
 
@@ -953,6 +984,7 @@ footer {
 }
 @media (max-width: 760px) {
   .offer-points { grid-template-columns: 1fr; }
+  .offer-journey { grid-template-columns: 1fr; gap: 18px; }
   .page-hero .hero-content { padding: 130px 28px 120px; }
 }
 </style>
@@ -1002,6 +1034,12 @@ footer {
       </div>
       <div class="offer-body">
         <p>Independent leadership. A senior team owns your technology direction and every major decision, including the transformation programmes that deliver it, and holds your vendors to account.</p>
+        <p class="offer-story">Most of our clients call us the week a board member asks a question nobody in the room can answer with confidence: what's actually in this contract, why haven't we upgraded that, what happens if it fails. <strong>That is the gap we fill.</strong></p>
+        <div class="offer-journey">
+          <div class="oj-step"><div class="oj-label">Week one</div><p>We map what you have, what it costs, and where the risk actually sits.</p></div>
+          <div class="oj-step"><div class="oj-label">First quarter</div><p>A rolling roadmap with real priorities, and vendors who know someone is watching.</p></div>
+          <div class="oj-step"><div class="oj-label">Ongoing</div><p>Quarterly board reporting, and decisions made before they turn into problems.</p></div>
+        </div>
         <p><strong>No surprises, and clean answers when the board asks the hard questions.</strong></p>
         <div class="offer-points">
           <div class="op">A senior team that owns your technology direction</div>
@@ -1023,6 +1061,12 @@ footer {
       </div>
       <div class="offer-body">
         <p>Independent advice on the technology that runs your business: cloud, Microsoft 365, networking, and the data underneath it. We assess what you have and design what fits.</p>
+        <p class="offer-story">It usually starts with one decision: a platform renewal, a cloud bill that has crept up again, or a nagging feeling nobody has actually checked whether the environment is secure. <strong>We start with what you have, not what a vendor wants to sell you.</strong></p>
+        <div class="offer-journey">
+          <div class="oj-step"><div class="oj-label">Assess</div><p>We look at what you are running and why, with no assumptions carried over from the last provider.</p></div>
+          <div class="oj-step"><div class="oj-label">Design</div><p>A plan for the platform, licensing, and network that fits the business you actually have.</p></div>
+          <div class="oj-step"><div class="oj-label">Implement</div><p>Changes made with the people who use the systems every day, not around them.</p></div>
+        </div>
         <p><strong>Right workload, right platform, right cost. Nothing recommended just because it is new.</strong></p>
         <div class="offer-points">
           <div class="op">Cloud strategy, Azure and AWS, workload placement</div>
@@ -1044,6 +1088,12 @@ footer {
       </div>
       <div class="offer-body">
         <p>Structured, phased transformation programmes that take a business from where it is to where it needs to be: foundations first, then modern work, AI, and automation that sticks.</p>
+        <p class="offer-story">There is usually already a transformation programme somewhere: stalled, half-scoped, or sitting in a slide deck nobody has looked at since it was approved. <strong>We pick it up, or start it properly.</strong></p>
+        <div class="offer-journey">
+          <div class="oj-step"><div class="oj-label">Foundations</div><p>We fix what is underneath before anything new gets built on top of it.</p></div>
+          <div class="oj-step"><div class="oj-label">Delivery</div><p>Modern work, AI, and automation rolled out in phases that stick, not a big-bang launch that breaks on day one.</p></div>
+          <div class="oj-step"><div class="oj-label">Outcome</div><p>Every initiative measured against a business number, not a technology milestone.</p></div>
+        </div>
         <p><strong>The goal is not to be using new technology. It is to be faster and sharper than the business next to you.</strong></p>
         <div class="offer-points">
           <div class="op">Programmes scoped, led, and owned end to end</div>
@@ -1065,6 +1115,12 @@ footer {
       </div>
       <div class="offer-body">
         <p>Security runs through every decision we make: posture, gaps, risk, and the governance that keeps it on track. The day-to-day basics, automated and enforced.</p>
+        <p class="offer-story">The trigger is usually an insurer's questionnaire, a board asking what happens if we are breached, or a near miss that made everyone in the room go quiet. <strong>We give you an honest answer, then fix it.</strong></p>
+        <div class="offer-journey">
+          <div class="oj-step"><div class="oj-label">Posture</div><p>An honest assessment against NIST and SMB1001, gaps included, not glossed over.</p></div>
+          <div class="oj-step"><div class="oj-label">Response</div><p>Managed detection, monitoring, and an incident plan that has actually been rehearsed.</p></div>
+          <div class="oj-step"><div class="oj-label">Assurance</div><p>Reporting your board and insurer can rely on, not a checkbox exercise.</p></div>
+        </div>
         <p><strong>Managed detection, vulnerability management, and backups that actually work on the bad day.</strong></p>
         <div class="offer-points">
           <div class="op">Posture assessment against NIST and SMB1001</div>

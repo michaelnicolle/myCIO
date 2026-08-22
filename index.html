@@ -720,7 +720,15 @@ section[id] { scroll-margin-top: 90px; }
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
 }
 .wt-card:hover { transform: translateY(-4px); border-color: rgba(224, 90, 48, 0.45); box-shadow: 0 24px 48px -28px rgba(43, 39, 35, 0.35); }
-.wt-card svg { width: 34px; height: 34px; color: var(--accent); margin-bottom: 22px; }
+.wt-num {
+  display: block;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
 .wt-card h3 { font-size: 1.32rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px; }
 .wt-card p { color: var(--muted); font-size: 0.98rem; line-height: 1.55; }
 .wt-points { list-style: none; margin: 22px 0 0; padding-top: 22px; border-top: 1px solid var(--line-soft); display: flex; flex-direction: column; gap: 11px; }
@@ -985,7 +993,7 @@ footer {
     <p class="section-sub reveal">Pick one, or all four. Most clients start with Fractional CIO and add the rest as the roadmap calls for it.</p>
     <div class="wt-grid">
       <a href="what-we-do.html#fractional-cio" class="wt-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <span class="wt-num">01</span>
         <h3>Fractional CIO <span class="accent">and strategic advice</span></h3>
         <p>A senior team owns your technology direction, and holds your vendors to account.</p>
         <ul class="wt-points">
@@ -997,7 +1005,7 @@ footer {
         <span class="wt-link">See what this covers <span class="chev-r">&rsaquo;</span></span>
       </a>
       <a href="what-we-do.html#technology-consulting" class="wt-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h.79a4.5 4.5 0 1 1 0 9z"/></svg>
+        <span class="wt-num">02</span>
         <h3>Technology <span class="accent">consulting</span></h3>
         <p>Independent advice on cloud, Microsoft 365, networking, and the data underneath it.</p>
         <ul class="wt-points">
@@ -1009,7 +1017,7 @@ footer {
         <span class="wt-link">See what this covers <span class="chev-r">&rsaquo;</span></span>
       </a>
       <a href="what-we-do.html#projects-delivery" class="wt-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V15"/></svg>
+        <span class="wt-num">03</span>
         <h3>Projects <span class="accent">and delivery</span></h3>
         <p>Phased transformation programmes, scoped, led, and owned end to end.</p>
         <ul class="wt-points">
@@ -1021,7 +1029,7 @@ footer {
         <span class="wt-link">See what this covers <span class="chev-r">&rsaquo;</span></span>
       </a>
       <a href="what-we-do.html#security" class="wt-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>
+        <span class="wt-num">04</span>
         <h3>Security <span class="accent">and operations</span></h3>
         <p>The controls, monitoring, and response your board expects, running quietly in the background.</p>
         <ul class="wt-points">
