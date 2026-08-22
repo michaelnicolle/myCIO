@@ -222,6 +222,16 @@ header.nav {
   margin: 24px auto 0;
 }
 .hero-content .lead strong { color: var(--white); font-weight: 600; }
+.hero-stat-line {
+  margin: 18px auto 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  color: rgba(250, 247, 241, 0.85);
+  max-width: 50ch;
+}
+.hero-stat-line .accent-i { color: var(--accent); font-weight: 600; }
 .hero-actions { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
 .hero-foot {
   position: absolute;
@@ -276,7 +286,8 @@ header.nav {
 }
 .hero-content h1 { animation-delay: 0.07s; }
 .hero-content .lead { animation-delay: 0.16s; }
-.hero-content .hero-actions { animation-delay: 0.25s; }
+.hero-content .hero-stat-line { animation-delay: 0.25s; }
+.hero-content .hero-actions { animation-delay: 0.32s; }
 .hero-foot { opacity: 0; animation: heroRise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards; }
 @keyframes heroRise { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
@@ -1010,6 +1021,7 @@ footer {
       <p class="hj-eyebrow">What we do</p>
       <h1>Fractional leadership.</h1>
       <p class="lead">Technology consulting. Projects and delivery. Security.</p>
+      <p class="hero-stat-line">We save our clients <span class="accent-i">millions</span> doing the right things well.</p>
     </div>
   </div>
   <div class="hero-foot">
