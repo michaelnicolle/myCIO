@@ -177,7 +177,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   font-size: 0.82rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(250, 247, 241, 0.4);
+  color: rgba(250, 247, 241, 0.55);
 }
 
 /* ---------- Policy content ---------- */
@@ -195,7 +195,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .policy ul { margin-top: 16px; padding-left: 22px; color: var(--ink-soft); }
 .policy li { margin-bottom: 8px; }
 .policy li strong { color: var(--ink); }
-.policy a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+/* Body-text links use a darker shade than --accent: the brand orange fails
+   WCAG AA (4.5:1) at this text size on the paper background. */
+.policy a { color: #b8431f; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Footer ---------- */
 footer {
@@ -260,6 +262,8 @@ footer {
   </div>
 </header>
 
+<main>
+
 <section class="page-hero" id="top" aria-label="Privacy policy introduction">
   <div class="wrap">
     <h1>Privacy policy</h1>
@@ -301,6 +305,8 @@ footer {
 
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap">
