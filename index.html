@@ -1190,7 +1190,7 @@ footer {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     W = hero.clientWidth;
     H = hero.clientHeight;
     canvas.width = W * dpr;
@@ -1199,12 +1199,14 @@ footer {
     if (reduce) draw(0);
   }
 
+  // Stroke counts and gaps are halved from the original design, with gaps
+  // doubled to cover the same fan width with fewer, cheaper strokes.
   var ribbons = [
-    { amp: 70, freq: 0.0036, speed: 0.00020, off: -20, color: '224,90,48',   a: 0.20, core: 0.75, strokes: 14, gap: 4.5 },
-    { amp: 52, freq: 0.0050, speed: 0.00028, off: 34,  color: '240,150,90',  a: 0.16, core: 0.60, strokes: 12, gap: 4.0 },
-    { amp: 86, freq: 0.0028, speed: 0.00015, off: -64, color: '224,90,48',   a: 0.12, core: 0.42, strokes: 16, gap: 5.5 },
-    { amp: 36, freq: 0.0066, speed: 0.00036, off: 70,  color: '250,247,241', a: 0.08, core: 0.32, strokes: 10, gap: 3.5 },
-    { amp: 62, freq: 0.0042, speed: 0.00024, off: 8,   color: '244,120,64',  a: 0.15, core: 0.55, strokes: 12, gap: 4.5 }
+    { amp: 70, freq: 0.0036, speed: 0.00020, off: -20, color: '224,90,48',   a: 0.20, core: 0.75, strokes: 7, gap: 9 },
+    { amp: 52, freq: 0.0050, speed: 0.00028, off: 34,  color: '240,150,90',  a: 0.16, core: 0.60, strokes: 6, gap: 8 },
+    { amp: 86, freq: 0.0028, speed: 0.00015, off: -64, color: '224,90,48',   a: 0.12, core: 0.42, strokes: 8, gap: 11 },
+    { amp: 36, freq: 0.0066, speed: 0.00036, off: 70,  color: '250,247,241', a: 0.08, core: 0.32, strokes: 5, gap: 7 },
+    { amp: 62, freq: 0.0042, speed: 0.00024, off: 8,   color: '244,120,64',  a: 0.15, core: 0.55, strokes: 6, gap: 9 }
   ];
 
   function ribbonY(rb, x, t, r, k) {
@@ -1222,7 +1224,7 @@ footer {
       for (var k = 0; k < rb.strokes; k++) {
         var fade = 1 - Math.abs(k - rb.strokes / 2) / (rb.strokes / 2);
         ctx.beginPath();
-        for (var x = -20; x <= W + 20; x += 9) {
+        for (var x = -20; x <= W + 20; x += 14) {
           var y = baseY + rb.off + (k - rb.strokes / 2) * rb.gap + ribbonY(rb, x, t, r, k);
           if (x === -20) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         }
@@ -1230,23 +1232,30 @@ footer {
         ctx.lineWidth = 2.2;
         ctx.stroke();
       }
-      // bright core filament
+      // bright core filament: a wide, faint pass under a thin, bright one
+      // fakes a glow without the cost of ctx.shadowBlur.
       ctx.beginPath();
-      for (var cx = -20; cx <= W + 20; cx += 7) {
+      for (var cx = -20; cx <= W + 20; cx += 11) {
         var cy = baseY + rb.off + ribbonY(rb, cx, t, r, rb.strokes / 2);
         if (cx === -20) ctx.moveTo(cx, cy); else ctx.lineTo(cx, cy);
       }
+      ctx.strokeStyle = 'rgba(' + rb.color + ',' + (rb.core * 0.35) + ')';
+      ctx.lineWidth = 5;
+      ctx.stroke();
       ctx.strokeStyle = 'rgba(' + rb.color + ',' + rb.core + ')';
       ctx.lineWidth = 1.4;
-      ctx.shadowColor = 'rgba(' + rb.color + ',0.9)';
-      ctx.shadowBlur = 14;
       ctx.stroke();
-      ctx.shadowBlur = 0;
     }
   }
 
+  // Cap the redraw rate at ~30fps; a flowing background doesn't need 60.
+  var FRAME_INTERVAL = 1000 / 30;
+  var lastDraw = 0;
   function frame(t) {
-    if (visible) draw(t);
+    if (visible && !document.hidden && t - lastDraw >= FRAME_INTERVAL) {
+      draw(t);
+      lastDraw = t;
+    }
     requestAnimationFrame(frame);
   }
 
