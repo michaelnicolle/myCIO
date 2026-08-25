@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<title>myCIO | Privacy Policy</title>
+<meta name="description" content="How myCIO collects, uses, and protects personal information, including what happens when you use our contact form.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="myCIO | Privacy Policy">
+<meta property="og:description" content="How myCIO collects, uses, and protects personal information, including what happens when you use our contact form.">
+<meta property="og:url" content="https://mycio.co.nz/privacy.html">
+<meta property="og:image" content="https://mycio.co.nz/og-image.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="myCIO | Privacy Policy">
+<meta name="twitter:description" content="How myCIO collects, uses, and protects personal information.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://mycio.co.nz/privacy.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
+<style>
+/* myCIO website styles, launch redesign */
+
+:root {
+  --accent: #e05a30;
+  --accent-dark: #cd4d26;
+  --accent-soft: rgba(224, 90, 48, 0.10);
+  --ink: #161412;
+  --ink-soft: #3a352f;
+  --muted: #6f675e;
+  --line: #e4ddd3;
+  --line-soft: #efe9df;
+  --paper: #faf7f1;
+  --paper-2: #f3eee4;
+  --sand: #f0e9dc;
+  --dark: #2b2723;
+  --space: #0c0d12;
+  --white: #ffffff;
+  --max: 1180px;
+  --radius: 22px;
+  --shadow-border: 0px 0px 0px 1px rgba(0,0,0,0.06), 0px 1px 2px -1px rgba(0,0,0,0.06), 0px 2px 4px 0px rgba(0,0,0,0.04);
+  --display: 'Fraunces', Georgia, serif;
+  --sans: 'Hanken Grotesk', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.005em;
+}
+
+.accent {
+  font-family: var(--display);
+  font-style: italic;
+  font-optical-sizing: auto;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+a { color: inherit; text-decoration: none; }
+p { text-wrap: pretty; }
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+
+/* ---------- Full-width off-black nav bar (A5G style) ---------- */
+header.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background: rgba(14, 14, 16, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  padding: 0 28px;
+}
+.logo {
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  font-family: var(--sans);
+}
+.logo span { color: var(--accent); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.nav-links a:not(.btn) { color: rgba(255, 255, 255, 0.82); transition: color 0.2s; position: relative; }
+.nav-links a:not(.btn)::after {
+  content: ""; position: absolute; left: 0; bottom: -5px; height: 1.5px; width: 100%;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-links a:not(.btn):hover { color: var(--white); }
+.nav-links a:not(.btn):hover::after { transform: scaleX(1); }
+.nav-toggle { display: none; background: none; border: 0; font-size: 1.6rem; cursor: pointer; color: var(--white); padding: 6px 14px; }
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--ink);
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: background 0.2s, transform 0.2s;
+  border: 0;
+  cursor: pointer;
+}
+.btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+.btn:active { transform: scale(0.96); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 120;
+  background: var(--ink); color: var(--white);
+  padding: 10px 18px; border-radius: 0 0 12px 0; font-weight: 600;
+}
+.skip-link:focus { left: 0; }
+.nav-links a:not(.btn):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.btn-nav {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+}
+.btn-nav:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.55); transform: none; }
+
+/* ---------- Subpage hero ---------- */
+.page-hero {
+  background: #0a0b0e;
+  padding: 150px 0 76px;
+}
+.page-hero .wrap { text-align: center; }
+.page-hero h1 {
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1.06;
+  color: var(--white);
+}
+.page-hero .lead {
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  line-height: 1.7;
+  color: rgba(250, 247, 241, 0.65);
+  max-width: 56ch;
+  margin: 22px auto 0;
+}
+.page-hero .updated {
+  margin-top: 18px;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 241, 0.4);
+}
+
+/* ---------- Policy content ---------- */
+.policy { padding: 80px 0 100px; }
+.policy .wrap { max-width: 760px; }
+.policy h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 52px;
+}
+.policy h2:first-child { margin-top: 0; }
+.policy p { color: var(--ink-soft); font-size: 1rem; margin-top: 16px; }
+.policy p strong { color: var(--ink); }
+.policy ul { margin-top: 16px; padding-left: 22px; color: var(--ink-soft); }
+.policy li { margin-bottom: 8px; }
+.policy li strong { color: var(--ink); }
+.policy a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Footer ---------- */
+footer {
+  background: var(--space);
+  color: rgba(250, 247, 241, 0.7);
+  padding: 72px 0 40px;
+}
+.foot-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 48px; }
+.foot-top .logo { font-size: 1.4rem; margin-bottom: 14px; display: inline-block; }
+.foot-top p { font-size: 0.95rem; max-width: 36ch; }
+.foot-top h3 { font-family: var(--sans); color: var(--white); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
+.foot-top ul { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.94rem; }
+.foot-top a:hover { color: var(--accent); }
+.foot-bottom {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  margin-top: 56px; padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.84rem; color: rgba(250, 247, 241, 0.6);
+}
+.foot-bottom a { text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
+.foot-bottom a:hover { color: var(--accent); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .foot-top { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 760px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 68px; left: 0; right: 0;
+    background: rgba(14, 14, 16, 0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 22px 28px 26px;
+    gap: 18px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+  .page-hero { padding: 120px 0 60px; }
+  .policy { padding: 60px 0 80px; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#top">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">my<span>CIO</span></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">&#8801;</button>
+        <nav class="nav-links" id="nav-links">
+      <a href="index.html">Why myCIO</a>
+      <a href="what-we-do.html">What we do</a>
+      <a href="how-we-work.html">How we work</a>
+      <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero" id="top" aria-label="Privacy policy introduction">
+  <div class="wrap">
+    <h1>Privacy policy</h1>
+    <p class="lead">What we collect when you use this site, why, and where it goes. In plain language.</p>
+    <p class="updated">Last updated August 2026</p>
+  </div>
+</section>
+
+<section class="policy">
+  <div class="wrap">
+
+    <h2>Overview</h2>
+    <p>myCIO ("we", "us") provides fractional CIO and technology advisory services to New Zealand businesses. This policy covers the personal information we collect through this website, mycio.co.nz, and in the course of talking with you about our services. We handle personal information in line with the New Zealand Privacy Act 2020.</p>
+
+    <h2>What we collect</h2>
+    <p>The only personal information this website actively collects is what you choose to give us through the contact form or a direct email: your name, email address, and whatever you write in your message. We do not use cookies, and we do not run any analytics or tracking scripts on this site.</p>
+    <p>If your enquiry turns into a conversation or an engagement, we will hold onto further information you share with us in the normal course of that work, such as details about your business and the technology environment we are advising on.</p>
+
+    <h2>How we use it</h2>
+    <p>We use what you send us to respond to your enquiry and, if things progress, to deliver our services. We do not use your information for anything else, and we do not sell or rent it to third parties.</p>
+
+    <h2>Where it goes</h2>
+    <p>The contact form on this site is handled by <strong>Formspree</strong>, a third-party form processor based in the United States, which delivers your message to our inbox. That means your name, email, and message pass through Formspree's systems in order to reach us. We have chosen Formspree because it is a well-established processor with its own security and privacy practices; you can read those at <a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a>.</p>
+    <p>This site also loads fonts from <strong>Google Fonts</strong>. Loading a font means your browser makes a request to Google's servers, which will see your IP address as part of that request. We do not use Google Fonts, or any other service on this site, for advertising or tracking.</p>
+    <p>Outside of Formspree and Google Fonts, we do not share your information with any other third party unless required by law.</p>
+
+    <h2>How long we keep it</h2>
+    <p>We keep enquiry and engagement information for as long as it is useful to our relationship with you, and as needed to meet our legal and accounting obligations. If you would like us to delete information we hold about you, email us and we will action it, subject to any legal requirement to keep records.</p>
+
+    <h2>Your rights</h2>
+    <p>Under the Privacy Act 2020, you have the right to ask what personal information we hold about you and to ask us to correct it. To make a request, email <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a>.</p>
+    <p>If you are not satisfied with how we have handled your information, you can also contact the New Zealand <a href="https://www.privacy.org.nz/" target="_blank" rel="noopener">Office of the Privacy Commissioner</a>.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy from time to time as the site or our practices change. The date at the top shows when it was last updated.</p>
+
+    <h2>Contact us</h2>
+    <p>Questions about this policy or your information can go to <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a>.</p>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="logo">my<span style="color:var(--accent)">CIO</span></div>
+        <p>Senior technology and transformation professional services for growing New Zealand businesses, aligned to business outcomes.</p>
+      </div>
+      <div>
+        <h3>The story</h3>
+        <ul>
+          <li><a href="index.html">Why myCIO</a></li>
+          <li><a href="what-we-do.html">What we do</a></li>
+          <li><a href="how-we-work.html">How we work</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Get started</h3>
+        <ul>
+          <li><a href="contact.html">Talk to us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 myCIO &middot; Auckland, New Zealand</span>
+      <span>Senior technology &amp; transformation, in the room</span>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle: icon swaps to a close mark, menu closes on link tap
+(function () {
+  var toggle = document.querySelector('.nav-toggle');
+  var links = document.querySelector('.nav-links');
+  if (!toggle || !links) return;
+  function setOpen(open) {
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.innerHTML = open ? '&times;' : '&#8801;';
+  }
+  toggle.addEventListener('click', function () {
+    setOpen(!links.classList.contains('open'));
+  });
+  Array.prototype.forEach.call(links.querySelectorAll('a'), function (a) {
+    a.addEventListener('click', function () { setOpen(false); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && links.classList.contains('open')) setOpen(false);
+  });
+})();
+</script>
+</body>
+</html>

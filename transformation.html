@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <title>myCIO | Projects and Delivery</title>
 <meta name="description" content="Projects and delivery is now part of What We Do. Foundations first, then modern work, AI, and automation that sticks.">
 <meta property="og:type" content="website">
@@ -805,6 +806,8 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.84rem; color: rgba(250, 247, 241, 0.6);
 }
+.foot-bottom a { text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
+.foot-bottom a:hover { color: var(--accent); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
@@ -1181,6 +1184,7 @@ footer {
     <div class="foot-bottom">
       <span>&copy; 2026 myCIO &middot; Auckland, New Zealand</span>
       <span>Senior technology &amp; transformation, in the room</span>
+      <a href="privacy.html">Privacy</a>
     </div>
   </div>
 </footer>
