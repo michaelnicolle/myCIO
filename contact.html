@@ -118,6 +118,16 @@ header.nav {
   font-family: var(--sans);
 }
 .logo span { color: var(--accent); }
+.brand { display: flex; align-items: baseline; gap: 12px; }
+.logo-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+}
 .nav-links {
   display: flex;
   align-items: center;
@@ -740,6 +750,7 @@ footer {
   }
   .nav-links.open { display: flex; }
   .nav-toggle { display: block; }
+  .logo-tag { display: none; }
   .signs { grid-template-columns: 1fr; }
   section { padding: 72px 0; }
   .sv-note { display: none; }
@@ -971,7 +982,10 @@ footer {
 
 <header class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="logo">my<span>CIO</span></a>
+    <div class="brand">
+      <a href="index.html" class="logo">my<span>CIO</span></a>
+      <span class="logo-tag">Technology Leadership</span>
+    </div>
     <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">&#8801;</button>
         <nav class="nav-links" id="nav-links">
       <a href="index.html">Why myCIO</a>
