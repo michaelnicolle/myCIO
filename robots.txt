@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /docs/
 
 Sitemap: https://mycio.co.nz/sitemap.xml

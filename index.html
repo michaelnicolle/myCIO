@@ -128,6 +128,8 @@ header.nav {
   padding-left: 12px;
   border-left: 1px solid rgba(255, 255, 255, 0.18);
 }
+/* the five-item nav needs the room before the mobile menu kicks in at 760px */
+@media (max-width: 900px) { .logo-tag { display: none; } }
 .nav-links {
   display: flex;
   align-items: center;
@@ -468,6 +470,15 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 }
 .pipe-proof .pp-big .accent-i { font-style: italic; font-weight: 500; color: var(--accent); }
 .pipe-proof .pp-sub { margin: 14px auto 0; font-size: 1rem; color: rgba(250, 247, 241, 0.6); max-width: 52ch; }
+.pipe-proof .pp-link {
+  display: inline-block;
+  margin-top: 26px;
+  font-weight: 700;
+  font-size: 0.96rem;
+  color: var(--accent);
+}
+.pipe-proof .pp-link .arr { display: inline-block; transition: transform 0.2s; }
+.pipe-proof .pp-link:hover .arr { transform: translateX(5px); }
 
 /* ---------- Shared section styles ---------- */
 .eyebrow {
@@ -915,6 +926,7 @@ footer {
     <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">&#8801;</button>
         <nav class="nav-links" id="nav-links">
       <a href="index.html" aria-current="page">Why myCIO</a>
+      <a href="the-case.html">The case</a>
       <a href="what-we-do.html">What we do</a>
       <a href="how-we-work.html">How we work</a>
       <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
@@ -1000,6 +1012,7 @@ footer {
     <div class="pipe-proof reveal">
       <p class="pp-big">One client saved <span class="accent-i">over $500k</span> in a single competitive vendor review.</p>
       <p class="pp-sub">The first thing most owners notice when we come in: vendors that finally answer to someone.</p>
+      <a href="the-case.html" class="pp-link">Read the full case, and why managed IT stalls <span class="arr">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -1131,6 +1144,7 @@ footer {
         <h3>The story</h3>
         <ul>
           <li><a href="index.html">Why myCIO</a></li>
+          <li><a href="the-case.html">The case</a></li>
           <li><a href="what-we-do.html">What we do</a></li>
           <li><a href="how-we-work.html">How we work</a></li>
         </ul>
