@@ -329,11 +329,11 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   margin-bottom: 18px;
 }
 .section-head {
-  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-size: clamp(2.05rem, 4.6vw, 3.5rem);
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.08;
-  max-width: 30ch;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+  max-width: 22ch;
 }
 .center-head { text-align: center; }
 .center-head .section-head { margin-left: auto; margin-right: auto; }
@@ -343,10 +343,10 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   max-width: 72ch;
   margin: 18px auto 0;
 }
-.note-line { margin: 40px auto 0; font-size: 1.12rem; color: var(--ink-soft); text-align: center; max-width: 62ch; }
+.note-line { margin: 44px auto 0; font-size: 1.12rem; color: var(--ink-soft); text-align: center; max-width: 54ch; text-wrap: balance; }
 .sand-section { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 
-section { padding: 96px 0; }
+section { padding: 148px 0; }
 section[id] { scroll-margin-top: 132px; }
 
 /* Scroll reveal */
@@ -402,11 +402,12 @@ section[id] { scroll-margin-top: 132px; }
 
 /* ---------- Beat headers ---------- */
 .beat-no {
+  margin-bottom: 26px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 44px; height: 44px;
-  margin: 0 auto 20px;
+  margin: 0 auto;
   border: 1.5px solid var(--accent);
   border-radius: 100px;
   font-family: var(--display);
@@ -502,16 +503,16 @@ section[id] { scroll-margin-top: 132px; }
 .dark-beat .accent { color: var(--accent); }
 .unstuck {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-top: 54px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 62px;
   text-align: left;
 }
 .un-card {
   background: #101116;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius);
-  padding: 36px 34px;
+  border-radius: 18px;
+  padding: 30px 26px 32px;
   transition: border-color 0.25s, transform 0.25s cubic-bezier(0.22,1,0.36,1);
 }
 .un-card:hover { border-color: rgba(224, 90, 48, 0.45); transform: translateY(-4px); }
@@ -523,8 +524,8 @@ section[id] { scroll-margin-top: 132px; }
   display: block;
   margin-bottom: 16px;
 }
-.un-card h3 { font-size: 1.28rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.18; color: var(--white); margin-bottom: 12px; }
-.un-card p { color: rgba(250, 247, 241, 0.62); font-size: 0.99rem; }
+.un-card h3 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.18; color: var(--white); margin-bottom: 12px; }
+.un-card p { color: rgba(250, 247, 241, 0.62); font-size: 0.93rem; line-height: 1.5; }
 .un-statement {
   margin: 60px auto 0;
   padding-top: 46px;
@@ -573,23 +574,42 @@ section[id] { scroll-margin-top: 132px; }
 .shift-row .sh-to { color: var(--white); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
 .shift-row .sh-ar { color: var(--accent); font-size: 1.2rem; text-align: center; line-height: 1; }
 
+/* ---------- The turn: the hinge of the argument, given its own room ---------- */
+.turn {
+  background: var(--paper);
+  padding: 190px 0;
+  text-align: center;
+}
+.turn-line {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(2rem, 5.4vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  max-width: 22ch;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+.turn-line span { display: block; font-style: italic; font-weight: 500; color: var(--accent); }
+.turn-sub { margin-top: 30px; font-size: 1.05rem; color: var(--muted); }
+
 /* ---------- Ownership split ---------- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 54px; text-align: left; }
 .split-col {
   border-radius: var(--radius);
-  padding: 40px 38px 42px;
+  padding: 38px 36px 40px;
   border: 1px solid var(--line);
   background: var(--white);
   box-shadow: var(--shadow-border);
 }
 .split-col.theirs { background: var(--dark); border-color: var(--dark); color: var(--paper); box-shadow: none; }
 .split-tag {
+  margin-bottom: 22px;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--accent);
-  margin-bottom: 14px;
 }
 .split-col h3 {
   font-size: clamp(1.5rem, 2.4vw, 1.95rem);
@@ -602,7 +622,7 @@ section[id] { scroll-margin-top: 132px; }
 .split-list li {
   position: relative;
   padding-left: 26px;
-  font-size: 1rem;
+  font-size: 1.04rem;
   line-height: 1.5;
   color: var(--ink-soft);
 }
@@ -695,7 +715,7 @@ section[id] { scroll-margin-top: 132px; }
 .proof-big {
   font-family: var(--display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  font-size: clamp(1.7rem, 3.6vw, 2.7rem);
   letter-spacing: -0.02em;
   line-height: 1.15;
   max-width: 30ch;
@@ -797,9 +817,9 @@ footer {
 /* ---------- Responsive ---------- */
 @media (max-width: 1040px) {
   .route-steps { grid-template-columns: 1fr 1fr; }
+  .unstuck { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 960px) {
-  .unstuck { grid-template-columns: 1fr; }
   .split { grid-template-columns: 1fr; }
   .foot-top { grid-template-columns: 1fr; gap: 32px; }
   .lad-row { grid-template-columns: 1fr auto; row-gap: 8px; }
@@ -824,8 +844,10 @@ footer {
   }
   .nav-links.open { display: flex; }
   .nav-toggle { display: block; }
-  section { padding: 72px 0; }
+  section { padding: 96px 0; }
   section[id] { scroll-margin-top: 90px; }
+  .turn { padding: 110px 0; }
+  .unstuck { grid-template-columns: 1fr; }
   .hero-foot { bottom: 70px; gap: 6px 20px; }
   .hero-foot span { font-size: 0.9rem; }
   .hero-content { padding: 110px 24px 150px; }
@@ -873,9 +895,9 @@ footer {
   <canvas id="wave" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="inner">
-      <p class="hj-eyebrow">The case &middot; a fifteen minute read</p>
+      <p class="hj-eyebrow">The case</p>
       <h1>Most IT gets managed.<span class="h1-line2">Almost none of it gets led.</span></h1>
-      <p class="lead">This is the whole argument, in the order we would walk you through it. What the gap is actually costing you, why the managed services model keeps coming unstuck, and what changes when someone senior owns the decision instead of the ticket.</p>
+      <p class="lead">The whole argument, in the order we would walk you through it.</p>
       <div class="hero-actions">
         <a href="#question" class="btn btn-light">Start at the beginning <span class="chev-r">&rsaquo;</span></a>
       </div>
@@ -908,17 +930,13 @@ footer {
 <section id="question">
   <div class="wrap center-head">
     <span class="beat-no reveal">01</span>
-    <p class="eyebrow reveal">Where this starts</p>
-    <h2 class="section-head reveal">Before anything technical, <span class="accent">one question.</span></h2>
-    <p class="section-sub reveal">Not the IT roadmap. The business. Every conversation we have starts here, because everything that follows has to point back at the answer.</p>
+    <h2 class="section-head reveal">One question, <span class="accent">before anything technical.</span></h2>
 
     <div class="qcard reveal">
-      <p>If one thing worked properly over the next twelve months, what would make the biggest difference to you?</p>
+      <p>If one thing worked properly over the next twelve months, what would make the biggest difference?</p>
       <span class="q-rule" aria-hidden="true"></span>
-      <p class="q-hint">Worth writing down. We do, in front of you.</p>
+      <p class="q-hint">We write the answer down. Everything after this points back at it.</p>
     </div>
-
-    <p class="note-line reveal">Most technology spend never gets traced back to a sentence like that. If a piece of work cannot be tied to one, <span class="accent">it probably should not be funded.</span></p>
   </div>
 </section>
 
@@ -926,257 +944,230 @@ footer {
 <section id="gap" class="sand-section">
   <div class="wrap center-head">
     <span class="beat-no reveal">02</span>
-    <p class="eyebrow reveal">The problem we solve</p>
-    <h2 class="section-head reveal">Three things have to happen. <span class="accent">Only two of them have an owner.</span></h2>
-    <p class="section-sub reveal">Most businesses your size end up well covered on the first two, and quietly exposed on the third.</p>
+    <h2 class="section-head reveal">Three things happen. <span class="accent">Two have an owner.</span></h2>
 
     <div class="ladder">
       <div class="lad-row reveal">
         <div class="lad-q">Something breaks</div>
-        <div class="lad-a">Your helpdesk or provider fixes it, usually well</div>
+        <div class="lad-a">Your provider fixes it</div>
         <div class="lad-s">Covered</div>
       </div>
       <div class="lad-row reveal">
         <div class="lad-q">Something needs building</div>
-        <div class="lad-a">A project team or a vendor builds it, to the brief they were given</div>
+        <div class="lad-a">A vendor builds it</div>
         <div class="lad-s">Covered</div>
       </div>
       <div class="lad-row gap reveal">
         <div class="lad-q">Something needs deciding</div>
-        <div class="lad-a">Whether it is worth doing at all, and what comes next</div>
+        <div class="lad-a">Whether it is worth doing at all</div>
         <div class="lad-s">Nobody</div>
       </div>
     </div>
 
-    <p class="note-line reveal">That third one lands on you, on top of running the business. So it gets made late, made twice, or made by whoever happens to be in the room. <span class="accent">That is the gap, and it does not close on its own.</span></p>
+    <p class="note-line reveal">The third one lands on you, <span class="accent">on top of running the business.</span></p>
 
     <div class="ask reveal">
-      <p class="ask-tag">The question we ask here</p>
-      <p>When something technical needs deciding in your business, who actually decides it?</p>
+      <p class="ask-tag">We ask</p>
+      <p>Who decides it today?</p>
     </div>
   </div>
 </section>
 
-<!-- 03 WHERE MANAGED IT STALLS -->
+<!-- 03 WHY MSPs STALL -->
 <section id="unstuck" class="dark-beat">
   <div class="wrap center-head">
     <span class="beat-no reveal">03</span>
-    <p class="eyebrow reveal">Why the current model stalls</p>
-    <h2 class="section-head reveal">The managed services model is not broken. <span class="accent">It was never built to do this part.</span></h2>
-    <p class="section-sub reveal">Your provider is probably good at what they sell. The trouble is that what they sell was designed around tickets and uptime, and the thing you are missing sits above both.</p>
+    <h2 class="section-head reveal">The managed services model is not broken. <span class="accent">Just never built for this part.</span></h2>
 
     <div class="unstuck">
       <div class="un-card reveal">
         <span class="un-n">01</span>
-        <h3>The contract buys availability, not progress</h3>
-        <p>Read the agreement you have. It commits to response times, uptime, and a monthly fee. There is not a line in it that says the business should be further ahead in twelve months than it is today.</p>
+        <h3>Buys availability, not progress</h3>
+        <p>Nothing in the contract says the business should be further ahead.</p>
       </div>
       <div class="un-card reveal">
         <span class="un-n">02</span>
-        <h3>The margin sits inside the stack</h3>
-        <p>When the people advising you on the tools are the same people reselling the tools, the advice is never fully free. That is not dishonesty. It is just not independence, and you are paying for independence.</p>
+        <h3>The margin is in the stack</h3>
+        <p>Advice from the people reselling the tools is not independent advice.</p>
       </div>
       <div class="un-card reveal">
         <span class="un-n">03</span>
-        <h3>Volume is the business model</h3>
-        <p>Profitability depends on serving hundreds of clients from one pool of people. Attention goes to whoever escalates loudest. Nobody in that pool is sitting with your numbers, thinking about your next three years.</p>
+        <h3>Volume is the model</h3>
+        <p>Hundreds of clients, one pool of people. Attention follows the loudest.</p>
       </div>
       <div class="un-card reveal">
         <span class="un-n">04</span>
-        <h3>Nothing ever gets switched off</h3>
-        <p>A service that only ever adds is a service that only ever grows. No one in the arrangement is paid to tell you a project is not worth doing, or that a renewal should be challenged rather than processed.</p>
+        <h3>Nothing gets switched off</h3>
+        <p>Nobody in that arrangement is paid to tell you to stop.</p>
       </div>
     </div>
 
     <div class="shift reveal">
-      <div class="shift-head" aria-hidden="true">
-        <span>What you are buying</span>
-        <span></span>
-        <span>What is actually missing</span>
-      </div>
       <div class="shift-row">
         <span class="sh-from">Tickets closed</span>
         <span class="sh-ar" aria-hidden="true">&rsaquo;</span>
-        <span class="sh-to">Decisions made, and owned</span>
+        <span class="sh-to">Decisions owned</span>
       </div>
       <div class="shift-row">
         <span class="sh-from">Uptime reported</span>
         <span class="sh-ar" aria-hidden="true">&rsaquo;</span>
-        <span class="sh-to">Progress reported, to the board</span>
+        <span class="sh-to">Progress reported</span>
       </div>
       <div class="shift-row">
         <span class="sh-from">Renewals processed</span>
         <span class="sh-ar" aria-hidden="true">&rsaquo;</span>
-        <span class="sh-to">Renewals challenged, on your behalf</span>
+        <span class="sh-to">Renewals challenged</span>
       </div>
       <div class="shift-row">
         <span class="sh-from">Requests fulfilled</span>
         <span class="sh-ar" aria-hidden="true">&rsaquo;</span>
-        <span class="sh-to">The right work selected, the rest killed</span>
+        <span class="sh-to">The right work chosen</span>
       </div>
     </div>
 
-    <div class="un-statement reveal">
-      <p>You bought a service. What you needed was someone accountable for the direction. <span class="accent-i">Those are different purchases.</span></p>
-    </div>
-
     <div class="ask reveal">
-      <p class="ask-tag">The question we ask here</p>
-      <p>In the last year, what has your provider talked you out of?</p>
+      <p class="ask-tag">We ask</p>
+      <p>What has your provider talked you out of?</p>
     </div>
   </div>
 </section>
 
+<!-- THE TURN -->
+<section class="turn" aria-label="The turn">
+  <div class="wrap">
+    <p class="turn-line reveal">You bought a service.<span>You needed a decision.</span></p>
+    <p class="turn-sub reveal">Those are different purchases.</p>
+  </div>
+</section>
+
 <!-- 04 WHO OWNS WHAT -->
-<section id="ownership">
+<section id="ownership" class="sand-section">
   <div class="wrap center-head">
     <span class="beat-no reveal">04</span>
-    <p class="eyebrow reveal">Why us</p>
-    <h2 class="section-head reveal">You own everything. <span class="accent">We own the method and the change.</span></h2>
-    <p class="section-sub reveal">This is the part that makes us something other than another IT bill, so it is worth being precise about rather than claiming in a tagline.</p>
+    <h2 class="section-head reveal">You own everything. <span class="accent">We own the change.</span></h2>
 
     <div class="split">
       <div class="split-col reveal">
         <p class="split-tag">You own</p>
-        <h3>All of it, in your name</h3>
         <ul class="split-list">
-          <li><strong>Your systems and your data.</strong> Nothing sits in our tenancy, ever.</li>
-          <li><strong>Every subscription and licence</strong>, bought in your name, not resold through ours.</li>
-          <li><strong>Every vendor contract</strong>, signed by you, with us in the room holding them to it.</li>
-          <li><strong>The documentation, the standards, the roadmap.</strong> Written for your business, kept current.</li>
-          <li><strong>The capability</strong>, because we work beside your team rather than above them.</li>
+          <li>Your systems and your data</li>
+          <li>Every licence, in your name</li>
+          <li>Every contract, signed by you</li>
+          <li>The documentation and the roadmap</li>
+          <li>The capability, kept in your team</li>
         </ul>
       </div>
       <div class="split-col theirs reveal">
         <p class="split-tag">We own</p>
-        <h3>The method, and the change itself</h3>
         <ul class="split-list">
-          <li><strong>The direction</strong>, and every decision that sets it.</li>
-          <li><strong>The change</strong>, from discovery through to handover. Never delegated.</li>
-          <li><strong>The vendors</strong>, held to what they actually signed.</li>
-          <li><strong>The risk picture</strong>, live, and reported to your board in plain language.</li>
-          <li><strong>The outcome.</strong> If it does not land, that is ours to answer for.</li>
+          <li>The direction</li>
+          <li>The change, discovery to handover</li>
+          <li>The vendors, held to what they signed</li>
+          <li>The risk picture, in plain language</li>
+          <li>The outcome</li>
         </ul>
       </div>
     </div>
 
-    <p class="note-line reveal">Licensing and managed services pass through at cost, with a transparent margin you can see. If we ever part ways, you keep the lot, and nothing is held hostage on the way out.</p>
+    <p class="note-line reveal">Licensing passes through at cost, with a margin you can see. Leave, and <span class="accent">you keep the lot.</span></p>
 
     <div class="ask reveal">
-      <p class="ask-tag">The question we ask here</p>
-      <p>How much of what you pay for today can you actually see inside?</p>
+      <p class="ask-tag">We ask</p>
+      <p>How much of what you pay for can you see inside?</p>
     </div>
   </div>
 </section>
 
 <!-- 05 THE ROUTE -->
-<section id="route" class="sand-section">
+<section id="route">
   <div class="wrap center-head">
     <span class="beat-no reveal">05</span>
-    <p class="eyebrow reveal">The approach</p>
     <h2 class="section-head reveal">A route, <span class="accent">not a project list.</span></h2>
-    <p class="section-sub reveal">Four stages, in order, each one resting on the last. Security is not one of the stages. It is the condition every stage has to meet, from day one.</p>
 
     <div class="route reveal">
       <span class="route-wrap-label">Secure, at every stage</span>
       <div class="route-steps">
         <div class="route-step">
-          <div class="rs-top"><span class="rs-dot" style="background:#d4941e;"></span><span class="rs-n">Stage 01</span></div>
+          <div class="rs-top"><span class="rs-dot" style="background:#d4941e;"></span><span class="rs-n">01</span></div>
           <h3>Discover</h3>
-          <p>We map the business end to end before we touch anything. It is also how risk gets priced honestly instead of guessed at.</p>
+          <p>Map the business before touching anything.</p>
           <span class="route-rise" style="background:#d4941e; width:26%;"></span>
         </div>
         <div class="route-step">
-          <div class="rs-top"><span class="rs-dot" style="background:#1f7a63;"></span><span class="rs-n">Stage 02</span></div>
+          <div class="rs-top"><span class="rs-dot" style="background:#1f7a63;"></span><span class="rs-n">02</span></div>
           <h3>Stabilise</h3>
-          <p>The noise stops. Technology stops being the reason things are late, and your team stops working around it.</p>
+          <p>The noise stops.</p>
           <span class="route-rise" style="background:#1f7a63; width:48%;"></span>
         </div>
         <div class="route-step">
-          <div class="rs-top"><span class="rs-dot" style="background:#e05a30;"></span><span class="rs-n">Stage 03</span></div>
+          <div class="rs-top"><span class="rs-dot" style="background:#e05a30;"></span><span class="rs-n">03</span></div>
           <h3>Standardise</h3>
-          <p>One deliberate standard across everything. Things stop being one-offs held together by a single person who knows how.</p>
+          <p>One standard. No more one-offs.</p>
           <span class="route-rise" style="background:#e05a30; width:74%;"></span>
         </div>
         <div class="route-step">
-          <div class="rs-top"><span class="rs-dot" style="background:#6d3bd6;"></span><span class="rs-n">Stage 04</span></div>
+          <div class="rs-top"><span class="rs-dot" style="background:#6d3bd6;"></span><span class="rs-n">04</span></div>
           <h3>Transform</h3>
-          <p>Modern work, AI, and automation that actually stick. This is where the real gains live, and why the first three matter.</p>
+          <p>AI and automation that stick.</p>
           <span class="route-rise" style="background:#6d3bd6; width:100%;"></span>
         </div>
       </div>
     </div>
 
-    <p class="note-line reveal">Map before we touch anything is the important bit. It is the difference between a plan and a guess, and it is why we will not quote you a monthly number before we have done it.</p>
-    <a href="how-we-work.html#journey-curve" class="cta-link reveal">See the full curve on How we work <span class="arr">&rarr;</span></a>
+    <p class="note-line reveal">In order, each resting on the last. Security is the condition of every stage, <span class="accent">not a stage you finish.</span></p>
+    <a href="how-we-work.html#journey-curve" class="cta-link reveal">See the full curve <span class="arr">&rarr;</span></a>
 
     <div class="ask reveal">
-      <p class="ask-tag">The question we ask here</p>
-      <p>Which of those four do you think you are sitting in right now?</p>
+      <p class="ask-tag">We ask</p>
+      <p>Which one are you in right now?</p>
     </div>
   </div>
 </section>
 
 <!-- 06 THE TOOLS -->
-<section id="floor">
+<section id="floor" class="sand-section">
   <div class="wrap center-head">
     <span class="beat-no reveal">06</span>
-    <p class="eyebrow reveal">The tools question</p>
-    <h2 class="section-head reveal">Settle the tools question <span class="accent">so you can stop having it.</span></h2>
-    <p class="section-sub reveal">People always want this answered early, so here it is, once. Five names, one line each.</p>
+    <h2 class="section-head reveal">The tools question, <span class="accent">settled for good.</span></h2>
 
     <div class="floor reveal">
-      <div class="floor-row"><b>Microsoft</b><span>The platform you already own, and mostly underuse.</span></div>
-      <div class="floor-row"><b>Fortinet</b><span>Holds the network and the edge.</span></div>
-      <div class="floor-row"><b>Veeam</b><span>The business comes back when something goes wrong.</span></div>
-      <div class="floor-row"><b>Huntress</b><span>Real people hunting threats on your machines.</span></div>
-      <div class="floor-row"><b>SentinelOne</b><span>Response on the endpoint, not another dashboard emailing you at 2am.</span></div>
+      <div class="floor-row"><b>Microsoft</b><span>You already own it, and underuse it.</span></div>
+      <div class="floor-row"><b>Fortinet</b><span>The network and the edge.</span></div>
+      <div class="floor-row"><b>Veeam</b><span>You come back from anything.</span></div>
+      <div class="floor-row"><b>Huntress</b><span>People hunting, not dashboards.</span></div>
+      <div class="floor-row"><b>SentinelOne</b><span>Response on the endpoint.</span></div>
     </div>
 
-    <div class="floor-note reveal">
-      <p>None of that is the point. <strong>It is the floor.</strong> It exists so the ground stops moving under you, and so everything built afterwards has something solid to sit on.</p>
-      <p>Most providers sell you those five names as the destination and bill you monthly for owning them. We treat them as the floor. Once the floor is solid and boring, you stop spending attention on tools and start compounding real gains on top of them.</p>
-    </div>
+    <p class="note-line reveal">This is the floor, not the destination. <span class="accent">Most providers bill you monthly for owning it.</span></p>
 
     <div class="ask reveal">
-      <p class="ask-tag">The question we ask here</p>
-      <p>How much of your technology conversation today is about tools, rather than about where the business is heading?</p>
+      <p class="ask-tag">We ask</p>
+      <p>How much of your technology conversation is about tools?</p>
     </div>
   </div>
 </section>
 
 <!-- 07 THE PROOF -->
-<section id="proof" class="sand-section">
+<section id="proof">
   <div class="wrap center-head">
     <span class="beat-no reveal">07</span>
-    <p class="eyebrow reveal">The proof</p>
-    <h2 class="section-head reveal">Getting things done is easy to buy. <span class="accent">Getting the right things done is the harder job.</span></h2>
-    <p class="section-sub reveal">So every piece of work carries a written reason it was chosen, and evidence of what it delivered. Some of the time that means we tell you not to do something, or to wait. That is the clearest signal you will ever get that work is being selected rather than billed.</p>
+    <h2 class="section-head reveal">The hard job is <span class="accent">choosing the right work.</span></h2>
+    <p class="section-sub reveal">Which is why we will sometimes tell you not to spend the money.</p>
 
-    <p class="proof-big reveal">One client saved <span class="accent">over $500k</span> in a single competitive vendor review.</p>
-    <p class="proof-sub reveal">The first thing most owners notice when we come in: vendors that finally answer to someone.</p>
+    <p class="proof-big reveal">One client saved <span class="accent">over $500k</span> in a single vendor review.</p>
 
     <div class="ask reveal">
-      <p class="ask-tag">The question we ask here</p>
-      <p>Has anyone you pay ever told you not to spend the money?</p>
+      <p class="ask-tag">We ask</p>
+      <p>Has anyone you pay ever done that?</p>
     </div>
-  </div>
-</section>
-
-<!-- NEXT -->
-<section class="next-band">
-  <div class="wrap" style="text-align:center;">
-    <p class="band-statement reveal">You focus on running the business. <span class="accent">We own the technology,</span> and keep it out of your way.</p>
-    <a href="what-we-do.html" class="btn reveal" style="margin-top:34px;">See what we do</a>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta">
   <div class="wrap">
-    <p class="eyebrow reveal">The ask</p>
-    <h2 class="section-head reveal">Do not sign a transformation programme. <span class="accent">Pick one thing worth ninety days.</span></h2>
-    <p class="cta-sub reveal">Take the thing you named at the start. Give us a short discovery, we will map it, and we will deliver one visible win inside the first thirty days. Visible to the business, not just to IT. If that lands, we keep climbing together.</p>
+    <h2 class="section-head reveal">Do not sign a programme. <span class="accent">Pick one thing.</span></h2>
+    <p class="cta-sub reveal">A short discovery, then one visible win inside thirty days. If it lands, we keep climbing.</p>
     <a href="contact.html#contact" class="btn reveal">Book your 30-minute call</a>
     <p class="cta-micro reveal">Prefer email? <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a></p>
   </div>

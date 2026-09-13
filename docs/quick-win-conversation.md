@@ -4,7 +4,11 @@ A 15 minute talk track for a first real conversation with a client or prospect. 
 
 The whole conversation is about their transformation outcomes. Tools appear once, and only as the foundation those outcomes get built on.
 
-**This doc and the website are one story.** Beats 1 to 7 are published, in this order, at [mycio.co.nz/the-case.html](https://mycio.co.nz/the-case.html). You can talk the track cold, or scroll the page while you talk it, or send the link afterwards and know it says the same thing you did. If you change the track here, change the page. If you change the page, change the track here.
+**This doc and the website are one story, but they are not the same length.** Beats 1 to 7 are published, in this order, at [mycio.co.nz/the-case.html](https://mycio.co.nz/the-case.html).
+
+The page is deliberately sparse. It carries the headline of each beat, the visual, and the question, and almost nothing else. **The words in this doc are the ones you say. The words on the page are the ones they read while you say them.** If the page repeated this doc, it would compete with you in the room, and a prospect reading ahead has stopped listening.
+
+So: talk the track cold, or scroll the page while you talk it, or send the link afterwards. The page will not say it as fully as you did, and that is the point. It says it in the same order, with the same questions, and leaves the room for you. If you change the argument in either place, change it in both.
 
 | Beat | Say it | On the page |
 | --- | --- | --- |
@@ -16,6 +20,8 @@ The whole conversation is about their transformation outcomes. Tools appear once
 | 6 | The tools question, settled | `#floor` |
 | 7 | Proof, and killing work | `#proof` |
 | 8 | One thing worth ninety days | the closing band |
+
+Between beats 3 and 4 the page pauses on a single line with nothing else on the screen: **"You bought a service. You needed a decision."** That is the hinge of the whole argument. In the room, it is the sentence to slow down on and then stop talking. Let them sit in it before you move to what you own.
 
 ---
 
@@ -136,4 +142,6 @@ One client saved over $500k in a single competitive vendor review. The first thi
 
 ## Leaving it behind
 
-Send the link to [mycio.co.nz/the-case.html](https://mycio.co.nz/the-case.html) rather than a deck. It runs the same eight beats in the same order, it carries the same questions in the margin, and it gives whoever was not in the room the version you would have given them yourself. The sticky strip at the top lets you jump straight to a beat, which is the fastest way to answer a follow-up like "remind me what you said about the tools".
+Send the link to [mycio.co.nz/the-case.html](https://mycio.co.nz/the-case.html) rather than a deck. Same beats, same order, same questions, in about two minutes of reading.
+
+It is short on purpose. Whoever was not in the room gets the shape of the argument and the questions it turns on, which is what travels to a board or a business partner. The detail is what you supply in the next conversation, and leaving room for that conversation is worth more than a page that answers everything. The sticky strip at the top lets you jump straight to a beat, which is the fastest way to handle "remind me what you said about the tools".
