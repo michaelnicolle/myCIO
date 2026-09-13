@@ -12,14 +12,20 @@ So: talk the track cold, or scroll the page while you talk it, or send the link 
 
 | Beat | Say it | On the page |
 | --- | --- | --- |
-| 1 | The opening question | `#question` |
-| 2 | The gap they already feel | `#gap` |
-| 3 | Why the managed services model stalls | `#unstuck` |
-| 4 | The ownership split | `#ownership` |
-| 5 | The route, not a project list | `#route` |
-| 6 | The tools question, settled | `#floor` |
-| 7 | Proof, and killing work | `#proof` |
+| 1 | The opening question | `#question`, beat 01 |
+| 2 | The gap they already feel | `#gap`, beat 02 |
+| 3 | Why the managed services model stalls | `#unstuck`, beat 03 |
+| 4 | The ownership split | `#ownership`, beat 04 |
+| 5 | The route, not a project list | `#route`, beat 05 |
+| 6 | The tools question, settled | the dark band after the route |
+| 7 | Proof, and killing work | `#proof`, beat 06 |
 | 8 | One thing worth ninety days | the closing band |
+
+The page carries three things the talk track does not, because a cold reader needs them and a person sitting opposite you does not:
+
+- **An opening recognition section** (`#recognise`) before beat 1, listing four things that have changed in their business. It qualifies without naming a size, a role or a sector, because our people arrive from all of those. Useful in the room too, when someone opens with "I'm not sure we're your kind of client".
+- **Who turns up** (`#people`), near the close. Two names, two lines each. In the room that is you, so it is redundant.
+- **A second call to action** midway, for the reader who is convinced before the end.
 
 Between beats 3 and 4 the page pauses on a single line with nothing else on the screen: **"You bought a service. You needed a decision."** That is the hinge of the whole argument. In the room, it is the sentence to slow down on and then stop talking. Let them sit in it before you move to what you own.
 
@@ -133,6 +139,10 @@ One client saved over $500k in a single competitive vendor review. The first thi
 **Keep the five names short.** One line each, then move straight back to the foundation point. If they want depth on any of them, that is a good sign and a second conversation.
 
 **Security is a condition, not a stage.** Four stages, wrapped in security. This matches the curve on How we work and the route on The case. Do not add a fifth "Secure" stage in conversation, because the moment it is a stage it is something that can be finished, deferred or descoped.
+
+**Speak to the person carrying it, whoever they are.** Owner, CFO, board member, GM: the one thing they have in common is that the technology decision reached them and they are not the right person to make it. Aim at that, not at a job title. The page does the same, which is why it never names a role, a headcount or a sector.
+
+**It is a stage, not a size.** They are not a prospect because they have 60 staff. They are a prospect because they have outgrown the arrangement that got them here. That is what qualifies, and it is the fastest way to open with someone who thinks they are too small or too big for us.
 
 **Language to hold to:** what helps drive your business forward; the right work for your business; delivers value; moves your business forward. Not another IT company. Not another IT bill.
 

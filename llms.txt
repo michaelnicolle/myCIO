@@ -7,7 +7,7 @@ myCIO is New Zealand owned and independent. No reseller margins, no vendor kickb
 ## Services
 
 - [Why myCIO](https://mycio.co.nz/): The case for independent, senior technology leadership over a traditional MSP or a full-time in-house hire.
-- [The case](https://mycio.co.nz/the-case.html): Why the managed services model leaves the technology decision uncovered, what myCIO owns versus what the client owns, and the four-stage route from Discover to Transform.
+- [The case](https://mycio.co.nz/the-case.html): For businesses that have outgrown the way their technology is run. Why managed services leaves the technology decision uncovered, what the client owns versus what myCIO owns, and the four-stage route from Discover to Transform.
 - [What we do](https://mycio.co.nz/what-we-do.html): Fractional CIO and strategic advice, technology consulting, projects and delivery, security and operations.
 - [How we work](https://mycio.co.nz/how-we-work.html): The engagement model, from first conversation through to steady-state operations.
 - [Contact](https://mycio.co.nz/contact.html): Book a 30-minute call, or email hello@mycio.co.nz.

@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
-<title>myCIO | The case: why managed IT stalls</title>
-<meta name="description" content="Why the managed services model keeps coming unstuck, what it leaves uncovered, and what changes when a senior team owns the technology decision instead of the ticket.">
+<title>myCIO | Your IT is managed. Nobody is leading it.</title>
+<meta name="description" content="You have outgrown the way your technology is run. Why managed services leaves the decision uncovered, what changes when a senior NZ team owns it, and what you own throughout.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="myCIO | The case: why managed IT stalls">
-<meta property="og:description" content="Most IT gets managed. Almost none of it gets led. The whole argument in one page, in the order we would walk you through it.">
+<meta property="og:title" content="myCIO | Your IT is managed. Nobody is leading it.">
+<meta property="og:description" content="Every technology decision still reaches your desk, and none of them get easier. The whole argument in one page.">
 <meta property="og:url" content="https://mycio.co.nz/the-case.html">
 <meta property="og:image" content="https://mycio.co.nz/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="myCIO | The case: why managed IT stalls">
-<meta name="twitter:description" content="Most IT gets managed. Almost none of it gets led. The whole argument in one page.">
+<meta name="twitter:title" content="myCIO | Your IT is managed. Nobody is leading it.">
+<meta name="twitter:description" content="Every technology decision still reaches your desk, and none of them get easier.">
 <link rel="canonical" href="https://mycio.co.nz/the-case.html">
 <script type="application/ld+json">
 {
@@ -181,6 +181,12 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .btn-light:hover { background: rgba(255, 255, 255, 0.88); }
 .btn-light .chev-r { display: inline-block; margin-left: 6px; transition: transform 0.2s; }
 .btn-light:hover .chev-r { transform: translateX(3px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--white); transform: none; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -574,6 +580,134 @@ section[id] { scroll-margin-top: 132px; }
 .shift-row .sh-to { color: var(--white); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
 .shift-row .sh-ar { color: var(--accent); font-size: 1.2rem; text-align: center; line-height: 1; }
 
+/* ---------- Recognition: the qualifier, written as a moment not a demographic ---------- */
+.recog {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 58px;
+  text-align: left;
+}
+.recog-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 32px 32px 34px;
+  box-shadow: var(--shadow-border);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), border-color 0.25s;
+}
+.recog-card:hover { transform: translateY(-4px); border-color: rgba(224, 90, 48, 0.45); }
+.recog-card::before {
+  content: "";
+  display: block;
+  width: 28px; height: 3px;
+  background: var(--accent);
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+.recog-card h3 { font-size: 1.16rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 10px; }
+.recog-card p { color: var(--muted); font-size: 0.96rem; line-height: 1.55; }
+
+/* ---------- Mid-page CTA: a quiet one, so the close keeps the accent ---------- */
+.midcta {
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 66px 0;
+}
+.midcta .wrap { display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; text-align: center; }
+.midcta p {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  max-width: 34ch;
+  text-wrap: balance;
+}
+.midcta .btn { padding: 14px 30px; font-size: 0.98rem; flex-shrink: 0; }
+
+/* ---------- The floor: the tools question, answered once and moved past ---------- */
+.floorline {
+  background: var(--dark);
+  color: var(--paper);
+  padding: 88px 0;
+  text-align: center;
+}
+.fl-names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 20px;
+}
+.fl-names span:not(.fl-dot) {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 2.5vw, 1.85rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--white);
+}
+.fl-names .fl-dot {
+  width: 7px; height: 7px;
+  border-radius: 100px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.fl-line {
+  margin: 20px auto 0;
+  font-size: 1.06rem;
+  color: rgba(250, 247, 241, 0.66);
+  max-width: 46ch;
+  text-wrap: balance;
+}
+.fl-line .accent { color: var(--accent); }
+
+/* ---------- The people, because a mix of readers all want to know who turns up ---------- */
+.people { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 56px; text-align: left; }
+.person {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 34px 32px 36px;
+  box-shadow: var(--shadow-border);
+}
+.person-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 54px; height: 54px;
+  border-radius: 100px;
+  background: var(--dark);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  flex-shrink: 0;
+}
+.person h3 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+.person-role { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.11em; color: var(--accent); margin: 6px 0 14px; }
+.person p { color: var(--muted); font-size: 0.97rem; line-height: 1.55; }
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 22px;
+  margin-top: 44px;
+}
+.trust span:not(.t-dot) {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(0.98rem, 1.7vw, 1.2rem);
+  color: var(--ink-soft);
+}
+.trust .t-dot { width: 7px; height: 7px; border-radius: 100px; background: var(--accent); flex-shrink: 0; }
+
 /* ---------- The turn: the hinge of the argument, given its own room ---------- */
 .turn {
   background: var(--paper);
@@ -821,6 +955,8 @@ footer {
 }
 @media (max-width: 960px) {
   .split { grid-template-columns: 1fr; }
+  .recog { grid-template-columns: 1fr; }
+  .people { grid-template-columns: 1fr; }
   .foot-top { grid-template-columns: 1fr; gap: 32px; }
   .lad-row { grid-template-columns: 1fr auto; row-gap: 8px; }
   .lad-a { grid-column: 1 / -1; }
@@ -848,6 +984,10 @@ footer {
   section[id] { scroll-margin-top: 90px; }
   .turn { padding: 110px 0; }
   .unstuck { grid-template-columns: 1fr; }
+  .floorline { padding: 64px 0; }
+  .midcta { padding: 48px 0; }
+  .midcta .wrap { flex-direction: column; gap: 22px; }
+  .person { flex-direction: column; gap: 16px; }
   .hero-foot { bottom: 70px; gap: 6px 20px; }
   .hero-foot span { font-size: 0.9rem; }
   .hero-content { padding: 110px 24px 150px; }
@@ -891,15 +1031,16 @@ footer {
 <main>
 
 <!-- HERO -->
-<section class="hero page-hero" id="top" aria-label="The case for technology leadership">
+<section class="hero page-hero" id="top" aria-label="Technology leadership for growing New Zealand businesses">
   <canvas id="wave" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="inner">
-      <p class="hj-eyebrow">The case</p>
-      <h1>Most IT gets managed.<span class="h1-line2">Almost none of it gets led.</span></h1>
-      <p class="lead">The whole argument, in the order we would walk you through it.</p>
+      <p class="hj-eyebrow">For businesses that have outgrown the way their technology is run</p>
+      <h1>Your IT is managed.<span class="h1-line2">Nobody is leading it.</span></h1>
+      <p class="lead">Every technology decision still reaches your desk, and none of them get easier. Here is the whole argument, in the order we would walk you through it.</p>
       <div class="hero-actions">
-        <a href="#question" class="btn btn-light">Start at the beginning <span class="chev-r">&rsaquo;</span></a>
+        <a href="contact.html#contact" class="btn btn-light">Book your 30-minute call <span class="chev-r">&rsaquo;</span></a>
+        <a href="#recognise" class="btn btn-ghost">Start at the beginning</a>
       </div>
     </div>
   </div>
@@ -913,21 +1054,49 @@ footer {
   <div class="hero-scroll" aria-hidden="true"><span class="chev"></span></div>
 </section>
 
+<!-- RECOGNITION -->
+<section id="recognise">
+  <div class="wrap center-head">
+    <h2 class="section-head reveal">You are here because <span class="accent">something changed.</span></h2>
+    <p class="section-sub reveal">Not because of your size or your sector. Because of where your business has got to.</p>
+
+    <div class="recog">
+      <div class="recog-card reveal">
+        <h3>The arrangement that got you here stopped scaling</h3>
+        <p>What worked at your old size quietly stopped working. Nobody flagged it, because nobody was watching for it.</p>
+      </div>
+      <div class="recog-card reveal">
+        <h3>Every technology call lands on you</h3>
+        <p>Not because you are the right person to make it. Because there is no one else.</p>
+      </div>
+      <div class="recog-card reveal">
+        <h3>You cannot tell good service from a good invoice</h3>
+        <p>The bills arrive, the tickets close, and the business is not noticeably further ahead.</p>
+      </div>
+      <div class="recog-card reveal">
+        <h3>Someone started asking questions you cannot answer</h3>
+        <p>A board, an insurer, a big customer, a due diligence pack. The answer is somewhere. Nobody owns it.</p>
+      </div>
+    </div>
+
+    <p class="note-line reveal">None of that is an IT problem. <span class="accent">It is a leadership gap sitting over technology.</span></p>
+  </div>
+</section>
+
 <!-- RUNNING ORDER -->
 <nav class="rail" aria-label="The running order">
   <div class="rail-inner">
     <a href="#question"><b>01</b> The question</a>
     <a href="#gap"><b>02</b> The gap</a>
-    <a href="#unstuck"><b>03</b> Why MSPs stall</a>
-    <a href="#ownership"><b>04</b> Who owns what</a>
+    <a href="#unstuck"><b>03</b> Why it stalls</a>
+    <a href="#ownership"><b>04</b> What you own</a>
     <a href="#route"><b>05</b> The route</a>
-    <a href="#floor"><b>06</b> The tools</a>
-    <a href="#proof"><b>07</b> The proof</a>
+    <a href="#proof"><b>06</b> The proof</a>
   </div>
 </nav>
 
 <!-- 01 THE QUESTION -->
-<section id="question">
+<section id="question" class="sand-section">
   <div class="wrap center-head">
     <span class="beat-no reveal">01</span>
     <h2 class="section-head reveal">One question, <span class="accent">before anything technical.</span></h2>
@@ -935,13 +1104,13 @@ footer {
     <div class="qcard reveal">
       <p>If one thing worked properly over the next twelve months, what would make the biggest difference?</p>
       <span class="q-rule" aria-hidden="true"></span>
-      <p class="q-hint">We write the answer down. Everything after this points back at it.</p>
+      <p class="q-hint">We write your answer down. Everything after it points back at it.</p>
     </div>
   </div>
 </section>
 
 <!-- 02 THE GAP -->
-<section id="gap" class="sand-section">
+<section id="gap">
   <div class="wrap center-head">
     <span class="beat-no reveal">02</span>
     <h2 class="section-head reveal">Three things happen. <span class="accent">Two have an owner.</span></h2>
@@ -973,32 +1142,33 @@ footer {
   </div>
 </section>
 
-<!-- 03 WHY MSPs STALL -->
+<!-- 03 WHY IT STALLS -->
 <section id="unstuck" class="dark-beat">
   <div class="wrap center-head">
     <span class="beat-no reveal">03</span>
-    <h2 class="section-head reveal">The managed services model is not broken. <span class="accent">Just never built for this part.</span></h2>
+    <h2 class="section-head reveal">You are not badly served. <span class="accent">You are unled.</span></h2>
+    <p class="section-sub reveal">Your provider is probably good at what they sell. Managed services was built around tickets and uptime, and what you are missing sits above both.</p>
 
     <div class="unstuck">
       <div class="un-card reveal">
         <span class="un-n">01</span>
-        <h3>Buys availability, not progress</h3>
-        <p>Nothing in the contract says the business should be further ahead.</p>
+        <h3>Your contract buys uptime</h3>
+        <p>Not one line in it says your business should be further ahead in a year.</p>
       </div>
       <div class="un-card reveal">
         <span class="un-n">02</span>
-        <h3>The margin is in the stack</h3>
-        <p>Advice from the people reselling the tools is not independent advice.</p>
+        <h3>The advice comes from the seller</h3>
+        <p>When the people recommending the tools also resell them, the advice is never fully yours.</p>
       </div>
       <div class="un-card reveal">
         <span class="un-n">03</span>
-        <h3>Volume is the model</h3>
-        <p>Hundreds of clients, one pool of people. Attention follows the loudest.</p>
+        <h3>You are one of hundreds</h3>
+        <p>Their margin needs volume. Your turn comes when you escalate.</p>
       </div>
       <div class="un-card reveal">
         <span class="un-n">04</span>
-        <h3>Nothing gets switched off</h3>
-        <p>Nobody in that arrangement is paid to tell you to stop.</p>
+        <h3>Nothing ever gets switched off</h3>
+        <p>Nobody in that arrangement is paid to tell you to stop spending.</p>
       </div>
     </div>
 
@@ -1040,7 +1210,15 @@ footer {
   </div>
 </section>
 
-<!-- 04 WHO OWNS WHAT -->
+<!-- MID CTA -->
+<section class="midcta">
+  <div class="wrap">
+    <p class="reveal">Half an hour tells you which of these you are actually dealing with.</p>
+    <a href="contact.html#contact" class="btn reveal">Book your 30-minute call</a>
+  </div>
+</section>
+
+<!-- 04 WHAT YOU OWN -->
 <section id="ownership" class="sand-section">
   <div class="wrap center-head">
     <span class="beat-no reveal">04</span>
@@ -1062,14 +1240,14 @@ footer {
         <ul class="split-list">
           <li>The direction</li>
           <li>The change, discovery to handover</li>
-          <li>The vendors, held to what they signed</li>
+          <li>Your vendors, held to what they signed</li>
           <li>The risk picture, in plain language</li>
           <li>The outcome</li>
         </ul>
       </div>
     </div>
 
-    <p class="note-line reveal">Licensing passes through at cost, with a margin you can see. Leave, and <span class="accent">you keep the lot.</span></p>
+    <p class="note-line reveal">Licensing passes through at cost, with a margin you can see. Walk away whenever you like, and <span class="accent">you keep the lot.</span></p>
 
     <div class="ask reveal">
       <p class="ask-tag">We ask</p>
@@ -1090,7 +1268,7 @@ footer {
         <div class="route-step">
           <div class="rs-top"><span class="rs-dot" style="background:#d4941e;"></span><span class="rs-n">01</span></div>
           <h3>Discover</h3>
-          <p>Map the business before touching anything.</p>
+          <p>We map your business before touching anything.</p>
           <span class="route-rise" style="background:#d4941e; width:26%;"></span>
         </div>
         <div class="route-step">
@@ -1124,33 +1302,24 @@ footer {
   </div>
 </section>
 
-<!-- 06 THE TOOLS -->
-<section id="floor" class="sand-section">
-  <div class="wrap center-head">
-    <span class="beat-no reveal">06</span>
-    <h2 class="section-head reveal">The tools question, <span class="accent">settled for good.</span></h2>
-
-    <div class="floor reveal">
-      <div class="floor-row"><b>Microsoft</b><span>You already own it, and underuse it.</span></div>
-      <div class="floor-row"><b>Fortinet</b><span>The network and the edge.</span></div>
-      <div class="floor-row"><b>Veeam</b><span>You come back from anything.</span></div>
-      <div class="floor-row"><b>Huntress</b><span>People hunting, not dashboards.</span></div>
-      <div class="floor-row"><b>SentinelOne</b><span>Response on the endpoint.</span></div>
-    </div>
-
-    <p class="note-line reveal">This is the floor, not the destination. <span class="accent">Most providers bill you monthly for owning it.</span></p>
-
-    <div class="ask reveal">
-      <p class="ask-tag">We ask</p>
-      <p>How much of your technology conversation is about tools?</p>
-    </div>
+<!-- THE FLOOR -->
+<section class="floorline" aria-label="The tools question">
+  <div class="wrap">
+    <p class="fl-names reveal">
+      <span>Microsoft</span><span class="fl-dot" aria-hidden="true"></span>
+      <span>Fortinet</span><span class="fl-dot" aria-hidden="true"></span>
+      <span>Veeam</span><span class="fl-dot" aria-hidden="true"></span>
+      <span>Huntress</span><span class="fl-dot" aria-hidden="true"></span>
+      <span>SentinelOne</span>
+    </p>
+    <p class="fl-line reveal">That is the floor, not the destination. <span class="accent">Most providers sell it to you as the destination.</span></p>
   </div>
 </section>
 
-<!-- 07 THE PROOF -->
-<section id="proof">
+<!-- 06 THE PROOF -->
+<section id="proof" class="sand-section">
   <div class="wrap center-head">
-    <span class="beat-no reveal">07</span>
+    <span class="beat-no reveal">06</span>
     <h2 class="section-head reveal">The hard job is <span class="accent">choosing the right work.</span></h2>
     <p class="section-sub reveal">Which is why we will sometimes tell you not to spend the money.</p>
 
@@ -1163,11 +1332,46 @@ footer {
   </div>
 </section>
 
+<!-- WHO YOU DEAL WITH -->
+<section id="people">
+  <div class="wrap center-head">
+    <h2 class="section-head reveal">Two people. <span class="accent">Both of them in your business.</span></h2>
+    <p class="section-sub reveal">No account managers. No junior handoffs. No offshore desk.</p>
+
+    <div class="people">
+      <div class="person reveal">
+        <div class="person-mark">EM</div>
+        <div>
+          <h3>Elton McDowall</h3>
+          <p class="person-role">Co-founder and Director</p>
+          <p>20+ years across strategy, security and governance. Turns the complicated part into decisions that make sense to owners, CFOs and boards.</p>
+        </div>
+      </div>
+      <div class="person reveal">
+        <div class="person-mark">MN</div>
+        <div>
+          <h3>Michael Nicolle</h3>
+          <p class="person-role">Co-founder and Director</p>
+          <p>15+ years delivering technology programmes across Australia and New Zealand. Stalled projects and broken vendor trust is usually where the work starts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust reveal">
+      <span>35+ years combined</span>
+      <span class="t-dot" aria-hidden="true"></span>
+      <span>New Zealand owned</span>
+      <span class="t-dot" aria-hidden="true"></span>
+      <span>No lock-in, not even to us</span>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta">
   <div class="wrap">
     <h2 class="section-head reveal">Do not sign a programme. <span class="accent">Pick one thing.</span></h2>
-    <p class="cta-sub reveal">A short discovery, then one visible win inside thirty days. If it lands, we keep climbing.</p>
+    <p class="cta-sub reveal">A short discovery, then one visible win inside thirty days. Visible to the business, not just to IT. If it lands, we keep going.</p>
     <a href="contact.html#contact" class="btn reveal">Book your 30-minute call</a>
     <p class="cta-micro reveal">Prefer email? <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a></p>
   </div>
