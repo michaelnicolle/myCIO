@@ -12,21 +12,24 @@ So: talk the track cold, or scroll the page while you talk it, or send the link 
 
 | Beat | Say it | On the page |
 | --- | --- | --- |
-| 1 | The opening question | `#question`, beat 01 |
-| 2 | The gap they already feel | `#gap`, beat 02 |
-| 3 | Why the managed services model stalls | `#unstuck`, beat 03 |
-| 4 | The ownership split | `#ownership`, beat 04 |
-| 5 | The route, not a project list | `#route`, beat 05 |
-| 6 | The tools question, settled | the dark band after the route |
+| 1 | The opening question | asked in the room, not on the page |
+| 2 | The gap they already feel | `#gap`, beat 01 |
+| 3 | Why the managed services model stalls | `#unstuck`, beat 02 |
+| 4 | The ownership split | `#ownership`, beat 05 |
+| 5 | The route, not a project list | `#climb`, beat 03 |
+| 6 | The tools question, settled | the dark band after the ownership split |
 | 7 | Proof, and killing work | `#proof`, beat 06 |
-| 8 | One thing worth ninety days | the closing band |
+| 8 | One thing worth ninety days | `#book`, with the form right there |
+
+**Name the two frameworks out loud.** The page now carries both as drawn diagrams, and they are the most repeatable thing we have. **The Climb** is how we get them from where they are to where they are going: Discover, Stabilise, Standardise, Transform, with security wrapped around all four rather than bolted on as a fifth. **The Flywheel** is what happens at the top, and it is the answer to "so what do we pay you for once it is fixed?": Strategy sets direction, Transformation delivers it, Operations keeps it turning, then it goes again. Use the names. A framework someone can draw on a napkin after the meeting is worth more than a page of explanation they cannot.
 
 The page carries three things the talk track does not, because a cold reader needs them and a person sitting opposite you does not:
 
 - **A provocative opening line.** The page leads on *"Is your IT managed? Quiet on results?"* Two questions, and the trap is in the order: almost everyone says yes to the first, which is exactly what leaves them exposed on the second. That is not how you open a meeting, because in the room you open on their business (beat 1). It is the right line for everything that has to earn attention in ten seconds: an email subject, a LinkedIn post, a first line at an event, the answer to "so what do you actually do?"
 - **An opening recognition section** (`#recognise`) before beat 1, listing six things that have changed in their business, including the two people complain about most: proposals full of brand names, and an AI conversation that never ships anything. It qualifies without naming a size, a role or a sector, because our people arrive from all of those. Useful in the room too, when someone opens with "I'm not sure we're your kind of client".
-- **Who turns up** (`#people`), near the close. Two names, two lines each. In the room that is you, so it is redundant.
-- **A second call to action** midway, for the reader who is convinced before the end.
+- **Who turns up** (`#people`), near the close. Two names, one line each. In the room that is you, so it is redundant.
+- **The form itself** (`#book`), so a convinced reader never has to go and find a contact page. Three lines beside it take the risk out: thirty minutes, no slide deck; an honest read on where you stand; if we are not the right fit, we say so. Those are worth saying out loud in the room too.
+- **A standing "Book a call" button** in the sticky strip, and a prompt in the middle for anyone convinced before the end.
 
 Between beats 3 and 4 the page pauses on a single line with nothing else on the screen: **"You bought a service. You needed a decision."** That is the hinge of the whole argument. In the room, it is the sentence to slow down on and then stop talking. Let them sit in it before you move to what you own.
 

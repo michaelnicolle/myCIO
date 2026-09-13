@@ -589,6 +589,253 @@ section[id] { scroll-margin-top: 132px; }
 .shift-row .sh-to { color: var(--white); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
 .shift-row .sh-ar { color: var(--accent); font-size: 1.2rem; text-align: center; line-height: 1; }
 
+
+/* ---------- Agitate: four lines, ticked, no card furniture ---------- */
+.familiar { background: var(--paper); }
+.fam-list {
+  list-style: none;
+  max-width: 640px;
+  margin: 50px auto 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.fam-list li {
+  position: relative;
+  padding: 18px 0 18px 46px;
+  font-size: clamp(1.05rem, 1.9vw, 1.28rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+.fam-list li:last-child { border-bottom: 0; }
+.fam-list li::before {
+  content: "";
+  position: absolute;
+  left: 6px; top: 50%;
+  width: 17px; height: 9px;
+  margin-top: -7px;
+  border-left: 2.5px solid var(--accent);
+  border-bottom: 2.5px solid var(--accent);
+  transform: rotate(-45deg);
+}
+
+/* ---------- Why it stalls: three lines, not three essays ---------- */
+.why-list {
+  list-style: none;
+  max-width: 660px;
+  margin: 52px auto 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.why-list li {
+  position: relative;
+  padding: 18px 0 18px 34px;
+  font-size: clamp(1.02rem, 1.8vw, 1.22rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: rgba(250, 247, 241, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.why-list li:last-child { border-bottom: 0; }
+.why-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 50%;
+  width: 18px; height: 2px;
+  margin-top: -1px;
+  background: var(--accent);
+  border-radius: 100px;
+}
+
+/* ---------- The Climb ---------- */
+.journey { background: var(--paper); }
+.journey-stage-wrap { margin-top: 54px; }
+.journey-svg-holder { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; }
+.journey-svg-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
+.jline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.journey.in .jline { animation: drawLine 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+.jnode { opacity: 0; }
+.journey.in .jnode { animation: nodePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.journey.in .jnode.j1 { animation-delay: 0.25s; }
+.journey.in .jnode.j2 { animation-delay: 0.65s; }
+.journey.in .jnode.j3 { animation-delay: 1.05s; }
+.journey.in .jnode.j4 { animation-delay: 1.45s; }
+@keyframes nodePop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+.jlabel { opacity: 0; }
+.journey.in .jlabel { animation: labelIn 0.6s ease forwards; }
+.journey.in .jlabel.l1 { animation-delay: 0.4s; }
+.journey.in .jlabel.l2 { animation-delay: 0.8s; }
+.journey.in .jlabel.l3 { animation-delay: 1.2s; }
+.journey.in .jlabel.l4 { animation-delay: 1.6s; }
+@keyframes labelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.jaxis { opacity: 0; }
+.journey.in .jaxis { animation: labelIn 0.7s ease 0.1s forwards; }
+.jwrap { opacity: 0; }
+.journey.in .jwrap { animation: labelIn 0.8s ease 1.85s forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .jline { stroke-dashoffset: 0; animation: none !important; }
+  .jnode, .jlabel, .jaxis, .jwrap { opacity: 1; animation: none !important; }
+}
+.jd-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 8px auto 0;
+  text-align: left;
+}
+.jd-item { opacity: 0; }
+.journey.in .jd-item { animation: labelIn 0.55s ease forwards; }
+.journey.in .jdi-1 { animation-delay: 0.55s; }
+.journey.in .jdi-2 { animation-delay: 0.95s; }
+.journey.in .jdi-3 { animation-delay: 1.35s; }
+.journey.in .jdi-4 { animation-delay: 1.75s; }
+@media (prefers-reduced-motion: reduce) { .jd-item { opacity: 1; animation: none !important; } }
+.jd-stage {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.jd-dot { width: 11px; height: 11px; border-radius: 100px; flex-shrink: 0; }
+.jd-desc { font-size: 0.93rem; color: var(--muted); line-height: 1.5; }
+.journey-mobile { display: none; }
+
+/* ---------- The Flywheel ---------- */
+.fw-holder { max-width: 560px; margin: 34px auto 0; }
+.fw-holder svg { width: 100%; height: auto; display: block; overflow: visible; }
+.fw-arc {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.flywheel-sec.in .fw-arc { animation: drawLine 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.flywheel-sec.in .fa2 { animation-delay: 0.7s; }
+.flywheel-sec.in .fa3 { animation-delay: 1.4s; }
+.fw-head, .fw-label { opacity: 0; }
+.flywheel-sec.in .fw-label { animation: labelIn 0.5s ease forwards; }
+.flywheel-sec.in .fl1 { animation-delay: 0.15s; }
+.flywheel-sec.in .fl2 { animation-delay: 0.85s; }
+.flywheel-sec.in .fl3 { animation-delay: 1.55s; }
+.flywheel-sec.in .fw-head { animation: labelIn 0.35s ease forwards; }
+.flywheel-sec.in .fh1 { animation-delay: 0.85s; }
+.flywheel-sec.in .fh2 { animation-delay: 1.55s; }
+.flywheel-sec.in .fh3 { animation-delay: 2.25s; }
+.fw-seg { stroke-linecap: butt; stroke-width: 62; }
+.fw-ring { opacity: 0; }
+.flywheel-sec.in .fw-ring { animation: labelIn 0.8s ease 2.2s forwards; }
+.flywheel-sec { padding-bottom: 96px; }
+@media (prefers-reduced-motion: reduce) {
+  .fw-arc { stroke-dashoffset: 0; animation: none !important; }
+  .fw-head, .fw-label, .fw-ring { opacity: 1; animation: none !important; }
+}
+
+/* ---------- The close: the form lives here, not a page away ---------- */
+.book { background: #0a0b0e; color: var(--white); padding: 130px 0; }
+.book-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.book-copy h2 {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4.2vw, 3.1rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--white);
+  max-width: 15ch;
+  text-wrap: balance;
+}
+.book-sub { margin-top: 22px; font-size: 1.08rem; line-height: 1.65; color: rgba(250, 247, 241, 0.65); max-width: 46ch; }
+.book-points { list-style: none; margin-top: 34px; display: flex; flex-direction: column; gap: 14px; }
+.book-points li {
+  position: relative;
+  padding-left: 30px;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: rgba(250, 247, 241, 0.95);
+}
+.book-points li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.34em;
+  width: 15px; height: 8px;
+  border-left: 2.5px solid var(--accent);
+  border-bottom: 2.5px solid var(--accent);
+  transform: rotate(-45deg);
+}
+.book-form {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 38px 36px 32px;
+  color: var(--ink);
+}
+.book-form h3 { font-size: 1.45rem; font-weight: 600; letter-spacing: -0.02em; }
+.book-form .bf-sub { margin-top: 8px; font-size: 0.96rem; color: var(--muted); }
+.book-form form { margin-top: 22px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 0.84rem; font-weight: 600; margin-bottom: 7px; color: var(--ink-soft); }
+.field input, .field textarea {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 13px 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field textarea { min-height: 104px; resize: vertical; }
+.field input:focus, .field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(224, 90, 48, 0.12);
+}
+.book-form .btn { width: 100%; padding: 15px 24px; font-size: 1rem; font-weight: 700; }
+.bf-msg { display: none; margin-top: 12px; font-size: 0.9rem; color: #b3350f; }
+.bf-msg a { color: var(--accent-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+#contact-success { display: none; text-align: center; padding: 26px 0 10px; }
+.bf-tick {
+  width: 52px; height: 52px;
+  border-radius: 100px;
+  background: var(--accent-soft);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+#contact-success h3 { font-size: 1.3rem; margin-bottom: 8px; }
+#contact-success p { color: var(--muted); font-size: 0.98rem; }
+.bf-micro { margin-top: 16px; text-align: center; font-size: 0.88rem; color: rgba(250, 247, 241, 0.55); }
+.bf-micro a { color: var(--white); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+/* a standing call to action in the rail, so booking is never more than a tap away */
+.rail a.rail-book {
+  margin-left: auto;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+}
+.rail a.rail-book:hover { background: var(--accent-dark); border-color: var(--accent-dark); color: var(--white); }
+
 /* ---------- Recognition: the qualifier, written as a moment not a demographic ---------- */
 .recog {
   display: grid;
@@ -965,6 +1212,8 @@ footer {
 }
 @media (max-width: 960px) {
   .split { grid-template-columns: 1fr; }
+  .book-grid { grid-template-columns: 1fr; gap: 44px; }
+  .jd-strip { grid-template-columns: 1fr 1fr; gap: 24px 20px; }
   .recog { grid-template-columns: 1fr; }
   .people { grid-template-columns: 1fr; }
   .foot-top { grid-template-columns: 1fr; gap: 32px; }
@@ -993,6 +1242,36 @@ footer {
   section { padding: 96px 0; }
   section[id] { scroll-margin-top: 90px; }
   .turn { padding: 110px 0; }
+  .book { padding: 84px 0; }
+  .book-form { padding: 30px 24px 26px; }
+  .journey-svg-holder, .jd-strip { display: none; }
+  .journey-mobile { display: block; margin-top: 34px; text-align: left; }
+  .jm-step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .jm-dot {
+    width: 44px; height: 44px;
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-style: italic; font-size: 1rem;
+    color: var(--white);
+  }
+  .jm-step h4 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.02em; }
+  .jm-step p { font-size: 0.94rem; color: var(--muted); margin-top: 6px; }
+  .jm-secure {
+    margin-top: 22px;
+    padding: 20px 22px;
+    background: var(--accent-soft);
+    border-radius: 16px;
+  }
+  .jm-secure h4 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 1.12rem; letter-spacing: -0.02em; color: var(--ink); }
+  .jm-secure p { font-size: 0.92rem; color: var(--muted); margin-top: 6px; }
+  /* the mobile secure callout already says this, so drop the repeat below it */
+  #climb .note-line { display: none; }
   .unstuck { grid-template-columns: 1fr; }
   .floorline { padding: 64px 0; }
   .midcta { padding: 48px 0; }
@@ -1040,15 +1319,15 @@ footer {
 
 <main>
 
-<!-- HERO -->
+<!-- HOOK -->
 <section class="hero page-hero" id="top" aria-label="Technology leadership for growing New Zealand businesses">
   <canvas id="wave" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="inner">
       <p class="hj-eyebrow">For businesses that have outgrown the way their technology is run</p>
       <h1>Is your IT managed?<span class="h1-line2">Quiet on results?</span></h1>
-      <p class="lead">Managed is easy to buy. Your provider can name every product in your stack. Ask what any of it did for the business this year, and the room goes quiet.<span class="lead-diff">We start at the other end.</span></p>
-      <a href="#recognise" class="hero-down">
+      <p class="lead">Managed is easy to buy. Ask what any of it did for the business this year, and the room goes quiet.<span class="lead-diff">We start at the other end.</span></p>
+      <a href="#familiar" class="hero-down">
         <span class="hd-text">See how we do things differently</span>
         <span class="hd-chev" aria-hidden="true"><i></i><i></i></span>
       </a>
@@ -1063,73 +1342,36 @@ footer {
   </div>
 </section>
 
-<!-- RECOGNITION -->
-<section id="recognise">
+<!-- AGITATE -->
+<section id="familiar" class="familiar">
   <div class="wrap center-head">
-    <h2 class="section-head reveal">You are here because <span class="accent">something changed.</span></h2>
-    <p class="section-sub reveal">Not because of your size or your sector. Because of where your business has got to.</p>
-
-    <div class="recog">
-      <div class="recog-card reveal">
-        <h3>The arrangement that got you here stopped scaling</h3>
-        <p>What worked at your old size quietly stopped working. Nobody flagged it, because nobody was watching for it.</p>
-      </div>
-      <div class="recog-card reveal">
-        <h3>Every technology call lands on you</h3>
-        <p>Not because you are the right person to make it. Because there is no one else.</p>
-      </div>
-      <div class="recog-card reveal">
-        <h3>Every proposal arrives full of brand names</h3>
-        <p>You are being sold a stack. Nobody has explained, in words you would use, what it changes for the business.</p>
-      </div>
-      <div class="recog-card reveal">
-        <h3>You cannot tell good service from a good invoice</h3>
-        <p>The bills arrive, the tickets close, and the business is not noticeably further ahead.</p>
-      </div>
-      <div class="recog-card reveal">
-        <h3>AI keeps coming up and nothing has shipped</h3>
-        <p>Pilots get tried. Nothing sticks. The businesses that cracked it are further ahead every month.</p>
-      </div>
-      <div class="recog-card reveal">
-        <h3>Someone started asking questions you cannot answer</h3>
-        <p>A board, an insurer, a big customer, a due diligence pack. The answer is somewhere. Nobody owns it.</p>
-      </div>
-    </div>
-
-    <p class="note-line reveal">None of that is an IT problem. <span class="accent">It is a leadership gap sitting over technology.</span></p>
+    <h2 class="section-head reveal">Any of this <span class="accent">sound familiar?</span></h2>
+    <ul class="fam-list">
+      <li class="reveal">The arrangement that got you here stopped scaling.</li>
+      <li class="reveal">Every technology call lands on you.</li>
+      <li class="reveal">Proposals arrive full of brand names and thin on outcomes.</li>
+      <li class="reveal">AI keeps coming up. Nothing has shipped.</li>
+    </ul>
   </div>
 </section>
 
 <!-- RUNNING ORDER -->
 <nav class="rail" aria-label="The running order">
   <div class="rail-inner">
-    <a href="#question"><b>01</b> The question</a>
-    <a href="#gap"><b>02</b> The gap</a>
-    <a href="#unstuck"><b>03</b> Why it stalls</a>
-    <a href="#ownership"><b>04</b> What you own</a>
-    <a href="#route"><b>05</b> The route</a>
+    <a href="#gap"><b>01</b> The gap</a>
+    <a href="#unstuck"><b>02</b> Why it stalls</a>
+    <a href="#climb"><b>03</b> The Climb</a>
+    <a href="#flywheel"><b>04</b> The Flywheel</a>
+    <a href="#ownership"><b>05</b> You own it</a>
     <a href="#proof"><b>06</b> The proof</a>
+    <a href="#book" class="rail-book">Book a call</a>
   </div>
 </nav>
 
-<!-- 01 THE QUESTION -->
-<section id="question" class="sand-section">
+<!-- 01 THE GAP -->
+<section id="gap" class="sand-section">
   <div class="wrap center-head">
     <span class="beat-no reveal">01</span>
-    <h2 class="section-head reveal">One question, <span class="accent">before anything technical.</span></h2>
-
-    <div class="qcard reveal">
-      <p>If one thing worked properly over the next twelve months, what would make the biggest difference?</p>
-      <span class="q-rule" aria-hidden="true"></span>
-      <p class="q-hint">We write your answer down. Everything after it points back at it.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 02 THE GAP -->
-<section id="gap">
-  <div class="wrap center-head">
-    <span class="beat-no reveal">02</span>
     <h2 class="section-head reveal">Three things happen. <span class="accent">Two have an owner.</span></h2>
 
     <div class="ladder">
@@ -1150,8 +1392,6 @@ footer {
       </div>
     </div>
 
-    <p class="note-line reveal">The third one lands on you, <span class="accent">on top of running the business.</span></p>
-
     <div class="ask reveal">
       <p class="ask-tag">We ask</p>
       <p>Who decides it today?</p>
@@ -1159,35 +1399,17 @@ footer {
   </div>
 </section>
 
-<!-- 03 WHY IT STALLS -->
+<!-- 02 WHY IT STALLS -->
 <section id="unstuck" class="dark-beat">
   <div class="wrap center-head">
-    <span class="beat-no reveal">03</span>
+    <span class="beat-no reveal">02</span>
     <h2 class="section-head reveal">You are not badly served. <span class="accent">You are unled.</span></h2>
-    <p class="section-sub reveal">Your provider is probably good at what they sell. Managed services was built around tickets and uptime, and what you are missing sits above both.</p>
 
-    <div class="unstuck">
-      <div class="un-card reveal">
-        <span class="un-n">01</span>
-        <h3>Your contract buys uptime</h3>
-        <p>Not one line in it says your business should be further ahead in a year.</p>
-      </div>
-      <div class="un-card reveal">
-        <span class="un-n">02</span>
-        <h3>The advice comes from the seller</h3>
-        <p>When the people recommending the tools also resell them, the advice is never fully yours.</p>
-      </div>
-      <div class="un-card reveal">
-        <span class="un-n">03</span>
-        <h3>You are one of hundreds</h3>
-        <p>Their margin needs volume. Your turn comes when you escalate.</p>
-      </div>
-      <div class="un-card reveal">
-        <span class="un-n">04</span>
-        <h3>Nothing ever gets switched off</h3>
-        <p>Nobody in that arrangement is paid to tell you to stop spending.</p>
-      </div>
-    </div>
+    <ul class="why-list">
+      <li class="reveal">The contract buys uptime, not progress.</li>
+      <li class="reveal">The advice comes from the people reselling the tools.</li>
+      <li class="reveal">Volume is the model. You are one of hundreds.</li>
+    </ul>
 
     <div class="shift reveal">
       <div class="shift-row">
@@ -1211,11 +1433,6 @@ footer {
         <span class="sh-to">The right work chosen</span>
       </div>
     </div>
-
-    <div class="ask reveal">
-      <p class="ask-tag">We ask</p>
-      <p>What has your provider talked you out of?</p>
-    </div>
   </div>
 </section>
 
@@ -1227,18 +1444,139 @@ footer {
   </div>
 </section>
 
+<!-- 03 THE CLIMB -->
+<section id="climb" class="journey">
+  <div class="wrap center-head">
+    <span class="beat-no reveal">03</span>
+    <p class="eyebrow reveal">How we do it</p>
+    <h2 class="section-head reveal">The Climb.</h2>
+    <p class="section-sub reveal">Four stages, in order, each one resting on the last. We meet you where you are.</p>
+
+    <div class="journey-stage-wrap">
+      <div class="journey-svg-holder reveal">
+        <svg viewBox="-52 0 1075 486" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Climb: Discover, Stabilise, Standardise, Transform, with security wrapped around every stage. As we lead, the business optimises.">
+          <g class="jaxis" aria-hidden="true">
+            <line x1="8" y1="445" x2="8" y2="35" stroke="#cfc7ba" stroke-width="1.5"/>
+            <path d="M 8 22 L 2.5 36 L 13.5 36 Z" fill="#cfc7ba"/>
+            <line x1="8" y1="445" x2="985" y2="445" stroke="#cfc7ba" stroke-width="1.5"/>
+            <path d="M 998 445 L 984 439.5 L 984 450.5 Z" fill="#cfc7ba"/>
+            <text x="-18" y="240" transform="rotate(-90 -18 240)" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="17" font-weight="500" letter-spacing="0.04em" fill="#6f675e">Optimise</text>
+            <text x="635" y="472" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="17" font-weight="500" letter-spacing="0.04em" fill="#6f675e">Lead</text>
+          </g>
+          <g class="jwrap" aria-hidden="true">
+            <rect x="40" y="26" width="936" height="410" rx="26" fill="none" stroke="#161412" stroke-width="1.6" stroke-dasharray="6 9" opacity="0.45"/>
+            <rect x="398" y="12" width="220" height="30" fill="#faf7f1"/>
+            <text x="508" y="33" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="19" font-weight="600" fill="#161412">Secure, at every stage</text>
+          </g>
+          <path class="jline" d="M 95 398 C 185 390 275 345 365 292 S 545 240 635 186 S 815 128 905 80" pathLength="1"/>
+          <g class="jnode j1" style="transform-box: fill-box; transform-origin: center;">
+            <circle cx="95" cy="398" r="21" fill="none" stroke="#d4941e" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="95" cy="398" r="13" fill="#d4941e"/>
+            <circle cx="95" cy="398" r="5" fill="#0a0b0e" opacity="0.22"/>
+          </g>
+          <g class="jlabel l1"><text x="95" y="428" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Discover</text></g>
+          <g class="jnode j2" style="transform-box: fill-box; transform-origin: center;">
+            <circle cx="365" cy="292" r="22" fill="none" stroke="#1f7a63" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="365" cy="292" r="14" fill="#1f7a63"/>
+            <circle cx="365" cy="292" r="5.5" fill="#0a0b0e" opacity="0.2"/>
+          </g>
+          <g class="jlabel l2"><text x="365" y="256" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Stabilise</text></g>
+          <g class="jnode j3" style="transform-box: fill-box; transform-origin: center;">
+            <circle cx="635" cy="186" r="24" fill="none" stroke="#e05a30" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="635" cy="186" r="15" fill="#e05a30"/>
+            <circle cx="635" cy="186" r="6" fill="#0a0b0e" opacity="0.2"/>
+          </g>
+          <g class="jlabel l3"><text x="635" y="150" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Standardise</text></g>
+          <g class="jnode j4" style="transform-box: fill-box; transform-origin: center;">
+            <circle cx="905" cy="80" r="34" fill="none" stroke="#6d3bd6" stroke-width="1.2" opacity="0.18"/>
+            <circle cx="905" cy="80" r="27" fill="none" stroke="#6d3bd6" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="905" cy="80" r="18" fill="#6d3bd6"/>
+            <circle cx="905" cy="80" r="7" fill="#0a0b0e" opacity="0.2"/>
+          </g>
+          <g class="jlabel l4"><text x="905" y="128" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Transform</text></g>
+        </svg>
+      </div>
+
+      <div class="jd-strip" aria-hidden="true">
+        <div class="jd-item jdi-1">
+          <span class="jd-stage"><span class="jd-dot" style="background:#d4941e;"></span>Discover</span>
+          <p class="jd-desc">We map the business before touching anything.</p>
+        </div>
+        <div class="jd-item jdi-2">
+          <span class="jd-stage"><span class="jd-dot" style="background:#1f7a63;"></span>Stabilise</span>
+          <p class="jd-desc">The noise stops.</p>
+        </div>
+        <div class="jd-item jdi-3">
+          <span class="jd-stage"><span class="jd-dot" style="background:#e05a30;"></span>Standardise</span>
+          <p class="jd-desc">One standard. No more one-offs.</p>
+        </div>
+        <div class="jd-item jdi-4">
+          <span class="jd-stage"><span class="jd-dot" style="background:#6d3bd6;"></span>Transform</span>
+          <p class="jd-desc">AI and automation your team actually uses.</p>
+        </div>
+      </div>
+
+      <div class="journey-mobile">
+        <div class="jm-step"><div class="jm-dot" style="background:#d4941e;">01</div><div><h4>Discover</h4><p>We map the business before touching anything.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#1f7a63;">02</div><div><h4>Stabilise</h4><p>The noise stops.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#e05a30;">03</div><div><h4>Standardise</h4><p>One standard. No more one-offs.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#6d3bd6;">04</div><div><h4>Transform</h4><p>AI and automation your team actually uses.</p></div></div>
+        <div class="jm-secure"><h4>Secure, at every stage</h4><p>Security is the condition of every stage, not a stage you finish.</p></div>
+      </div>
+    </div>
+
+    <p class="note-line reveal">Security is the condition of every stage, <span class="accent">not a stage you finish.</span></p>
+  </div>
+</section>
+
+<!-- 04 THE FLYWHEEL -->
+<section id="flywheel" class="flywheel-sec sand-section">
+  <div class="wrap center-head">
+    <span class="beat-no reveal">04</span>
+    <h2 class="section-head reveal">The summit <span class="accent">is not the end.</span></h2>
+    <p class="section-sub reveal">Strategy sets the direction. Transformation delivers it. Operations keeps it turning. Then it goes again.</p>
+    <div class="fw-holder">
+      <svg viewBox="-55 72 715 555" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The myCIO flywheel: Strategy and Governance, then Transformation, then Operations, turning continuously around your business, with security designed into the whole cycle.">
+        <g class="fw-ring" aria-hidden="true">
+          <circle cx="320" cy="330" r="232" fill="none" stroke="#161412" stroke-width="1.6" stroke-dasharray="6 9" opacity="0.45"/>
+          <path d="M 546 330 L 558 330 L 552 344 Z" fill="#161412" opacity="0.5"/>
+          <path d="M 82 330 L 94 330 L 88 316 Z" fill="#161412" opacity="0.5"/>
+          <rect x="212" y="83" width="216" height="30" fill="#f3eee4"/>
+          <text x="320" y="104" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="19" font-weight="600" fill="#161412">Secure by design</text>
+        </g>
+        <g>
+          <path class="fw-head fh1" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" fill="none" stroke="#e05a30" stroke-width="84" stroke-opacity="0.18" style="stroke-linecap:butt;"/>
+          <path class="fw-arc fw-seg fa1" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#e05a30"/>
+          <path class="fw-head fh1" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#e05a30"/>
+        </g>
+        <g transform="rotate(120 320 330)">
+          <path class="fw-arc fw-seg fa2" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#6d3bd6"/>
+          <path class="fw-head fh2" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#6d3bd6"/>
+        </g>
+        <g transform="rotate(240 320 330)">
+          <path class="fw-arc fw-seg fa3" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#1f7a63"/>
+          <path class="fw-head fh3" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#1f7a63"/>
+        </g>
+        <g class="fw-label fl1"><text x="546" y="210" text-anchor="start" font-family="'Fraunces', serif" font-style="italic" font-size="23" font-weight="600" fill="#1a1714">Strategy</text></g>
+        <g class="fw-label fl2"><text x="320" y="600" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="23" font-weight="600" fill="#1a1714">Transformation</text></g>
+        <g class="fw-label fl3"><text x="94" y="210" text-anchor="end" font-family="'Fraunces', serif" font-style="italic" font-size="23" font-weight="600" fill="#1a1714">Operations</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
 <!-- MID CTA -->
 <section class="midcta">
   <div class="wrap">
     <p class="reveal">Half an hour tells you what you are actually paying for.</p>
-    <a href="contact.html#contact" class="btn reveal">Book your 30-minute call</a>
+    <a href="#book" class="btn reveal">Book a 30-minute call</a>
   </div>
 </section>
 
-<!-- 04 WHAT YOU OWN -->
-<section id="ownership" class="sand-section">
+<!-- 05 WHAT YOU OWN -->
+<section id="ownership">
   <div class="wrap center-head">
-    <span class="beat-no reveal">04</span>
+    <span class="beat-no reveal">05</span>
     <h2 class="section-head reveal">You own everything. <span class="accent">We own the change.</span></h2>
 
     <div class="split">
@@ -1264,58 +1602,7 @@ footer {
       </div>
     </div>
 
-    <p class="note-line reveal">Licensing passes through at cost, with a margin you can see. Walk away whenever you like, and <span class="accent">you keep the lot.</span></p>
-
-    <div class="ask reveal">
-      <p class="ask-tag">We ask</p>
-      <p>How much of what you pay for can you see inside?</p>
-    </div>
-  </div>
-</section>
-
-<!-- 05 THE ROUTE -->
-<section id="route">
-  <div class="wrap center-head">
-    <span class="beat-no reveal">05</span>
-    <h2 class="section-head reveal">A route, <span class="accent">not a project list.</span></h2>
-
-    <div class="route reveal">
-      <span class="route-wrap-label">Secure, at every stage</span>
-      <div class="route-steps">
-        <div class="route-step">
-          <div class="rs-top"><span class="rs-dot" style="background:#d4941e;"></span><span class="rs-n">01</span></div>
-          <h3>Discover</h3>
-          <p>We map your business before touching anything.</p>
-          <span class="route-rise" style="background:#d4941e; width:26%;"></span>
-        </div>
-        <div class="route-step">
-          <div class="rs-top"><span class="rs-dot" style="background:#1f7a63;"></span><span class="rs-n">02</span></div>
-          <h3>Stabilise</h3>
-          <p>The noise stops.</p>
-          <span class="route-rise" style="background:#1f7a63; width:48%;"></span>
-        </div>
-        <div class="route-step">
-          <div class="rs-top"><span class="rs-dot" style="background:#e05a30;"></span><span class="rs-n">03</span></div>
-          <h3>Standardise</h3>
-          <p>One standard. No more one-offs.</p>
-          <span class="route-rise" style="background:#e05a30; width:74%;"></span>
-        </div>
-        <div class="route-step">
-          <div class="rs-top"><span class="rs-dot" style="background:#6d3bd6;"></span><span class="rs-n">04</span></div>
-          <h3>Transform</h3>
-          <p>AI and automation your team actually uses.</p>
-          <span class="route-rise" style="background:#6d3bd6; width:100%;"></span>
-        </div>
-      </div>
-    </div>
-
-    <p class="note-line reveal">In order, each resting on the last. Security is the condition of every stage, <span class="accent">not a stage you finish.</span></p>
-    <a href="how-we-work.html#journey-curve" class="cta-link reveal">See the full curve <span class="arr">&rarr;</span></a>
-
-    <div class="ask reveal">
-      <p class="ask-tag">We ask</p>
-      <p>Which one are you in right now?</p>
-    </div>
+    <p class="note-line reveal">Licensing at cost, with a margin you can see. Walk away whenever you like, and <span class="accent">you keep the lot.</span></p>
   </div>
 </section>
 
@@ -1329,7 +1616,7 @@ footer {
       <span>Huntress</span><span class="fl-dot" aria-hidden="true"></span>
       <span>SentinelOne</span>
     </p>
-    <p class="fl-line reveal">That is the floor, not the destination. <span class="accent">Most providers sell it to you as the destination.</span></p>
+    <p class="fl-line reveal">That is the floor, <span class="accent">not the destination.</span></p>
   </div>
 </section>
 
@@ -1349,7 +1636,7 @@ footer {
   </div>
 </section>
 
-<!-- WHO YOU DEAL WITH -->
+<!-- WHO TURNS UP -->
 <section id="people">
   <div class="wrap center-head">
     <h2 class="section-head reveal">Two people. <span class="accent">Both of them in your business.</span></h2>
@@ -1360,16 +1647,16 @@ footer {
         <div class="person-mark">EM</div>
         <div>
           <h3>Elton McDowall</h3>
-          <p class="person-role">Co-founder and Director</p>
-          <p>20+ years across strategy, security and governance. Turns the complicated part into decisions that make sense to owners, CFOs and boards.</p>
+          <p class="person-role">Co-founder</p>
+          <p>20+ years across strategy, security and governance.</p>
         </div>
       </div>
       <div class="person reveal">
         <div class="person-mark">MN</div>
         <div>
           <h3>Michael Nicolle</h3>
-          <p class="person-role">Co-founder and Director</p>
-          <p>15+ years delivering technology programmes across Australia and New Zealand. Stalled projects and broken vendor trust is usually where the work starts.</p>
+          <p class="person-role">Co-founder</p>
+          <p>15+ years delivering technology programmes across Australia and New Zealand.</p>
         </div>
       </div>
     </div>
@@ -1384,13 +1671,55 @@ footer {
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta">
+<!-- THE CLOSE -->
+<section id="book" class="book">
   <div class="wrap">
-    <h2 class="section-head reveal">Do not sign a programme. <span class="accent">Pick one thing.</span></h2>
-    <p class="cta-sub reveal">A short discovery, then one visible win inside thirty days. Visible to the business, not just to IT. If it lands, we keep going.</p>
-    <a href="contact.html#contact" class="btn reveal">Book your 30-minute call</a>
-    <p class="cta-micro reveal">Prefer email? <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a></p>
+    <div class="book-grid">
+      <div class="book-copy">
+        <h2 class="reveal">Do not sign a programme. <span class="accent">Pick one thing.</span></h2>
+        <p class="book-sub reveal">Tell us the one thing that would make the biggest difference this year. We will map it, and deliver one visible win inside thirty days.</p>
+        <ul class="book-points reveal">
+          <li>Thirty minutes, no slide deck</li>
+          <li>An honest read on where you stand</li>
+          <li>If we are not the right fit, we say so</li>
+        </ul>
+      </div>
+
+      <div class="book-col reveal">
+        <div class="book-form">
+        <div id="contact-form-wrap">
+          <h3>Start the conversation</h3>
+          <p class="bf-sub">A few lines is enough. We come back within one business day.</p>
+          <form id="contact-form" action="https://formspree.io/f/mvkpzkgd" method="POST" novalidate>
+            <div class="field">
+              <label for="cf-name">Your name</label>
+              <input type="text" id="cf-name" name="name" required placeholder="Jane" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="cf-email">Your email</label>
+              <input type="email" id="cf-email" name="email" required placeholder="jane@business.co.nz" autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="cf-message">What is the one thing?</label>
+              <textarea id="cf-message" name="message" required placeholder="A few lines is enough."></textarea>
+            </div>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute; left:-9999px;" aria-hidden="true">
+            <button type="submit" class="btn" id="cf-send">Send it through</button>
+            <p id="cf-invalid" role="alert" class="bf-msg">Please add your name, a valid email address, and a few lines about what is going on.</p>
+            <p id="cf-error" role="alert" class="bf-msg">Something went wrong. Email us directly at <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a> and we will get back to you.</p>
+          </form>
+        </div>
+        <div id="contact-success" role="status">
+          <div class="bf-tick" aria-hidden="true">
+            <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><path d="M2 8l6 6L20 2" stroke="#e05a30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Message sent.</h3>
+          <p>We will come back to you within one business day.</p>
+        </div>
+        </div>
+        <p class="bf-micro">Prefer email? <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a></p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1508,6 +1837,72 @@ footer {
     });
   }, { rootMargin: '-140px 0px -55% 0px' });
   beats.forEach(function (b) { io.observe(b); });
+})();
+
+// The Climb and The Flywheel: draw when they enter view, replay on re-entry
+(function () {
+  [['climb', 0.25], ['flywheel', 0.3]].forEach(function (pair) {
+    var el = document.getElementById(pair[0]);
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) { el.classList.add('in'); return; }
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) el.classList.add('in');
+        else el.classList.remove('in');
+      });
+    }, { threshold: pair[1] }).observe(el);
+  });
+})();
+
+// Contact form: Formspree JSON API, with an email fallback if it fails
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var wrap = document.getElementById('contact-form-wrap');
+  var success = document.getElementById('contact-success');
+  var errorMsg = document.getElementById('cf-error');
+  var invalidMsg = document.getElementById('cf-invalid');
+  var btn = document.getElementById('cf-send');
+  var ACTION = form.getAttribute('action');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('cf-name').value.trim();
+    var email = document.getElementById('cf-email').value.trim();
+    var message = document.getElementById('cf-message').value.trim();
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!name || !emailOk || !message) {
+      invalidMsg.style.display = 'block';
+      return;
+    }
+    invalidMsg.style.display = 'none';
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    errorMsg.style.display = 'none';
+
+    fetch(ACTION, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, message: message })
+    })
+    .then(function (res) {
+      return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+    })
+    .then(function (result) {
+      if (result.ok) {
+        wrap.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        throw new Error('failed');
+      }
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.textContent = 'Send it through';
+      errorMsg.style.display = 'block';
+    });
+  });
 })();
 
 // Hero wave: flowing light ribbons
