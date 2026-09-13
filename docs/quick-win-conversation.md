@@ -23,8 +23,8 @@ So: talk the track cold, or scroll the page while you talk it, or send the link 
 
 The page carries three things the talk track does not, because a cold reader needs them and a person sitting opposite you does not:
 
-- **A provocative opening line.** The page leads on *"Fluent in acronyms. Quiet on results."* That is not how you open a meeting, because in the room you open on their business (beat 1). It is the right line for everything that has to earn attention in ten seconds: an email subject, a LinkedIn post, a first line at an event, the answer to "so what do you actually do?"
-- **An opening recognition section** (`#recognise`) before beat 1, listing four things that have changed in their business. It qualifies without naming a size, a role or a sector, because our people arrive from all of those. Useful in the room too, when someone opens with "I'm not sure we're your kind of client".
+- **A provocative opening line.** The page leads on *"Is your IT managed? Quiet on results?"* Two questions, and the trap is in the order: almost everyone says yes to the first, which is exactly what leaves them exposed on the second. That is not how you open a meeting, because in the room you open on their business (beat 1). It is the right line for everything that has to earn attention in ten seconds: an email subject, a LinkedIn post, a first line at an event, the answer to "so what do you actually do?"
+- **An opening recognition section** (`#recognise`) before beat 1, listing six things that have changed in their business, including the two people complain about most: proposals full of brand names, and an AI conversation that never ships anything. It qualifies without naming a size, a role or a sector, because our people arrive from all of those. Useful in the room too, when someone opens with "I'm not sure we're your kind of client".
 - **Who turns up** (`#people`), near the close. Two names, two lines each. In the room that is you, so it is redundant.
 - **A second call to action** midway, for the reader who is convinced before the end.
 
