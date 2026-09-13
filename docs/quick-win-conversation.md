@@ -23,7 +23,7 @@ So: talk the track cold, or scroll the page while you talk it, or send the link 
 
 The page carries three things the talk track does not, because a cold reader needs them and a person sitting opposite you does not:
 
-- **A provocative opening line.** The page leads on *"If your IT is managed, who is leading it?"* That is not how you open a meeting, because in the room you open on their business (beat 1). It is the right line for everything that has to earn attention in ten seconds: an email subject, a LinkedIn post, a first line at an event, the answer to "so what do you actually do?"
+- **A provocative opening line.** The page leads on *"Fluent in acronyms. Quiet on results."* That is not how you open a meeting, because in the room you open on their business (beat 1). It is the right line for everything that has to earn attention in ten seconds: an email subject, a LinkedIn post, a first line at an event, the answer to "so what do you actually do?"
 - **An opening recognition section** (`#recognise`) before beat 1, listing four things that have changed in their business. It qualifies without naming a size, a role or a sector, because our people arrive from all of those. Useful in the room too, when someone opens with "I'm not sure we're your kind of client".
 - **Who turns up** (`#people`), near the close. Two names, two lines each. In the room that is you, so it is redundant.
 - **A second call to action** midway, for the reader who is convinced before the end.
@@ -140,6 +140,8 @@ One client saved over $500k in a single competitive vendor review. The first thi
 **Keep the five names short.** One line each, then move straight back to the foundation point. If they want depth on any of them, that is a good sign and a second conversation.
 
 **Security is a condition, not a stage.** Four stages, wrapped in security. This matches the curve on How we work and the route on The case. Do not add a fifth "Secure" stage in conversation, because the moment it is a stage it is something that can be finished, deferred or descoped.
+
+**Never out-jargon the people you are criticising.** The jargon line only works while we are cleaner than they are. The moment we answer "sick of buzzwords" with a buzzword of our own, we have joined them and the prospect can feel it even if they cannot name it. So: no invented categories, no platform names for things that are actually a way of working, and no leading with a product. If AI comes up, say what it did, not what it is called.
 
 **Lead on the difference, not the service.** Every provider they have met says they are different. Almost none of them can name the thing. Ours is nameable in one sentence: everything stays in your name, and we own the decisions rather than the tickets. Say the sentence, then prove it with beat 4, rather than claiming "different" and leaving it there.
 
