@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
-<title>myCIO | Your IT is managed. Nobody is leading it.</title>
+<title>myCIO | If your IT is managed, who is leading it?</title>
 <meta name="description" content="You have outgrown the way your technology is run. Why managed services leaves the decision uncovered, what changes when a senior NZ team owns it, and what you own throughout.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="myCIO | Your IT is managed. Nobody is leading it.">
-<meta property="og:description" content="Every technology decision still reaches your desk, and none of them get easier. The whole argument in one page.">
+<meta property="og:title" content="myCIO | If your IT is managed, who is leading it?">
+<meta property="og:description" content="Tickets get answered. The lights stay on. And every decision that moves your business forward still lands on you. That is the part we do differently.">
 <meta property="og:url" content="https://mycio.co.nz/the-case.html">
 <meta property="og:image" content="https://mycio.co.nz/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="myCIO | Your IT is managed. Nobody is leading it.">
-<meta name="twitter:description" content="Every technology decision still reaches your desk, and none of them get easier.">
+<meta name="twitter:title" content="myCIO | If your IT is managed, who is leading it?">
+<meta name="twitter:description" content="Every decision that moves your business forward still lands on you. That is the part we do differently.">
 <link rel="canonical" href="https://mycio.co.nz/the-case.html">
 <script type="application/ld+json">
 {
@@ -174,19 +174,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   border: 1px solid rgba(255, 255, 255, 0.30);
 }
 .btn-nav:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.55); transform: none; }
-.btn-light {
-  background: var(--white);
-  color: #0d0d0c;
-}
-.btn-light:hover { background: rgba(255, 255, 255, 0.88); }
-.btn-light .chev-r { display: inline-block; margin-left: 6px; transition: transform 0.2s; }
-.btn-light:hover .chev-r { transform: translateX(3px); }
-.btn-ghost {
-  background: transparent;
-  color: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-.btn-ghost:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--white); transform: none; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -228,8 +215,49 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   color: rgba(250, 247, 241, 0.5);
   margin-bottom: 26px;
 }
-.hero-actions { display: flex; gap: 14px; margin-top: 40px; flex-wrap: wrap; justify-content: center; }
-.hero-actions .btn { padding: 16px 40px; font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
+.hero-content .lead .lead-diff {
+  display: block;
+  margin-top: 14px;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.08em;
+}
+
+/* One way onward, not a choice of two. The page is a walk, so the hero
+   should point down it rather than offer an exit. */
+.hero-down {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 46px;
+  color: var(--white);
+}
+.hero-down .hd-text {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  transition: border-color 0.25s, color 0.25s;
+}
+.hero-down:hover .hd-text { border-bottom-color: var(--accent); color: var(--accent); }
+.hero-down:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 6px; }
+.hd-chev { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.hd-chev i {
+  display: block;
+  width: 17px; height: 17px;
+  border-right: 3px solid var(--accent);
+  border-bottom: 3px solid var(--accent);
+  transform: rotate(45deg);
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
+  animation: hdDrop 1.9s ease-in-out infinite;
+}
+.hd-chev i:nth-child(2) { animation-delay: 0.22s; }
+@keyframes hdDrop {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 1; }
+  50% { transform: rotate(45deg) translate(4px, 4px); opacity: 0.45; }
+}
 .hero-foot {
   position: absolute;
   left: 0; right: 0;
@@ -256,37 +284,18 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   background: var(--accent);
   flex-shrink: 0;
 }
-.hero-scroll {
-  position: absolute;
-  left: 50%;
-  bottom: 22px;
-  transform: translateX(-50%);
-  z-index: 2;
-}
-.hero-scroll .chev {
-  display: block;
-  width: 14px; height: 14px;
-  border-right: 2px solid var(--accent);
-  border-bottom: 2px solid var(--accent);
-  transform: rotate(45deg);
-  animation: chevDrop 1.7s ease-in-out infinite;
-}
-@keyframes chevDrop {
-  0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 1; }
-  50% { transform: rotate(45deg) translate(5px, 5px); opacity: 0.35; }
-}
 .hero-content .inner > * {
   opacity: 0; transform: translateY(22px);
   animation: heroRise 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 .hero-content h1 { animation-delay: 0.07s; }
 .hero-content .lead { animation-delay: 0.16s; }
-.hero-content .hero-actions { animation-delay: 0.25s; }
+.hero-content .hero-down { animation-delay: 0.25s; }
 .hero-foot { opacity: 0; animation: heroRise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards; }
 @keyframes heroRise { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .hero-content .inner > *, .hero-foot { animation: none; opacity: 1; transform: none; }
-  .hero-scroll .chev { animation: none; }
+  .hd-chev i { animation: none; opacity: 1; }
 }
 
 .page-hero { min-height: 78vh; min-height: 78svh; }
@@ -1036,12 +1045,12 @@ footer {
   <div class="hero-content">
     <div class="inner">
       <p class="hj-eyebrow">For businesses that have outgrown the way their technology is run</p>
-      <h1>Your IT is managed.<span class="h1-line2">Nobody is leading it.</span></h1>
-      <p class="lead">Every technology decision still reaches your desk, and none of them get easier. Here is the whole argument, in the order we would walk you through it.</p>
-      <div class="hero-actions">
-        <a href="contact.html#contact" class="btn btn-light">Book your 30-minute call <span class="chev-r">&rsaquo;</span></a>
-        <a href="#recognise" class="btn btn-ghost">Start at the beginning</a>
-      </div>
+      <h1>If your IT is managed,<span class="h1-line2">who is leading it?</span></h1>
+      <p class="lead">Tickets get answered. The lights stay on. And every decision that actually moves your business forward still lands on you.<span class="lead-diff">That is the part we do differently.</span></p>
+      <a href="#recognise" class="hero-down">
+        <span class="hd-text">See how we do things differently</span>
+        <span class="hd-chev" aria-hidden="true"><i></i><i></i></span>
+      </a>
     </div>
   </div>
   <div class="hero-foot">
@@ -1051,7 +1060,6 @@ footer {
     <span class="hf-dot" aria-hidden="true"></span>
     <span>NZ owned.</span>
   </div>
-  <div class="hero-scroll" aria-hidden="true"><span class="chev"></span></div>
 </section>
 
 <!-- RECOGNITION -->
