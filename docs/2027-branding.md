@@ -12,7 +12,7 @@ The existing $500k+ vendor-review result appears immediately after the homepage 
 
 ## Page roles and hierarchy
 
-- **Overview:** promise, before/after change, existing proof, three outcomes, four core services, practical AI, founders, common questions, conversation.
+- **Overview:** promise, logo and Strategy/Security/Technology identity panel, existing proof, three outcomes, four core services, practical AI, founders, common questions, conversation.
 - **Why myCIO:** explains the leadership gap, how independent advice differs from support and how ownership works. Repeated process diagrams and a second enquiry form have been removed.
 - **What we do:** fractional CIO first, followed by consulting, project delivery and security. Each service explains the problem, involvement and outcome.
 - **How we work:** Discover, Stabilise, Standardise and Transform, each with a clear output. Security spans every stage. Shows the working relationship and continuing improvement.
@@ -26,7 +26,7 @@ White and stone create breathing room; charcoal gives important moments weight. 
 
 - Orange: `#FF6A00`; charcoal: `#0B0B0B`; stone: `#D9D9D9`; white: `#FFFFFF`.
 - Darker orange ink is used where small text needs stronger contrast on light surfaces.
-- Finite before/after transitions show spend, workflows and delivery improving. Visitors can replay the change.
+- The homepage opens with the paired slash and brand lockup. The process page uses finite before/after transitions to show spend, workflows and delivery improving, with optional replay.
 - Short, once-only section entrances and workflow sequencing support reading order. There are no perpetual decorative loops or scroll hijacking.
 - Reduced-motion preferences are respected initially and when changed. Final content remains readable without JavaScript, including a mobile navigation fallback.
 - Styles remain inline per page, as required by `CLAUDE.md`. A small shared script handles navigation and optional motion; there are no new runtime dependencies.
@@ -47,3 +47,7 @@ Run `python -m http.server 8765 --bind 127.0.0.1` from the repository and open h
 Browser checks covered seven rendered routes at 360, 768 and 1280 pixels, with no horizontal overflow and one main heading per page. Reviewed desktop and mobile layouts, mobile navigation, replay and native contact validation. No test enquiry was sent to the live inbox. Redirect pages retain their destination anchors and now resolve on the current host, so they also work in a branch preview.
 
 Automated checks cover internal links, fragments, local assets, duplicate IDs, structured data, script syntax and the no-em-dash copy rule. Three Node behavioural tests cover finite motion, reduced motion and keyboard/mobile navigation. This is not a complete accessibility audit or a measurement of real conversion performance.
+
+## Landing-page refinement
+
+The homepage restores the brand-led right-hand panel so visitors meet myCIO before exploring the detail. Decorative section numbers and redundant homepage labels are removed; headings carry the story. Numbering remains only where it explains an ordered process. Visitors do not need a defined problem or AI readiness to start: a desire to improve their business is enough, and myCIO helps discover the opportunities.

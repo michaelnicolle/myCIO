@@ -962,6 +962,27 @@ footer {
 }
 
 
+
+/* A simple brand introduction, followed by the business story. */
+.identity-panel {background:#0b0b0b;color:#fff;min-height:445px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:32px;}
+.slash-art {position:absolute;inset:0 0 82px;display:flex;align-items:center;justify-content:center;}
+.slash-art i {height:250px;width:70px;background:#ff6a00;transform:skew(-24deg);}
+.slash-art i+i {height:195px;width:57px;background:#e5e5e2;margin:80px 0 0 24px;}
+.panel-bottom {position:relative;display:flex;width:100%;justify-content:space-between;align-items:flex-end;gap:20px;}
+.panel-bottom .logo {font-size:2.6rem;}
+.panel-bottom p {color:#d9d9d9;font-size:.72rem;line-height:1.8;letter-spacing:.16em;text-transform:uppercase;}
+.story-home .section-top {grid-template-columns:1fr;gap:0;max-width:850px;}
+.story-home .service-row {grid-template-columns:1fr 1.45fr 24px;}
+@media(max-width:1100px) {.identity-panel{min-height:410px;padding:26px;}.panel-bottom .logo{font-size:2.1rem;}.panel-bottom p{font-size:.65rem;}}
+@media(max-width:760px) {
+ .identity-panel{min-height:340px;}
+ .slash-art{bottom:75px;}
+ .slash-art i{height:185px;width:54px;}
+ .slash-art i+i{height:150px;width:44px;margin:65px 0 0 20px;}
+ .story-home .service-row{grid-template-columns:1fr 20px;}
+ .story-home .service-row p{grid-column:1;grid-row:2;}
+ .story-home .service-row .arrow{grid-column:2;grid-row:1;}
+}
 </style>
 <link rel="icon" href="brand-icon.svg" type="image/svg+xml">
 <noscript>
@@ -992,7 +1013,7 @@ footer {
   </div>
 </header>
 
-<main class="story">
+<main class="story story-home">
 <section class="hero" id="top">
 <div class="wrap">
 <div class="hero-grid">
@@ -1008,45 +1029,12 @@ footer {
 </div>
 <p class="micro">Senior people. Straight answers. Accountable from decision to delivery.</p>
 </div>
-<div class="change-map" aria-label="What changes with myCIO">
-<div class="map-head">
-<p class="kicker">From friction to forward.</p>
-<span class="mini-mark" aria-hidden="true">
-<i>
-</i>
-<i>
-</i>
-</span>
+<div class="identity-panel" aria-label="myCIO: Strategy, Security, Technology">
+<div class="slash-art" aria-hidden="true"><i></i><i></i></div>
+<div class="panel-bottom">
+<div class="logo" aria-label="myCIO">my<i class="brand-slash" aria-hidden="true"></i><span class="brand-cio">CIO</span></div>
+<p>Strategy<br>Security<br>Technology</p>
 </div>
-<div class="map-row map-label static-row">
-<span>The drag today</span>
-<span>
-</span>
-<span>The change we own</span>
-</div>
-<div class="map-row">
-<span class="before">Spend on autopilot</span>
-<span class="flow-arrow" aria-hidden="true">→</span>
-<span class="after">Costs challenged</span>
-</div>
-<div class="map-row">
-<span class="before">Manual workarounds</span>
-<span class="flow-arrow" aria-hidden="true">→</span>
-<span class="after">Simpler workflows</span>
-</div>
-<div class="map-row">
-<span class="before">Projects going nowhere</span>
-<span class="flow-arrow" aria-hidden="true">→</span>
-<span class="after">Change delivered</span>
-</div>
-<p class="map-foot">
-<strong>Strategy / Security / Technology</strong>
-<br>One senior team connecting the decisions to the delivery.</p>
-<div class="path-bar" aria-hidden="true">
-<span>
-</span>
-</div>
-<button class="map-replay" type="button" hidden>Replay the change ↻</button>
 </div>
 </div>
 <div class="trust-line">
@@ -1069,24 +1057,20 @@ footer {
 <section>
 <div class="wrap">
 <div class="section-top motion">
-<p class="kicker">01 / What changes</p>
 <div>
 <h2>Less waste. Better work.<br>Someone who owns it.</h2>
 </div>
 </div>
 <div class="three-col">
 <article class="line-card motion">
-<span class="number">CUT THE COST</span>
 <h3>Challenge what you pay for.</h3>
 <p>Renewals, licences and platforms should survive scrutiny. We find duplication, challenge contracts and stop investment that does not make business sense.</p>
 </article>
 <article class="line-card motion">
-<span class="number">REMOVE THE FRICTION</span>
 <h3>Give people their time back.</h3>
 <p>Fewer spreadsheets between systems. Less chasing, rekeying and searching. Better tools and workflows, designed with the people doing the work.</p>
 </article>
 <article class="line-card motion">
-<span class="number">OWN THE CHANGE</span>
 <h3>Make the plan happen.</h3>
 <p>One clear roadmap. Named owners. Vendors held to account. We stay with the work until the change is delivered and your team can use it.</p>
 </article>
@@ -1096,32 +1080,27 @@ footer {
 <section class="stone">
 <div class="wrap">
 <div class="section-top motion">
-<p class="kicker">02 / Our core</p>
 <div>
 <h2>Your technology leadership.<br>From direction to delivery.</h2>
 <p>Fractional CIO leadership is the starting point. Consulting, delivery and security give the roadmap the depth to succeed.</p>
 </div>
 </div>
 <a class="service-row" href="what-we-do.html#fractional-cio">
-<small>01</small>
 <h3>Fractional CIO</h3>
 <p>Senior direction, investment decisions, vendor accountability and board-ready reporting.</p>
 <span class="arrow" aria-hidden="true">↗</span>
 </a>
 <a class="service-row" href="what-we-do.html#technology-consulting">
-<small>02</small>
 <h3>Technology consulting</h3>
 <p>Independent choices on cloud, Microsoft 365, networks and data. Fit the business before buying the platform.</p>
 <span class="arrow" aria-hidden="true">↗</span>
 </a>
 <a class="service-row" href="what-we-do.html#projects-delivery">
-<small>03</small>
 <h3>Projects &amp; delivery</h3>
 <p>Get stalled work moving. Improve workflows, modernise systems and help people adopt the change.</p>
 <span class="arrow" aria-hidden="true">↗</span>
 </a>
 <a class="service-row" href="what-we-do.html#security">
-<small>04</small>
 <h3>Security &amp; operations</h3>
 <p>Understand the risk, strengthen the controls and keep the business running with confidence.</p>
 <span class="arrow" aria-hidden="true">↗</span>
@@ -1134,7 +1113,7 @@ footer {
 <div class="motion">
 <p class="kicker">AI transformation / Practical by design</p>
 <h2>Less busywork.<br>More human value.</h2>
-<p class="lead">AI is useful when it removes real friction. We choose a worthwhile use case, get the data and permissions right, and help your people make it part of their day.</p>
+<p class="lead">Curious about what AI could do for your business? We explore the opportunities with you, find where it can make a difference, and help your people put it to work.</p>
 <div class="actions">
 <a class="text-link" href="what-we-do.html#ai-transformation">See our approach to AI ↗</a>
 </div>
@@ -1163,7 +1142,6 @@ footer {
 <section>
 <div class="wrap">
 <div class="section-top motion">
-<p class="kicker">03 / Your team</p>
 <div>
 <h2>The people you meet.<br>The people who deliver.</h2>
 <p>A senior team in your corner. No account-manager relay. No mystery over who owns the next decision.</p>
@@ -1202,24 +1180,23 @@ footer {
 </details>
 <details>
 <summary>Do we need a big transformation programme?</summary>
-<p>No. Start with the problem worth solving. That might be a vendor review, a stalled project or a workflow that costs your people time. The scope follows the need.</p>
+<p>No. Start with a conversation about your business and what you would like to improve. We help you find the opportunities, decide what matters most and choose a practical first step.</p>
 </details>
 <details>
 <summary>Do we need to be ready for AI?</summary>
-<p>You need a useful problem to solve. We assess your data, access controls and ways of working first. Sometimes AI fits. Sometimes a simpler process or better use of your existing tools is the right answer.</p>
+<p>No. You just need to be looking for ways to improve your business. You do not need to know where AI fits or have a specific problem worked out. We explore the opportunities with you and help turn the right ones into practical improvements for your people.</p>
 </details>
 </div>
 </section>
 <section class="closing dark">
 <div class="wrap closing-grid">
 <div>
-<p class="kicker">Your next move</p>
-<h2>Start with the thing<br>
-<span>holding you back.</span>
+<h2>Where could your<br>
+<span>business go next?</span>
 </h2>
 </div>
 <div>
-<p class="lead">Thirty minutes with a founder. Tell us what is getting in the way. We will give you an honest view of where to start, and whether we are the right fit.</p>
+<p class="lead">Thirty minutes with a founder. Tell us about your business and what you would like to improve. We will explore the possibilities together and help you see a useful next step.</p>
 <div class="actions">
 <a class="btn" href="contact.html#contact">Book a 30-minute call ↗</a>
 </div>
