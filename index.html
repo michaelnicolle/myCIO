@@ -964,21 +964,18 @@ footer {
 
 
 /* A simple brand introduction, followed by the business story. */
-.identity-panel {background:#0b0b0b;color:#fff;min-height:445px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:32px;}
-.slash-art {position:absolute;inset:0 0 82px;display:flex;align-items:center;justify-content:center;}
-.slash-art i {height:250px;width:70px;background:#ff6a00;transform:skew(-24deg);}
-.slash-art i+i {height:195px;width:57px;background:#e5e5e2;margin:80px 0 0 24px;}
-.panel-bottom {position:relative;display:flex;width:100%;justify-content:space-between;align-items:flex-end;gap:20px;}
-.panel-bottom .logo {font-size:2.6rem;}
-.panel-bottom p {color:#d9d9d9;font-size:.72rem;line-height:1.8;letter-spacing:.16em;text-transform:uppercase;}
+.identity-panel {background:#0b0b0b;color:#fff;min-height:445px;display:flex;flex-direction:column;justify-content:space-between;gap:36px;padding:38px;}
+.brand-disciplines {list-style:none;margin:0;padding:0;font-size:clamp(2rem,4.3vw,3.8rem);font-weight:700;line-height:1.18;letter-spacing:-.045em;}
+.brand-disciplines::before {content:"";display:block;width:48px;height:3px;background:#ff6a00;margin-bottom:25px;}
+.brand-disciplines li {margin:0;padding:0;}
+.panel-bottom {border-top:1px solid #333;padding-top:24px;}
+.panel-bottom .logo {font-size:2rem;}
 .story-home .section-top {grid-template-columns:1fr;gap:0;max-width:850px;}
 .story-home .service-row {grid-template-columns:1fr 1.45fr 24px;}
-@media(max-width:1100px) {.identity-panel{min-height:410px;padding:26px;}.panel-bottom .logo{font-size:2.1rem;}.panel-bottom p{font-size:.65rem;}}
+@media(max-width:1100px) {.identity-panel{min-height:410px;padding:26px;}}
 @media(max-width:760px) {
  .identity-panel{min-height:340px;}
- .slash-art{bottom:75px;}
- .slash-art i{height:185px;width:54px;}
- .slash-art i+i{height:150px;width:44px;margin:65px 0 0 20px;}
+ .brand-disciplines{font-size:clamp(2rem,9vw,3.1rem);}
  .story-home .service-row{grid-template-columns:1fr 20px;}
  .story-home .service-row p{grid-column:1;grid-row:2;}
  .story-home .service-row .arrow{grid-column:2;grid-row:1;}
@@ -1030,10 +1027,13 @@ footer {
 <p class="micro">Senior people. Straight answers. Accountable from decision to delivery.</p>
 </div>
 <div class="identity-panel" aria-label="myCIO: Strategy, Security, Technology">
-<div class="slash-art" aria-hidden="true"><i></i><i></i></div>
+<ul class="brand-disciplines" aria-label="Our core disciplines">
+<li>Strategy</li>
+<li>Security</li>
+<li>Technology</li>
+</ul>
 <div class="panel-bottom">
 <div class="logo" aria-label="myCIO">my<i class="brand-slash" aria-hidden="true"></i><span class="brand-cio">CIO</span></div>
-<p>Strategy<br>Security<br>Technology</p>
 </div>
 </div>
 </div>

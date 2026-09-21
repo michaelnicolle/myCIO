@@ -26,7 +26,7 @@ White and stone create breathing room; charcoal gives important moments weight. 
 
 - Orange: `#FF6A00`; charcoal: `#0B0B0B`; stone: `#D9D9D9`; white: `#FFFFFF`.
 - Darker orange ink is used where small text needs stronger contrast on light surfaces.
-- The homepage opens with the paired slash and brand lockup. The process page uses finite before/after transitions to show spend, workflows and delivery improving, with optional replay.
+- The homepage opens with large Strategy, Security and Technology typography, supported by a smaller myCIO wordmark. The process page uses finite before/after transitions to show spend, workflows and delivery improving, with optional replay.
 - Short, once-only section entrances and workflow sequencing support reading order. There are no perpetual decorative loops or scroll hijacking.
 - Reduced-motion preferences are respected initially and when changed. Final content remains readable without JavaScript, including a mobile navigation fallback.
 - Styles remain inline per page, as required by `CLAUDE.md`. A small shared script handles navigation and optional motion; there are no new runtime dependencies.
@@ -50,4 +50,4 @@ Automated checks cover internal links, fragments, local assets, duplicate IDs, s
 
 ## Landing-page refinement
 
-The homepage restores the brand-led right-hand panel so visitors meet myCIO before exploring the detail. Decorative section numbers and redundant homepage labels are removed; headings carry the story. Numbering remains only where it explains an ordered process. Visitors do not need a defined problem or AI readiness to start: a desire to improve their business is enough, and myCIO helps discover the opportunities.
+The homepage uses a brand-led right-hand panel with Strategy, Security and Technology as the focus, supported by a smaller myCIO wordmark. The oversized slash illustration is removed. Decorative section numbers and redundant homepage labels are removed; headings carry the story. Numbering remains only where it explains an ordered process. Visitors do not need a defined problem or AI readiness to start: a desire to improve their business is enough, and myCIO helps discover the opportunities.
