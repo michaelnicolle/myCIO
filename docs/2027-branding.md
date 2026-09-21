@@ -1,35 +1,49 @@
-# myCIO 2027: a clearer way forward
+# myCIO 2027: cut the noise, make progress
 
-Implemented on `2027-branding`; production remains on `main`.
+Review proposal on `2027-branding`. Production remains on `main`.
 
-## Creative direction
+## Brand and story
 
-Based on the supplied 2027 identity boards: my/CIO, the orange forward slash, the paired slash icon, and Strategy · Security · Technology. The website translates those references into live HTML/CSS and vector artwork, rather than using a flattened screenshot as a logo.
+The supplied identity boards establish my/CIO, the orange forward slash, the paired slash icon and Strategy · Security · Technology. The site translates that direction into live type, CSS and vector artwork. The wordmark is an interpretation for review; final outlined logo masters remain a separate production asset.
 
-The previous website used warm cream, orange italic serif headings and animated light ribbons. The new direction uses confident sans-serif type, white and stone surfaces, charcoal panels, generous space and purposeful orange. The homepage is rebuilt around “See further. Move forward. With myCIO.”
+The central promise is now **Cut the noise. Make progress.** It connects independent technology leadership to three business outcomes: lower costs, simpler work and accountable delivery. The customer has the problem and owns the progress; myCIO supplies the clarity, leadership and follow-through.
 
-## Identity system
+The existing $500k+ vendor-review result appears immediately after the homepage hero. It describes one client outcome, not a typical result or guarantee. Existing founder experience and independence provide the other proof points. No new client results, endorsements or credentials have been added.
 
-- CIO Orange: #FF6A00, used for the slash, dark-surface accents and action backgrounds.
-- Charcoal: #0B0B0B, used for primary type, navigation and brand panels.
-- Stone: #D9D9D9, used for rules and supporting structure.
-- White: #FFFFFF, the main reading surface.
-- Accessible orange ink: #B94700, used for small text on light backgrounds.
-- Hanken Grotesk: one type family, with strong headings and restrained supporting text.
+## Page roles and hierarchy
 
-The website wordmark is live type with a CSS slash, an interpretation of the reference, not final outlined master logo artwork. The SVG and ICO favicons use the paired slash. The social-sharing image uses the new wordmark, paired slash and homepage message. The older PNG logo remains a legacy asset.
+- **Overview:** promise, before/after change, existing proof, three outcomes, four core services, practical AI, founders, common questions, conversation.
+- **Why myCIO:** explains the leadership gap, how independent advice differs from support and how ownership works. Repeated process diagrams and a second enquiry form have been removed.
+- **What we do:** fractional CIO first, followed by consulting, project delivery and security. Each service explains the problem, involvement and outcome.
+- **How we work:** Discover, Stabilise, Standardise and Transform, each with a clear output. Security spans every stage. Shows the working relationship and continuing improvement.
+- **Contact:** one focused form and a clear explanation of the next step. A call is arranged after the enquiry; this is not an instant calendar booking.
 
-## Website changes
+AI is visible without becoming the whole brand. It follows the core services and has a dedicated anchor on the services page. An illustrative workflow explains approved knowledge, an AI draft and human review. Value, accuracy, readiness and adoption must be tested before scaling; the diagram makes no quantitative savings claim.
 
-The homepage has a split editorial hero, a dedicated slash graphic, three brand pillars, the existing $500k+ client result, four linked service rows, founder introductions and a direct closing invitation. The new visual system extends across service, case, process, contact, privacy, error and redirect pages. Their deeper content and the existing form integration remain in place. Inline CSS remains intentional, as documented in CLAUDE.md.
+## Visual system and motion
 
-No new client results or credentials have been invented. Copyright remains 2026 because the proposal is being prepared in 2026. The branch is a review proposal and has not been merged or published to the production domain.
+White and stone create breathing room; charcoal gives important moments weight. Orange is used for the slash, actions and direction. One sans-serif family, Hanken Grotesk, strengthens hierarchy and consistency.
 
-## Reviewing locally
+- Orange: `#FF6A00`; charcoal: `#0B0B0B`; stone: `#D9D9D9`; white: `#FFFFFF`.
+- Darker orange ink is used where small text needs stronger contrast on light surfaces.
+- Finite before/after transitions show spend, workflows and delivery improving. Visitors can replay the change.
+- Short, once-only section entrances and workflow sequencing support reading order. There are no perpetual decorative loops or scroll hijacking.
+- Reduced-motion preferences are respected initially and when changed. Final content remains readable without JavaScript, including a mobile navigation fallback.
+- Styles remain inline per page, as required by `CLAUDE.md`. A small shared script handles navigation and optional motion; there are no new runtime dependencies.
 
-From the repository directory run `python -m http.server 8765`, then open http://localhost:8765. Review both desktop and a narrow mobile window. The GitHub branch URL shows source code; it does not host a preview website.
+## Design rationale
 
+The implementation applies these principles, rather than claiming a proven conversion uplift:
 
-## Validation
+- [Nielsen Norman Group: homepage usability](https://www.nngroup.com/articles/113-design-guidelines-homepage-usability/): make the purpose and value clear and provide distinct routes into the content.
+- [Nielsen Norman Group: purposeful animation](https://www.nngroup.com/articles/animation-purpose-ux/): use movement to explain relationships and changes of state.
+- [StoryBrand: the customer as hero](https://storybrand.com/hero/): organise the story around the customer's obstacles and progress, with the brand as guide.
+- [GOV.UK: writing for user interfaces](https://www.gov.uk/service-manual/design/writing-for-user-interfaces): clear language, useful headings and understandable next actions.
 
-All nine HTML pages passed local link/fragment checks and all nine inline executable script blocks passed Node syntax checks. Browser review covered the homepage and services at mobile width, the mobile menu and contact path, and overflow/style checks for the homepage, case, process, contact, privacy and 404 routes. Form submission was not sent to the live inbox. This is a visual refresh, not a complete accessibility audit.
+## Review and validation
+
+Run `python -m http.server 8765 --bind 127.0.0.1` from the repository and open http://127.0.0.1:8765/index.html. The GitHub branch page displays source, not a hosted website preview.
+
+Browser checks covered seven rendered routes at 360, 768 and 1280 pixels, with no horizontal overflow and one main heading per page. Reviewed desktop and mobile layouts, mobile navigation, replay and native contact validation. No test enquiry was sent to the live inbox. Redirect pages retain their destination anchors and now resolve on the current host, so they also work in a branch preview.
+
+Automated checks cover internal links, fragments, local assets, duplicate IDs, structured data, script syntax and the no-em-dash copy rule. Three Node behavioural tests cover finite motion, reduced motion and keyboard/mobile navigation. This is not a complete accessibility audit or a measurement of real conversion performance.
