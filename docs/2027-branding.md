@@ -1,4 +1,4 @@
-# myCIO 2027: cut the noise, make progress
+# myCIO 2027: cut through the noise, move your business forward
 
 Review proposal on `2027-branding`. Production remains on `main`.
 
@@ -6,16 +6,15 @@ Review proposal on `2027-branding`. Production remains on `main`.
 
 The supplied identity boards establish my/CIO, the orange forward slash, the paired slash icon and Strategy · Security · Technology. The site translates that direction into live type, CSS and vector artwork. The wordmark is an interpretation for review; final outlined logo masters remain a separate production asset.
 
-The central promise is now **Cut the noise. Make progress.** It connects independent technology leadership to three business outcomes: lower costs, simpler work and accountable delivery. The customer has the problem and owns the progress; myCIO supplies the clarity, leadership and follow-through.
+The central promise is now **Cut through the noise. Move your business forward.** It connects independent technology leadership to three business outcomes: lower costs, simpler work and accountable delivery. The customer brings ambitions, opportunities or challenges and owns the progress; myCIO supplies the clarity, leadership and follow-through.
 
 The existing $500k+ vendor-review result appears immediately after the homepage hero. It describes one client outcome, not a typical result or guarantee. Existing founder experience and independence provide the other proof points. No new client results, endorsements or credentials have been added.
 
 ## Page roles and hierarchy
 
-- **Overview:** promise, logo and Strategy/Security/Technology identity panel, existing proof, three outcomes, four core services, practical AI, founders, common questions, conversation.
-- **Why myCIO:** explains the leadership gap, how independent advice differs from support and how ownership works. Repeated process diagrams and a second enquiry form have been removed.
-- **What we do:** fractional CIO first, followed by consulting, project delivery and security. Each service explains the problem, involvement and outcome.
-- **How we work:** Discover, Stabilise, Standardise and Transform, each with a clear output. Security spans every stage. Shows the working relationship and continuing improvement.
+- **Home:** promise, logo and Strategy/Security/Technology identity panel, existing proof, three outcomes, four core services, practical AI, founders, common questions, conversation.
+- **What we do:** fractional CIO first, followed by consulting, project delivery and security. Each service explains the opportunity, involvement and outcome.
+- **How we work:** Discover, Stabilise, Standardise and Transform, each with a clear output. Security spans every stage. Explains the working relationship, independent advice, ownership without lock-in and continuing improvement.
 - **Contact:** one focused form and a clear explanation of the next step. A call is arranged after the enquiry; this is not an instant calendar booking.
 
 AI is visible without becoming the whole brand. It follows the core services and has a dedicated anchor on the services page. An illustrative workflow explains approved knowledge, an AI draft and human review. Value, accuracy, readiness and adoption must be tested before scaling; the diagram makes no quantitative savings claim.
@@ -51,3 +50,9 @@ Automated checks cover internal links, fragments, local assets, duplicate IDs, s
 ## Landing-page refinement
 
 The homepage uses a brand-led right-hand panel with Strategy, Security and Technology as the focus, supported by a smaller myCIO wordmark. The oversized slash illustration is removed. Decorative section numbers and redundant homepage labels are removed; headings carry the story. Numbering remains only where it explains an ordered process. Visitors do not need a defined problem or AI readiness to start: a desire to improve their business is enough, and myCIO helps discover the opportunities.
+
+## Three-page structure
+
+Home explains what myCIO does and why to work with the founders. What we do provides service depth. How we work explains delivery, independence and accountability. Contact remains a separate enquiry destination with a consistent “Let's talk” invitation. The copy welcomes growth opportunities as well as problems to solve.
+
+The former Why myCIO page is removed from navigation and the sitemap. Its URL redirects to Home, with known fragment links mapped to their equivalent proof, people, process, ownership or contact destinations. With JavaScript disabled it falls back to Home.
