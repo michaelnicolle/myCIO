@@ -1010,6 +1010,10 @@ footer {
 @media(max-width:760px){.visual-pair{grid-template-columns:1fr;}.visual-card{padding:24px;}.visual-steps{grid-template-columns:1fr 1fr;gap:24px;}}
 @media(max-width:600px){.infographic .climb-wide{display:none;}.infographic .climb-narrow{display:block;}.visual-card .infographic{height:auto;}.visual-card .infographic svg{max-height:none;}.infographic .diagram-label{font-size:25px;}.visual-steps{grid-template-columns:1fr;}}
 
+
+.visual-full .infographic{height:auto;max-width:960px;}
+.visual-full .infographic svg{max-height:none;}
+.visual-full .visual-card>p{max-width:65ch;}
 </style>
 <link rel="icon" href="brand-icon.svg" type="image/svg+xml">
 <noscript>
@@ -1085,8 +1089,8 @@ footer {
 </section>
 <section id="progress"><div class="wrap">
 <div class="section-top"><div><h2>See the opportunity.<br>Build the momentum.</h2><p>Growing, improving or changing direction? We help you build the capability to get there, then keep turning better decisions into better business.</p></div></div>
-<div class="visual-pair">
-<article class="visual-card"><h3>The Climb</h3><div class="infographic"><svg class="climb-wide" viewBox="0 0 640 430" role="img" aria-label="The Climb: Discover, Stabilise, Standardise and Transform build capability, with security at every stage.">
+<div class="visual-full">
+<article class="visual-card"><div class="infographic"><svg class="climb-wide" viewBox="0 0 640 430" role="img" aria-label="The Climb: Discover, Stabilise, Standardise and Transform build capability, with security at every stage.">
 <rect x="20" y="35" width="600" height="360" rx="6" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="5 7"/>
 <text x="320" y="24" text-anchor="middle" class="diagram-note">SECURITY AT EVERY STAGE</text>
 <path d="M65 315 C160 315 180 255 230 245 S340 205 390 175 S495 140 550 100" fill="none" stroke="currentColor" stroke-opacity=".12" stroke-width="16"/>
@@ -1102,20 +1106,7 @@ footer {
 <g fill="#ff6a00"><circle cx="45" cy="355" r="8"/><circle cx="85" cy="265" r="8"/><circle cx="120" cy="175" r="8"/><circle cx="150" cy="85" r="8"/></g>
 <g class="diagram-label"><text x="70" y="364">Discover</text><text x="110" y="274">Stabilise</text><text x="145" y="184">Standardise</text><text x="175" y="94">Transform</text></g>
 </svg></div><p>Get a clear view. Strengthen the foundations. Give your people better ways to work. Every step supports the next, with security throughout.</p><a class="text-link" href="how-we-work.html#journey-curve">Find your next step ↗</a></article>
-<article class="visual-card dark"><h3>The Flywheel</h3><div class="infographic"><svg viewBox="0 0 600 570" role="img" aria-label="The Flywheel: Strategy and governance guide Transformation; Operations produces learning for the next strategic decision. Your business is at the centre, secure by design.">
-<circle cx="300" cy="285" r="242" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-dasharray="5 8"/>
-<text x="300" y="24" text-anchor="middle" class="diagram-note">SECURE BY DESIGN</text>
-<g fill="none" stroke-width="44">
-<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#ff6a00"/>
-<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#999" transform="rotate(120 300 285)"/>
-<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#d9d9d9" transform="rotate(240 300 285)"/>
-</g>
-<path d="M444 360 L484 326 L431 313 Z" fill="#ff6a00"/>
-<path d="M444 360 L484 326 L431 313 Z" fill="#999" transform="rotate(120 300 285)"/>
-<path d="M444 360 L484 326 L431 313 Z" fill="#d9d9d9" transform="rotate(240 300 285)"/>
-<g text-anchor="middle" class="wheel-label"><text x="445" y="90">Strategy</text><text x="155" y="90">Operations</text><text x="300" y="555">Transformation</text></g>
-<text x="300" y="276" text-anchor="middle" class="wheel-centre">Your</text><text x="300" y="309" text-anchor="middle" class="wheel-centre">business</text>
-</svg></div><p>Strategy sets direction. Transformation delivers change. Operations reveals what to improve next. Your business stays at the centre.</p><a class="text-link" href="how-we-work.html#flywheel">See how progress keeps moving ↗</a></article>
+
 </div><p class="diagram-caption">We start where your business needs us. Each step builds capability. Each cycle creates learning.</p>
 </div></section>
 <section class="stone">
@@ -1180,6 +1171,26 @@ footer {
 </div>
 </div>
 </section>
+<section id="momentum"><div class="wrap two-col">
+<div><h2>Progress should<br>create more progress.</h2>
+<p class="lead">Strategy sets direction. Transformation delivers change. Operations reveals what to improve next. Your business stays at the centre.</p>
+<p class="lead">Each improvement creates the insight and capacity for the next, with security built into every turn.</p>
+<div class="actions"><a class="text-link" href="how-we-work.html#flywheel">See how progress keeps moving ↗</a></div></div>
+<div class="infographic wheel-feature"><svg viewBox="0 0 600 570" role="img" aria-label="The Flywheel: Strategy and governance guide Transformation; Operations produces learning for the next strategic decision. Your business is at the centre, secure by design.">
+<circle cx="300" cy="285" r="242" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-dasharray="5 8"/>
+<text x="300" y="24" text-anchor="middle" class="diagram-note">SECURE BY DESIGN</text>
+<g fill="none" stroke-width="44">
+<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#ff6a00"/>
+<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#999" transform="rotate(120 300 285)"/>
+<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#d9d9d9" transform="rotate(240 300 285)"/>
+</g>
+<path d="M444 360 L484 326 L431 313 Z" fill="#ff6a00"/>
+<path d="M444 360 L484 326 L431 313 Z" fill="#999" transform="rotate(120 300 285)"/>
+<path d="M444 360 L484 326 L431 313 Z" fill="#d9d9d9" transform="rotate(240 300 285)"/>
+<g text-anchor="middle" class="wheel-label"><text x="445" y="90">Strategy</text><text x="155" y="90">Operations</text><text x="300" y="555">Transformation</text></g>
+<text x="300" y="276" text-anchor="middle" class="wheel-centre">Your</text><text x="300" y="309" text-anchor="middle" class="wheel-centre">business</text>
+</svg></div>
+</div></section>
 <section>
 <div class="wrap">
 <div class="section-top motion">

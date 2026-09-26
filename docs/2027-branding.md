@@ -60,3 +60,7 @@ The former Why myCIO page is removed from navigation and the sitemap. Its URL re
 ## Restored visual storytelling
 
 The Climb and The Flywheel are core explanations, retained from the earlier website and redrawn in the 2027 palette and typography. Home introduces both visually; How we work expands their meaning. The Climb retains Discover, Stabilise, Standardise and Transform, with security throughout. The Flywheel connects strategy and governance, transformation and operations around the customer, secure by design. Mobile receives a legible vertical Climb illustration rather than a scaled-down desktop chart. Both remain visible without JavaScript.
+
+## Homepage visual pacing
+
+The capability climb spans the content width after the proof strip. The continuous-improvement flywheel follows the AI section, before the founders. The standalone Climb and Flywheel title labels are removed on both Home and How we work; story headings introduce their purpose.
