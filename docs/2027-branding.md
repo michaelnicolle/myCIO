@@ -12,7 +12,7 @@ The existing $500k+ vendor-review result appears immediately after the homepage 
 
 ## Page roles and hierarchy
 
-- **Home:** promise, logo and Strategy/Security/Technology identity panel, existing proof, three outcomes, four core services, practical AI, founders, common questions, conversation.
+- **Home:** promise, logo and Strategy/Security/Technology identity panel, existing proof, The Climb and The Flywheel, four core services, practical AI, founders, common questions, conversation.
 - **What we do:** fractional CIO first, followed by consulting, project delivery and security. Each service explains the opportunity, involvement and outcome.
 - **How we work:** Discover, Stabilise, Standardise and Transform, each with a clear output. Security spans every stage. Explains the working relationship, independent advice, ownership without lock-in and continuing improvement.
 - **Contact:** one focused form and a clear explanation of the next step. A call is arranged after the enquiry; this is not an instant calendar booking.
@@ -25,7 +25,7 @@ White and stone create breathing room; charcoal gives important moments weight. 
 
 - Orange: `#FF6A00`; charcoal: `#0B0B0B`; stone: `#D9D9D9`; white: `#FFFFFF`.
 - Darker orange ink is used where small text needs stronger contrast on light surfaces.
-- The homepage opens with large Strategy, Security and Technology typography, supported by a smaller myCIO wordmark. The process page uses finite before/after transitions to show spend, workflows and delivery improving, with optional replay.
+- The homepage opens with large Strategy, Security and Technology typography, supported by a smaller myCIO wordmark. The Climb and The Flywheel explain how capability builds and how strategy, transformation and operations reinforce each other. Brief path-drawing animations run once, with reduced-motion support.
 - Short, once-only section entrances and workflow sequencing support reading order. There are no perpetual decorative loops or scroll hijacking.
 - Reduced-motion preferences are respected initially and when changed. Final content remains readable without JavaScript, including a mobile navigation fallback.
 - Styles remain inline per page, as required by `CLAUDE.md`. A small shared script handles navigation and optional motion; there are no new runtime dependencies.
@@ -56,3 +56,7 @@ The homepage uses a brand-led right-hand panel with Strategy, Security and Techn
 Home explains what myCIO does and why to work with the founders. What we do provides service depth. How we work explains delivery, independence and accountability. Contact remains a separate enquiry destination with a consistent “Let's talk” invitation. The copy welcomes growth opportunities as well as problems to solve.
 
 The former Why myCIO page is removed from navigation and the sitemap. Its URL redirects to Home, with known fragment links mapped to their equivalent proof, people, process, ownership or contact destinations. With JavaScript disabled it falls back to Home.
+
+## Restored visual storytelling
+
+The Climb and The Flywheel are core explanations, retained from the earlier website and redrawn in the 2027 palette and typography. Home introduces both visually; How we work expands their meaning. The Climb retains Discover, Stabilise, Standardise and Transform, with security throughout. The Flywheel connects strategy and governance, transformation and operations around the customer, secure by design. Mobile receives a legible vertical Climb illustration rather than a scaled-down desktop chart. Both remain visible without JavaScript.

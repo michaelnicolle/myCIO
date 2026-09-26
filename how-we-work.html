@@ -962,6 +962,33 @@ footer {
 }
 
 
+
+/* The Climb builds capability. The Flywheel sustains progress. */
+.visual-pair{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+.visual-card{padding:30px;background:#f4f4f1;border:1px solid #deded9;}
+.visual-card.dark{background:#0b0b0b;color:#fff;border-color:#0b0b0b;}
+.visual-card h3{font-size:1.8rem;letter-spacing:-.035em;}
+.visual-card p{font-size:1rem;line-height:1.6;margin:16px 0;color:#555;}
+.visual-card.dark p{color:#ccc;}
+.infographic{margin:24px auto;max-width:100%;}
+.infographic svg{display:block;width:100%;height:auto;overflow:visible;color:inherit;font-family:inherit;}
+.infographic .diagram-label{font-size:26px;font-weight:700;fill:currentColor;letter-spacing:-.04em;}
+.infographic .diagram-note{font-size:15px;font-weight:600;fill:currentColor;letter-spacing:.08em;}
+.infographic .wheel-label{font-size:30px;font-weight:700;fill:currentColor;letter-spacing:-.035em;}
+.infographic .wheel-centre{font-size:30px;font-weight:700;fill:currentColor;}
+.infographic .climb-narrow{display:none;}
+.visual-card .infographic{height:360px;display:flex;align-items:center;justify-content:center;}
+.visual-card .infographic svg{max-height:360px;}
+.climb-feature{max-width:1000px;margin:32px auto;}
+.wheel-feature{max-width:540px;width:100%;}
+.diagram-caption{font-size:.8rem;color:#626262;margin:12px 0 25px;}
+.dark .diagram-caption{color:#bbb;}
+.visual-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:25px;margin-top:32px;}
+.visual-steps h3{font-size:1.2rem;}
+.visual-steps p{margin-top:10px;font-size:.95rem;color:#555;}
+@media(max-width:760px){.visual-pair{grid-template-columns:1fr;}.visual-card{padding:24px;}.visual-steps{grid-template-columns:1fr 1fr;gap:24px;}}
+@media(max-width:600px){.infographic .climb-wide{display:none;}.infographic .climb-narrow{display:block;}.visual-card .infographic{height:auto;}.visual-card .infographic svg{max-height:none;}.infographic .diagram-label{font-size:25px;}.visual-steps{grid-template-columns:1fr;}}
+
 </style>
 <link rel="icon" href="brand-icon.svg" type="image/svg+xml">
 <noscript>
@@ -1008,48 +1035,32 @@ footer {
 <section id="journey-curve">
 <div class="wrap">
 <div class="section-top motion">
-<p class="kicker">The path</p>
+<p class="kicker">The Climb</p>
 <div>
 <h2>From ambition<br>to action.</h2>
 <p>We meet you where you are. Not every business needs every stage, and the work is prioritised by business value.</p>
 </div>
 </div>
-<div class="steps">
-<article class="step motion">
-<p class="step-num">01</p>
-<h3>Discover</h3>
-<p>Understand your ambitions, how your people work and where technology could create value. Review the spend, risks and foundations.</p>
-<p class="output">
-<strong>What you leave with</strong>An agreed view of the opportunities and priorities.</p>
-</article>
-<article class="step motion">
-<p class="step-num">02</p>
-<h3>Stabilise</h3>
-<p>Deal with urgent risks, unreliable systems and obvious waste. Create room to make better decisions.</p>
-<p class="output">
-<strong>What you leave with</strong>A dependable baseline and the first practical improvements.</p>
-</article>
-<article class="step motion">
-<p class="step-num">03</p>
-<h3>Standardise</h3>
-<p>Simplify the platforms, join up the processes and document the way things run.</p>
-<p class="output">
-<strong>What you leave with</strong>A repeatable way of working that does not depend on one person.</p>
-</article>
-<article class="step motion">
-<p class="step-num">04</p>
-<h3>Transform</h3>
-<p>Deliver better workflows, modern systems and useful AI. Test with people, support adoption and measure the result.</p>
-<p class="output">
-<strong>What you leave with</strong>Change the team uses, with evidence of its value.</p>
-</article>
-</div>
-<p class="security-line">
-<b>Secure at every stage.</b>
-<span>Access, data protection, resilience and governance are part of every decision.</span>
-</p>
-</div>
-</section>
+<div class="infographic climb-feature"><svg class="climb-wide" viewBox="0 0 640 430" role="img" aria-label="The Climb: Discover, Stabilise, Standardise and Transform build capability, with security at every stage.">
+<rect x="20" y="35" width="600" height="360" rx="6" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="5 7"/>
+<text x="320" y="24" text-anchor="middle" class="diagram-note">SECURITY AT EVERY STAGE</text>
+<path d="M65 315 C160 315 180 255 230 245 S340 205 390 175 S495 140 550 100" fill="none" stroke="currentColor" stroke-opacity=".12" stroke-width="16"/>
+<path class="draw-path" pathLength="1" d="M65 315 C160 315 180 255 230 245 S340 205 390 175 S495 140 550 100" fill="none" stroke="#ff6a00" stroke-width="5"/>
+<g fill="#ff6a00"><circle cx="65" cy="315" r="9"/><circle cx="230" cy="245" r="9"/><circle cx="390" cy="175" r="9"/><circle cx="550" cy="100" r="9"/></g>
+<g class="diagram-label" text-anchor="middle"><text x="94" y="356">Discover</text><text x="230" y="291">Stabilise</text><text x="385" y="221">Standardise</text><text x="540" y="146">Transform</text></g>
+<text x="35" y="419" class="diagram-note">CLEARER DIRECTION</text><text x="605" y="419" text-anchor="end" class="diagram-note">GREATER CAPABILITY ↗</text>
+</svg>
+<svg class="climb-narrow" viewBox="0 0 360 430" role="img" aria-label="The Climb: Discover, Stabilise, Standardise and Transform build capability, with security at every stage.">
+<rect x="8" y="35" width="344" height="380" rx="6" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="5 7"/>
+<text x="180" y="22" text-anchor="middle" class="diagram-note">SECURITY AT EVERY STAGE</text>
+<path class="draw-path" pathLength="1" d="M45 355 C45 305 85 300 85 265 S120 205 120 175 S150 120 150 85" fill="none" stroke="#ff6a00" stroke-width="5"/>
+<g fill="#ff6a00"><circle cx="45" cy="355" r="8"/><circle cx="85" cy="265" r="8"/><circle cx="120" cy="175" r="8"/><circle cx="150" cy="85" r="8"/></g>
+<g class="diagram-label"><text x="70" y="364">Discover</text><text x="110" y="274">Stabilise</text><text x="145" y="184">Standardise</text><text x="175" y="94">Transform</text></g>
+</svg></div>
+<div class="visual-steps"><div><h3>Discover</h3><p>Explore your ambitions, opportunities and risks. Agree where the greatest value lies.</p></div><div><h3>Stabilise</h3><p>Make the foundations dependable. Address urgent risks and unnecessary cost.</p></div><div><h3>Standardise</h3><p>Join up systems and simplify work. Build repeatable practices your team owns.</p></div><div><h3>Transform</h3><p>Turn opportunities into better services, useful AI and new ways of working.</p></div></div>
+<p class="security-line"><b>Secure at every stage.</b><span>Access, data protection, resilience and governance support every step.</span></p>
+<p class="diagram-caption">Your starting point and pace follow your priorities. Not every business needs every stage.</p>
+</div></section>
 <section class="stone" id="engage">
 <div class="wrap">
 <div class="section-top motion">
@@ -1074,56 +1085,27 @@ footer {
 </div>
 </div>
 </section>
-<section class="dark" id="flywheel">
-<div class="wrap ai-layout">
-<div>
-<p class="kicker">Keep the gains</p>
-<h2>Better work becomes<br>business as usual.</h2>
-<p class="lead">Strategy sets the direction. Delivery turns it into change. Operations keeps it working. We review what people use, what it costs and what needs to improve next.</p>
-<p class="micro">AI and automation enter when the workflow and foundations are ready, not because a tool needs selling.</p>
-</div>
-<div class="change-map" aria-label="What changes with myCIO">
-<div class="map-head">
-<p class="kicker">What progress can look like.</p>
-<span class="mini-mark" aria-hidden="true">
-<i>
-</i>
-<i>
-</i>
-</span>
-</div>
-<div class="map-row map-label static-row">
-<span>Where you start</span>
-<span>
-</span>
-<span>The change we own</span>
-</div>
-<div class="map-row">
-<span class="before">Spend on autopilot</span>
-<span class="flow-arrow" aria-hidden="true">→</span>
-<span class="after">Costs challenged</span>
-</div>
-<div class="map-row">
-<span class="before">Manual workarounds</span>
-<span class="flow-arrow" aria-hidden="true">→</span>
-<span class="after">Simpler workflows</span>
-</div>
-<div class="map-row">
-<span class="before">Ideas waiting to happen</span>
-<span class="flow-arrow" aria-hidden="true">→</span>
-<span class="after">Change delivered</span>
-</div>
-<p class="map-foot">
-<strong>Strategy / Security / Technology</strong>
-<br>One senior team connecting the decisions to the delivery.</p>
-<div class="path-bar" aria-hidden="true">
-<span>
-</span>
-</div>
-<button class="map-replay" type="button" hidden>Replay the change ↻</button>
-</div>
-</div>
-</section>
+<section class="dark" id="flywheel"><div class="wrap two-col">
+<div><p class="kicker">The Flywheel</p><h2>Progress should<br>create more progress.</h2><p class="lead">The Climb builds capability. The Flywheel puts it to work, connecting each decision to delivery and each result to the next decision.</p>
+<p class="lead"><strong>Strategy &amp; governance</strong> set the priorities, challenge costs and decide where to invest.</p>
+<p class="lead"><strong>Transformation</strong> turns those choices into change, with your people involved from the start.</p>
+<p class="lead"><strong>Operations</strong> keep it working and bring back evidence of what to improve next.</p>
+<p class="micro">Security surrounds the whole cycle. AI and automation contribute wherever they create useful, sustainable value.</p></div>
+<div class="infographic wheel-feature"><svg viewBox="0 0 600 570" role="img" aria-label="The Flywheel: Strategy and governance guide Transformation; Operations produces learning for the next strategic decision. Your business is at the centre, secure by design.">
+<circle cx="300" cy="285" r="242" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-dasharray="5 8"/>
+<text x="300" y="24" text-anchor="middle" class="diagram-note">SECURE BY DESIGN</text>
+<g fill="none" stroke-width="44">
+<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#ff6a00"/>
+<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#999" transform="rotate(120 300 285)"/>
+<path class="draw-path" pathLength="1" d="M342 126 A164 164 0 0 1 459 323" stroke="#d9d9d9" transform="rotate(240 300 285)"/>
+</g>
+<path d="M444 360 L484 326 L431 313 Z" fill="#ff6a00"/>
+<path d="M444 360 L484 326 L431 313 Z" fill="#999" transform="rotate(120 300 285)"/>
+<path d="M444 360 L484 326 L431 313 Z" fill="#d9d9d9" transform="rotate(240 300 285)"/>
+<g text-anchor="middle" class="wheel-label"><text x="445" y="90">Strategy</text><text x="155" y="90">Operations</text><text x="300" y="555">Transformation</text></g>
+<text x="300" y="276" text-anchor="middle" class="wheel-centre">Your</text><text x="300" y="309" text-anchor="middle" class="wheel-centre">business</text>
+</svg></div>
+</div></section>
 <section id="leadership">
 <div class="wrap">
 <span class="anchor-alias" id="gap"></span><span class="anchor-alias" id="ownership"></span><span class="anchor-alias" id="independence"></span>
@@ -1203,5 +1185,6 @@ footer {
 
 <script src="site-motion.js" defer>
 </script>
+<script src="infographic-motion.js" defer></script>
 </body>
 </html>
