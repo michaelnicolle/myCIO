@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<title>Case studies | Real engagements, and what they changed | myCIO</title>
+<meta name="description" content="How myCIO reduced Armstrong Smarter Security's managed services spend, increased the support their business receives, and funded transformation and automation from the saving.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Case studies | myCIO">
+<meta property="og:description" content="Sort the commercials, clean the house, then spend the difference on change that moves the business.">
+<meta property="og:url" content="https://mycio.co.nz/case-studies.html">
+<meta property="og:image" content="https://mycio.co.nz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Case studies | myCIO">
+<meta name="twitter:description" content="Sort the commercials, clean the house, then spend the difference on change that moves the business.">
+<link rel="canonical" href="https://mycio.co.nz/case-studies.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "myCIO",
+  "url": "https://mycio.co.nz/",
+  "image": "https://mycio.co.nz/og-image.jpg",
+  "description": "Senior technology leadership, digital transformation, and security operations for growing New Zealand businesses.",
+  "email": "hello@mycio.co.nz",
+  "areaServed": { "@type": "Country", "name": "New Zealand" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Auckland", "addressCountry": "NZ" }
+}
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root {
+  --orange:#ff6a00;
+  --accent:#b94700;
+  --ink:#0b0b0b;
+  --muted:#595959;
+  --paper:#fff;
+  --stone:#f2f2ef;
+  --line:#d9d9d9;
+  --sans:'Hanken Grotesk',Arial,sans-serif;
+  --max:1180px}
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0}
+html {
+  scroll-behavior:smooth;
+  scroll-padding-top:96px}
+body {
+  font-family:var(--sans);
+  background:#fff;
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+a {
+  color:inherit;
+  text-decoration:none}
+button,input,textarea {
+  font:inherit}
+button,a,input,textarea {
+  touch-action:manipulation}
+button {
+  cursor:pointer}
+p {
+  text-wrap:pretty}
+h1,h2,h3 {
+  line-height:1.08;
+  letter-spacing:-.045em;
+  text-wrap:balance}
+h1 {
+  font-size:clamp(3rem,5.8vw,5.4rem);
+  font-weight:800;
+  letter-spacing:-.065em}
+h2 {
+  font-size:clamp(2rem,3.8vw,3.3rem);
+  font-weight:700}
+h3 {
+  font-size:1.4rem;
+  font-weight:700}
+h1 span {
+  color:#626262}
+ul {
+  padding-left:20px}
+.wrap {
+  max-width:var(--max);
+  margin:auto;
+  padding:0 28px}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible {
+  outline:3px solid #b94700;
+  outline-offset:5px}
+.dark a:focus-visible,.dark button:focus-visible,header a:focus-visible,header button:focus-visible {
+  outline-color:#ff6a00}
+.skip-link {
+  position:absolute;
+  top:0;
+  left:-9999px;
+  z-index:120;
+  background:white;
+  color:#0b0b0b;
+  padding:14px 20px}
+.skip-link:focus {
+  left:0}
+
+header.nav {
+  position:fixed;
+  inset:0 0 auto;
+  z-index:90;
+  color:white;
+  background:#0b0b0b;
+  border-bottom:1px solid #303030}
+.nav-inner {
+  max-width:var(--max);
+  height:74px;
+  margin:auto;
+  padding:0 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:14px}
+.logo {
+  display:inline-flex;
+  align-items:center;
+  color:white;
+  font-size:1.75rem;
+  letter-spacing:-.065em;
+  font-weight:800;
+  line-height:1;
+  white-space:nowrap}
+.brand-slash {
+  display:inline-block;
+  width:.23em;
+  height:1.2em;
+  transform:skew(-24deg);
+  background:#ff6a00;
+  margin:0 .17em}
+.logo .brand-cio {
+  color:inherit}
+.logo-tag {
+  font-size:.57rem;
+  letter-spacing:.12em;
+  color:#bcbcbc;
+  border-left:1px solid #444;
+  padding-left:14px;
+  text-transform:uppercase;
+  white-space:nowrap}
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:25px;
+  font-size:.86rem;
+  font-weight:600}
+.nav-links a:not(.btn) {
+  position:relative;
+  color:#d2d2d2}
+.nav-links a:not(.btn)::after {
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-7px;
+  height:2px;
+  width:100%;
+  background:#ff6a00;
+  transform:scaleX(0);
+  transition:transform .2s}
+.nav-links a[aria-current=page]::after,.nav-links a:hover::after {
+  transform:scaleX(1)}
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  padding:14px 22px;
+  background:#ff6a00;
+  color:#0b0b0b;
+  font-size:.87rem;
+  line-height:1.4;
+  font-weight:700;
+  border:1px solid transparent;
+  border-radius:3px;
+  transition:background .18s,transform .18s}
+.btn:hover {
+  background:#ff8933;
+  transform:translateY(-2px)}
+.btn:active {
+  transform:none}
+.btn-nav {
+  padding:11px 18px}
+.nav-toggle {
+  display:none;
+  background:none;
+  color:white;
+  border:0;
+  font-size:1.7rem;
+  padding:8px}
+.kicker {
+  font-size:.67rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  line-height:1.7}
+.eyeline {
+  display:flex;
+  align-items:center;
+  gap:12px}
+.eyeline::before {
+  content:'';
+  height:20px;
+  width:5px;
+  background:#ff6a00;
+  transform:skew(-24deg)}
+.lead {
+  font-size:1.07rem;
+  line-height:1.7;
+  color:#555;
+  max-width:48ch}
+.actions {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:22px;
+  margin-top:28px}
+.text-link {
+  display:inline-block;
+  border-bottom:1px solid #a4a4a4;
+  padding-bottom:5px;
+  font-size:.88rem;
+  font-weight:700}
+.text-link:hover {
+  border-color:#ff6a00}
+.micro {
+  font-size:.77rem;
+  color:#626262;
+  margin-top:13px}
+.story section {
+  padding:78px 0}
+.story .hero {
+  padding:136px 0 48px;
+  background:#f4f4f1}
+.hero-grid {
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:62px;
+  align-items:center}
+.hero h1 {
+  margin:24px 0}
+.hero .lead {
+  max-width:45ch}
+.trust-line {
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  border-top:1px solid #d4d4d0;
+  padding-top:22px;
+  margin-top:44px;
+  font-size:.66rem;
+  font-weight:700;
+  letter-spacing:.13em;
+  text-transform:uppercase}
+.trust-line b {
+  color:#b94700;
+  margin-right:10px}
+.section-top {
+  display:grid;
+  grid-template-columns:.8fr 1.6fr;
+  gap:48px;
+  margin-bottom:36px}
+.section-top .kicker {
+  padding-top:6px;
+  color:#626262}
+.section-top p:not(.kicker) {
+  margin-top:16px;
+  color:#595959;
+  max-width:60ch}
+.dark {
+  background:#0b0b0b;
+  color:#fff}
+.dark .lead,.dark .micro,.dark .section-top p,.dark .kicker {
+  color:#bcbcbc}
+.stone {
+  background:#f2f2ef}
+.two-col {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:48px}
+.three-col {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px}
+.line-card {
+  padding-top:24px;
+  border-top:1px solid #d0d0d0}
+.line-card p {
+  margin-top:14px;
+  color:#595959}
+.line-card .number {
+  display:block;
+  color:#b94700;
+  font-size:.7rem;
+  font-weight:700;
+  margin-bottom:20px}
+.line-card a {
+  margin-top:22px}
+.dark .line-card {
+  border-color:#414141}
+.dark .line-card p {
+  color:#bcbcbc}
+.dark .line-card .number {
+  color:#ff6a00}
+
+/* Motion illustrates a business transformation, with all information readable at rest. */
+.change-map {
+  padding:27px;
+  background:#0b0b0b;
+  color:#fff;
+  border:1px solid #222;
+  position:relative;
+  overflow:hidden}
+.map-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px}
+.mini-mark {
+  display:inline-flex;
+  gap:5px;
+  transform:skew(-24deg)}
+.mini-mark i {
+  width:10px;
+  height:27px;
+  background:#ff6a00}
+.mini-mark i+i {
+  background:#ddd;
+  transform:translateY(7px)}
+.map-label {
+  color:#aaa;
+  font-size:.64rem;
+  letter-spacing:.14em;
+  text-transform:uppercase}
+.map-row {
+  display:grid;
+  grid-template-columns:1fr 22px 1fr;
+  gap:12px;
+  align-items:center;
+  padding:18px 0;
+  border-top:1px solid #303030;
+  font-size:.88rem}
+.map-row .before {
+  color:#aaa}
+.map-row .after {
+  font-weight:700}
+.map-row .flow-arrow {
+  color:#ff6a00}
+.map-foot {
+  border-top:1px solid #333;
+  padding-top:22px;
+  margin-top:6px;
+  font-size:.77rem;
+  color:#c1c1c1}
+.map-foot strong {
+  color:#ff6a00}
+.path-bar {
+  height:3px;
+  background:#333;
+  margin-top:24px;
+  overflow:hidden}
+.path-bar span {
+  display:block;
+  height:100%;
+  background:#ff6a00;
+  transform-origin:left}
+.map-replay {
+  border:0;
+  background:none;
+  color:#bcbcbc;
+  font-size:.68rem;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  padding:8px 0;
+  margin-top:8px}
+.map-replay:hover {
+  color:white}
+
+.proof-strip {
+  padding:34px 0!important;
+  background:#ff6a00}
+.proof-grid {
+  display:grid;
+  grid-template-columns:1fr 1.6fr auto;
+  align-items:center;
+  gap:36px}
+.proof-number {
+  font-size:clamp(3.2rem,5.7vw,5.5rem);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.065em}
+.proof-strip p {
+  font-size:1rem;
+  max-width:36ch}
+.proof-strip .text-link {
+  border-color:#652b00;
+  white-space:nowrap}
+.service-row {
+  display:grid;
+  grid-template-columns:35px 1fr 1.2fr 20px;
+  gap:22px;
+  padding:25px 0;
+  border-top:1px solid #d2d2d2;
+  align-items:start}
+.service-row:last-child {
+  border-bottom:1px solid #d2d2d2}
+.service-row small {
+  color:#b94700;
+  font-weight:700}
+.service-row p {
+  font-size:.93rem;
+  color:#595959}
+.service-row .arrow {
+  color:#b94700;
+  transition:transform .2s}
+.service-row:hover .arrow {
+  transform:translate(3px,-3px)}
+.service-row h3 {
+  font-size:1.25rem}
+.scope-line {
+  font-size:.83rem;
+  color:#595959;
+  margin-top:22px}
+.dark .scope-line {
+  color:#bcbcbc}
+
+.ai-layout {
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:60px;
+  align-items:center}
+.ai-layout h2 {
+  margin:20px 0}
+.ai-layout .lead {
+  color:#bcbcbc}
+.workflow {
+  padding:25px;
+  border:1px solid #3d3d3d;
+  background:#151515}
+.workflow ol {
+  padding:0;
+  list-style:none;
+  display:grid;
+  gap:0;
+  margin-top:20px}
+.workflow li {
+  display:grid;
+  grid-template-columns:32px 1fr;
+  gap:12px;
+  padding:15px 0;
+  border-top:1px solid #3b3b3b}
+.workflow li b {
+  color:#ff6a00;
+  font-size:.72rem}
+.workflow li span {
+  font-size:.9rem}
+.workflow small {
+  display:block;
+  color:#aaa;
+  margin-top:14px;
+  font-size:.73rem}
+.outcome-label {
+  margin-top:20px;
+  border-left:3px solid #ff6a00;
+  padding-left:14px;
+  font-weight:600}
+.people-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:44px}
+.person {
+  border-top:1px solid #d0d0d0;
+  padding-top:23px}
+.person-head {
+  display:flex;
+  gap:17px;
+  align-items:center;
+  margin-bottom:16px}
+.initials {
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  background:#0b0b0b;
+  color:white;
+  border-right:5px solid #ff6a00}
+.person h3 {
+  font-size:1.35rem}
+.person small {
+  font-size:.65rem;
+  letter-spacing:.1em;
+  color:#626262;
+  text-transform:uppercase}
+.person p {
+  color:#595959;
+  font-size:.94rem}
+.faq {
+  max-width:780px;
+  margin:auto}
+.faq h2 {
+  margin-bottom:30px}
+.faq details {
+  border-top:1px solid #d0d0d0;
+  padding:20px 0}
+.faq details:last-child {
+  border-bottom:1px solid #d0d0d0}
+.faq summary {
+  cursor:pointer;
+  font-weight:700;
+  font-size:1.03rem;
+  list-style-position:outside;
+  margin-left:18px}
+.faq details p {
+  margin:15px 0 0;
+  color:#595959;
+  max-width:65ch}
+.closing {
+  background-color:#0b0b0b;
+  background-image:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,.22));
+  background-repeat:no-repeat;
+  background-position:top center;
+  background-size:min(100% - 56px,var(--max)) 1px}
+.closing-grid {
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:60px 64px;
+  align-items:start}
+.closing h2 {
+  margin-top:0;
+  font-size:clamp(2.5rem,4.8vw,4.3rem)}
+.closing-grid > div:last-child {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start}
+.closing .lead {
+  max-width:46ch}
+.closing .actions {
+  margin-top:28px}
+.closing .micro {
+  margin-top:18px}
+.closing h2 span {
+  color:#ff6a00}
+.closing .lead {
+  color:#bcbcbc;
+  font-size:1rem}
+.closing .micro a {
+  text-decoration:underline}
+
+.story .page-hero {
+  padding:136px 0 55px}
+.page-hero h1 {
+  max-width:17ch;
+  font-size:clamp(2.8rem,5vw,4.6rem);
+  margin:22px 0}
+.page-hero.dark h1 span {
+  color:#ff6a00}
+.page-hero .lead {
+  max-width:64ch}
+.page-hero .page-intro {
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:56px;
+  align-items:end}
+.page-hero .page-intro h1 {
+  margin-bottom:0}
+.jump-links {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 25px;
+  padding-top:25px;
+  margin-top:35px;
+  border-top:1px solid #424242;
+  font-size:.78rem;
+  font-weight:600}
+.jump-links a:hover {
+  text-decoration:underline;
+  text-underline-offset:5px}
+.service-detail {
+  display:grid;
+  grid-template-columns:.85fr 1.5fr;
+  gap:60px}
+.service-detail .kicker {
+  color:#b94700;
+  margin-bottom:18px}
+.service-detail h2 {
+  font-size:clamp(2rem,3.3vw,2.9rem)}
+.service-detail .lead {
+  margin-bottom:24px;
+  max-width:60ch}
+.deliverables {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  padding:0;
+  list-style:none}
+.deliverables li {
+  border-top:1px solid #d0d0d0;
+  padding-top:14px;
+  font-size:.9rem;
+  color:#595959}
+.deliverables strong {
+  display:block;
+  color:#0b0b0b;
+  margin-bottom:5px}
+.result-note {
+  margin-top:26px;
+  padding:17px 20px;
+  border-left:3px solid #ff6a00;
+  background:#f0f0ed;
+  font-size:.89rem}
+.story .service-section+.service-section {
+  border-top:1px solid #e4e4e4}
+.steps {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px}
+.step {
+  border-top:3px solid #ff6a00;
+  padding-top:24px}
+.step-num {
+  font-size:.7rem;
+  color:#b94700;
+  font-weight:700;
+  margin-bottom:20px}
+.step p {
+  font-size:.9rem;
+  color:#595959;
+  margin-top:14px}
+.step .output {
+  border-top:1px solid #d0d0d0;
+  padding-top:14px;
+  font-size:.8rem}
+.step .output strong {
+  display:block;
+  color:#0b0b0b}
+.security-line {
+  margin-top:28px;
+  padding:17px 20px;
+  background:#0b0b0b;
+  color:white;
+  display:flex;
+  gap:18px;
+  align-items:center;
+  font-size:.86rem}
+.security-line b {
+  color:#ff6a00;
+  white-space:nowrap}
+.comparison {
+  width:100%;
+  border-collapse:collapse;
+  font-size:.95rem}
+.comparison th,.comparison td {
+  text-align:left;
+  padding:20px;
+  border-bottom:1px solid #d0d0d0;
+  vertical-align:top}
+.comparison th {
+  background:#0b0b0b;
+  color:white;
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.08em}
+.comparison th:last-child {
+  color:#ff6a00}
+.comparison td:first-child {
+  color:#626262;
+  width:45%}
+.comparison td:last-child {
+  font-weight:600}
+.proof-feature {
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:70px;
+  align-items:center}
+.proof-feature .proof-number {
+  font-size:clamp(4.5rem,9vw,8rem);
+  margin:18px 0}
+.proof-feature p {
+  max-width:45ch}
+.proof-feature .lead {
+  color:inherit;
+  margin-top:22px}
+.orange {
+  background:#ff6a00}
+.ownership li {
+  margin-top:13px;
+  color:#595959}
+.contact-layout {
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:70px}
+.contact-layout h1 {
+  font-size:clamp(2.8rem,4.7vw,4.5rem);
+  margin:24px 0}
+.contact-layout .lead {
+  margin-bottom:28px}
+.next-steps {
+  list-style:none;
+  padding:0;
+  margin-top:35px}
+.next-steps li {
+  padding:15px 0;
+  border-top:1px solid #d0d0d0;
+  font-size:.9rem}
+.next-steps b {
+  color:#b94700;
+  margin-right:12px}
+.contact-form {
+  background:white;
+  border:1px solid #d9d9d9;
+  padding:30px}
+.contact-form h2 {
+  font-size:1.6rem;
+  margin-bottom:12px}
+.contact-form>p {
+  font-size:.85rem;
+  color:#626262;
+  margin-bottom:23px}
+.field {
+  margin-top:18px}
+.field label {
+  display:block;
+  font-size:.83rem;
+  font-weight:600;
+  margin-bottom:7px}
+.field input,.field textarea {
+  width:100%;
+  padding:12px;
+  border:1px solid #aaa;
+  border-radius:2px;
+  background:white;
+  color:#0b0b0b;
+  font-size:1rem}
+.field textarea {
+  min-height:125px;
+  resize:vertical}
+.contact-form .btn {
+  width:100%;
+  margin-top:23px}
+.contact-form .privacy-note {
+  margin:15px 0 0;
+  font-size:.73rem}
+.privacy-note a {
+  text-decoration:underline}
+.honeypot {
+  position:absolute;
+  left:-9999px}
+.anchor-alias {
+  display:block;
+  scroll-margin-top:96px}
+footer {
+  background:#0b0b0b;
+  color:#bcbcbc;
+  padding:48px 0 25px;
+  border-top:1px solid #333}
+.foot-top {
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:42px}
+.foot-top .logo {
+  margin-bottom:18px}
+.foot-top p {
+  font-size:.86rem;
+  max-width:37ch}
+.foot-top h3 {
+  font-size:.65rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:white;
+  margin-bottom:18px}
+.foot-top ul {
+  list-style:none;
+  padding:0;
+  display:grid;
+  gap:8px;
+  font-size:.84rem}
+.foot-top a:hover,.foot-bottom a:hover {
+  color:#ff6a00}
+.foot-bottom {
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:20px;
+  font-size:.71rem;
+  border-top:1px solid #333;
+  margin-top:35px;
+  padding-top:22px}
+.foot-bottom a {
+  text-decoration:underline}
+
+@media(min-width:761px) {
+  .nav-links {
+  display:flex!important}
+}
+
+@media(max-width:1100px) {
+  .logo-tag {
+  display:none}
+.hero-grid {
+  gap:35px}
+.steps {
+  gap:18px}
+.page-hero .page-intro {
+  gap:35px}
+}
+
+@media(max-width:760px) {
+  .wrap,.nav-inner {
+  padding-left:24px;
+  padding-right:24px}
+.nav-inner {
+  height:68px}
+.nav-toggle {
+  display:block}
+.nav-links {
+  display:none;
+  position:absolute;
+  top:68px;
+  left:0;
+  right:0;
+  background:#0b0b0b;
+  padding:24px;
+  flex-direction:column;
+  align-items:stretch;
+  gap:24px;
+  border-bottom:1px solid #444}
+.nav-links.open {
+  display:flex}
+.story section {
+  padding:54px 0}
+.story .hero,.story .page-hero {
+  padding:108px 0 35px}
+.hero-grid,.two-col,.three-col,.section-top,.ai-layout,.people-grid,.closing-grid,.service-detail,.page-hero .page-intro,.proof-feature,.contact-layout {
+  grid-template-columns:1fr;
+  gap:28px}
+.hero h1 {
+  font-size:clamp(2.8rem,11.5vw,4rem)}
+.hero .lead {
+  font-size:1rem}
+.change-map {
+  padding:22px}
+.trust-line {
+  margin-top:30px;
+  gap:10px;
+  font-size:.57rem}
+.section-top {
+  margin-bottom:28px}
+.section-top .kicker {
+  padding-top:0}
+.proof-grid {
+  grid-template-columns:1fr 1.5fr;
+  gap:18px}
+.proof-grid .text-link {
+  grid-column:1/-1;
+  justify-self:start}
+.proof-strip p {
+  font-size:.88rem}
+.service-row {
+  grid-template-columns:22px 1fr 18px;
+  gap:12px}
+.service-row p {
+  grid-column:2;
+  grid-row:2}
+.service-row .arrow {
+  grid-column:3;
+  grid-row:1}
+.steps {
+  grid-template-columns:1fr 1fr;
+  gap:28px 20px}
+.deliverables {
+  gap:18px}
+.security-line {
+  align-items:start;
+  flex-direction:column;
+  gap:6px}
+.comparison th,.comparison td {
+  padding:15px 10px;
+  font-size:.83rem}
+.contact-form {
+  padding:23px}
+.foot-top {
+  grid-template-columns:1fr;
+  gap:30px}
+.page-hero .page-intro h1 {
+  margin-bottom:0}
+.story .closing {
+  padding:58px 0}
+}
+
+@media(max-width:380px) {
+  .steps,.deliverables {
+  grid-template-columns:1fr}
+.map-row {
+  gap:8px;
+  font-size:.8rem}
+.actions {
+  gap:17px}
+.hero h1 {
+  font-size:2.65rem}
+}
+
+@media(prefers-reduced-motion:reduce) {
+  html {
+  scroll-behavior:auto}
+*,*::before,*::after {
+  animation:none!important;
+  transition:none!important}
+}
+
+
+.eyeline::before {
+  flex-shrink:0}
+
+.steps .step {
+  display:flex;
+  flex-direction:column}
+
+.steps .output {
+  margin-top:auto;
+  padding-top:16px}
+
+.steps .step>p:not(.output) {
+  margin-bottom:20px}
+
+.map-replay:disabled {
+  cursor:default;
+  color:#aaa}
+
+.page-hero.dark .actions {
+  margin-top:24px}
+
+.policy {
+  padding:58px 0 80px}
+.policy .wrap {
+  max-width:800px}
+.policy h2 {
+  font-size:1.65rem;
+  margin-top:36px}
+.policy p,.policy ul {
+  margin-top:16px;
+  color:#4b4b4b}
+.policy li {
+  margin-top:8px}
+.policy a {
+  color:#a83e22;
+  text-decoration:underline;
+  text-underline-offset:3px}
+.updated {
+  margin-top:18px;
+  font-size:.8rem;
+  color:#666}
+
+.utility-main .page-hero {
+  padding:130px 0 65px}
+.utility-main .page-hero h1 {
+  max-width:18ch}
+.utility-main .page-hero .lead {
+  max-width:60ch}
+.utility-main .page-hero .actions {
+  margin-top:24px}
+
+@media(max-width:760px) {
+  .utility-main .page-hero {
+  padding:108px 0 48px}
+}
+
+
+</style>
+<link rel="icon" href="brand-icon.svg" type="image/svg+xml">
+<noscript>
+<style>@media(max-width:760px){header.nav{position:static}.nav-inner{height:auto;flex-wrap:wrap;padding-top:18px;padding-bottom:18px}.nav-links{display:flex;position:static;flex-direction:row;flex-wrap:wrap;padding:8px 0 0;font-size:.8rem;gap:16px}.nav-toggle{display:none}.story .hero,.story .page-hero,.utility-main .page-hero{padding-top:40px}}</style>
+</noscript>
+</head>
+<body>
+<a class="skip-link" href="#top">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <a href="index.html" class="logo" aria-label="myCIO">my<i class="brand-slash" aria-hidden="true">
+</i>
+<span class="brand-cio">CIO</span>
+</a>
+      <span class="logo-tag">Strategy · Security · Technology</span>
+    </div>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">&#8801;</button>
+        <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="what-we-do.html">What we do</a>
+      <a href="how-we-work.html">How we work</a>
+      <a href="case-studies.html" aria-current="page">Case studies</a>
+      <a href="contact.html#contact" class="btn btn-nav">Let's talk</a>
+    </nav>
+  </div>
+</header>
+
+<main class="story">
+<section class="page-hero dark" id="top">
+<div class="wrap">
+<p class="kicker eyeline">Case studies</p>
+<div class="page-intro">
+<h1>The work,<br>
+<span>and what it changed.</span>
+</h1>
+<p class="lead">Real engagements, described in full. The same pattern runs through each one: sort the commercials, clean the house, then spend the difference on change that moves the business.</p>
+</div>
+<nav class="jump-links" aria-label="Case studies">
+<a href="#armstrong">Armstrong Smarter Security</a>
+</nav>
+</div>
+</section>
+
+<section class="service-section" id="armstrong">
+<div class="wrap service-detail">
+<div class="motion">
+<p class="kicker">The client</p>
+<h2>Armstrong<br>Smarter Security</h2>
+</div>
+<div>
+<p class="lead">Armstrong had a managed services arrangement that kept the lights on and not much else. The monthly bill arrived, tickets closed, and a layer of small daily friction had quietly become normal. Nobody was asking whether it had to be.</p>
+<p class="result-note">Where we started: a run cost that bought availability, and a business that had stopped expecting more than that.</p>
+</div>
+</div>
+</section>
+
+<section class="service-section stone">
+<div class="wrap service-detail">
+<div class="motion">
+<p class="kicker">The commercial reset</p>
+<h2>We started<br>with the bill.</h2>
+</div>
+<div>
+<p class="lead">Before any technology changed, we took apart what was being paid for and what it actually delivered. The managed services spend came down. That was not the win on its own. It was the funding.</p>
+<ul class="deliverables">
+<li>
+<strong>Spend reviewed line by line</strong>What the business was paying for, set against what it used and what it actually needed.</li>
+<li>
+<strong>Commercials restructured</strong>A lower ongoing run cost, with the difference redirected into change rather than banked.</li>
+<li>
+<strong>Support increased, not cut</strong>Less money leaving the business every month, and more support arriving.</li>
+</ul>
+<p class="result-note">The saving paid for the transformation. Armstrong did not have to find new budget to move forward.</p>
+</div>
+</div>
+</section>
+
+<section class="service-section">
+<div class="wrap service-detail">
+<div class="motion">
+<p class="kicker">Clean house</p>
+<h2>Fix the foundations<br>before building on them.</h2>
+</div>
+<div>
+<p class="lead">Years of accumulated workarounds, one-off fixes and things nobody wanted to touch. We worked through it properly rather than adding another layer on top of it.</p>
+<p>Cleaning house is unglamorous and it is the part most providers skip, because there is no product to sell at the end of it. It is also the reason the automation that followed actually held.</p>
+<p class="result-note">A known, documented environment. No more depending on the one person who remembered how something worked.</p>
+</div>
+</div>
+</section>
+
+<section class="service-section dark">
+<div class="wrap service-detail">
+<div class="motion">
+<p class="kicker">The niggle</p>
+<h2>The small things<br>they had stopped noticing.</h2>
+</div>
+<div>
+<p class="lead">Every business carries a set of daily annoyances that have been there so long they stop registering as problems. Armstrong had five years of them, all filed under that is just how it is.</p>
+<p>We found them and automated them out. Once the first few disappeared, the team started pointing out the next ones. Showing people how it should be works better than telling them.</p>
+<p class="result-note">Time back, every day, in the work people actually do.</p>
+</div>
+</div>
+</section>
+
+<section class="service-section stone">
+<div class="wrap">
+<div class="section-top motion">
+<p class="kicker">Where it landed</p>
+<div>
+<h2>Spend less.<br>Get more.</h2>
+<p>Not a trade-off. The two are connected, because the saving is what funded the change.</p>
+</div>
+</div>
+<div class="three-col">
+<article class="line-card"><h3>Lower run cost.</h3><p>The managed services spend came down, and stayed down.</p></article>
+<article class="line-card"><h3>More support, not less.</h3><p>The business receives more support than it did under the old arrangement, for less money.</p></article>
+<article class="line-card"><h3>Change that keeps going.</h3><p>Automation removed friction the team had accepted for years, and they now bring us the next one to remove.</p></article>
+</div>
+<p class="scope-line">This is the pattern, not a one-off. Sort the commercials, clean the house, then put the difference into work that moves the business forward.</p>
+</div>
+</section>
+
+<section class="closing dark">
+<div class="wrap closing-grid">
+<div>
+<h2>Where could your<br>
+<span>business go next?</span>
+</h2>
+</div>
+<div>
+<p class="lead">Thirty minutes with a founder. Tell us about your business and what you would like to improve. We will explore the possibilities together and help you see a useful next step.</p>
+<div class="actions">
+<a class="btn" href="contact.html#contact">Let's talk ↗</a>
+</div>
+<p class="micro">Prefer email? <a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a>
+</p>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="logo" aria-label="myCIO">my<i class="brand-slash" aria-hidden="true">
+</i>
+<span class="brand-cio">CIO</span>
+</div>
+        <p>Independent technology leadership for growing New Zealand businesses. Less waste. Better work. Real progress.</p>
+      </div>
+      <div>
+        <h3>The story</h3>
+        <ul>
+          <li>
+<a href="index.html">Home</a>
+</li>
+          <li>
+<a href="what-we-do.html">What we do</a>
+</li>
+          <li>
+<a href="how-we-work.html">How we work</a>
+</li>
+<li>
+<a href="case-studies.html">Case studies</a>
+</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Get started</h3>
+        <ul>
+          <li>
+<a href="contact.html#contact">Let's talk</a>
+</li>
+<li>
+<a href="mailto:hello@mycio.co.nz">hello@mycio.co.nz</a>
+</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 myCIO &middot; Auckland, New Zealand</span>
+      <span>Independent leadership. In the room.</span>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="site-motion.js" defer>
+</script>
+</body>
+</html>
