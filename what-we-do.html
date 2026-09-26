@@ -525,14 +525,30 @@ header.nav {
   margin:15px 0 0;
   color:#595959;
   max-width:65ch}
+.closing {
+  background-color:#0b0b0b;
+  background-image:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,.22));
+  background-repeat:no-repeat;
+  background-position:top center;
+  background-size:min(100% - 56px,var(--max)) 1px}
 .closing-grid {
   display:grid;
   grid-template-columns:1.1fr 1fr;
-  gap:60px;
-  align-items:end}
+  gap:60px 64px;
+  align-items:start}
 .closing h2 {
-  margin-top:20px;
+  margin-top:0;
   font-size:clamp(2.5rem,4.8vw,4.3rem)}
+.closing-grid > div:last-child {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start}
+.closing .lead {
+  max-width:46ch}
+.closing .actions {
+  margin-top:28px}
+.closing .micro {
+  margin-top:18px}
 .closing h2 span {
   color:#ff6a00}
 .closing .lead {

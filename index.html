@@ -527,14 +527,30 @@ header.nav {
   margin:15px 0 0;
   color:#595959;
   max-width:65ch}
+.closing {
+  background-color:#0b0b0b;
+  background-image:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,.22));
+  background-repeat:no-repeat;
+  background-position:top center;
+  background-size:min(100% - 56px,var(--max)) 1px}
 .closing-grid {
   display:grid;
   grid-template-columns:1.1fr 1fr;
-  gap:60px;
-  align-items:end}
+  gap:60px 64px;
+  align-items:start}
 .closing h2 {
-  margin-top:20px;
+  margin-top:0;
   font-size:clamp(2.5rem,4.8vw,4.3rem)}
+.closing-grid > div:last-child {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start}
+.closing .lead {
+  max-width:46ch}
+.closing .actions {
+  margin-top:28px}
+.closing .micro {
+  margin-top:18px}
 .closing h2 span {
   color:#ff6a00}
 .closing .lead {
@@ -1092,7 +1108,7 @@ footer {
 <div class="visual-full">
 <article class="visual-card"><div class="infographic"><svg class="climb-wide" viewBox="0 0 640 430" role="img" aria-label="Discover, Stabilise, Standardise and Transform build business capability, with security at every stage.">
 <rect x="20" y="35" width="600" height="360" rx="6" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="5 7"/>
-<text x="320" y="24" text-anchor="middle" class="diagram-note">SECURITY AT EVERY STAGE</text>
+<text x="320" y="24" text-anchor="middle" class="diagram-note">SECURE AT EVERY STAGE</text>
 <path d="M65 315 C160 315 180 255 230 245 S340 205 390 175 S495 140 550 100" fill="none" stroke="currentColor" stroke-opacity=".12" stroke-width="16"/>
 <path class="draw-path" pathLength="1" d="M65 315 C160 315 180 255 230 245 S340 205 390 175 S495 140 550 100" fill="none" stroke="#ff6a00" stroke-width="5"/>
 <g fill="#ff6a00"><circle cx="65" cy="315" r="9"/><circle cx="230" cy="245" r="9"/><circle cx="390" cy="175" r="9"/><circle cx="550" cy="100" r="9"/></g>
@@ -1101,7 +1117,7 @@ footer {
 </svg>
 <svg class="climb-narrow" viewBox="0 0 360 430" role="img" aria-label="Discover, Stabilise, Standardise and Transform build business capability, with security at every stage.">
 <rect x="8" y="35" width="344" height="380" rx="6" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="5 7"/>
-<text x="180" y="22" text-anchor="middle" class="diagram-note">SECURITY AT EVERY STAGE</text>
+<text x="180" y="22" text-anchor="middle" class="diagram-note">SECURE AT EVERY STAGE</text>
 <path class="draw-path" pathLength="1" d="M45 355 C45 305 85 300 85 265 S120 205 120 175 S150 120 150 85" fill="none" stroke="#ff6a00" stroke-width="5"/>
 <g fill="#ff6a00"><circle cx="45" cy="355" r="8"/><circle cx="85" cy="265" r="8"/><circle cx="120" cy="175" r="8"/><circle cx="150" cy="85" r="8"/></g>
 <g class="diagram-label"><text x="70" y="364">Discover</text><text x="110" y="274">Stabilise</text><text x="145" y="184">Standardise</text><text x="175" y="94">Transform</text></g>
@@ -1228,7 +1244,7 @@ footer {
 <h2>A few straight answers.</h2>
 <details>
 <summary>Is myCIO a replacement for our IT provider?</summary>
-<p>We can work with your existing provider, your internal team, or a mix. Our core role is independent technology leadership: setting direction, holding delivery to account and connecting the work to your business priorities.</p>
+<p>We work with your existing provider, your internal team, or a mix. Our core role is independent technology leadership: setting direction, holding delivery to account and connecting the work to your business priorities.</p>
 </details>
 <details>
 <summary>Do we need a big transformation programme?</summary>
