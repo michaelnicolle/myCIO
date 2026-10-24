@@ -19,23 +19,33 @@ To regenerate them, the Playwright script that rendered them is in the session s
 
 | Token | Value | Use |
 | --- | --- | --- |
-| accent | `#ec6a1f` | The slash, buttons, accent words, diagram highlights |
-| accent text | `#ff9c5f` | Small labels and links on charcoal, where the full orange is too dark to read |
-| accent dark | `#cf5a15` | Hover states, links inside the white form card |
-| ink | `#f4f3ef` | Text on charcoal |
-| paper | `#121417` | Page background |
-| paper 2 | `#181b20` | Alternating sections |
-| panel | `#1c1f25` | Cards |
-| charcoal | `#0d0f12` | The proof band and the form band |
-| night | `#0b0d10` | Footer |
+| accent | `#cf581e` | The slash, buttons, the orange line of a headline, rules on top of columns, numerals |
+| accent dark | `#b54a16` | Button hover |
+| ink | `#202a30` | Headlines and body. A warm charcoal, never black |
+| ink soft | `#3f474d` | Longer body copy |
+| muted | `#6e7479` | Descriptions under headings, footnotes |
+| line | `#d8d4cb` | Hairline rules |
+| paper | `#f5f3ee` | Page background |
+| paper 2 | `#e7e4dc` | Alternating warm bands, the form band, the proof band |
+| dark | `#19252a` | Footer, the dark button on the orange band |
 
-The accent moved from the old terracotta (`#e05a30`) to match the sign and the polo. The site moved from cream paper to charcoal so the photographs read as the light in the frame.
+The accent is the burnt orange from the warm editorial reference, between the old terracotta and the sign. Paper is warm off-white. There is no black anywhere; the darkest value is the footer charcoal.
 
 ## Type
 
-Hanken Grotesk for everything: wordmark (weight 800), headings (700, tight tracking), body. Accent words in headings are orange, same weight, never italic. Fraunces italic survives in two places only: the opening quote on a "moment" card and the "We ask" question, because those are a spoken voice. Both from Google Fonts.
+Hanken Grotesk only. Headlines are **light (300)** at large sizes with tight tracking, which is what makes the site read as designed rather than generated. The second line of a headline is orange. Sub-headings are medium (500). Labels are small caps, letter-spaced 0.18em, charcoal, never orange and never in a pill. Fraunces italic survives in two places: the opening quote on a "moment" column and the "We ask" question, because those are a spoken voice.
 
-The look is dark, modern, corporate. Pages sit on charcoal (`#121417`) with a slightly lighter charcoal (`#181b20`) for alternating sections and a deeper one (`#0d0f12`) for the proof band and the form band. Cards are a raised panel (`#1c1f25`) with a 1px white line at 9 percent, 26px radius and a soft black shadow. Labels are orange pills with a dot. The photographs are bright and warm on purpose: they sit in large rounded frames so they become the light in the composition, never full-bleed behind text. The one exception is the warehouse photo band, which carries a dark gradient at the foot for the line of copy. The contact form stays a white card for contrast and conversion.
+## The look
+
+Warm editorial. Think a well-set annual report, not a SaaS landing page.
+
+- Off-white paper, warm grey bands for alternation, one burnt orange, charcoal type.
+- No cards. Content sits in columns with a 2px orange rule across the top and an orange numeral. Lists are rows separated by hairlines.
+- No shadows, no glows, no gradients except the fade on the hero photo, no pills, no hover lifts. Corners are 6px.
+- Section headers are a two-column grid: label and headline on the left, the one-paragraph intro on the right, bottom-aligned.
+- The home hero is the standing photo full-bleed with a paper-coloured fade from the left; the copy sits on the light wall. A strip of four small-caps labels runs under it.
+- The orange band at the foot of a page is a single row: headline and one line on the left, a dark button on the right.
+- The contact form is a white card on the warm band, the only card on the site.
 
 ## Copy rules
 

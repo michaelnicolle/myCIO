@@ -25,6 +25,10 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -50,9 +54,9 @@
 /* myCIO website styles, launch redesign */
 
 :root {
-  --accent: #ec6a1f;
-  --accent-dark: #d45a14;
-  --accent-soft: rgba(236, 106, 31, 0.10);
+  --accent: #cf581e;
+  --accent-dark: #b54a16;
+  --accent-soft: rgba(207, 88, 30, 0.10);
   --ink: #161412;
   --ink-soft: #3a352f;
   --muted: #6f675e;
@@ -199,8 +203,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   flex-direction: column;
   overflow: hidden;
   background:
-    radial-gradient(1100px 700px at 68% -10%, rgba(236, 106, 31, 0.14), transparent 58%),
-    radial-gradient(900px 700px at 12% 110%, rgba(236, 106, 31, 0.07), transparent 60%),
+    radial-gradient(1100px 700px at 68% -10%, rgba(207, 88, 30, 0.14), transparent 58%),
+    radial-gradient(900px 700px at 12% 110%, rgba(207, 88, 30, 0.07), transparent 60%),
     #0a0b0e;
 }
 #wave {
@@ -428,7 +432,7 @@ section[id] { scroll-margin-top: 132px; }
   color: var(--accent);
 }
 .rail a:hover { background: var(--white); border-color: var(--line); color: var(--ink); }
-.rail a.here { background: var(--accent-soft); border-color: rgba(236, 106, 31, 0.4); color: var(--accent-dark); }
+.rail a.here { background: var(--accent-soft); border-color: rgba(207, 88, 30, 0.4); color: var(--accent-dark); }
 
 /* ---------- Beat headers ---------- */
 .beat-no {
@@ -445,7 +449,7 @@ section[id] { scroll-margin-top: 132px; }
   font-size: 0.98rem;
   color: var(--accent);
 }
-.dark-beat .beat-no { border-color: rgba(236, 106, 31, 0.8); }
+.dark-beat .beat-no { border-color: rgba(207, 88, 30, 0.8); }
 
 /* ---------- The opening question ---------- */
 .qcard {
@@ -517,7 +521,7 @@ section[id] { scroll-margin-top: 132px; }
 }
 .lad-row.gap {
   background: var(--accent-soft);
-  border: 1.5px dashed rgba(236, 106, 31, 0.55);
+  border: 1.5px dashed rgba(207, 88, 30, 0.55);
   box-shadow: none;
 }
 .lad-row.gap .lad-a { font-family: var(--display); font-style: italic; color: var(--accent-dark); font-size: 1.02rem; }
@@ -545,7 +549,7 @@ section[id] { scroll-margin-top: 132px; }
   padding: 30px 26px 32px;
   transition: border-color 0.25s, transform 0.25s cubic-bezier(0.22,1,0.36,1);
 }
-.un-card:hover { border-color: rgba(236, 106, 31, 0.45); transform: translateY(-4px); }
+.un-card:hover { border-color: rgba(207, 88, 30, 0.45); transform: translateY(-4px); }
 .un-card .un-n {
   font-family: var(--display);
   font-style: italic;
@@ -823,7 +827,7 @@ section[id] { scroll-margin-top: 132px; }
 .field textarea { min-height: 104px; resize: vertical; }
 .field input:focus, .field textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(236, 106, 31, 0.12);
+  box-shadow: 0 0 0 3px rgba(207, 88, 30, 0.12);
 }
 .book-form .btn { width: 100%; padding: 15px 24px; font-size: 1rem; font-weight: 700; }
 .bf-msg { display: none; margin-top: 12px; font-size: 0.9rem; color: #b3350f; }
@@ -867,7 +871,7 @@ section[id] { scroll-margin-top: 132px; }
   box-shadow: var(--shadow-border);
   transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), border-color 0.25s;
 }
-.recog-card:hover { transform: translateY(-4px); border-color: rgba(236, 106, 31, 0.45); }
+.recog-card:hover { transform: translateY(-4px); border-color: rgba(207, 88, 30, 0.45); }
 .recog-card::before {
   content: "";
   display: block;
@@ -1158,7 +1162,7 @@ section[id] { scroll-margin-top: 132px; }
   letter-spacing: -0.015em;
   color: var(--ink);
 }
-.dark-beat .ask { background: rgba(236, 106, 31, 0.12); }
+.dark-beat .ask { background: rgba(207, 88, 30, 0.12); }
 .dark-beat .ask .ask-tag { color: var(--accent); }
 .dark-beat .ask p { color: var(--white); }
 
@@ -1345,10 +1349,12 @@ footer {
       <a href="what-we-do.html">What we do</a>
       <a href="how-we-work.html">How we work</a>
       <a href="who-we-are.html">Who we are</a>
-      <a href="contact.html#contact" class="btn btn-nav">Talk to us</a>
+      <a href="contact.html#contact" class="btn btn-nav">Let's talk</a>
     </nav>
   </div>
 </header>
+
+
 
 
 
@@ -1520,8 +1526,8 @@ footer {
           </g>
           <g class="jlabel l2"><text x="365" y="256" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Stabilise</text></g>
           <g class="jnode j3" style="transform-box: fill-box; transform-origin: center;">
-            <circle cx="635" cy="186" r="24" fill="none" stroke="#ec6a1f" stroke-width="1.5" opacity="0.35"/>
-            <circle cx="635" cy="186" r="15" fill="#ec6a1f"/>
+            <circle cx="635" cy="186" r="24" fill="none" stroke="#cf581e" stroke-width="1.5" opacity="0.35"/>
+            <circle cx="635" cy="186" r="15" fill="#cf581e"/>
             <circle cx="635" cy="186" r="6" fill="#0a0b0e" opacity="0.2"/>
           </g>
           <g class="jlabel l3"><text x="635" y="150" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="22" font-weight="600" fill="#1a1714">Standardise</text></g>
@@ -1545,7 +1551,7 @@ footer {
           <p class="jd-desc">The noise stops.</p>
         </div>
         <div class="jd-item jdi-3">
-          <span class="jd-stage"><span class="jd-dot" style="background:#ec6a1f;"></span>Standardise</span>
+          <span class="jd-stage"><span class="jd-dot" style="background:#cf581e;"></span>Standardise</span>
           <p class="jd-desc">One standard. No more one-offs.</p>
         </div>
         <div class="jd-item jdi-4">
@@ -1557,7 +1563,7 @@ footer {
       <div class="journey-mobile">
         <div class="jm-step"><div class="jm-dot" style="background:#d4941e;">01</div><div><h4>Discover</h4><p>We map the business before touching anything.</p></div></div>
         <div class="jm-step"><div class="jm-dot" style="background:#1f7a63;">02</div><div><h4>Stabilise</h4><p>The noise stops.</p></div></div>
-        <div class="jm-step"><div class="jm-dot" style="background:#ec6a1f;">03</div><div><h4>Standardise</h4><p>One standard. No more one-offs.</p></div></div>
+        <div class="jm-step"><div class="jm-dot" style="background:#cf581e;">03</div><div><h4>Standardise</h4><p>One standard. No more one-offs.</p></div></div>
         <div class="jm-step"><div class="jm-dot" style="background:#6d3bd6;">04</div><div><h4>Transform</h4><p>AI and automation your team actually uses.</p></div></div>
         <div class="jm-secure"><h4>Secure, at every stage</h4><p>Security is the condition of every stage, not a stage you finish.</p></div>
       </div>
@@ -1583,9 +1589,9 @@ footer {
           <text x="320" y="104" text-anchor="middle" font-family="'Fraunces', serif" font-style="italic" font-size="19" font-weight="600" fill="#161412">Secure by design</text>
         </g>
         <g>
-          <path class="fw-head fh1" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" fill="none" stroke="#ec6a1f" stroke-width="84" stroke-opacity="0.18" style="stroke-linecap:butt;"/>
-          <path class="fw-arc fw-seg fa1" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#ec6a1f"/>
-          <path class="fw-head fh1" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#ec6a1f"/>
+          <path class="fw-head fh1" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" fill="none" stroke="#cf581e" stroke-width="84" stroke-opacity="0.18" style="stroke-linecap:butt;"/>
+          <path class="fw-arc fw-seg fa1" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#cf581e"/>
+          <path class="fw-head fh1" d="M 469.0 402.2 L 510.2 377.4 L 444.2 361.0 Z" fill="#cf581e"/>
         </g>
         <g transform="rotate(120 320 330)">
           <path class="fw-arc fw-seg fa2" d="M 364.7 174.3 A 162 162 0 0 1 477.2 369.2" pathLength="1" stroke="#6d3bd6"/>
@@ -1749,7 +1755,7 @@ footer {
         </div>
         <div id="contact-success" role="status">
           <div class="bf-tick" aria-hidden="true">
-            <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><path d="M2 8l6 6L20 2" stroke="#ec6a1f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><path d="M2 8l6 6L20 2" stroke="#cf581e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <h3>Message sent.</h3>
           <p>We will come back to you within one business day.</p>
@@ -1975,9 +1981,9 @@ footer {
   }
 
   var ribbons = [
-    { amp: 70, freq: 0.0036, speed: 0.00020, off: -20, color: '236,106,31',   a: 0.20, core: 0.75, strokes: 7, gap: 9 },
+    { amp: 70, freq: 0.0036, speed: 0.00020, off: -20, color: '207,88,30',   a: 0.20, core: 0.75, strokes: 7, gap: 9 },
     { amp: 52, freq: 0.0050, speed: 0.00028, off: 34,  color: '240,150,90',  a: 0.16, core: 0.60, strokes: 6, gap: 8 },
-    { amp: 86, freq: 0.0028, speed: 0.00015, off: -64, color: '236,106,31',   a: 0.12, core: 0.42, strokes: 8, gap: 11 },
+    { amp: 86, freq: 0.0028, speed: 0.00015, off: -64, color: '207,88,30',   a: 0.12, core: 0.42, strokes: 8, gap: 11 },
     { amp: 36, freq: 0.0066, speed: 0.00036, off: 70,  color: '250,247,241', a: 0.08, core: 0.32, strokes: 5, gap: 7 },
     { amp: 62, freq: 0.0042, speed: 0.00024, off: 8,   color: '244,120,64',  a: 0.15, core: 0.55, strokes: 6, gap: 9 }
   ];
