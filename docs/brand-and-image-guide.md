@@ -19,19 +19,23 @@ To regenerate them, the Playwright script that rendered them is in the session s
 
 | Token | Value | Use |
 | --- | --- | --- |
-| accent | `#ec6a1f` | The slash, buttons, italic emphasis, diagram highlights |
-| accent dark | `#d45a14` | Hover states, text links on light backgrounds |
-| ink | `#161412` | Body text on light |
-| paper | `#faf7f1` | Page background |
-| paper 2 | `#f3eee4` | Alternating sand sections |
-| night | `#0a0b0e` | Heroes, proof band, the form band, footer |
-| dark | `#2b2723` | The "we own" card, the tools floor |
+| accent | `#ec6a1f` | The slash, buttons, accent words, diagram highlights |
+| accent text | `#ff9c5f` | Small labels and links on charcoal, where the full orange is too dark to read |
+| accent dark | `#cf5a15` | Hover states, links inside the white form card |
+| ink | `#f4f3ef` | Text on charcoal |
+| paper | `#121417` | Page background |
+| paper 2 | `#181b20` | Alternating sections |
+| panel | `#1c1f25` | Cards |
+| charcoal | `#0d0f12` | The proof band and the form band |
+| night | `#0b0d10` | Footer |
 
-The accent moved from the old terracotta (`#e05a30`) to match the sign and the polo. Nothing else changed.
+The accent moved from the old terracotta (`#e05a30`) to match the sign and the polo. The site moved from cream paper to charcoal so the photographs read as the light in the frame.
 
 ## Type
 
-Fraunces for headings and italic emphasis. Hanken Grotesk for everything else, including the wordmark (weight 800). Both from Google Fonts.
+Hanken Grotesk for everything: wordmark (weight 800), headings (700, tight tracking), body. Accent words in headings are orange, same weight, never italic. Fraunces italic survives in two places only: the opening quote on a "moment" card and the "We ask" question, because those are a spoken voice. Both from Google Fonts.
+
+The look is dark, modern, corporate. Pages sit on charcoal (`#121417`) with a slightly lighter charcoal (`#181b20`) for alternating sections and a deeper one (`#0d0f12`) for the proof band and the form band. Cards are a raised panel (`#1c1f25`) with a 1px white line at 9 percent, 26px radius and a soft black shadow. Labels are orange pills with a dot. The photographs are bright and warm on purpose: they sit in large rounded frames so they become the light in the composition, never full-bleed behind text. The one exception is the warehouse photo band, which carries a dark gradient at the foot for the line of copy. The contact form stays a white card for contrast and conversion.
 
 ## Copy rules
 

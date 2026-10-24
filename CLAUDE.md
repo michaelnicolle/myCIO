@@ -20,7 +20,7 @@ The four practices are responsibilities of one team, in this order: Fractional C
 
 ## Brand
 
-The wordmark is `my` + orange slash + `CIO`, built in CSS (`.logo` and `.lg-slash` in every page). The accent is `#ec6a1f`. The tagline is Strategy · Security · Technology. Fraunces for headings, Hanken Grotesk for everything else. See `docs/brand-and-image-guide.md`.
+The wordmark is `my` + orange slash + `CIO`, built in CSS (`.logo` and `.lg-slash` in every page). The accent is `#ec6a1f`. The tagline is Strategy · Security · Technology. Hanken Grotesk throughout; Fraunces italic only for the spoken-voice quotes. Dark charcoal pages, photographs in rounded frames rather than full-bleed behind text, the contact form a white card. The case keeps its older editorial styling on purpose. See `docs/brand-and-image-guide.md`.
 
 ## Copy style rules
 
