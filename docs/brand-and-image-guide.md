@@ -49,7 +49,7 @@ Every generated image so far shares one recipe. Keep it.
 - **Setting:** a bright, modern New Zealand office. Timber desks, dark charcoal feature walls, black pendant lights, indoor plants, large windows with soft daylight. One orange accent somewhere in frame: a cushion, a notebook spine, a chair, a print on the wall. Never a logo on the wall except the dedicated brand-wall shot.
 - **Light:** natural, soft, slightly warm. No studio flash, no dramatic rim light, no blue-tinted "tech" lighting.
 - **Camera:** 35 mm or 50 mm look, shallow depth of field, eye-level, candid. Subjects mid-conversation, not posed at the camera, except the two portraits.
-- **Wardrobe:** Elton in a charcoal short-sleeved polo. Michael in a navy long-sleeved button shirt, sleeves rolled, open collar. Dark jeans. No lanyards, no logos except the small myCIO mark on Elton's polo when wanted.
+- **Wardrobe:** both in the black myCIO polo, with the small my/CIO mark (white letters, orange slash) on the left chest. Dark jeans. No lanyards, no other logos. The early set had Michael in a navy shirt; those are being regenerated and should not be used for new pages.
 - **Props:** laptops, paper notebooks, pens, mugs, paper on the table, sticky notes. No stock-photo props: no glowing holograms, no padlock icons, no circuit boards, no robots.
 - **Mood:** relaxed, senior, listening. These are the people you would want in the room when the board asks the hard question.
 - **Avoid:** suits and ties, handshakes, pointing at charts going up, anyone looking at the camera in a group shot, more than four people, generic "diverse team" compositions, text or UI on screens that has to be read.
@@ -58,9 +58,9 @@ Every generated image so far shares one recipe. Keep it.
 
 Paste these at the top of every prompt so the likeness holds.
 
-**Elton:** A New Zealand man in his mid-forties, broad build, closely cropped very short blond-grey hair, clean-shaven, warm open smile with slightly flushed cheeks, blue eyes. Wears a charcoal short-sleeved polo shirt and dark jeans. Expressive with his hands when talking.
+**Elton:** A New Zealand man in his mid-forties, broad build, closely cropped very short blond-grey hair, clean-shaven, warm open smile with slightly flushed cheeks, blue eyes. Wears a black short-sleeved polo shirt with a small white my/CIO wordmark and orange slash on the left chest, and dark jeans. Expressive with his hands when talking.
 
-**Michael:** A New Zealand man in his early forties, lean athletic build, short dark brown hair swept back, full short dark beard with some grey, blue-grey eyes, calm half-smile. Wears a navy long-sleeved linen button shirt with the sleeves rolled, open collar, and dark jeans. Often holding a pen and notebook.
+**Michael:** A New Zealand man in his early forties, lean athletic build, short dark brown hair swept back, full short dark beard with some grey, blue-grey eyes, calm half-smile. Wears a black short-sleeved polo shirt with a small white my/CIO wordmark and orange slash on the left chest, and dark jeans. Often holding a pen and notebook.
 
 ## Images in use
 
@@ -77,7 +77,9 @@ Paste these at the top of every prompt so the likeness holds.
 | founders-couch | Who we are hero, Contact | The tone of the first conversation |
 | elton, michael | Home people, Who we are, The case | Portraits |
 | brand-wall | Who we are | The wordmark |
-| elton-polo, michael-alt | Spare | Alternate portraits |
+| elton-polo, michael-alt | Spare | Alternate portraits from the first set |
+
+In the branded black polo already: team-screen, site-visit, client-conversation, elton, michael. Still in the first-set wardrobe (navy shirt on Michael) and due for regeneration: founders, boardroom, workshop, founders-laptop, client-review, founders-couch.
 
 Two things to do before launch:
 
@@ -98,9 +100,9 @@ Each prompt assumes the character blocks above are pasted first. Landscape shots
 
 **5. The walk to the car park.** Elton and Michael walking side by side out of a glass office entrance into daylight, mid-conversation, Michael with a notebook under his arm, Elton laughing. Shot from slightly ahead of them, wide, 3:2. Useful for the How we work page and for LinkedIn.
 
-**6. Portrait, Elton, real-world.** Head and shoulders, 4:5, in the office near a window, looking just off camera as if at someone talking, slight smile, charcoal polo with the small myCIO mark on the chest. Shallow depth of field.
+**6. Portrait, Elton, real-world.** Head and shoulders, 4:5, in the office near a window, looking just off camera as if at someone talking, slight smile, black polo with the small my/CIO mark on the chest. Shallow depth of field.
 
-**7. Portrait, Michael, real-world.** Head and shoulders, 4:5, same window, same framing, navy shirt, calm half-smile, looking just off camera.
+**7. Portrait, Michael, real-world.** Head and shoulders, 4:5, same window, same framing, black polo with the small my/CIO mark, calm half-smile, looking just off camera.
 
 **8. Social preview, people variant.** Landscape 16:9 (1672 by 941). Elton and Michael standing at the left third of a wide, otherwise empty, soft-grey office wall, a large window at the far right. Leaves the right two-thirds clear for text. Both at ease, hands in pockets, looking at camera. This matches the current hero crop and gives a second option.
 
