@@ -1,7 +1,30 @@
 # myCIO website
 
-Static site (no build step), deployed via GitHub Pages from `main` (custom domain `mycio.co.nz` via `CNAME`). Each `.html` page inlines its own `<style>` block by design — this is intentional for portability, not an oversight, so don't "fix" it by extracting shared CSS.
+Static site (no build step), deployed via GitHub Pages from `main` (custom domain `mycio.co.nz` via `CNAME`). Each `.html` page inlines its own `<style>` block by design. This is intentional for portability, not an oversight, so don't "fix" it by extracting shared CSS.
+
+## Structure
+
+The homepage is the story: who it is for, the gap, the four responsibilities, how it runs, what the client owns, who turns up, proof, start with one thing. Every other page is a chapter you can land on from a link without losing the thread.
+
+- `index.html` Why myCIO (the journey)
+- `what-we-do.html` the four responsibilities, with anchors `#fractional-cio`, `#ai`, `#security` (and the legacy `#technology-consulting`, `#projects-delivery`)
+- `fractional-cio.html`, `technology-transformation.html`, `ai.html`, `cyber-security.html` one page per practice, all on the same four-beat shape: the moment people call, what we take ownership of, the first ninety days, the next practice
+- `how-we-work.html` the first conversation, the Climb, the Flywheel, three engagement shapes
+- `who-we-are.html` Elton and Michael
+- `contact.html` the form (Formspree) and what happens on the call
+- `the-case.html` the sales walkthrough that pairs with `docs/quick-win-conversation.md`; footer only, not in the main nav
+- `security-operations.html` and `transformation.html` are redirects for old URLs
+- `images/` are the generated photographs at two or three widths each; `docs/brand-and-image-guide.md` says which is used where and how to generate more
+
+The four practices are responsibilities of one team, in this order: Fractional CIO (direction), Technology transformation (foundations: identity, cloud, infrastructure), AI (what gets built on the foundations), Cyber security (the condition every piece of work meets). Keep that order and do not add a fifth.
+
+## Brand
+
+The wordmark is `my` + orange slash + `CIO`, built in CSS (`.logo` and `.lg-slash` in every page). The accent is `#ec6a1f`. The tagline is Strategy · Security · Technology. Fraunces for headings, Hanken Grotesk for everything else. See `docs/brand-and-image-guide.md`.
 
 ## Copy style rules
 
 - **Never use em-dashes (—).** Rewrite with a comma, period, colon, or parentheses instead. This applies to all body copy, headings, and meta descriptions across every page.
+- NZ English (organisation, standardise, licence).
+- Lead on the nameable difference: everything stays in the client's name, we own the decisions not the tickets. Do not lead with a product or a tool; the five tool names appear once, as the floor.
+- Treat in-house IT leaders as peers adding senior capacity, never as people being replaced.

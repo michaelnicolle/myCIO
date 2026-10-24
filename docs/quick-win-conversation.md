@@ -4,7 +4,7 @@ A 15 minute talk track for a first real conversation with a client or prospect. 
 
 The whole conversation is about their transformation outcomes. Tools appear once, and only as the foundation those outcomes get built on.
 
-**This doc and the website are one story, but they are not the same length.** Beats 1 to 7 are published, in this order, at [mycio.co.nz/the-case.html](https://mycio.co.nz/the-case.html).
+**This doc and the website are one story, but they are not the same length.** Beats 1 to 7 are published, in this order, at [mycio.co.nz/the-case.html](https://mycio.co.nz/the-case.html). Since the 2026 rebuild the homepage carries the same journey for a cold visitor (two doors, the gap, four responsibilities, the Climb, ownership, people, proof, one thing), so The case has moved out of the main navigation and lives in the footer. It is still the page to send after a conversation: same beats, same questions, and it will not compete with the homepage because the homepage sells and this page argues.
 
 The page is deliberately sparse. It carries the headline of each beat, the visual, and the question, and almost nothing else. **The words in this doc are the ones you say. The words on the page are the ones they read while you say them.** If the page repeated this doc, it would compete with you in the room, and a prospect reading ahead has stopped listening.
 
