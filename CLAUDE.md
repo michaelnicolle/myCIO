@@ -6,7 +6,8 @@ Static site (no build step), deployed via GitHub Pages from `main` (custom domai
 
 The homepage is the story: who it is for, the gap, the four responsibilities, how it runs, what the client owns, who turns up, proof, start with one thing. Every other page is a chapter you can land on from a link without losing the thread.
 
-- `index.html` Why myCIO (the journey)
+- `index.html` Why myCIO (the argument)
+- `journey.html` the story page: three situations the reader picks from (security vendors, cloud costs, AI stalled), then a clock (the call, day 30, day 90, year one) with each thread carried through every chapter. The form there carries a situation field. Send LinkedIn traffic here.
 - `what-we-do.html` the four responsibilities, with anchors `#fractional-cio`, `#ai`, `#security` (and the legacy `#technology-consulting`, `#projects-delivery`)
 - `fractional-cio.html`, `technology-transformation.html`, `ai.html`, `cyber-security.html` one page per practice, all on the same four-beat shape: the moment people call, what we take ownership of, the first ninety days, the next practice
 - `how-we-work.html` the first conversation, the Climb, the Flywheel, three engagement shapes

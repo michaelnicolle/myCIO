@@ -7,6 +7,7 @@ myCIO works with IT Managers, CIOs, CFOs, COOs, General Managers and owners who 
 ## Pages
 
 - [Why myCIO](https://mycio.co.nz/): The journey: who it is for, the gap (something needs deciding and nobody owns it), the four responsibilities of a technology leadership team, how it runs (The Climb and The Flywheel), what the client owns, who turns up, proof, and how to start with one thing.
+- [The journey](https://mycio.co.nz/journey.html): Is this you? Three situations (stuck between security vendors, cloud costs rising with no return, AI and transformation stalled) and what the next twelve months look like: the first call, day 30, day 90, year one, who turned up, start with one thing.
 - [What we do](https://mycio.co.nz/what-we-do.html): The four responsibilities in one place, with links to each.
 - [Fractional CIO](https://mycio.co.nz/fractional-cio.html): Owns the direction. Strategy, roadmap, governance, vendor accountability, board reporting, major decisions, and backing in-house IT leaders rather than replacing them.
 - [Technology transformation](https://mycio.co.nz/technology-transformation.html): Builds the foundations. Identity (Microsoft Entra, zero trust), cloud (Azure, Microsoft 365), infrastructure and networks, modern work, stalled programmes finished, one standard.

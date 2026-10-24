@@ -156,6 +156,8 @@ section[id] { scroll-margin-top: 96px; }
 .hero-photo .lead { font-size: 1.08rem; line-height: 1.65; color: var(--ink-soft); max-width: 40ch; margin-top: 28px; }
 .hero-photo .lead strong { color: var(--ink); font-weight: 500; }
 .hero-actions { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; align-items: center; }
+.hero-link { display: inline-block; margin-left: 10px; font-weight: 600; font-size: 0.95rem; color: var(--ink); border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: border-color 0.2s; }
+.hero-link:hover { border-bottom-color: var(--ink); }
 .hero-foot { display: none; }
 .hp-mobile { display: none; }
 .hero-photo .hp-copy > * { opacity: 0; animation: heroRise 0.8s var(--ease) forwards; }
@@ -608,6 +610,7 @@ footer .logo { color: var(--white); }
                 <label for="cf-org">Organisation <span style="font-weight:400; color:#6b7079;">(optional)</span></label>
                 <input type="text" id="cf-org" name="organisation" autocomplete="organization">
               </div>
+
               <div class="field">
                 <label for="cf-message">What would make the biggest difference this year?</label>
                 <textarea id="cf-message" name="message" required placeholder="One thing is enough. We will take it from there."></textarea>
@@ -651,6 +654,7 @@ footer .logo { color: var(--white); }
         <h3>The story</h3>
         <ul>
           <li><a href="index.html">Why myCIO</a></li>
+          <li><a href="journey.html">The journey</a></li>
           <li><a href="how-we-work.html">How we work</a></li>
           <li><a href="who-we-are.html">Who we are</a></li>
           <li><a href="the-case.html">The case</a></li>
@@ -756,6 +760,8 @@ footer .logo { color: var(--white); }
     var name = document.getElementById('cf-name').value.trim();
     var email = document.getElementById('cf-email').value.trim();
     var org = document.getElementById('cf-org').value.trim();
+    var sitEl = document.getElementById('cf-situation');
+    var situation = sitEl ? sitEl.value : '';
     var message = document.getElementById('cf-message').value.trim();
     var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!name || !emailOk || !message) { invalidMsg.style.display = 'block'; return; }
@@ -766,7 +772,7 @@ footer .logo { color: var(--white); }
     fetch(ACTION, {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, organisation: org, message: message })
+      body: JSON.stringify({ name: name, email: email, organisation: org, situation: situation, message: message })
     })
     .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
     .then(function (result) {
