@@ -29,3 +29,4 @@ The wordmark is `my` + orange slash + `CIO`, built in CSS (`.logo` and `.lg-slas
 - NZ English (organisation, standardise, licence).
 - Lead on the nameable difference: everything stays in the client's name, we own the decisions not the tickets. Do not lead with a product or a tool; the five tool names appear once, as the floor.
 - Treat in-house IT leaders as peers adding senior capacity, never as people being replaced.
+- myCIO is founder-led by Elton and Michael with a senior team behind them. Never describe it as two people, "the same two people" or "both of them". The founders are in the room; the team has depth.

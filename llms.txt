@@ -1,8 +1,8 @@
 # myCIO
 
-> myCIO is a senior technology leadership team for New Zealand organisations: fractional CIO, technology and digital transformation (identity, cloud, infrastructure), AI strategy and delivery, and cyber security. Independent, New Zealand owned, and the two founders do the work themselves. Everything stays in the client's name; myCIO owns the decisions and the change, not the tickets.
+> myCIO is a senior technology leadership team for New Zealand organisations: fractional CIO, technology and digital transformation (identity, cloud, infrastructure), AI strategy and delivery, and cyber security. Independent, New Zealand owned, and founder-led with a senior team behind the founders. Everything stays in the client's name; myCIO owns the decisions and the change, not the tickets.
 
-myCIO works with IT Managers, CIOs, CFOs, COOs, General Managers and owners who either know where the business needs to go and need senior capacity beside them, or know something has to change and need help putting it into words, outcomes and a plan. The founders are Elton McDowall (strategy, security, governance) and Michael Nicolle (transformation, identity, cloud, infrastructure).
+myCIO works with IT Managers, CIOs, CFOs, COOs, General Managers and owners who either know where the business needs to go and need senior capacity beside them, or know something has to change and need help putting it into words, outcomes and a plan. The founders are Elton McDowall (strategy, security, governance) and Michael Nicolle (transformation, identity, cloud, infrastructure); they lead a senior team and are in the room on every engagement.
 
 ## Pages
 
@@ -14,7 +14,7 @@ myCIO works with IT Managers, CIOs, CFOs, COOs, General Managers and owners who 
 - [AI strategy and delivery](https://mycio.co.nz/ai.html): Puts the foundations to work. AI strategy and position, guidance and governance, data readiness, workflow transformation, and the first assistants, automations and agents built with the client's team in their own tenant.
 - [Cyber security](https://mycio.co.nz/cyber-security.html): The condition every piece of work meets. Posture against NIST CSF and SMB1001, governance and board reporting, managed detection and response, rehearsed incident plans, insurer and supplier assurance.
 - [How we work](https://mycio.co.nz/how-we-work.html): The first conversation, The Climb (Discover, Stabilise, Standardise, Transform, with security wrapped around every stage), The Flywheel (Strategy, Transformation, Operations), three engagement shapes (discovery and roadmap, fractional CIO retainer, a programme with an owner).
-- [Who we are](https://mycio.co.nz/who-we-are.html): Elton McDowall and Michael Nicolle, why myCIO exists, and how it is built: NZ owned, no reseller margins, trusted partners for hands, no lock-in.
+- [Who we are](https://mycio.co.nz/who-we-are.html): the founders Elton McDowall and Michael Nicolle, the senior team behind them, why myCIO exists, and how it is built: NZ owned, no reseller margins, trusted partners for hands, no lock-in.
 - [The case](https://mycio.co.nz/the-case.html): The sales walkthrough: why managed IT stays quiet on results, and the argument for owned decisions.
 - [Contact](https://mycio.co.nz/contact.html): Book a 30-minute call with a founder, or email hello@mycio.co.nz.
 

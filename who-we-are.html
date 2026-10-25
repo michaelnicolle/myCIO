@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <title>myCIO | Who we are: Elton McDowall and Michael Nicolle</title>
-<meta name="description" content="myCIO is Elton McDowall and Michael Nicolle: two senior technology leaders, New Zealand owned and independent, who do the work themselves. No account managers, no junior handoffs, no reseller margins.">
+<meta name="description" content="myCIO is founder-led by Elton McDowall and Michael Nicolle, with a senior team behind them. New Zealand owned and independent. No account managers, no junior handoffs, no reseller margins.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="myCIO | Who we are: Elton McDowall and Michael Nicolle">
-<meta property="og:description" content="myCIO is Elton McDowall and Michael Nicolle: two senior technology leaders, New Zealand owned and independent, who do the work themselves. No account managers, no junior handoffs, no reseller margins.">
+<meta property="og:description" content="myCIO is founder-led by Elton McDowall and Michael Nicolle, with a senior team behind them. New Zealand owned and independent. No account managers, no junior handoffs, no reseller margins.">
 <meta property="og:url" content="https://mycio.co.nz/who-we-are.html">
 <meta property="og:image" content="https://mycio.co.nz/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="myCIO | Who we are: Elton McDowall and Michael Nicolle">
-<meta name="twitter:description" content="myCIO is Elton McDowall and Michael Nicolle: two senior technology leaders, New Zealand owned and independent, who do the work themselves. No account managers, no junior handoffs, no reseller margins.">
+<meta name="twitter:description" content="myCIO is founder-led by Elton McDowall and Michael Nicolle, with a senior team behind them. New Zealand owned and independent. No account managers, no junior handoffs, no reseller margins.">
 <link rel="canonical" href="https://mycio.co.nz/who-we-are.html">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -201,6 +201,18 @@ section[id] { scroll-margin-top: 96px; }
 .lad-row.gap .lad-q { color: var(--accent); }
 .lad-row.gap .lad-a { color: var(--ink); }
 .lad-row.gap .lad-s { color: var(--accent); }
+
+/* ---------- The gap: what the empty seat costs, and the claim ---------- */
+.costs-tag { grid-column: 1 / -1; margin-top: 52px; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.costs { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 28px; margin-top: 14px; }
+.cost { border-top: 2px solid var(--accent); padding-top: 16px; font-size: 1.04rem; font-weight: 500; line-height: 1.4; color: var(--ink); }
+.claim { grid-column: 1 / -1; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; align-items: start; }
+.claim-line { font-weight: 300; font-size: clamp(1.9rem, 3.6vw, 2.8rem); letter-spacing: -0.025em; line-height: 1.06; }
+.claim-sub { font-size: 1.06rem; color: var(--ink-soft); line-height: 1.65; max-width: 52ch; }
+.claim-sub .accent { color: var(--ink); font-weight: 500; }
+@media (max-width: 1040px) { .costs { grid-template-columns: 1fr 1fr; gap: 24px 28px; } }
+@media (max-width: 960px) { .claim { grid-template-columns: 1fr; row-gap: 18px; } }
+@media (max-width: 640px) { .costs { grid-template-columns: 1fr; } }
 
 /* ---------- Practices (home) ---------- */
 .practices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 56px 48px; margin-top: 60px; text-align: left; }
@@ -572,8 +584,8 @@ footer .logo { color: var(--white); }
   <div class="wrap ph-grid">
     <div class="ph-copy">
       <p class="hp-eyebrow">Who we are</p>
-      <h1>Two people.<span class="h1-line2">Both of them in your business.</span></h1>
-      <p class="lead">No account managers. No junior handoffs. No offshore desk. The names on the door are the people in the room, and the people doing the work.</p>
+      <h1>Led by the founders.<span class="h1-line2">Senior all the way down.</span></h1>
+      <p class="lead">No account managers. No junior handoffs. No offshore desk. Elton and Michael started myCIO and are still in the room. The people behind them are senior enough to be there too.</p>
     </div>
     <div class="ph-photo"><img src="images/founders-couch-600.webp" srcset="images/founders-couch-1672.webp 1672w, images/founders-couch-1000.webp 1000w, images/founders-couch-600.webp 600w" sizes="(max-width: 960px) 100vw, 45vw" alt="Elton McDowall and Michael Nicolle sitting together in an office lounge" loading="eager" decoding="async"></div>
   </div>
@@ -632,9 +644,9 @@ footer .logo { color: var(--white); }
     <p class="eyebrow reveal">How we are built</p>
     <h2 class="section-head reveal">Independent, <span class="accent">by design.</span></h2>
     <div class="practice-grid">
-      <div class="practice-cell reveal"><h3>New Zealand owned</h3><p>Two founders, based in Auckland, working across the country. No parent company, no offshore delivery centre.</p></div>
+      <div class="practice-cell reveal"><h3>New Zealand owned</h3><p>Founded by Elton and Michael in Auckland, with a senior team working across the country. No parent company, no offshore delivery centre.</p></div>
       <div class="practice-cell reveal"><h3>No reseller margins</h3><p>Licensing and managed services go through at cost plus a margin you can see. The advice is never shaped by what we resell, because we do not.</p></div>
-      <div class="practice-cell reveal"><h3>Trusted partners for hands</h3><p>When the work needs more people than two, we bring New Zealand partners we have worked with before. You deal with us, and we own the result.</p></div>
+      <div class="practice-cell reveal"><h3>Senior, not staffed up</h3><p>Everyone who works on your business has led this kind of work before. When a programme needs more hands than the team, we bring New Zealand partners we have worked with. You deal with us, and we own the result.</p></div>
       <div class="practice-cell reveal"><h3>No lock-in, not even to us</h3><p>Everything is in your name and documented to a standard another provider could pick up. We would rather earn the renewal than hold it.</p></div>
     </div>
   </div>

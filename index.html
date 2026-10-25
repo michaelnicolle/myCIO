@@ -202,6 +202,18 @@ section[id] { scroll-margin-top: 96px; }
 .lad-row.gap .lad-a { color: var(--ink); }
 .lad-row.gap .lad-s { color: var(--accent); }
 
+/* ---------- The gap: what the empty seat costs, and the claim ---------- */
+.costs-tag { grid-column: 1 / -1; margin-top: 52px; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.costs { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 28px; margin-top: 14px; }
+.cost { border-top: 2px solid var(--accent); padding-top: 16px; font-size: 1.04rem; font-weight: 500; line-height: 1.4; color: var(--ink); }
+.claim { grid-column: 1 / -1; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; align-items: start; }
+.claim-line { font-weight: 300; font-size: clamp(1.9rem, 3.6vw, 2.8rem); letter-spacing: -0.025em; line-height: 1.06; }
+.claim-sub { font-size: 1.06rem; color: var(--ink-soft); line-height: 1.65; max-width: 52ch; }
+.claim-sub .accent { color: var(--ink); font-weight: 500; }
+@media (max-width: 1040px) { .costs { grid-template-columns: 1fr 1fr; gap: 24px 28px; } }
+@media (max-width: 960px) { .claim { grid-template-columns: 1fr; row-gap: 18px; } }
+@media (max-width: 640px) { .costs { grid-template-columns: 1fr; } }
+
 /* ---------- Practices (home) ---------- */
 .practices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 56px 48px; margin-top: 60px; text-align: left; }
 .practice { display: block; color: inherit; }
@@ -576,7 +588,7 @@ footer .logo { color: var(--white); }
     <div class="hp-copy">
       <p class="hp-eyebrow">Technology leadership &middot; New Zealand</p>
       <h1>You know where the business needs to go.<span class="h1-line2">We get the technology there.</span></h1>
-      <p class="lead">Senior technology leadership for New Zealand organisations: fractional CIO, technology transformation, AI strategy and delivery, and cyber security, from the two people who do the work.</p>
+      <p class="lead">Senior technology leadership for New Zealand organisations: fractional CIO, technology transformation, AI strategy and delivery, and cyber security. Founder-led, senior all the way down, and in the room.</p>
       <div class="hero-actions">
         <a href="contact.html#contact" class="btn btn-lg">Book your 30-minute call</a>
         <a href="journey.html" class="hero-link">What it feels like to work with us</a>
@@ -616,7 +628,8 @@ footer .logo { color: var(--white); }
 <section id="gap" class="sand-section">
   <div class="wrap center-head">
     <p class="eyebrow reveal">The gap</p>
-    <h2 class="section-head reveal">Three things happen in every business. <span class="accent">Two of them have an owner.</span></h2>
+    <h2 class="section-head reveal">Three jobs. Two have an owner. <span class="accent">The one that matters most is empty.</span></h2>
+    <p class="section-sub reveal">Keeping the lights on and building to a brief are well covered. Deciding what is worth doing, in what order, and what it has to deliver is not. That is where the money leaks and the ambition stalls.</p>
     <div class="ladder">
       <div class="lad-row reveal">
         <div class="lad-q">Something breaks</div>
@@ -630,11 +643,21 @@ footer .logo { color: var(--white); }
       </div>
       <div class="lad-row gap reveal">
         <div class="lad-q">Something needs deciding</div>
-        <div class="lad-a">Whether it is worth doing, what it has to achieve, and what comes next</div>
+        <div class="lad-a">Whether it is worth doing at all, what it has to achieve, and what comes next</div>
         <div class="lad-s">Nobody, or you</div>
       </div>
     </div>
-    <p class="note-line reveal">That third seat is the one we take. Not to replace the people you have. <span class="accent">To give them a direction worth delivering.</span></p>
+    <p class="costs-tag reveal">What the empty seat costs</p>
+    <div class="costs">
+      <div class="cost reveal">Renewals that nobody challenges.</div>
+      <div class="cost reveal">Cloud spend that grows without a return.</div>
+      <div class="cost reveal">Security decided by whoever pitched last.</div>
+      <div class="cost reveal">AI that is discussed every quarter and never shipped.</div>
+    </div>
+    <div class="claim reveal">
+      <p class="claim-line">We take that seat.</p>
+      <p class="claim-sub">Senior enough to set the direction, hands-on enough to deliver it, accountable for the outcome. Not to replace the people you have, but to give them a direction worth delivering. The aim is not a tidier IT function. <span class="accent">It is a business that is faster, safer and further ahead than the one next door.</span></p>
+    </div>
   </div>
 </section>
 
@@ -642,8 +665,8 @@ footer .logo { color: var(--white); }
 <section id="what">
   <div class="wrap center-head">
     <p class="eyebrow reveal">What a technology leadership team does</p>
-    <h2 class="section-head reveal">One team. <span class="accent">Four responsibilities.</span></h2>
-    <p class="section-sub reveal">Not four products. The same two people, accountable for the direction, the foundations, the AI strategy that puts them to work, and the risk.</p>
+    <h2 class="section-head reveal">One team. <span class="accent">Multiple responsibilities.</span></h2>
+    <p class="section-sub reveal">Not a menu of products. One senior team, accountable for the direction, the foundations, the AI strategy that puts them to work, and the risk.</p>
     <div class="practices">
       <a href="fractional-cio.html" class="practice reveal">
         <div class="pr-img"><img src="images/boardroom-600.webp" srcset="images/boardroom-1672.webp 1672w, images/boardroom-1000.webp 1000w, images/boardroom-600.webp 600w" sizes="(max-width: 1040px) 100vw, 50vw" alt="Elton and Michael presenting a strategy roadmap in a boardroom" loading="lazy" decoding="async"></div>
@@ -808,8 +831,8 @@ footer .logo { color: var(--white); }
 <section id="people">
   <div class="wrap center-head">
     <p class="eyebrow reveal">Who turns up</p>
-    <h2 class="section-head reveal">The names on the door are <span class="accent">the people in your business.</span></h2>
-    <p class="section-sub reveal">No account managers. No junior handoffs. No offshore desk. Two senior people, and trusted New Zealand partners when the work needs more hands.</p>
+    <h2 class="section-head reveal">Led by the founders. <span class="accent">Delivered by a senior team.</span></h2>
+    <p class="section-sub reveal">No account managers. No junior handoffs. No offshore desk. Elton and Michael are in the room, and the people behind them are senior enough to be there too.</p>
     
     <div class="people">
       <a href="who-we-are.html#elton" class="person reveal">
@@ -830,7 +853,7 @@ footer .logo { color: var(--white); }
       </a>
     </div>
     <div class="trust reveal">
-      <span>35+ years combined</span><span class="t-dot" aria-hidden="true"></span>
+      <span>Founder-led</span><span class="t-dot" aria-hidden="true"></span>
       <span>New Zealand owned</span><span class="t-dot" aria-hidden="true"></span>
       <span>No lock-in, not even to us</span>
     </div>

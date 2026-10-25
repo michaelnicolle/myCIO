@@ -202,6 +202,18 @@ section[id] { scroll-margin-top: 96px; }
 .lad-row.gap .lad-a { color: var(--ink); }
 .lad-row.gap .lad-s { color: var(--accent); }
 
+/* ---------- The gap: what the empty seat costs, and the claim ---------- */
+.costs-tag { grid-column: 1 / -1; margin-top: 52px; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.costs { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 28px; margin-top: 14px; }
+.cost { border-top: 2px solid var(--accent); padding-top: 16px; font-size: 1.04rem; font-weight: 500; line-height: 1.4; color: var(--ink); }
+.claim { grid-column: 1 / -1; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; align-items: start; }
+.claim-line { font-weight: 300; font-size: clamp(1.9rem, 3.6vw, 2.8rem); letter-spacing: -0.025em; line-height: 1.06; }
+.claim-sub { font-size: 1.06rem; color: var(--ink-soft); line-height: 1.65; max-width: 52ch; }
+.claim-sub .accent { color: var(--ink); font-weight: 500; }
+@media (max-width: 1040px) { .costs { grid-template-columns: 1fr 1fr; gap: 24px 28px; } }
+@media (max-width: 960px) { .claim { grid-template-columns: 1fr; row-gap: 18px; } }
+@media (max-width: 640px) { .costs { grid-template-columns: 1fr; } }
+
 /* ---------- Practices (home) ---------- */
 .practices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 56px 48px; margin-top: 60px; text-align: left; }
 .practice { display: block; color: inherit; }

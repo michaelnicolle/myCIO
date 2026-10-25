@@ -203,6 +203,18 @@ section[id] { scroll-margin-top: 96px; }
 .lad-row.gap .lad-a { color: var(--ink); }
 .lad-row.gap .lad-s { color: var(--accent); }
 
+/* ---------- The gap: what the empty seat costs, and the claim ---------- */
+.costs-tag { grid-column: 1 / -1; margin-top: 52px; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.costs { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 28px; margin-top: 14px; }
+.cost { border-top: 2px solid var(--accent); padding-top: 16px; font-size: 1.04rem; font-weight: 500; line-height: 1.4; color: var(--ink); }
+.claim { grid-column: 1 / -1; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; align-items: start; }
+.claim-line { font-weight: 300; font-size: clamp(1.9rem, 3.6vw, 2.8rem); letter-spacing: -0.025em; line-height: 1.06; }
+.claim-sub { font-size: 1.06rem; color: var(--ink-soft); line-height: 1.65; max-width: 52ch; }
+.claim-sub .accent { color: var(--ink); font-weight: 500; }
+@media (max-width: 1040px) { .costs { grid-template-columns: 1fr 1fr; gap: 24px 28px; } }
+@media (max-width: 960px) { .claim { grid-template-columns: 1fr; row-gap: 18px; } }
+@media (max-width: 640px) { .costs { grid-template-columns: 1fr; } }
+
 /* ---------- Practices (home) ---------- */
 .practices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 56px 48px; margin-top: 60px; text-align: left; }
 .practice { display: block; color: inherit; }
@@ -642,6 +654,8 @@ header.nav { background: rgba(26, 25, 23, 0.86); border-bottom-color: var(--line
 
 .cols.four { grid-template-columns: repeat(4, 1fr); margin-top: 56px; }
 .cols.four .col { color: inherit; }
+.cost { color: var(--ink); }
+.claim-sub .accent { color: var(--ink); }
 @media (max-width: 1040px) { .cols.four { grid-template-columns: 1fr 1fr; gap: 32px 28px; } }
 @media (max-width: 640px) { .cols.four { grid-template-columns: 1fr; } }
 /* diagram on dark */
@@ -691,7 +705,7 @@ footer { background: var(--dark); }
     <div class="hp-copy">
       <p class="hp-eyebrow">Technology leadership &middot; New Zealand</p>
       <h1>You know where the business needs to go.<span class="h1-line2">We get the technology there.</span></h1>
-      <p class="lead">Senior technology leadership for New Zealand organisations: fractional CIO, technology transformation, AI, and cyber security, from the two people who do the work.</p>
+      <p class="lead">Senior technology leadership for New Zealand organisations: fractional CIO, technology transformation, AI strategy and delivery, and cyber security. Founder-led, senior all the way down, and in the room.</p>
       <div class="hero-actions">
         <a href="contact.html#contact" class="btn btn-lg">Book your 30-minute call</a>
         <a href="journey.html" class="hero-link">What it feels like to work with us</a>
@@ -706,7 +720,7 @@ footer { background: var(--dark); }
   <div class="wrap">
     <div class="ps"><b><span class="accent">$500k</span>+</b><span>Saved in one vendor review</span></div>
     <div class="ps"><b>35+</b><span>Years combined, in the room</span></div>
-    <div class="ps"><b>Two</b><span>People. No account managers</span></div>
+    <div class="ps"><b>Founder</b><span>Led, senior all the way down</span></div>
     <div class="ps"><b>Zero</b><span>Lock-in, not even to us</span></div>
   </div>
 </div>
@@ -791,8 +805,8 @@ footer { background: var(--dark); }
 <section id="what" class="sand-section">
   <div class="wrap center-head">
     <p class="eyebrow reveal">What a technology leadership team does</p>
-    <h2 class="section-head reveal">One team. <span class="accent">Four responsibilities.</span></h2>
-    <p class="section-sub reveal">Not four products. The same two people, accountable for the direction, the foundations, what gets built on them, and the risk.</p>
+    <h2 class="section-head reveal">One team. <span class="accent">Multiple responsibilities.</span></h2>
+    <p class="section-sub reveal">Not a menu of products. One senior team, accountable for the direction, the foundations, the AI strategy that puts them to work, and the risk.</p>
     <div class="cols four reveal">
       <a href="fractional-cio.html" class="col"><p class="col-n">01</p><h3>Fractional CIO</h3><p>Owns the direction. Strategy, roadmap, governance, vendors held to what they signed.</p></a>
       <a href="technology-transformation.html" class="col"><p class="col-n">02</p><h3>Technology transformation</h3><p>Builds the foundations. Identity, cloud, infrastructure, one standard.</p></a>
@@ -897,8 +911,8 @@ footer { background: var(--dark); }
 <section id="people">
   <div class="wrap center-head">
     <p class="eyebrow reveal">Who turns up</p>
-    <h2 class="section-head reveal">Two people. <span class="accent">Both of them in your business.</span></h2>
-    <p class="section-sub reveal">No account managers. No junior handoffs. The people on this page are the people in the room.</p>
+    <h2 class="section-head reveal">Led by the founders. <span class="accent">Delivered by a senior team.</span></h2>
+    <p class="section-sub reveal">No account managers. No junior handoffs. Elton and Michael are in the room, with senior people behind them.</p>
     
     <div class="people">
       <a href="who-we-are.html#elton" class="person reveal">
