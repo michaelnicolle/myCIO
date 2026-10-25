@@ -46,3 +46,17 @@ The founders are in the room. Elton McDowall and Michael Nicolle lead every enga
 We do all four jobs as one accountable team: direction, foundations, AI, security. Most firms sell one of them. Nobody else owns the whole decision.
 
 We start with the business, not the IT, and we do not quote a monthly number before we have seen it.
+
+## Short versions (1,000-character fields)
+
+**Describe this business**
+
+myCIO is a senior technology leadership team for New Zealand organisations: fractional CIO, technology transformation, AI strategy and delivery, and cyber security. We take the seat most businesses leave empty. Providers fix what breaks and vendors build to a brief, but nobody owns the decision about what is worth doing, in what order, and what it has to deliver. That gap is where renewals go unchallenged, cloud costs rise with no return, security is decided by whoever pitched last, and AI is discussed every quarter and never shipped. We work with IT managers, CIOs, CFOs, COOs, owners and boards who know where the business needs to go and need senior people to get the technology there. Founder-led by Elton McDowall and Michael Nicolle, with a senior team behind them. Independent and NZ owned. We start with a 30-minute call about the business, not the IT, then discovery on the floor and one visible win in 30 days. Method: Discover, Stabilise, Standardise, Transform, secure throughout.
+
+**What makes this business unique?**
+
+Everything stays in the client's name, and we own the decisions, not the tickets. Every licence, contract, document and roadmap belongs to the client. We own the direction, the change from discovery to handover, the vendors held to what they signed, and the outcome. Walk away any time and keep the lot. No lock-in, not even to us. We are independent: we do not resell technology, so our advice is never shaped by a margin, and we will tell you not to spend the money. One client saved over $500k in a single vendor review. We take the seat nobody else fills: the decision about what is worth doing and what comes next. The founders are in the room on every engagement, backed by a senior team. No account managers, no junior handoffs, no offshore desk. And we do all four jobs as one accountable team: direction, foundations, AI and security. Most firms sell one. Nobody else owns the whole decision.
+
+**What are the main goals of this site?**
+
+One goal: a 30-minute call booked with a founder. Every page ends there, and the primary button everywhere reads "Book your 30-minute call". To earn that, the site does four things. A visitor recognises themselves in the first screen: stuck between security vendors, a cloud bill rising with no return, or AI that never ships. It reframes the problem: not a vendor, pricing or AI problem, but a decision nobody owns. It shows what happens next as a journey with a clock: the first call, day 30, day 90, year one. And it removes the risk of calling: a founder on the line, no slide deck, no monthly quote before discovery, and if the fit is wrong we say so. Secondary goals: the four responsibilities clear without reading as a menu; proof in one line with one number; Elton, Michael and the team made real; and a landing page for LinkedIn traffic that captures which situation each enquiry comes from. Not goals: selling products, ranking for tool names, or looking like a managed services provider.
