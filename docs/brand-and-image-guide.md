@@ -128,6 +128,22 @@ Rules for the batch:
 
 **O8. Leaving.** Through a glass office door from inside, Elton and Michael walking out into daylight with a client, all three in profile, mid-laugh, the door frame as the frame. 16:9.
 
+## Pillar images: people engaged, no faces
+
+Four scenes for the four practice cards. The founders do not appear; faces are never visible. Paste the base block first, then the scene.
+
+**Base block:** Photorealistic editorial photograph, 35mm lens, shallow depth of field, natural daylight from large windows, warm neutral tones. A modern New Zealand office with timber desks, a dark charcoal feature wall, indoor plants, black pendant lights. People wear plain dark clothing. No faces visible: subjects are seen from behind, over a shoulder, in silhouette or cropped at the shoulders. No text, no logos, no screens with readable content, no watermarks. Candid, not posed. 3:2, 1536 by 1024.
+
+**P1 Fractional CIO.** From the back of a small boardroom, looking over the shoulders of four people seated at a timber table toward the far end, where one person stands at a wall-mounted screen showing only a simple hand-drawn upward curve with four dots in orange, green, grey and purple. The standing figure is turned to the screen, arm raised to the third dot. Papers, one page of notes, coffee cups. The screen and the curve are the subject; the people are soft.
+
+**P2 Technology transformation.** Inside a bright light-industrial space, a packing line out of focus behind. From behind and slightly above, two people in orange hi-vis over dark polos at a steel workbench with a rugged laptop and a printed network diagram held flat under one hand, one pointing to a junction with a pen. A third person in a company fleece, also from behind, hand on the bench. Racking and high-window daylight. The diagram and the hands are the subject.
+
+**P3 AI strategy and delivery.** Over the shoulder of a seated person at a desk, looking at a laptop showing an abstract chat-style interface with blurred unreadable text blocks and one orange highlight. Beside it, a printed single page with a short list and one line circled in pen. Two others lean in from either side, visible only as shoulders and forearms, one pointing at the circled line. A notebook with a hand-sketched flow of four boxes and arrows. The screen, the page and the pointing hand are the subject.
+
+**P4 Cyber security.** Close over the shoulder of a person at a timber desk reviewing a printed checklist with tick boxes, a pen resting on the one box left unticked. A second person’s hand rests on the edge of the page. Laptop lid, mug, keycard nearby. Through the glass partition behind, blurred, a figure at a whiteboard. Calm and working, not a crisis. The checklist and the pen on the unticked box are the subject.
+
+Generate three of each and choose on the hands. One orange object per frame.
+
 ## Prompts for the shots we still need
 
 Each prompt assumes the character blocks above are pasted first. Landscape shots at 3:2 (1536 by 1024), portraits at 4:5.
