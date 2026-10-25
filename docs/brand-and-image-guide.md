@@ -100,6 +100,34 @@ Two things to do before launch:
 1. **Replace the two portraits with real photographs.** The generated scenes are fine as scenes. A generated portrait on a brand whose promise is "honest, in the room" is a risk the first time a prospect notices. The portrait slots are plain `<img>` tags; replacing the file at `images/elton-900.webp`, `images/elton-450.webp`, `images/michael-900.webp` and `images/michael-450.webp` (4:5 crop) is the whole job.
 2. **Generate the missing shots below.** The site reuses `site-visit` and `founders-laptop` twice. It would be better with one more scene each for AI and security.
 
+## The next batch: oblique, into the room
+
+Nine of the fourteen scenes are two men facing the camera. That reads as stock, and it is the strongest generated tell. The next batch shoots the room, not the people: over a client's shoulder, hands on the table, the people small and the window large. The viewer stands in the room and sees the outcome being made. Keep the frontal shots for the two portraits and the hero pair only.
+
+Rules for the batch:
+
+- Camera at the far end of the table or just behind a client's shoulder. Elton and Michael are in profile or three-quarter, never looking at the lens.
+- The subject of the frame is the work: a one-page map, a half-drawn Climb on glass, a laptop turned toward the client, an invoice with a pen on it.
+- One client in frame where it helps, seen from behind or in profile, so the reader has a seat.
+- 35 mm, shallow depth of field on the paper, the people softer. Natural light from the window side.
+- Black myCIO polos, dark jeans. No readable text on screens or paper.
+
+**O1. The first call, from the client's chair.** Over the shoulder of a woman in her fifties (cream blouse), looking across a timber table at Elton mid-sentence, hands open, and Michael writing in a notebook. Her shoulder and coffee cup soft in the foreground. 3:2.
+
+**O2. The map on the table.** Top-down, slightly angled, four hands over a single large sheet with a hand-drawn system map, a pen pointing at one box, sticky notes at the edge. Faces out of frame or cropped at the chin. 3:2.
+
+**O3. The Climb on glass.** From behind and to the left, Michael drawing a rising curve with four dots on a glass wall with a marker, Elton and a client watching, all in three-quarter view, window light flaring behind the glass. 3:2.
+
+**O4. The warehouse walk.** From behind, Elton and Michael in hi-vis walking a packing line with a supervisor who is pointing ahead. Shot from twenty metres back, the line and the racking are the subject. 16:9.
+
+**O5. The invoice.** Close on a desk: a printed cloud invoice with a line circled in pen, a laptop edge, Michael's hand on the page, a finance manager's hand holding a mug, both people out of focus above. 3:2.
+
+**O6. The board question.** From the far corner of a boardroom, Elton seated and explaining to four people seen mostly from behind, a simple three-circle diagram on the wall screen behind him, Michael standing by the screen. People small, room large. 16:9.
+
+**O7. The handover.** From behind an in-house IT lead at a bank of monitors, keyboard under her hands, Elton and Michael standing behind her, watching, arms folded, both slightly out of focus. 3:2.
+
+**O8. Leaving.** Through a glass office door from inside, Elton and Michael walking out into daylight with a client, all three in profile, mid-laugh, the door frame as the frame. 16:9.
+
 ## Prompts for the shots we still need
 
 Each prompt assumes the character blocks above are pasted first. Landscape shots at 3:2 (1536 by 1024), portraits at 4:5.
