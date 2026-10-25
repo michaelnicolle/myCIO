@@ -91,6 +91,9 @@ Paste these at the top of every prompt so the likeness holds.
 | founders-couch | Who we are hero, Contact | The tone of the first conversation |
 | elton, michael | Home people, Who we are, The case | Portraits |
 | brand-wall | Who we are | The wordmark |
+| pillar-cio | Home card, What we do, Fractional CIO hero | The board looking at the curve (P1) |
+| pillar-transformation | Home card, What we do, Transformation hero | The network diagram on the factory bench (P2) |
+| pillar-security | Home card, What we do, Cyber security hero | The checklist and the unticked box (P4) |
 | elton-polo, michael-alt | Spare | Alternate portraits from the first set |
 
 In the branded black polo already: team-screen, site-visit, client-conversation, elton, michael. Still in the first-set wardrobe (navy shirt on Michael) and due for regeneration: founders, boardroom, workshop, founders-laptop, client-review, founders-couch.
