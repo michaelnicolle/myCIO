@@ -93,6 +93,7 @@ Paste these at the top of every prompt so the likeness holds.
 | brand-wall | Who we are | The wordmark |
 | pillar-cio | Home card, What we do, Fractional CIO hero | The board looking at the curve (P1) |
 | pillar-transformation | Home card, What we do, Transformation hero | The network diagram on the factory bench (P2) |
+| pillar-ai | Home card, What we do, AI hero | The wall: four places chosen (P3) |
 | pillar-security | Home card, What we do, Cyber security hero | The checklist and the unticked box (P4) |
 | elton-polo, michael-alt | Spare | Alternate portraits from the first set |
 
