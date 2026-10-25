@@ -32,3 +32,17 @@ Written for the Wix Studio AI builder, but usable with any tool that takes a lon
 **Pages.** Home (the story: who it is for, the gap, the four responsibilities, how it runs, what you own, who turns up, proof, start with one thing). What we do, with one page per responsibility. How we work. Who we are. The journey (three situations a reader picks from, then what the first year looks like). Contact.
 
 **Calls to action.** Primary everywhere: "Book your 30-minute call". Secondary: "Let's talk". Contact form fields: name, email, organisation, which situation describes you, and "what would make the biggest difference this year?" Email hello@mycio.co.nz. Footer line: Independent. In the room. NZ owned.
+
+## What makes myCIO unique (ranked; use the first paragraph if only one line fits)
+
+Everything stays in the client's name, and we own the decisions, not the tickets. Every licence, contract, document and roadmap belongs to the client. We own the direction, the change from discovery to handover, the vendors held to what they signed, and the outcome. A client can walk away at any time and keep the lot. No lock-in, not even to us.
+
+We are independent. We do not resell technology, so our advice is never shaped by a margin. Licensing passes through at cost with a margin the client can see. We will tell a client not to spend the money, and we can show where we have.
+
+We take the seat nobody else fills. Providers fix what breaks and vendors build to a brief. Nobody owns the decision about what is worth doing and what comes next. That seat is ours.
+
+The founders are in the room. Elton McDowall and Michael Nicolle lead every engagement, backed by a senior team. No account managers, no junior handoffs, no offshore desk.
+
+We do all four jobs as one accountable team: direction, foundations, AI, security. Most firms sell one of them. Nobody else owns the whole decision.
+
+We start with the business, not the IT, and we do not quote a monthly number before we have seen it.
