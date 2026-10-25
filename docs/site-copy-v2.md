@@ -185,7 +185,7 @@ Posture, governance, detection and response, and the evidence your board, insure
 **Headline:** In the room.
 **Second line:** Not on a call about it.
 
-**Lead:** myCIO is founder-led by Elton McDowall and Michael Nicolle, with a senior team behind them. Independent, New Zealand owned, no reselling.
+**Lead:** Good businesses, let down by their own technology. That is why myCIO exists: founder-led by Elton McDowall and Michael Nicolle, with a senior team behind them. Independent, New Zealand owned, no reselling.
 
 ---
 
@@ -240,7 +240,7 @@ Keep the current privacy.html text.
 
 ## Decisions this copy rests on
 
-Taken in the A/B session on 26 October 2026.
+Taken in the A/B session on 26 October 2026. Every section was then approved line by line; the only change was the Who we are lead, which now combines the why with the founders line.
 
 1. Three situations replace the two doors as the entrance. journey.html folds into Home.
 2. The gap keeps the table and "We take that seat." The costs and the manifesto go; the costs live inside the three situations.
