@@ -21,7 +21,7 @@ Anything in `[square brackets]` is a slot you fill. Nothing in a slot is to be i
 **Headline:** You know where the business needs to go.
 **Second line (orange):** We get the technology there.
 
-**Lead:** Senior technology leadership for New Zealand organisations. Founder-led, in the room.
+**Lead:** We take technology off your plate so you can get on with growing the business. Senior people, in the room, New Zealand owned.
 
 **Button:** Book a 30-minute call
 
@@ -31,35 +31,35 @@ Anything in `[square brackets]` is a slot you fill. Nothing in a slot is to be i
 
 **Label:** Where it starts
 
-**Headline:** Three places the business gets stuck.
-**Second line:** Pick yours.
+**Headline:** Three places we normally see
+**Second line:** technology decisions get stuck.
 
 **01 Every security proposal is a brand name.**
-Renewals get signed because nobody is placed to say no. You are buying tools, not a posture.
-With an owner: one standard, every vendor held to it, and evidence your board and insurer can read.
+Renewals get signed because nobody is in a position to say no. You end up paying for tools, not for being any safer.
+What changes: one clear standard, vendors held to it, and a business that keeps trading if something goes wrong.
 
 **02 The cloud bill grows. The return does not.**
-Every month costs more than the last, and nobody can say what the extra bought.
-With an owner: every dollar tied to the work it does, and the rest switched off.
+Every month costs more than the last, and nobody can tell you what the extra bought.
+What changes: you pay for what the business actually uses, and the rest gets switched off.
 
 **03 AI is on every agenda. Nothing has shipped.**
-Pilots, policies and a board that wants to know when it pays.
-With an owner: a strategy the board can fund, then the first build in use, measured against the number it was meant to move.
+Pilots, policies, and a board asking when it pays.
+What changes: the first AI build in use inside the business, measured against a number that matters to you.
 
 ---
 
 **Label:** The gap
 
-**Headline:** Three jobs. Two have an owner.
-**Second line:** The one that matters most is empty.
+**Headline:** Most businesses have the first two covered.
+**Second line:** It is the third that holds you back.
 
 | | | |
 |---|---|---|
-| Something breaks | Your provider or your team fixes it | Covered |
-| Something needs building | A vendor builds it to the brief | Covered |
-| Something needs deciding | What is worth doing, what it has to deliver, what comes next | Nobody, or you |
+| Something breaks | Your IT provider or your team fixes it | Sorted |
+| Something needs building | A vendor builds it to the brief | Sorted |
+| Something needs deciding | What is worth doing, what it should deliver, and what comes next | Usually lands on you |
 
-**Line (large):** We take that seat.
+**Line (large):** We help you get there.
 
 ---
 
@@ -70,12 +70,11 @@ With an owner: a strategy the board can fund, then the first build in use, measu
 
 Four columns, orange rule on top, one pillar photo each:
 
-- **01 Fractional CIO.** Owns the direction.
+- **01 Fractional CIO.** Sets the direction, and owns it.
 - **02 Technology transformation.** Builds the foundations.
-- **03 AI strategy and delivery.** Owns the AI direction, then proves it.
-- **04 Cyber security.** The condition every piece of work meets.
+- **03 AI strategy and delivery.** Works out where AI pays off, then builds it.
+- **04 Cyber security.** Built into everything we do, not bolted on.
 
-**Line under the columns:** Four stages, one standard, security throughout. *(small Climb curve)* How the Climb works →  *(links to What we do, Fractional CIO)*
 
 ---
 
@@ -84,7 +83,7 @@ Four columns, orange rule on top, one pillar photo each:
 **Headline:** Led by the founders.
 **Second line:** Delivered by a senior team.
 
-No account managers. No junior handoffs. No offshore desk.
+No account managers. No junior handoffs. No offshore desk. The people you meet are the people who do the work.
 
 Elton McDowall, Co-founder · Michael Nicolle, Co-founder
 
@@ -102,7 +101,7 @@ Who we are →
 **Number (large):** $500k
 One client saved over $500k in a single competitive vendor review.
 
-Everything stays in your name. Walk away whenever you like, and you keep the lot.
+Everything stays in your name. If you ever want to walk away, you keep the lot.
 
 **We ask:** Has anyone you pay ever told you not to spend the money?
 
@@ -110,11 +109,11 @@ Everything stays in your name. Walk away whenever you like, and you keep the lot
 
 **Headline:** Pick one thing.
 
-Tell us the one thing that would make the biggest difference to the business this year. We map it, and deliver one visible win inside thirty days.
+Tell us the one thing that would make the biggest difference to your business this year. We will map it out and get you a win you can see inside thirty days.
 
 - Thirty minutes, no slide deck
-- An honest read on where you stand
-- If we are not the right fit, we say so
+- A straight answer on where you stand
+- If we are not the right fit, we will tell you
 
 **Form:** Your name · Your email · What would make the biggest difference this year?
 **Button:** Book a 30-minute call
