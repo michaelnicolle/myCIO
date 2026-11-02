@@ -6,8 +6,8 @@ Static site (no build step), deployed via GitHub Pages from `main` (custom domai
 
 Four pages plus privacy, on one design system (the one-page home sets it). Every old URL is a redirect stub into these.
 
-- `index.html` the story: hero, proof bento, three places technology decisions get stuck, the gap, one team with four jobs, who turns up, proof, book the call
-- `what-we-do.html` the four jobs with anchors `#fractional-cio`, `#transformation`, `#ai`, `#security`; the Climb lives under Fractional CIO; each job carries an outcome row (situation, what we did, what changed) where a real one exists
+- `index.html` the story: hero, proof bento, three places technology decisions get stuck, the gap, one team, multiple responsibilities, who turns up, proof, book the call
+- `what-we-do.html` the practices with anchors `#fractional-cio`, `#transformation`, `#ai`, `#security`; the Climb is its own section above them; each practice carries an outcome row (situation, what we did, what changed) where a real one exists
 - `who-we-are.html` Elton, Michael, the team, how we are built
 - `contact.html` the form (Formspree) and what happens on the call
 - `privacy.html`, `404.html`

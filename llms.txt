@@ -3,8 +3,8 @@
 > Senior technology leadership for New Zealand organisations: fractional CIO, technology transformation, AI strategy and delivery, cyber security. Founder-led by Elton McDowall and Michael Nicolle with a senior team behind them. Independent, NZ owned, no reselling. We take technology off your plate so you can get on with growing the business.
 
 ## Pages
-- [Home](https://mycio.co.nz/): where technology decisions get stuck, the gap, one team with four jobs, who turns up, proof, book a 30-minute call
-- [What we do](https://mycio.co.nz/what-we-do.html): the four jobs and what each one changed
+- [Home](https://mycio.co.nz/): where technology decisions get stuck, the gap, one team, multiple responsibilities, who turns up, proof, book a 30-minute call
+- [What we do](https://mycio.co.nz/what-we-do.html): how the climb works, what we cover, and what it changed
 - [Who we are](https://mycio.co.nz/who-we-are.html): Elton, Michael, the team, how we are built
 - [Contact](https://mycio.co.nz/contact.html): the 30-minute call and what happens on it
 - [Privacy](https://mycio.co.nz/privacy.html)
